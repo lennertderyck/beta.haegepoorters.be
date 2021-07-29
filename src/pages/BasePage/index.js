@@ -13,7 +13,7 @@ const BasePage = () => {
         variables: { slug: 'pages/' + slug }
     })
     
-    if (loading) return <>Loading</>
+    if (loading) return <PageLayout loading />
     if (error || !data.PageItem) return <ErrorPage />
     
     const { PageItem: { 

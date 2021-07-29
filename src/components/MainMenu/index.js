@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import useHover from '@react-hook/hover'
 import Fade from 'react-reveal/Fade';
 
@@ -8,6 +8,7 @@ import { mainNav } from '../../data/nav';
 import { className } from '../../utils';
 import styles from './MainMenu.module.scss';
 import Button from '../Button';
+import { useEffect } from 'react';
 
 /* const NameLogo = ({ open }) => (
     <div { ...className(
@@ -23,9 +24,10 @@ import Button from '../Button';
     </div>
 ) */
 
-const MenuItem = ({ slug, label, icon, open }) => <Button 
+const MenuItem = ({ slug, label, icon, open, ...otherProps }) => <Button 
     to={ slug } 
     className="py-5 pl-5 flex border-b-2 border-gray-200" 
+    { ...otherProps }
 >
     <Icon name={ icon } size="1.5rem" color={ '#4b5563' } className="mr-5" />
     <div { ...className(
@@ -39,11 +41,14 @@ const MenuItem = ({ slug, label, icon, open }) => <Button
 </Button>
 
 const MainMenu = () => {
-    // const [ open, setOpen ] = useState(false)
+    const [ open, setOpen ] = useState(false)
     const container = useRef()
     const isHovered = useHover(container)
-    
-    const open = isHovered || false;
+        
+    useEffect(() => {
+        if (isHovered) setOpen(true)
+        else setOpen(false)
+    }, [isHovered])
     
     return (
         <>
@@ -53,10 +58,11 @@ const MainMenu = () => {
                     open && 'shadow-xl'
                 )}
                 ref={ container }
+                onMouseMove={() => setOpen(true)}
             >
                 <div className="flex justify-between">
-                    <Button to="/" className="block p-4 bg-red-500 ">
-                        <Logo width="32px" />
+                    <Button to="/" className="block p-3 bg-red-500 " onClick={() => setOpen(false)}>
+                        <Logo width="44.5px" />
                     </Button>
                     <div { ...className(
                         'overflow-hidden flex items-center justify-end',
@@ -85,6 +91,7 @@ const MainMenu = () => {
                                 label={ label }
                                 open={ open }
                                 key={ index }
+                                onClick={() => setOpen(false)}
                             />
                         ))}
                     </div>
@@ -93,6 +100,7 @@ const MainMenu = () => {
                         slug="/zoeken"
                         label="Zoeken"
                         open={ open }
+                        onClick={() => setOpen(false)}
                     />
                 </div>
             </div>
