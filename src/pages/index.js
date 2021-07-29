@@ -1,0 +1,7 @@
+export { default as BasePage } from './BasePage'
+export { default as BlogArticlePage } from './BlogArticlePage'
+export { default as BlogPage } from './BlogPage'
+export { default as GalleryPage } from './GalleryPage'
+export { default as HomePage } from './HomePage'
+export { default as SearchPage } from './SearchPage'
+export { default as ErrorPage } from './ErrorPage'

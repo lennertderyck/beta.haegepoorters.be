@@ -1,0 +1,13 @@
+.backdrop {
+    animation: backdrop .5s ease 0s both;
+}
+
+@keyframes backdrop {
+    from {
+        opacity: 0;
+    }
+    
+    to {
+        opacity: .5;
+    }
+}
