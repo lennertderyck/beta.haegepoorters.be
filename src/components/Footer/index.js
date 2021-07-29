@@ -23,7 +23,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <small className="block font-medium text-gray-400">
-                    &copy; 2007 - { currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen &nbsp; | &nbsp; Ontwikkeld door <a href="https://jung.gent">JUNG･Gent</a>
+                    &copy; 2007 - { currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen &nbsp; | &nbsp; Ontwikkeld door <a href="https://jung.gent" target="_blank">JUNG･Gent</a>
                 </small>
             </div>
         </div>
