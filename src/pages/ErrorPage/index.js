@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CenterMessage } from '../../components';
-import PageLayout from '../../Layouts/PageLayout';
+import PageLayout from '../../layouts/PageLayout';
 
 const ErrorPage = () => {
     return (

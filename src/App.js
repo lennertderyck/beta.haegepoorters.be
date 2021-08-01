@@ -3,34 +3,49 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import BaseLayout from "./Layouts/BaseLayout";
-import { BasePage, BlogArticlePage, GalleryPage, HomePage, SearchPage } from "./pages";
+
+import VisitorProvider from "./contexts/visitorContext";
+import BaseLayout from "./layouts/BaseLayout";
+import { ActivityPage, BasePage, BlogPage, GalleryPage, HomePage, SearchPage, ContactPage, TeamPage } from "./pages";
 
 function App() {
     return (
-        <Router>
-            <div className="App">
-                <BaseLayout>
-                    <Switch>
-                        <Route path="/" exact>
-                            <HomePage />
-                        </Route>
-                        <Route path="/blog/:slug" exact>
-                            <BlogArticlePage />
-                        </Route>
-                        <Route path="/galerij" exact>
-                            <GalleryPage />
-                        </Route>
-                        <Route path="/zoeken" exact>
-                            <SearchPage />
-                        </Route>
-                        <Route path="/:slug" exact>
-                            <BasePage />
-                        </Route>
-                    </Switch>
-                </BaseLayout>
-            </div>
-        </Router>
+        <VisitorProvider>
+            <Router>
+                <div className="App">
+                    <BaseLayout>
+                        <Switch>
+                            <Route path="/" exact>
+                                <HomePage />
+                            </Route>
+                            <Route path="/leiding/:person?" exact>
+                                <TeamPage />
+                            </Route>
+                            <Route path="/haegeprekerke/:group?" exact>
+                                <ActivityPage />
+                            </Route>
+                            <Route path="/blog/:slug?" exact>
+                                <BlogPage />
+                            </Route>
+                            <Route path="/galerij" exact>
+                                <GalleryPage />
+                            </Route>
+                            <Route path="/zoeken" exact>
+                                <SearchPage />
+                            </Route>
+                            <Route path="/contact" exact>
+                                <ContactPage />
+                            </Route>
+                            
+                            {/* Catch all other pages by slug */}
+                            <Route path="/:slug" exact>
+                                <BasePage />
+                            </Route>
+                        </Switch>
+                    </BaseLayout>
+                </div>
+            </Router>
+        </VisitorProvider>
     );
 }
 

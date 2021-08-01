@@ -53,6 +53,7 @@ const QUERIES = {
         query NewsItemBySlug($slug: ID!) {
             NewsItem(id: $slug) {
                 name
+                published_at
                 content {
                     body
                     banner {
@@ -67,6 +68,26 @@ const QUERIES = {
             }
         }
     ` ,
+    NEWS_ITEMS: gql`
+        {
+            NewsItems(sort_by: "first_published_at:desc") {
+                items {
+                    name
+                    slug
+                    published_at
+                    first_published_at
+                    full_slug
+                    content {
+                        descr_short
+                        body
+                        banner {
+                            filename
+                        }
+                    }
+                }
+            }
+        }
+    `,
     PAGE_BY_SLUG: gql`
         query PageBySlug($slug: ID!) {
             PageItem(id: $slug) {
@@ -81,7 +102,52 @@ const QUERIES = {
                 }
             }
         }
-    ` 
+    ` ,
+    HAEGEPREKERKE: gql`
+        {
+            HaegeprekerkeItems(per_page: 1, page: 1) {
+                items {
+                    name
+                    content {
+                        descr
+                        period
+                        kap
+                        wel
+                        wol
+                        jgv
+                        giv
+                    }
+                }
+            }
+        }
+    `,
+    CORONA_UPDATES_BY_TAG: gql`
+        {
+            NewsItems(with_tag: "corona", sort_by: "first_published_at:desc" ) {
+                items {
+                    name
+                    first_published_at
+                    content {
+                        body
+                    }
+                }
+            }
+        }
+    `,
+    TEAM_FULL: gql`
+        {
+            TeammemberItems(sort_by: "content.first_name:asc") {
+                items {
+                    content {
+                        first_name
+                        last_name
+                        image { filename }
+                        tel
+                    }
+                }
+            }
+        }
+    `
 }
 
 export default QUERIES

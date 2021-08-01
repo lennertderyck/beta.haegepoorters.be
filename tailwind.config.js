@@ -16,13 +16,14 @@ module.exports = {
             },
             colors: {
                 'gray': {
-                    '500': '#707070',
-                    '400': '#9a9a9a',
-                    '300': '#d9d9d9',
-                    '200': '#ececec',
                     '100': '#fafafa',
+                    '200': '#ececec',
+                    '300': '#d9d9d9',
+                    '400': '#9a9a9a',
+                    '500': '#707070',
                 },
                 'red': {
+                    '100': '#F7F3F4',
                     '500': '#6f101d',
                 }
             },
@@ -36,7 +37,8 @@ module.exports = {
     },
     variants: {
         extend: {
-            padding: ['first']
+            padding: ['first'],
+            margin: ['last']
         },
     },
     plugins: [],

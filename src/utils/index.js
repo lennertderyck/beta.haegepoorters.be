@@ -3,4 +3,9 @@ import classNames from "classnames";
 // import tailwindConfig from '../../tailwind.config.js'
 
 export const className = (...params) => ({ className: classNames(params) });
-// export const twConfig = resolveConfig(tailwindConfig);
+export const sortActivitiesByDate = (
+    { period: { start: a }}, 
+    { period: { start: b }},
+) => {
+    return new Date(a) - new Date(b)
+}

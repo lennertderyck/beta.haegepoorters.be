@@ -1,23 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { className } from '../../utils';
+import Icon from '../Icon';
 
-const Button = ({ children, href, to, className: cls, theme, ...otherProps}) => {
+const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, ...otherProps}) => {
     const styles = {
-        global: 'block w-fit',
-        simple: 'text-xs font-semibold uppercase tracking-widest'
+        global: 'flex items-center w-fit',
+        clear: '',
+        simple: 'text-xs font-semibold uppercase tracking-widest',
+        button: 'w-fit px-3 py-2 uppercase tracking-widest font-semibold text-xs bg-red-100 text-red-500'
     }
+    
+    const iconColor = {
+        button: '#6f101d'
+    }
+    
+    const inside = <>
+        { icon && <Icon 
+            name={ icon } 
+            className="-ml-1 mr-1.5" 
+            size=".85rem"
+            color={ iconColor[theme] || styles['button'] }
+        />}
+        { children }
+        { iconAfter && <Icon
+            name={ iconAfter } 
+            className="-mr-1 ml-1.5" 
+            size=".85rem"
+            color={ iconColor[theme] || styles['button'] }
+        />}
+    </>
 
     if (to) return (
         <Link 
             to={ to }
             { ...otherProps } 
             { ...className(
-                'block',
+                'flex items-center',
                 cls,
-                theme && styles[theme]
+                theme ? styles[theme] : styles['button']
             )}
-        >{ children }</Link>
+        >
+            { inside }
+        </Link>
     )
     if (href) return (
         <a 
@@ -28,8 +53,16 @@ const Button = ({ children, href, to, className: cls, theme, ...otherProps}) => 
                 styles.simple, 
                 cls
             )}
-        >{ children }</a>
+        >{ inside }</a>
     )
+    return <button
+        { ...otherProps } 
+        { ...className(
+            'flex items-center',
+            cls,
+            styles[theme]
+        )}
+    >{ inside }</button>
 }
 
 export default Button

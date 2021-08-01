@@ -6,9 +6,9 @@ const currentYear = dayjs().format('YYYY')
 
 const Footer = () => {
     return (
-        <div className="bg-gray-300 w-full py-12">
+        <div className="bg-gray-300 w-full pt-12 pb-8">
             <div className="container px-4 md:px-0">
-                <div className="grid grid-cols-12 mb-6">
+                <div className="grid grid-cols-12 mb-8">
                     <div className="col-span-4">
                         <h4 className="font-bold">Scouts &amp; Gidsen Haegepoorters</h4>
                         <p>
@@ -22,9 +22,14 @@ const Footer = () => {
                         <Button to="/contact?r=vzw" theme="simple" className="mt-3 block">Contacteer vzw</Button>
                     </div>
                 </div>
-                <small className="block font-medium text-gray-400">
-                    &copy; 2007 - { currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen &nbsp; | &nbsp; Ontwikkeld door <a href="https://jung.gent" target="_blank">JUNG･Gent</a>
-                </small>
+                <div className="flex justify-between">
+                    <small className="block font-medium text-gray-400">
+                        &copy; 2007 - { currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen &nbsp; | &nbsp; Ontwikkeld door <a href="https://jung.gent" target="_blank" rel="noreferrer">JUNG･Gent</a>
+                    </small>
+                    <small className="block font-medium text-gray-400">
+                        <Button to="/privacy" theme="clear">Privacy &amp; cookiebeleid</Button>
+                    </small>
+                </div>
             </div>
         </div>
     )

@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import QUERIES from '../../graphql/queries';
-import PageLayout from '../../Layouts/PageLayout';
+import PageLayout from '../../layouts/PageLayout';
 import { RenderContent } from '../../components';
 import ErrorPage from '../ErrorPage';
 

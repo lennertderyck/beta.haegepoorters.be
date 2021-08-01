@@ -1,9 +1,10 @@
 import React from 'react';
-import Fade from 'react-reveal/Fade';
 import dayjs from 'dayjs';
+import Fade from 'react-reveal/Fade';
 
-import { Img } from '../components';
+import { Container, Img, PageWrapper } from '../components';
 import Skeleton from 'react-loading-skeleton';
+import { className } from '../utils';
 
 const Loader = () => <>
     <div className="container container-md mb-12 px-8 lg:px-0">
@@ -24,26 +25,32 @@ const Loader = () => <>
     </div> */}
 </>
 
-const PageLayout = ({ title, intro, banner, date, loading = false, children }) => {
+const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loading = false, className: cls , children }) => { 
+    window.scrollTo(0, 0)
+    
     return (
-        <div className="py-24">
-            <Fade when={ loading } collapse><Loader /></Fade>
-            <Fade when={ !loading }>
-                <article>
-                    <div className="container container-md mb-12 px-8 lg:px-0">
-                        <h1 className="font-serif font-bold text-5xl text-gray-600">{ title }</h1>
-                        { date && <p>Laatst aangepast, { dayjs(date).fromNow() }</p> }
-                    </div>
-                    { banner && <div className="container container-lg mb-10"> 
-                        <Img src={ banner } height="55vh" />
-                    </div> }
-                    <div className="container container-md px-8 lg:px-0">
-                        <p className="text-lg font-medium text-gray-600 mb-6">{ intro }</p>
-                        { children }
-                    </div>
-                </article>
-            </Fade>
-        </div>
+        <PageWrapper>
+            { loading && <Loader /> }
+            { !loading && <Fade spy={ title } duration={ 700 }>
+                    <article {...className(
+                        cls
+                    )}>
+                        <Container className="mb-12">
+                            <h1 className="font-serif font-bold text-5xl text-gray-600">{ title }</h1>
+                            { date && <p className="mt-2">Laatst aangepast, { dayjs(date).fromNow() }</p> }
+                            { subtitle && <p className="mt-6">{ subtitle }</p> }
+                        </Container>
+                        { banner && <div className="container container-lg mb-10"> 
+                            <Img src={ banner } height="55vh" />
+                        </div> }
+                        {( intro || children ) && <Container wide={ wide }>
+                            <p className="text-lg font-medium text-gray-600 mb-6">{ intro }</p>
+                            { children }
+                        </Container>}
+                    </article>
+                </Fade>
+            }
+        </PageWrapper>
     )
 }
 

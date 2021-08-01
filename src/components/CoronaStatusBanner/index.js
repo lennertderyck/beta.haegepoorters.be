@@ -6,9 +6,9 @@ import Icon from '../Icon';
 
 const CoronaStatusBanner = () => {    
     return (
-        <Button to="/corona">
+        <Button to="/corona" theme="clear" className="w-full">
             <div
-                className="bg-gray-300 flex justify-between p-3"
+                className="bg-gray-200 flex justify-between p-3 w-full"
             >
                 <div className="flex">
                     <div className="flex items-center mr-3">

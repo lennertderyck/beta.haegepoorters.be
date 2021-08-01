@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     height: ${({ height }) => height };
 `;
 
-const Img = ({ src, height = 'auto', width = '100%' }) => {
+const Img = ({ src, height = 'auto', width = '100%', className: cls }) => {
     const [ state, dispatch ] = useReducer(imageReducer, initialImageState)
     
     console.log(state);
@@ -27,7 +27,10 @@ const Img = ({ src, height = 'auto', width = '100%' }) => {
         <Wrapper
             height={ height } 
             width={ width }
-            className="bg-gray-200 relative overflow-hidden"
+            { ...className(
+                'bg-gray-200 relative overflow-hidden',
+                cls
+            )}
         >
             <Image 
                 src={ src } 

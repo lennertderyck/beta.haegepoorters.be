@@ -21,7 +21,7 @@ const Card = ({ data }) => {
         <div className="border-b-2 border-gray-200 py-6">
             <h4 className="font-bold text-xl mb-2">{ name }</h4>
             <p className="font-serif text-base">{ descr_short }</p>
-            <Button to={ full_slug } className="mt-4">Meer hierover</Button>
+            <Button to={ full_slug } theme="simple" className="mt-4">Meer hierover</Button>
         </div>
     )
 }
