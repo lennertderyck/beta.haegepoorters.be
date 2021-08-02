@@ -30,7 +30,7 @@ const ArticleLayout = ({ title, intro, banner, loading, date, children }) => {
             { loading && <Loader /> }
             { !loading && (
                 <Fade spy={ title } duration={ 700 }>
-                    <Container className="mb-"> 
+                    <Container className="mb-12"> 
                         <Button to="/blog" icon="arrow-left">Meer berichten</Button>
                     </Container>
                     <article>
