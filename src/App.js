@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import VisitorProvider from "./contexts/visitorContext";
-import BaseLayout from "./layouts/BaseLayout";
+import { BaseLayout } from "./layouts";
 import { ActivityPage, BasePage, BlogPage, GalleryPage, HomePage, SearchPage, ContactPage, TeamPage } from "./pages";
 
 function App() {
