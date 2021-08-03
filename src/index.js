@@ -11,7 +11,6 @@ import { ApolloProvider } from '@apollo/client'
 import client from './graphql'
 
 import 'remixicon/fonts/remixicon.css'
-import 'tailwindcss/tailwind.css'
 import './sass/index.scss'
 
 dayjs.locale('nl-be')
