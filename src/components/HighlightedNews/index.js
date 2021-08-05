@@ -5,6 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import queries from '../../graphql/queries';
 import Button from '../Button';
 import RenderTimes from '../RenderTimes';
+import CenterMessage from '../CenterMessage';
 
 const Loader = () => (
     <div className="w-full border-b-2 border-gray-200 py-6">
@@ -27,11 +28,17 @@ const Card = ({ data }) => {
 }
 
 const HighlightedNews = () => {
-    const { data, loading } = useQuery(queries.HIGHLIGHTED_NEWS)
+    const { data, loading, error } = useQuery(queries.HIGHLIGHTED_NEWS)
     
     if (loading) return <RenderTimes>
         <Loader />
     </RenderTimes>
+    
+    if (error) return <CenterMessage
+        intro="Oeps"
+    >
+        We konden dit voorlopig niet laden
+    </CenterMessage>
     
     const { NewsItems: { items }} = data;
     

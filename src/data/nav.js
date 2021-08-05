@@ -1,6 +1,6 @@
 export const mainNav = [
-    { icon: 'home-5', label: 'Startpagina', slug: '/' },
-    { icon: 'book-3', label: 'Haegeprekerke', slug: '/haegeprekerke' },
+    { icon: 'home-5', label: 'Startpagina', slug: '/', offlineSupport: true },
+    { icon: 'book-3', label: 'Haegeprekerke', slug: '/haegeprekerke', offlineSupport: true },
     { icon: 'newspaper', label: 'Nieuws & blog', slug: '/blog' },
     { icon: 'team', label: 'Leiding', slug: '/leiding' },
     // { icon: 'hand-heart', label: 'HP Renové', slug: '/vzw' },

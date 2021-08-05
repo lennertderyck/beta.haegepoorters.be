@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { visitorRoles } from '../data/site';
 
 const visitorContext = createContext();
-const { Provider} = visitorContext;
+const { Provider } = visitorContext;
 
 const useVisitor = () => useContext(visitorContext)
 const VisitorProvider = ({ children }) => {

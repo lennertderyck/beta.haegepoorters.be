@@ -3,17 +3,19 @@ import { Link } from 'react-router-dom';
 import { className } from '../../utils';
 import Icon from '../Icon';
 
-const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, ...otherProps}) => {
+const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, disabled, ...otherProps}) => {
     const styles = {
         global: 'flex items-center w-fit',
         clear: '',
         simple: 'text-xs font-semibold uppercase tracking-widest',
-        button: 'w-fit px-3 py-2 uppercase tracking-widest font-semibold text-xs bg-red-100 text-red-500'
+        button: 'w-fit px-3 py-2 uppercase tracking-widest font-semibold text-xs bg-red-100 text-red-500',
     }
     
     const iconColor = {
         button: '#6f101d'
     }
+    
+    const catchDisabled = (target) => !disabled && target
     
     const inside = <>
         { icon && <Icon 
@@ -33,12 +35,12 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, ..
 
     if (to) return (
         <Link 
-            to={ to }
+            to={ catchDisabled(to) }
             { ...otherProps } 
             { ...className(
                 'flex items-center',
                 cls,
-                theme ? styles[theme] : styles['button']
+                theme ? styles[theme] : styles['button'],
             )}
         >
             { inside }
@@ -46,7 +48,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, ..
     )
     if (href) return (
         <a 
-            href={ href } 
+            href={ catchDisabled(href) } 
             { ...otherProps } 
             { ...className(
                 styles.global, 

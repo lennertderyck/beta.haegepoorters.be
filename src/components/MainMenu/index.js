@@ -10,6 +10,7 @@ import styles from './MainMenu.module.scss';
 import Button from '../Button';
 import { useEffect } from 'react';
 import { useVisitor } from '../../contexts/visitorContext';
+import { useNetwork } from '../../contexts/networkContext';
 
 /* const NameLogo = ({ open }) => (
     <div { ...className(
@@ -25,10 +26,14 @@ import { useVisitor } from '../../contexts/visitorContext';
     </div>
 ) */
 
-const MenuItem = ({ slug, label, icon, open, ...otherProps }) => <Button 
+const MenuItem = ({ slug, label, icon, open, disabled, ...otherProps }) => <Button 
     to={ slug } 
     theme="clear"
-    className="py-5 pl-5 flex border-b-2 border-gray-200" 
+    { ...className(
+        'py-5 pl-5 flex border-b-2 border-gray-200',
+        disabled && 'opacity-50 cursor-default'
+    )}
+    disabled= { disabled }
     { ...otherProps }
 >
     <Icon name={ icon } size="1.5rem" color={ '#4b5563' } className="mr-5" />
@@ -81,6 +86,7 @@ const MainMenu = () => {
     const [ open, setOpen ] = useState(false)
     const container = useRef()
     const isHovered = useHover(container)
+    const { status } = useNetwork()
         
     useEffect(() => {
         if (isHovered) setOpen(true)
@@ -113,13 +119,14 @@ const MainMenu = () => {
                 </div>
                 <div className="border-r-2 border-gray-200 h-full">
                     <div className="">
-                        {mainNav.map(({ icon, slug, label }, index) => (
+                        { mainNav.map(({ icon, slug, label, offlineSupport }, index) => (
                             <MenuItem
                                 icon={ icon }
                                 slug={ slug }
                                 label={ label }
                                 open={ open }
                                 key={ index }
+                                disabled={ status === 'offline' && !offlineSupport }
                                 onClick={() => setOpen(false)}
                             />
                         ))}
@@ -129,6 +136,7 @@ const MainMenu = () => {
                         slug="/zoeken"
                         label="Zoeken"
                         open={ open }
+                        disabled={ status === 'offline' }
                         onClick={() => setOpen(false)}
                     />
                 </div>

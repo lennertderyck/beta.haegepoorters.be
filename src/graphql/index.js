@@ -4,6 +4,14 @@ import {
     createHttpLink
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
+import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
+
+const cache = new InMemoryCache();
+
+persistCache({
+  cache,
+  storage: new LocalStorageWrapper(window.localStorage),
+});
 
 const httpLink = createHttpLink({
   uri: 'https://gapi.storyblok.com/v1/api',
@@ -21,7 +29,7 @@ const authLink = setContext((_, { headers }) => {
 
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache
 });
 
 export default client;

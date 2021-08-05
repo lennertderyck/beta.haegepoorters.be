@@ -8,6 +8,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 import queries from '../../graphql/queries'
 import RenderTimes from '../RenderTimes';
 import { className } from '../../utils';
+import CenterMessage from '../CenterMessage';
 
 const resolver = new RichTextResolver()
 
@@ -68,11 +69,17 @@ const Card = ({ data, group }) => {
 }
 
 const HighlightedEvents = () => {
-    const { data, loading } = useQuery(queries.HIGHLIGHTED_EVENTS)
+    const { data, loading, error } = useQuery(queries.HIGHLIGHTED_EVENTS)
     
     if (loading) return <div className="bg-gray-100">
         <RenderTimes><Loader /></RenderTimes>
     </div>
+    
+    if (error) return <CenterMessage
+        intro="Oeps"
+    >
+        We konden dit voorlopig niet laden
+    </CenterMessage>
         
     const { 
         HaegeprekerkeItems: { items: [{ content: { kap: [kap], wel: [wel], wol: [wol], jgv: [jgv], giv: [giv] }}]},
