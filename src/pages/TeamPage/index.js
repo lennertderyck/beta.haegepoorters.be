@@ -37,7 +37,7 @@ const TeamPage = () => {
         <PageLayout title="Leiding" subtitle="Ons team van gemotiveerde leiding" wide className="relative">
             <div className="grid grid-cols-4 gap-6">
                 { items.map((data, index) => <div 
-                    className="col-span-1" 
+                    className="col-span-2 lg:col-span-1" 
                     key={ index }
                 >
                     <Card data={ data } />

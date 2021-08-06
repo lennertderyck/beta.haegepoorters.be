@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import Fade from 'react-reveal/Fade';
 import dayjs from 'dayjs';
@@ -7,7 +7,12 @@ import { Button, CenterMessage, Container, Icon, PageWrapper, RenderContent, Ren
 import { useVisitor } from '../../contexts/visitorContext';
 import QUERIES from '../../graphql/queries';
 import Skeleton from 'react-loading-skeleton';
-import { className, sortActivitiesByDate } from '../../utils';
+import { activityIsPassed, className, sortActivitiesByDate } from '../../utils';
+
+/**
+ * Sort all activities by date
+ * Find first that is not passed
+ */
 
 const VisitorSelector = () => {
     const [ open, setOpen ] = useState(false);
@@ -61,18 +66,24 @@ const Loader = () => {
     )
 }
 
-const ActivityCard = ({ data, simple }) => {
+const ActivityCard = ({ data, simple, scrollTo }) => {
+    const cardRef = useRef()
+    
     const { title, descr, period: { start }} = data;
+    const isPast = activityIsPassed(start);
     
-    const isPast = dayjs(new Date()).isAfter(dayjs(start));
-    
-    console.log({isPast})
+    useEffect(() => {
+        cardRef.current.scrollIntoView()
+    }, [])
     
     return (
-        <div { ...className(
-            'border-l-2 border-red-500 border-opacity-40 pb-8 pl-8 relative',
-            isPast && 'opacity-60'
-        )}>
+        <div
+            ref={ cardRef }
+            { ...className(
+                'border-l-2 border-red-500 border-opacity-40 pb-8 pl-8 relative',
+                isPast && 'opacity-60'
+            )}
+        >
             <div className="absolute -left-1.5 top-2 w-3 h-3 bg-red-500 border-2 border-red-500 rounded-full" />
             <h3 className="text-gray-600">{ dayjs(start).format('DD MMMM') }</h3>
             <h4 className="mb-2">{ title }</h4>
@@ -102,6 +113,9 @@ const RenderActivities = () => {
 
     const { HaegeprekerkeItems: { items: [{ content }]}} = data;
     const groupActivities = () => [...content[role.value]].sort(sortActivitiesByDate)
+    const nextActivity = groupActivities().find(({ period: { start }}) => {
+        return activityIsPassed(start) === false
+    })
     
     const groups = visitorRoles.filter(({ isGroup }) => isGroup )
         
@@ -124,7 +138,7 @@ const RenderActivities = () => {
                         { [...content[value]]
                             .sort(sortActivitiesByDate)
                             .map((data, index) => (
-                                <ActivityCard data={ data } simple key={ index } />
+                                <ActivityCard data={ data } simple key={ index } scrollTo={ data['_uid'] === nextActivity['_uid'] } />
                             )
                         )}
                     </div>

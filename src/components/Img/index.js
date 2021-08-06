@@ -21,8 +21,6 @@ const Wrapper = styled.div`
 const Img = ({ src, height = 'auto', width = '100%', className: cls }) => {
     const [ state, dispatch ] = useReducer(imageReducer, initialImageState)
     
-    console.log(state);
-    
     return (
         <Wrapper
             height={ height } 
