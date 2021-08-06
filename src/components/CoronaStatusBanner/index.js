@@ -19,7 +19,7 @@ const CoronaStatusBanner = () => {
                         <Icon name="arrow-right" size="1.2rem"/>
                     </div>
                 </div>
-                <div className="flex items-center justify-end">
+                <div className="hidden lg:flex items-center justify-end">
                     <div className="rounded-full bg-white tracking-widest font-serif font-bold uppercase text-green-500 px-3 py-2 text-sm flex items-center">
                         activiteiten toegelaten
                         <Icon name="check-double" className="opacity-50 inline text-green-500 ml-2" />

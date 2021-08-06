@@ -3,6 +3,10 @@
 }
 
 .screen {
-    width: calc(100vw - 66px);
-    margin-left: 66px;
+    --offset: 66px;
+    
+    @media (min-width: 1024px) {
+        width: calc(100vw - var(--offset));
+        margin-left: var(--offset);
+    }
 }

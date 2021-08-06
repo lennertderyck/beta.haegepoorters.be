@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import useHover from '@react-hook/hover'
 import Fade from 'react-reveal/Fade';
+import { useMediaQuery } from 'react-responsive'
 
 import Icon from '../Icon';
 import Logo from '../Logo';
@@ -11,20 +12,6 @@ import Button from '../Button';
 import { useEffect } from 'react';
 import { useVisitor } from '../../contexts/visitorContext';
 import { useNetwork } from '../../contexts/networkContext';
-
-/* const NameLogo = ({ open }) => (
-    <div { ...className(
-        'overflow-hidden',
-        open && 'max-w-screen ',
-        !open && 'max-w-0'
-    )}>
-        <Fade when={ open } duration={ 500 }>
-            <div className="py-4 pr-4">
-                <h2 className="font-serif text-2xl text-white uppercase tracking-widest font-bold">Haegepoorters</h2>
-            </div>
-        </Fade>
-    </div>
-) */
 
 const MenuItem = ({ slug, label, icon, open, disabled, ...otherProps }) => <Button 
     to={ slug } 
@@ -83,6 +70,7 @@ const RoleSelector = ({ menuOpen }) => {
 }
 
 const MainMenu = () => {
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const [ open, setOpen ] = useState(false)
     const container = useRef()
     const isHovered = useHover(container)
@@ -95,10 +83,17 @@ const MainMenu = () => {
     
     return (
         <>
+            <Button 
+                className="fixed top-4 right-4 z-50 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden"
+                onClick={() => setOpen(p => !p)}
+            >
+                <Icon name="menu" size="1.2rem" color="white" />
+            </Button>
             <div 
                 { ...className(
-                    'bg-white h-screen fixed top-0 z-30',
-                    open && 'shadow-xl'
+                    'bg-white h-screen fixed top-0 z-30 transform lg:translate-x-0',
+                    open && 'shadow-xl translate-x-0',
+                    !open && '-translate-x-screen-x'
                 )}
                 ref={ container }
                 onMouseMove={() => setOpen(true)}
@@ -124,7 +119,7 @@ const MainMenu = () => {
                                 icon={ icon }
                                 slug={ slug }
                                 label={ label }
-                                open={ open }
+                                open={ open || isTabletOrMobile }
                                 key={ index }
                                 disabled={ status === 'offline' && !offlineSupport }
                                 onClick={() => setOpen(false)}
@@ -135,13 +130,16 @@ const MainMenu = () => {
                         icon="search-2"
                         slug="/zoeken"
                         label="Zoeken"
-                        open={ open }
+                        open={ open || isTabletOrMobile  }
                         disabled={ status === 'offline' }
                         onClick={() => setOpen(false)}
                     />
                 </div>
             </div>
-            { open && <div { ...className(styles.backdrop, 'w-screen h-screen fixed top-0 bottom-0 left-0 right-0 z-20 bg-black')} /> }
+            { open && <div
+                onClick={ e => setOpen(false) }
+                { ...className(styles.backdrop, 'w-screen h-screen fixed top-0 bottom-0 left-0 right-0 z-20 bg-black')} 
+            />}
         </>
     )
 }

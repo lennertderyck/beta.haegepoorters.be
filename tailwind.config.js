@@ -28,7 +28,15 @@ module.exports = {
                 }
             },
             spacing: {
-                'fit': 'fit-content'
+                'fit': 'fit-content',
+                'screen-x': '100vw',
+                'screen-y': '100vh',
+            },
+            inset: {
+                'screen-x': '100vw',
+                'screen-y': '100vh',
+                '-screen-x': '-100vw',
+                '-screen-y': '-100vh',
             },
             transitionDuration: {
                 '600': '600ms'

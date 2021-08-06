@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import Fade from 'react-reveal/Fade';
 import dayjs from 'dayjs';
 
-import { Button, Container, Icon, PageWrapper, RenderContent, RenderTimes } from '../../components';
+import { Button, CenterMessage, Container, Icon, PageWrapper, RenderContent, RenderTimes } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import QUERIES from '../../graphql/queries';
 import Skeleton from 'react-loading-skeleton';
@@ -20,7 +20,7 @@ const VisitorSelector = () => {
             <Button 
                 onClick={() => setOpen(p => !p)}
                 theme="clear"
-                className="text-red-500 bg-red-500 bg-opacity-10 flex justify-end py-2 pl-3 pr-2 ml-auto tracking-widest text-xs uppercase font-semibold"
+                className="text-red-500 bg-red-500 bg-opacity-10 flex justify-end py-2 pl-3 pr-2 tracking-widest text-xs uppercase font-semibold"
             >
                 <span>{ role.plur }</span>
                 <Icon name="arrow-down-s" className="ml-1" color="#6f101d" />
@@ -84,7 +84,7 @@ const ActivityCard = ({ data, simple }) => {
 }
 
 const RenderActivities = () => {
-    const { data, loading } = useQuery(QUERIES.HAEGEPREKERKE)
+    const { data, loading, error } = useQuery(QUERIES.HAEGEPREKERKE)
     const { role, visitorRoles, setRole } = useVisitor()
     
     if (loading) return <Container>
@@ -92,6 +92,13 @@ const RenderActivities = () => {
             <Loader />
         </RenderTimes>
     </Container>
+    
+    if (error) return <CenterMessage
+        icon="signal-wifi-error"
+        intro="We konden het Haegeprekerke niet ophalen"
+    >
+        Er is mogelijks iets mis met je internetverbinding
+    </CenterMessage>
 
     const { HaegeprekerkeItems: { items: [{ content }]}} = data;
     const groupActivities = () => [...content[role.value]].sort(sortActivitiesByDate)
@@ -129,13 +136,13 @@ const RenderActivities = () => {
 
 const ActivityPage = () => {    
     return (<PageWrapper>
-        <Container className="mb-12 flex justify-between">
-            <div> 
+        <Container className="mb-12 flex lg:justify-between flex-col md:flex-row items-start">
+            <div className="mb-4"> 
                 <h1 className="font-serif font-bold text-5xl text-gray-600 mb-6">Haegeprekerke</h1> 
                 <p>Onze weekelijkse activiteiten</p>
             </div>
-            <div>
-                <p className="text-gray-400 text-right text-sm font-medium mb-2">Selecteer je tak</p>
+            <div className="flex flex-col items-start md:items-end">
+                <p className="text-gray-400 text-right text-sm font-medium mb-2">Selecteer je tak</p>   
                 <VisitorSelector />
             </div>
         </Container>
