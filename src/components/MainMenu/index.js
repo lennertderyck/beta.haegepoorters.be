@@ -52,7 +52,7 @@ const RoleSelector = ({ menuOpen }) => {
                         { role.label }
                     </div>
                 </div>
-                <Fade when={ open } collapse duration={ 1000 }>
+                {/* <Fade when={ open } collapse duration={ 1000 }>
                     <div>
                         { visitorRoles.map(({ value, label }) => (
                             (role.value !== value) && <Button
@@ -63,7 +63,7 @@ const RoleSelector = ({ menuOpen }) => {
                             >{ label }</Button>
                         ))}
                     </div>
-                </Fade>
+                </Fade> */}
             </div>
             <Icon size="1.2rem" name="settings-4" className="mt-2.5" />
         </div>
