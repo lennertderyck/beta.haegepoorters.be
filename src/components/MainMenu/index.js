@@ -9,6 +9,7 @@ import { mainNav } from '../../data/nav';
 import { className } from '../../utils';
 import styles from './MainMenu.module.scss';
 import Button from '../Button';
+import Modal from '../Modal';
 import { useEffect } from 'react';
 import { useVisitor } from '../../contexts/visitorContext';
 import { useNetwork } from '../../contexts/networkContext';
@@ -43,7 +44,7 @@ const RoleSelector = ({ menuOpen }) => {
     }, [ menuOpen ])
     
     return (
-        <div className="flex pr-4 cursor-pointer" onClick={() => setOpen(p => !p)}>
+        <div className="flex pr-4 cursor-pointer">
             <div className="mr-2">
                 <div className="text-right transform -translate-y-0.5">
                     <span className="font-serif opacity-70 -mb-1 block whitespace-nowrap">ik ben </span>
@@ -72,6 +73,7 @@ const RoleSelector = ({ menuOpen }) => {
 const MainMenu = () => {
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const [ open, setOpen ] = useState(false)
+    const { role, visitorRoles, setRole } = useVisitor()
     const container = useRef()
     const isHovered = useHover(container)
     const { status } = useNetwork()
@@ -83,6 +85,20 @@ const MainMenu = () => {
     
     return (
         <>
+            <Modal disableOverlayClick open={true}>
+                {({ toggle }) => (<>
+                    <h3>Kies een rol</h3>
+                    { visitorRoles.map(({ label, value }, index) => (
+                        <Button
+                            key={ index }
+                            onClick={() => {
+                                setRole(value)
+                                toggle(false)
+                            }}
+                        >{ label }</Button>
+                    ))}
+                </>)}
+            </Modal>
             <Button 
                 className="fixed top-4 right-4 z-50 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden"
                 onClick={() => setOpen(p => !p)}
@@ -108,7 +124,9 @@ const MainMenu = () => {
                         !open && 'max-w-0'
                     )}>
                         <Fade when={ open } duration={ 500 }> 
-                            <RoleSelector menuOpen={ open } />
+                            <Button>
+                                <RoleSelector menuOpen={ open } />
+                            </Button>
                         </Fade>
                     </div>
                 </div>
