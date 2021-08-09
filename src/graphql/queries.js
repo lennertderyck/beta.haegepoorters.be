@@ -147,6 +147,20 @@ const QUERIES = {
                 }
             }
         }
+    `,
+    GALLERY_ALBUMS: gql`
+        {
+            GaleryalbumItems {
+                items {
+                    name
+                    content {
+                        title
+                        url,
+                        groups
+                    }
+                }
+            }
+        }
     `
 }
 

@@ -52,7 +52,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
             { ...otherProps } 
             { ...className(
                 styles.global, 
-                styles.simple, 
+                theme ? styles[theme] : styles['simple'],
                 cls
             )}
         >{ inside }</a>

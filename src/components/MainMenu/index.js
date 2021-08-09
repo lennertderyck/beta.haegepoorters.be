@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, memo } from 'react';
 import useHover from '@react-hook/hover'
 import Fade from 'react-reveal/Fade';
 import { useMediaQuery } from 'react-responsive'
@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 import { useVisitor } from '../../contexts/visitorContext';
 import { useNetwork } from '../../contexts/networkContext';
 
-const MenuItem = ({ slug, label, icon, open, disabled, ...otherProps }) => <Button 
+const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => <Button 
     to={ slug } 
     theme="clear"
     { ...className(
@@ -33,11 +33,11 @@ const MenuItem = ({ slug, label, icon, open, disabled, ...otherProps }) => <Butt
         <span className="mr-28 font-medium whitespace-nowrap">{ label }</span>
         <Icon name="arrow-right" size="1.2rem" className="block ml-auto mr-5" />
     </div>
-</Button>
+</Button>)
 
-const RoleSelector = ({ menuOpen }) => {
+const RoleSelector = memo(({ menuOpen }) => {
     const [ open, setOpen ] = useState(false)
-    const { role, visitorRoles, setRole } = useVisitor()
+    const { role } = useVisitor()
     
     useEffect(() => {
         setOpen(false)
@@ -52,29 +52,18 @@ const RoleSelector = ({ menuOpen }) => {
                         { role.label }
                     </div>
                 </div>
-                {/* <Fade when={ open } collapse duration={ 1000 }>
-                    <div>
-                        { visitorRoles.map(({ value, label }) => (
-                            (role.value !== value) && <Button
-                                key={ value }
-                                onClick={() => setRole(value)}
-                                theme="clear"
-                                className="text-right text-xs uppercase tracking-wider font-medium whitespace-nowrap w-full mb-1"
-                            >{ label }</Button>
-                        ))}
-                    </div>
-                </Fade> */}
             </div>
             <Icon size="1.2rem" name="settings-4" className="mt-2.5" />
         </div>
     )
-}
+})
 
 const MainMenu = () => {
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const [ open, setOpen ] = useState(false)
-    const { role, visitorRoles, setRole } = useVisitor()
     const container = useRef()
+    const [ toggleModal, setToggleModal ] = useState()
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+    const { visitorRoles, setRole } = useVisitor()
     const isHovered = useHover(container)
     const { status } = useNetwork()
         
@@ -85,7 +74,7 @@ const MainMenu = () => {
     
     return (
         <>
-            <Modal disableOverlayClick open={true}>
+            <Modal disableOverlayClick open={ toggleModal }>
                 {({ toggle }) => (<>
                     <h3>Kies een rol</h3>
                     { visitorRoles.map(({ label, value }, index) => (
@@ -93,7 +82,7 @@ const MainMenu = () => {
                             key={ index }
                             onClick={() => {
                                 setRole(value)
-                                toggle(false)
+                                setToggleModal(false)
                             }}
                         >{ label }</Button>
                     ))}
@@ -124,7 +113,7 @@ const MainMenu = () => {
                         !open && 'max-w-0'
                     )}>
                         <Fade when={ open } duration={ 500 }> 
-                            <Button>
+                            <Button onClick={() => setToggleModal(p => !p)}>
                                 <RoleSelector menuOpen={ open } />
                             </Button>
                         </Fade>

@@ -5,13 +5,24 @@ import Skeleton from 'react-loading-skeleton';
 import imageReducer, { initialImageState } from '../../reducers/images';
 import { className } from '../../utils';
 
-const Image = styled.img.attrs({
-    loading: 'lazy'
-})`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`;
+// const Image = styled.img.attrs({
+//     loading: 'lazy'
+// })`
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+// `;
+
+const Image = ({ className: cls, ...otherProps }) => (
+    <img 
+        loading="lazy" 
+        { ...className(
+            'w-full h-full object-cover',
+            cls
+        )}
+        { ...otherProps }
+    />
+)
 
 const Wrapper = styled.div`
     width: ${({ width }) => width };
