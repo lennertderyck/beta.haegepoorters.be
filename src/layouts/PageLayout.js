@@ -26,7 +26,7 @@ const Loader = () => <>
 </>
 
 const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loading = false, className: cls, disableScroll = false, children }) => { 
-    disableScroll && window.scrollTo(0, 0)
+    !disableScroll && window.scrollTo(0, 0)
     
     return (
         <PageWrapper>
