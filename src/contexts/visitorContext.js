@@ -10,15 +10,16 @@ const VisitorProvider = ({ children }) => {
     const storedVisitorType = window.sessionStorage.getItem('visitorType');
     // const storedSensitiveHidden = window.sessionStorage.getItem('sensitiveHidden');
     
-    const [ type, setType ] = useState(storedVisitorType || 'oud')
+    const [ role, setType ] = useState(storedVisitorType || 'jgv')
+    const [ subRole, setSubRole ] = useState()
     const [ sensitiveHidden, setSensitiveHidden ] = useState(true)
     
     useEffect(() => {
         window.sessionStorage.setItem(
             'visitorType',
-            type
+            role
         )
-    }, [type])
+    }, [role])
     
     // useEffect(() => {
     //     if (!sensitiveHidden) window.localStorage.setItem('sensitiveHidden', false)
@@ -27,8 +28,10 @@ const VisitorProvider = ({ children }) => {
 
     return <Provider value={{
         visitorRoles,
-        role: visitorRoles.find(({ value }) => value === type ),
+        role: visitorRoles.find(({ value }) => value === role ),
         setRole: setType,
+        subRole,
+        setSubRole,
         sensitiveHidden,
         hideSensitive: () => setSensitiveHidden(true),
         showSensitive: () => setSensitiveHidden(false)

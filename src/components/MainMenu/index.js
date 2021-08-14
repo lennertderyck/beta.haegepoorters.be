@@ -10,6 +10,7 @@ import { className } from '../../utils';
 import styles from './MainMenu.module.scss';
 import Button from '../Button';
 import Modal from '../Modal';
+import Form, { Input } from '../Form';
 import { useEffect } from 'react';
 import { useVisitor } from '../../contexts/visitorContext';
 import { useNetwork } from '../../contexts/networkContext';
@@ -63,7 +64,7 @@ const MainMenu = () => {
     const container = useRef()
     const [ toggleModal, setToggleModal ] = useState()
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
-    const { visitorRoles, setRole } = useVisitor()
+    const { visitorRoles, setRole, role } = useVisitor()
     const isHovered = useHover(container)
     const { status } = useNetwork()
         
@@ -74,22 +75,38 @@ const MainMenu = () => {
     
     return (
         <>
-            <Modal disableOverlayClick open={ toggleModal }>
+            <Modal disableOverlayClick open={ toggleModal } title="Kies een tak">
                 {({ toggle }) => (<>
-                    <h3>Kies een rol</h3>
-                    { visitorRoles.map(({ label, value }, index) => (
+                    { visitorRoles.filter(({ isGroup, value }) => isGroup ).map(({ label, value }, index) => (
                         <Button
                             key={ index }
                             onClick={() => {
                                 setRole(value)
-                                setToggleModal(false)
+                                // setToggleModal(false)
                             }}
-                        >{ label }</Button>
+                            {...className(
+                                'py-4 border-b-2 w-full font-serif text-lg capitalize bg-opacity-30 px-4 last:border-b-0',
+                                role.value === value ? 'bg-red-500 text-red-500' : 'bg-white border-gray-200'
+                            )}
+                        >
+                            <Icon name="check" {...className(
+                                'mr-4',
+                                role.value === value ? 'opacity-100' : 'opacity-0'
+                            )} size="1.4rem" color={ null } />
+                            <span className="font-semibold">{ label }</span>
+                        </Button>
                     ))}
+                    <Form className="mt-8">
+                        <h4 className="mb-2">Ik ben ook ...</h4>
+                        <div className="flex -mb-6">
+                            <Input type="radio" name="subrole" label="ouder" className="mr-4" />
+                            <Input type="radio" name="subrole" label="leiding" />
+                        </div>
+                    </Form>
                 </>)}
             </Modal>
             <Button 
-                className="fixed top-4 right-4 z-50 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden"
+                className="fixed top-4 right-4 z-40 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden"
                 onClick={() => setOpen(p => !p)}
             >
                 <Icon name="menu" size="1.2rem" color="white" />

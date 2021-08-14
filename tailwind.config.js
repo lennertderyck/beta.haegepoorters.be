@@ -12,7 +12,12 @@ module.exports = {
         },
         extend: {
             maxWidth: {
-                'screen': '100vw'
+                'screen': '100vw',
+                '1/2': '50%'
+            },
+            minWidth: {
+                'screen-1/2': '50vw',
+                'screen-2/3': '66vw'
             },
             colors: {
                 'gray': {
@@ -40,13 +45,17 @@ module.exports = {
             },
             transitionDuration: {
                 '600': '600ms'
+            },
+            brightness: {
+                '60': '.6'
             }
         }
     },
     variants: {
         extend: {
-            padding: ['first'],
-            margin: ['last']
+            padding: ['first', 'last'],
+            margin: ['last'],
+            borderWidth: ['last']
         },
     },
     plugins: [],

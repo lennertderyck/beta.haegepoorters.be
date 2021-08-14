@@ -18,11 +18,6 @@ const Loader = () => <>
         <Skeleton height="1.2rem" width="80%" />
         <Skeleton height="1.2rem" width="60%" />
     </div>
-    {/* <div className="container container-md px-8 lg:px-0">
-        <Skeleton height="1rem" width="60%" />
-        <Skeleton height="1rem" width="70%" />
-        <Skeleton height="1rem" width="50%" />
-    </div> */}
 </>
 
 const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loading = false, className: cls, disableScroll = false, children }) => { 

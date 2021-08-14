@@ -148,6 +148,18 @@ const QUERIES = {
             }
         }
     `,
+    TEAM_MEMBERS_COUNT: gql`
+        {
+            leaders: TeammemberItems {
+                total
+            }
+            grl: TeammemberItems(
+                filter_query_v2: { functions_extra: { in_array: "grl" } }
+            ) {
+                total
+            }
+        }
+    `,
     GALLERY_ALBUMS: gql`
         {
             GaleryalbumItems {

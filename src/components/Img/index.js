@@ -16,6 +16,7 @@ import { className } from '../../utils';
 const Image = ({ className: cls, ...otherProps }) => (
     <img 
         loading="lazy" 
+        alt=""
         { ...className(
             'w-full h-full object-cover',
             cls
