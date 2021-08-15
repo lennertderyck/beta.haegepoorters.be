@@ -173,6 +173,17 @@ const QUERIES = {
                 }
             }
         }
+    `,
+    SEARCH_BY_TERM: gql`
+        query SearchByTerm($query: String!) {
+            ContentNodes(search_term: $query) {
+                items {
+                    name
+                    full_slug
+                    content
+                }
+            }
+        }
     `
 }
 

@@ -12,7 +12,7 @@ const HeroBanner = ({ className: cls, children }) => {
                 alt=""
                 className="w-full h-full absolute top-0 left-0 right-0 bottom-0 object-cover filter brightness-60"
             />
-            <div className="p-16 text-white relative z-10">
+            <div className="p-10 md:p-16 text-white relative z-10">
                 { children }
             </div>
         </div>

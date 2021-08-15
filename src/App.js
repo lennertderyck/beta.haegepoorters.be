@@ -32,7 +32,7 @@ function App() {
                                 <Route path="/galerij" exact>
                                     <GalleryPage />
                                 </Route>
-                                <Route path="/zoeken" exact>
+                                <Route path="/zoeken/:query?" exact>
                                     <SearchPage />
                                 </Route>
                                 <Route path="/contact" exact>

@@ -82,7 +82,7 @@ const Select = ({ label, name, className: cls, required = false, children, ...ot
 }
 
 const Check = ({ label, name, className: cls, required = false, type, ...otherProps }) =>{
-    const { register, watch } = useFormContext();
+    const { register } = useFormContext();
     
     return (
         <GroupWrapper>
@@ -121,6 +121,7 @@ const Form = ({
     button,
     className: cls,
     action,
+    onSubmit,
     children,
 }) => {
     const methods = useForm();
@@ -128,12 +129,10 @@ const Form = ({
     const { submit, status } = useApi(action)
     
     const handleSubmit = data => {
-        console.log('sending')
         if (action) submit({ method: 'POST', body: data })
+        if (onSubmit) onSubmit(data)
     };
     const watchedValues = watch();
-    
-    console.log(status)
           
     return (
         <FormProvider {...methods}>
