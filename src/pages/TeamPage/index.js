@@ -12,22 +12,27 @@ const useTeamContext = () => useContext(teamContext)
 
 const Card = ({ data }) => {
     const { sensitiveHidden, showSensitive } = useVisitor()
-    const { content: { first_name, tel, image: { filename }}} = data;
+    const { content: { first_name, tel, image: { filename }, functions_extra }} = data;
     const { toggleModal } = useTeamContext()
+    
+    const isGroupResp = functions_extra.includes('group_resp');
+    const isGrl = functions_extra.includes('grl');
     
     const handleSensitiveForceClick = () => {
         toggleModal()
     }
     
+    const showTelByFunction = isGroupResp || isGrl;
+    
     return <div className="border-b-2 border-gray-200 py-6">
         <Img src={ filename } height="15rem" className="mb-4" />
         <h4 className="font-bold text-xl -mb-1">{ first_name }</h4>
         <p className="font-serif text-lg">Originele stokstaart</p>
-        { sensitiveHidden && <button onClick={ handleSensitiveForceClick } className="flex items-center mt-3">
+        { (sensitiveHidden && showTelByFunction) && <button onClick={ handleSensitiveForceClick } className="flex items-center mt-3">
             <Icon name="phone" size="1.2rem" className="mr-2" /> 
             <span className="filter blur-sm">+32412456789</span> 
         </button>}
-        { !sensitiveHidden && <a href={ 'tel:' + tel } className="flex items-center mt-3">
+        { (!sensitiveHidden && showTelByFunction) && <a href={ 'tel:' + tel } className="flex items-center mt-3">
             <Icon name="phone" size="1.2rem" className="mr-2" /> 
             <span>{ tel }</span>
         </a>}

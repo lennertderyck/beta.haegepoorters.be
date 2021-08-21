@@ -8,6 +8,24 @@ import VisitorProvider from "./contexts/visitorContext";
 import NetworkContext from "./contexts/networkContext";
 import { BaseLayout } from "./layouts";
 import { ActivityPage, BasePage, BlogPage, GalleryPage, HomePage, SearchPage, ContactPage, TeamPage } from "./pages";
+import { ContextMenu, ErrorPopup } from "./components";
+
+// window.onerror = function (msg, url, lineNo, columnNo, error) {
+//     // ... handle error ...
+//     console.log(msg + ' - ' + url + ' - ' + lineNo + ' - ' + columnNo);
+//     return false;
+// }
+
+// window.addEventListener('error', e => {
+//     const { filename, message } = e;
+//     console.log(
+//         'An error was detected. More details below \n',
+//         '\t' + filename + '\n',
+//         '\t' + message
+//     )
+//     e.preventDefault()
+//     return false;
+// })
 
 function App() {
     return (
@@ -45,6 +63,8 @@ function App() {
                                 </Route>
                             </Switch>
                         </BaseLayout>
+                        <ContextMenu />
+                        <ErrorPopup />
                     </div>
                 </Router>
             </VisitorProvider>

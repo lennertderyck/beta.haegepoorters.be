@@ -34,7 +34,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
     </>
 
     if (to) return (
-        <Link 
+        <Link
             to={ catchDisabled(to) }
             { ...otherProps } 
             { ...className(

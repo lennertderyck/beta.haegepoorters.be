@@ -143,6 +143,7 @@ const QUERIES = {
                         last_name
                         image { filename }
                         tel
+                        functions_extra
                     }
                 }
             }
