@@ -13,6 +13,8 @@ const BasePage = () => {
         variables: { slug: 'pages/' + slug }
     })
     
+    console.log(slug);
+    
     if (loading) return <PageLayout loading />
     if (error || !data.PageItem) return <ErrorPage />
     

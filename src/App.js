@@ -58,7 +58,7 @@ function App() {
                                 </Route>
                                 
                                 {/* Catch all other pages by slug */}
-                                <Route path="/:slug" exact>
+                                <Route path={['/:slug', '/pagina/:slug' ]} exact>
                                     <BasePage />
                                 </Route>
                             </Switch>
