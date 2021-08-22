@@ -10,7 +10,7 @@ import ErrorPage from '../ErrorPage';
 const BasePage = () => {
     const { slug } = useParams()
     const { data, loading, error } = useQuery(QUERIES.PAGE_BY_SLUG, {
-        variables: { slug: 'pages/' + slug }
+        variables: { slug: 'pagina/' + slug }
     })
     
     console.log(slug);
