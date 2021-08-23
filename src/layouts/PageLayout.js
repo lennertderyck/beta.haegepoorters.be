@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import Fade from 'react-reveal/Fade';
 
@@ -21,7 +21,11 @@ const Loader = () => <>
 </>
 
 const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loading = false, className: cls, disableScroll = false, children }) => { 
-    !disableScroll && window.scrollTo(0, 0)
+    /* !disableScroll && window.scrollTo(0, 0) */
+    
+    useEffect(() => {
+        !disableScroll && window.scrollTo(0, 0)
+    }, [])
     
     return (
         <PageWrapper>

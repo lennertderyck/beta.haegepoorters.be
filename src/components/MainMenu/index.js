@@ -85,7 +85,7 @@ const MainMenu = () => {
                                 // setToggleModal(false)
                             }}
                             {...className(
-                                'py-4 border-b-2 w-full font-serif text-lg capitalize bg-opacity-30 px-4 last:border-b-0',
+                                'py-4 border-b-2 w-full font-serif text-lg capitalize bg-opacity-20 px-4 last:border-b-0',
                                 role.value === value ? 'bg-red-500 text-red-500' : 'bg-white border-gray-200'
                             )}
                         >

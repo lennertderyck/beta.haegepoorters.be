@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 
-import { CoronaStatusBanner, HeroBanner, HighlightedEvents, HighlightedNews, Modal } from '../../components'
+import { Container ,CoronaStatusBanner, HeroBanner, HighlightedEvents, HighlightedNews, Modal } from '../../components'
 import QUERIES from '../../graphql/queries';
 
 const MembersStats = () => {
@@ -44,14 +44,14 @@ export default function Home() {
             <HighlightedNews />
           </div>
         </div>
-        <HeroBanner className="mb-12 lg:h-80">
-          <h2 className="text-5xl font-serif mb-6">Wij zijn scouts en gidsen ...</h2>
-          <div className="lg:max-w-1/2">
-            <p className="font-medium text-lg">Deel uitmaken van onze scouts is meer dan een hobby. De Haegepoorters, ook wel "HP" in de volksmond, zijn een thuis voor meer dan 200 jongeren.</p>
-          </div>
-          <MembersStats />
-        </HeroBanner>
       </div>
+      <HeroBanner className="mb-12 lg:h-80">
+        <h2 className="text-5xl font-serif mb-6">Wij zijn scouts en gidsen ...</h2>
+        <div className="lg:max-w-1/2">
+          <p className="font-medium text-lg">Deel uitmaken van onze scouts is meer dan een hobby. De Haegepoorters, ook wel "HP" in de volksmond, zijn een thuis voor meer dan 200 jongeren.</p>
+        </div>
+        <MembersStats />
+      </HeroBanner>
     </>
   )
 }

@@ -11,3 +11,23 @@ export const sortActivitiesByDate = (
     return new Date(a) - new Date(b)
 }
 export const activityIsPassed = (date) => dayjs(new Date()).isAfter(dayjs(date))
+
+export const filterTeamOnFunction = (items, fn) => items.filter(({ content: { functions } }) => {
+    return functions?.content?.shortcode === fn
+})
+
+export const cookieHook = {
+    name(name) {
+        return `hook:${ name }`
+    },
+    set(name, value) {
+        localStorage.setItem(
+            this.name(name),
+            value
+        )
+    },
+    exists(name) {
+        const result = localStorage.getItem(this.name(name))
+        return result ? true : false
+    }
+}

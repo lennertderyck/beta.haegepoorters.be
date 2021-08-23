@@ -5,6 +5,8 @@ import { Button, Img, Icon, Modal } from '../../components';
 import QUERIES from '../../graphql/queries';
 import PageLayout from '../../layouts/PageLayout';
 import { useVisitor } from '../../contexts/visitorContext';
+import { visitorRoles } from '../../data/site';
+import { filterTeamOnFunction } from '../../utils';
 
 const teamContext = createContext();
 const { Provider } = teamContext;
@@ -24,18 +26,33 @@ const Card = ({ data }) => {
     
     const showTelByFunction = isGroupResp || isGrl;
     
-    return <div className="border-b-2 border-gray-200 py-6">
+    return <div className="border-b-2 border-gray-200 pb-6 h-full">
         <Img src={ filename } height="15rem" className="mb-4" />
         <h4 className="font-bold text-xl -mb-1">{ first_name }</h4>
         <p className="font-serif text-lg">Originele stokstaart</p>
-        { (sensitiveHidden && showTelByFunction) && <button onClick={ handleSensitiveForceClick } className="flex items-center mt-3">
+        {( sensitiveHidden && showTelByFunction) && <button onClick={ handleSensitiveForceClick } className="flex items-center mt-3">
             <Icon name="phone" size="1.2rem" className="mr-2" /> 
-            <span className="filter blur-sm">+32412456789</span> 
+            <span className="filter blur-sm">+32412456789</span>
         </button>}
-        { (!sensitiveHidden && showTelByFunction) && <a href={ 'tel:' + tel } className="flex items-center mt-3">
+        {( !sensitiveHidden && showTelByFunction) && <a href={ 'tel:' + tel } className="flex items-center mt-3">
             <Icon name="phone" size="1.2rem" className="mr-2" /> 
             <span>{ tel }</span>
         </a>}
+    </div>
+}
+
+const Group = ({ data: items }) => {
+    return <div className="grid grid-cols-4 gap-6">
+        { items
+            .map((data, index) => (
+                <div
+                    className="col-span-4 md:col-span-2 lg:col-span-1" 
+                    key={ index }
+                >
+                    <Card data={ data } />
+                </div>
+            )
+        )}
     </div>
 }
 
@@ -63,15 +80,34 @@ const TeamPage = () => {
                     }}
                 >Gevoelige gegevens tonen</Button>
             </Modal>
+            
             <PageLayout title="Leiding" subtitle="Ons team van gemotiveerde leiding" wide className="relative">
-                <div className="grid grid-cols-4 gap-6">
-                    { items.map((data, index) => <div 
-                        className="col-span-2 lg:col-span-1" 
+                <h3 className="font-serif mb-6 capitalize font-bold">Groepsleiding</h3>
+                <div className="grid grid-cols-4 gap-6 mb-12">
+                    { items.filter(({ content: { functions_extra }}) => functions_extra.includes('grl')).map(data => (
+                        <div className="col-span-4 md:col-span-2 lg:col-span-1">
+                            <Card data={ data } />
+                        </div>
+                    ))}
+                </div>
+               
+                
+                { visitorRoles
+                    .filter(({ isGroup }) => isGroup)
+                    .map(({ plur, value }) => (<div className="mb-12">
+                        <h3 className="font-serif mb-6 capitalize font-bold">{ plur }</h3>
+                        <Group shortcode={ value } data={ filterTeamOnFunction(items, value) } />
+                    </div>
+                ))}
+                
+                {/* <div className="grid grid-cols-4 gap-6">
+                    { items.map((data, index) => <div
+                        className="col-span-4 md:col-span-2 lg:col-span-1" 
                         key={ index }
                     >
                         <Card data={ data } />
                     </div>)}
-                </div>
+                </div> */}
                 { sensitiveHidden && <div className="sticky bottom-0 p-4 bg-gray-200 mx-8 mt-12">
                     <Button 
                         theme="simple" 

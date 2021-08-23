@@ -121,15 +121,17 @@ const Form = ({
     button,
     className: cls,
     action,
+    nativeAction,
     onSubmit,
     children,
+    ...otherProps
 }) => {
     const methods = useForm();
     const { watch } = methods;
     const { submit, status } = useApi(action)
     
     const handleSubmit = data => {
-        if (action) submit({ method: 'POST', body: data })
+        if (action && !nativeAction) submit({ method: 'POST', body: data, url: action })
         if (onSubmit) onSubmit(data)
     };
     const watchedValues = watch();
@@ -137,11 +139,13 @@ const Form = ({
     return (
         <FormProvider {...methods}>
             <div className="relative">
-                <form 
+                <form
+                    action={ nativeAction && action }
                     onSubmit={ methods.handleSubmit( handleSubmit )} 
                     { ...className(
                         cls
                     )}
+                    {...otherProps}
                 >
                     { typeof children === 'function' ? children(watchedValues) : children }
                     { button && <Button type="submit" theme="button">{ button }</Button>}

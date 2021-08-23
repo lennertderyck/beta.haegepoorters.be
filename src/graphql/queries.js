@@ -136,7 +136,7 @@ const QUERIES = {
     `,
     TEAM_FULL: gql`
         {
-            TeammemberItems(sort_by: "content.first_name:asc") {
+            TeammemberItems(sort_by: "content.functions_extra:desc, content.first_name:desc") {
                 items {
                     content {
                         first_name
@@ -144,6 +144,9 @@ const QUERIES = {
                         image { filename }
                         tel
                         functions_extra
+                        functions {
+                          content
+                        }
                     }
                 }
             }
@@ -182,6 +185,7 @@ const QUERIES = {
                     name
                     full_slug
                     content
+                    parent_id
                 }
             }
         }

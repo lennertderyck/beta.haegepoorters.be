@@ -9,23 +9,10 @@ import NetworkContext from "./contexts/networkContext";
 import { BaseLayout } from "./layouts";
 import { ActivityPage, BasePage, BlogPage, GalleryPage, HomePage, SearchPage, ContactPage, TeamPage } from "./pages";
 import { ContextMenu, ErrorPopup } from "./components";
+import { cookieHook } from './utils';
 
-// window.onerror = function (msg, url, lineNo, columnNo, error) {
-//     // ... handle error ...
-//     console.log(msg + ' - ' + url + ' - ' + lineNo + ' - ' + columnNo);
-//     return false;
-// }
-
-// window.addEventListener('error', e => {
-//     const { filename, message } = e;
-//     console.log(
-//         'An error was detected. More details below \n',
-//         '\t' + filename + '\n',
-//         '\t' + message
-//     )
-//     e.preventDefault()
-//     return false;
-// })
+console.log(cookieHook.set('test'))
+console.log(cookieHook.exists('test'))
 
 function App() {
     return (
@@ -63,7 +50,7 @@ function App() {
                                 </Route>
                             </Switch>
                         </BaseLayout>
-                        <ContextMenu />
+                        { process.env.NODE_ENV !== 'development' && <ContextMenu /> }
                         <ErrorPopup />
                     </div>
                 </Router>

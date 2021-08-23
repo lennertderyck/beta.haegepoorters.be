@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 
 import queries from '../../graphql/queries';
-import { RenderContent, Container, Button, Icon, Img, PageWrapper, RenderTimes } from '../../components';
+import { RenderContent, Container, Button, Icon, Img, PageWrapper, RenderTimes, Form, Input, Modal, HideByCookie } from '../../components';
 import ArticleLayout from '../../layouts/ArticleLayout';
 import QUERIES from '../../graphql/queries';
 import dayjs from 'dayjs';
@@ -103,6 +103,21 @@ const ArticlesOverview = () => {
     )
 }
 
+const SignUpModal = () => {
+    return <Modal 
+        title="Nieuwsbrief"
+        button="Schrijf je in" 
+        buttonTheme="button"
+    >
+        <Form
+            action="https://haegepoorters.us6.list-manage.com/subscribe/post?u=e97a617a55c0d1d8e0ec95376&id=c5cc95ede7"
+        >
+            <Input name="EMAIL" label="Email" placeholder="powell@scouting.be" />
+            <Button theme="button" submit="true">Versturen</Button>
+        </Form>
+    </Modal>
+}
+
 const BlogPage = () => {
     const { slug } = useParams()
     
@@ -111,12 +126,27 @@ const BlogPage = () => {
     return (
         <PageWrapper>
             <Container className="mb-12">
-                <h1 className="font-serif font-bold text-5xl text-gray-600 mb-6">Nieuws &amp; blog</h1>
-                <p>Het reilen en zeilen binnen onze scouts</p>
+                    <h1 className="font-serif font-bold text-5xl text-gray-600 mb-6">Nieuws &amp; blog</h1>
+                    <p>Het reilen en zeilen binnen onze scouts</p>
             </Container>
+            <HideByCookie name="mc-signup">
+                {({ hide }) => <Container className="mb-4">
+                    <div className="bg-gray-100 p-6 flex justify-between items-center">
+                        <div>
+                            <h4 className="font-semibold text-lg">Blijf op de hoogte!</h4>
+                            <p className="font-serif text-lg">Laat je email achter en krijg updates direct in je inbox.</p>
+                        </div>
+                        <SignUpModal />
+                        <Button onClick={() => hide()}><Icon name="close" size="1.4rem" /></Button>
+                    </div>
+                </Container>}
+            </HideByCookie>
             <Container wide>
                 <ArticlesOverview />
             </Container>
+            <form method="post" name="mc-embedded-subscribe-form" >
+                <input type="email" name="EMAIL"/>
+            </form>
         </PageWrapper>
     )
 }
