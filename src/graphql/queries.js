@@ -99,6 +99,7 @@ const QUERIES = {
                     banner {
                         filename
                     }
+                    iframe
                 }
             }
         }
