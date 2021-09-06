@@ -40,7 +40,7 @@ const BasePage = () => {
                     { !showIframe &&  <div className="bg-gray-100 p-6">
                         <h4 className="font-semibold mb-2 text-lg">Toestemming</h4>
                         <p className="font-serif text-lg leading-6 mb-2">Deze pagina bevat een geïntegreerde website en kan cookies van derden bevatten.<br /> Geef toestemming om deze website weer te geven</p>
-                        <small>Website van <strong>{ new URL(iframe.source).host }</strong></small>
+                        <small>Website van <strong>{ new URL(iframe.source).host }</strong> [ safetycheck (icon) google api ]</small>
                         <Button 
                             theme="button" 
                             className="mt-4"

@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 
-import { Container ,CoronaStatusBanner, HeroBanner, HighlightedEvents, HighlightedNews, Modal } from '../../components'
+import { Button, CoronaStatusBanner, HeroBanner, HighlightedEvents, HighlightedNews, Modal } from '../../components'
+import { homeRelatedLinks } from '../../data/nav';
 import QUERIES from '../../graphql/queries';
 
 const MembersStats = () => {
@@ -24,8 +25,6 @@ const MembersStats = () => {
 }
 
 export default function Home() {
-
-  
   return (
     <>
       <div className="container mx-auto px-8">
@@ -45,13 +44,25 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <HeroBanner className="mb-12 lg:h-80">
+      <HeroBanner className="mb-12 lg:mb-20 lg:h-80">
         <h2 className="text-5xl font-serif mb-6">Wij zijn scouts en gidsen ...</h2>
         <div className="lg:max-w-1/2">
           <p className="font-medium text-lg">Deel uitmaken van onze scouts is meer dan een hobby. De Haegepoorters, ook wel "HP" in de volksmond, zijn een thuis voor meer dan 200 jongeren.</p>
         </div>
         <MembersStats />
       </HeroBanner>
+      <div className="container mx-auto mb-24 px-8 md:px-0">
+        <h3 className="font-serif mb-6">Komt ook van pas...</h3>
+        <div className="grid grid-cols-12 gap-6 lg:gap-4">
+          { homeRelatedLinks.map(({ title, descr_short, url, button_text }) => (
+            <div className="col-span-12 md:col-span-6 lg:col-span-3">
+              <h4 className="font-semibold text-lg mb-1">{ title }</h4>
+              <p className="font-serif text-base">{ descr_short }</p>
+              <Button to={ url } theme="simple" className="mt-4">{ button_text || 'Meer hierover' }</Button>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState, createContext } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { Button, Img, Icon, Modal } from '../../components';
+import { Button, Img, Icon, Modal, Withauth } from '../../components';
 import QUERIES from '../../graphql/queries';
 import PageLayout from '../../layouts/PageLayout';
 import { useVisitor } from '../../contexts/visitorContext';
@@ -61,16 +61,22 @@ const TeamPage = () => {
     const { sensitiveHidden, showSensitive } = useVisitor()
     const [ showModal, setShowModal ] = useState()
 
+    const toggleModal = n => setShowModal(p => n ? n : !p)
+    
     if (loading) return <p>loading</p>
 
     const { TeammemberItems: { items }} = data
     
     return (
         <Provider value={{
-            toggleModal: n => setShowModal(p => n ? n : !p)
+            toggleModal
         }}> 
-            <Modal open={ showModal } className="lg:w-1/2">
-                <h3 className="mb-4 text-gray-600">Telefoonnummers weergeven?</h3>
+            <Modal 
+                open={ showModal } 
+                className="lg:w-1/2"
+                title="Telefoonnummers weergeven?"
+            >
+                {/* <h3 className="mb-4 text-gray-600">Telefoonnummers weergeven?</h3> */}
                 <p className="mb-4 font-serif text-xl">We verbergen gevoelige gegevens zoals emailadressen en telefoonnummers standaard op onze website om spam tegen te gaan.</p>
                 <Button 
                     theme="button"
@@ -82,7 +88,7 @@ const TeamPage = () => {
             </Modal>
             
             <PageLayout title="Leiding" subtitle="Ons team van gemotiveerde leiding" wide className="relative">
-                <h3 className="font-serif mb-6 capitalize font-bold">Groepsleiding</h3>
+                <h3 className="font-serif mb-6 capitalize font-bold text-3xl">Groepsleiding</h3>
                 <div className="grid grid-cols-4 gap-6 mb-12">
                     { items.filter(({ content: { functions_extra }}) => functions_extra.includes('grl')).map(data => (
                         <div className="col-span-4 md:col-span-2 lg:col-span-1">
@@ -95,7 +101,7 @@ const TeamPage = () => {
                 { visitorRoles
                     .filter(({ isGroup }) => isGroup)
                     .map(({ plur, value }) => (<div className="mb-12">
-                        <h3 className="font-serif mb-6 capitalize font-bold">{ plur }</h3>
+                        <h3 className="font-serif mb-6 capitalize font-bold text-3xl">{ plur }</h3>
                         <Group shortcode={ value } data={ filterTeamOnFunction(items, value) } />
                     </div>
                 ))}
@@ -112,7 +118,8 @@ const TeamPage = () => {
                     <Button 
                         theme="simple" 
                         icon="eye-close"
-                        onClick={() => showSensitive()}
+                        onClick={() => toggleModal()}
+                        className="w-full"
                     >Gsm-nummers weergeven</Button>
                 </div>}
             </PageLayout>

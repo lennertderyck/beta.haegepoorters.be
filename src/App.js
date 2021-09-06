@@ -7,7 +7,7 @@ import {
 import VisitorProvider from "./contexts/visitorContext";
 import NetworkContext from "./contexts/networkContext";
 import { BaseLayout } from "./layouts";
-import { ActivityPage, BasePage, BlogPage, GalleryPage, HomePage, SearchPage, ContactPage, TeamPage } from "./pages";
+import { ActivityPage, BasePage, BlogPage, GalleryPage, HomePage, SearchPage, ContactPage, TeamPage, GroupAdminLogin } from "./pages";
 import { ContextMenu, ErrorPopup } from "./components";
 import { cookieHook } from './utils';
 
@@ -42,6 +42,9 @@ function App() {
                                 </Route>
                                 <Route path="/contact" exact>
                                     <ContactPage />
+                                </Route>
+                                <Route path="/ga" exact>
+                                    <GroupAdminLogin />
                                 </Route>
                                 
                                 {/* Catch all other pages by slug */}

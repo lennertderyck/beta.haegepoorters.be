@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 
 import { className } from '../../utils';
@@ -123,6 +123,7 @@ const Form = ({
     action,
     nativeAction,
     onSubmit,
+    onChange,
     children,
     ...otherProps
 }) => {
@@ -130,11 +131,18 @@ const Form = ({
     const { watch } = methods;
     const { submit, status } = useApi(action)
     
+    const nestedFunction = typeof children === 'function';
+    
     const handleSubmit = data => {
         if (action && !nativeAction) submit({ method: 'POST', body: data, url: action })
         if (onSubmit) onSubmit(data)
     };
-    const watchedValues = watch();
+    
+    const watchedValues = nestedFunction || onChange ? watch() : {};
+    
+    useEffect(() => {
+        if (onChange) onChange(watchedValues)
+    }, [ watchedValues ])
           
     return (
         <FormProvider {...methods}>
@@ -147,7 +155,7 @@ const Form = ({
                     )}
                     {...otherProps}
                 >
-                    { typeof children === 'function' ? children(watchedValues) : children }
+                    { nestedFunction ? children(watchedValues) : children }
                     { button && <Button type="submit" theme="button">{ button }</Button>}
                 </form>
                 {( status === 'loading' ) && <div className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-white bg-opacity-60 flex items-center justify-center">

@@ -11,3 +11,30 @@ export const mainNav = [
     // { icon: 'virus', label: 'Corona', slug: '/corona' },
     { icon: 'chat-4', label: 'Contact', slug: '/contact' },
 ]
+
+export const homeRelatedLinks = [
+    { 
+        title: 'Groepsadministratie', 
+        descr_short: 'Beheer de persoonlijke gegevens van je kind(eren)',
+        url: 'https://groepsadministratie.scoutsengidsenvlaanderen.be',
+        button_text: 'Aanmelden'
+    },
+    { 
+        title: 'Hopper', 
+        descr_short: 'Koop al je uitrusting bij Hopper en geniet een mooie korting als lid',
+        url: 'https://www.hopper.be/',
+        button_text: 'Shoppen bij Hopper'
+    },
+    { 
+        title: 'Scouts en Gidsen Vlaanderen', 
+        descr_short: 'De overkoepelende organisatie waar onze scouts bij hoort',
+        url: 'https://scoutsengidsenvlaanderen.be',
+        button_text: 'Meer weten'
+    },
+    { 
+        title: 'Trooper', 
+        descr_short: 'Steun gratis onze scouts met je online aankopen',
+        url: 'https://scoutsengidsenvlaanderen.be',
+        button_text: 'Steun ons!'
+    },
+]
