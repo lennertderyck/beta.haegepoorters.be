@@ -19,7 +19,7 @@ const GroupAdminLogin = () => {
         }
         
         let keycloak = Keycloak(initOptions);
-        keycloak.init({ onLoad: 'check-sso', silentCheckSsoRedirectUri: window.location.origin }).then((auth) => {
+        keycloak.init({ onLoad: 'check-sso' }).then((auth) => {
           if (!auth) {
             console.log('Not authenticated')
           } else {
