@@ -22,7 +22,7 @@ const base = (manualToken) => {
 }
 
 const GET = {
-    PROFILE: () => base(manualToken).get('/lid/profiel')
+    PROFILE: () => base().get('/lid/profiel')
 }
 
 export {
