@@ -12,14 +12,14 @@ const _axios = token => axios.create({
 const request = (method, url, manualToken) => {
     // check if authenticated
     const authenticated = manualToken || getToken()
-    console.log({ authenticated })
+    console.log('token', getToken())
     
-    if (!authenticated) {
-        initKeycloak()
-        return new Promise((resolve, reject) => resolve());
-    }
+    // if (!authenticated) {
+    //     initKeycloak()
+    //     return new Promise((resolve, reject) => resolve());
+    // }
     
-    return _axios(manualToken || getToken())[method](url)
+    // return _axios(manualToken || getToken())[method](url)
 }
 
 const GET = {
