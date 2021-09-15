@@ -11,8 +11,9 @@ const _axios = token => axios.create({
 
 const request = (method, url, manualToken) => {
     // check if authenticated
-    const authenticated = manualToken || isLoggedIn()
+    const authenticated = manualToken || getToken()
     console.log({ authenticated })
+    
     if (!authenticated) {
         initKeycloak()
         return new Promise((resolve, reject) => resolve());
