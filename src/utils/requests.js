@@ -9,7 +9,7 @@ const _axios = token => axios.create({
 })
 
 
-const base = (manualToken) => {
+const request = (method, url, manualToken) => {
     // check if authenticated
     const authenticated = manualToken || isLoggedIn()
     console.log({ authenticated })
@@ -18,11 +18,11 @@ const base = (manualToken) => {
         return;
     }
     
-    return _axios(manualToken || getToken())
+    return _axios(manualToken || getToken())[method](url)
 }
 
 const GET = {
-    PROFILE: () => base().get('/lid/profiel')
+    PROFILE: () => request('GET', '/lid/profiel')
 }
 
 export {
