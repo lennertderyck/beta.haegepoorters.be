@@ -20,7 +20,7 @@ const Loader = () => <>
     </div>
 </>
 
-const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loading = false, className: cls, disableScroll = false, children }) => { 
+const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loading = false, className: cls, disableScroll = false, children, embedded = false }) => { 
     /* !disableScroll && window.scrollTo(0, 0) */
     
     useEffect(() => {
@@ -28,7 +28,7 @@ const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loadin
     }, [])
     
     return (
-        <PageWrapper>
+        <PageWrapper embedded={ embedded }>
             { loading && <Loader /> }
             { !loading && <Fade spy={ title } duration={ 700 }>
                     <article {...className(

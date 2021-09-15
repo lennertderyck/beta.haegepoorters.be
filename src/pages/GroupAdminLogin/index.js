@@ -5,11 +5,14 @@ import PageLayout from '../../layouts/PageLayout';
 import { initKeycloak } from '../../utils/keycloak.vendors';
 
 const GroupAdminLogin = () => {
-    const { isLoggedIn } = useVisitor()
+    const { getToken } = useVisitor()
 
     useEffect(() => {
         // console.log(isLoggedIn())
-        // initKeycloak()
+        initKeycloak(auth => {
+            console.log(`Authenticated: ${ auth }`)
+            if (auth) console.log(getToken())
+        })
     }, [])
 
     // useEffect(() => {

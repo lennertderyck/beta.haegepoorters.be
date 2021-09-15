@@ -33,13 +33,13 @@ const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disab
                                 overflow: 'scroll'
                             }}
                         >
-                            <div className="flex justify-between items-center mb-6 sticky top-0 left-0 right-0 bg-white z-30 px-6 py-6 md:px-8"> 
+                            <div className="flex justify-between items-center sticky top-0 left-0 right-0 bg-white z-30 px-6 py-6 md:px-8"> 
                                 { title && <h3 className="text-gray-600 mr-6">{ title }</h3>}
                                 { !disableClose && <Button theme="clear" onClick={ handleManualClose }>  
                                     <Icon name="close" size="1.6rem" />
                                 </Button>}
                             </div>
-                            <div className="p-6 md:p-8 ">
+                            <div className="px-6 pb-6 md:p-8 ">
                                 { typeof children === 'function' ? children({ 
                                     toggle: setOpen
                                 }) : children }
