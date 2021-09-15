@@ -15,7 +15,7 @@ const request = (method, url, manualToken) => {
     console.log({ authenticated })
     if (!authenticated) {
         initKeycloak()
-        return;
+        return new Promise((resolve, reject) => resolve());
     }
     
     return _axios(manualToken || getToken())[method](url)
