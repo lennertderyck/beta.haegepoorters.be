@@ -14,7 +14,7 @@ const request = (method, url, manualToken) => {
     const authenticated = getToken()
     
     if (!authenticated) {
-        login()
+        _keycl.login()
         return new Promise((resolve, reject) => resolve());
     }
     
