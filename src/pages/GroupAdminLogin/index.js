@@ -29,7 +29,7 @@ const GroupAdminLogin = () => {
           onLoad: 'login-required'
         }).then((auth) => {
           if (!auth) console.log('Not authenticated')
-          else console.log('User authenticated')
+          else console.log('User authenticated', keycloak.token)
         }).catch(err => console.log({ err }))
     }, [])
 
