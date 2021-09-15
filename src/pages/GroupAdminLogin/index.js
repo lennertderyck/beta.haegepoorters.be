@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, CenterMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import PageLayout from '../../layouts/PageLayout';
+import { GET } from '../../utils';
 import { initKeycloak } from '../../utils/keycloak.vendors';
 
 const GroupAdminLogin = () => {
@@ -9,10 +10,13 @@ const GroupAdminLogin = () => {
 
     useEffect(() => {
         // console.log(isLoggedIn())
-        initKeycloak(auth => {
-            console.log(`Authenticated: ${ auth }`)
-            if (auth) console.log(getToken())
-        })
+        GET.PROFILE().then(d => console.log(d))
+        // initKeycloak(auth => {
+        //     console.log(`Authenticated: ${ auth }`)
+        //     if (auth) {
+        //         console.log(getToken())
+        //     }
+        // })
     }, [])
 
     // useEffect(() => {

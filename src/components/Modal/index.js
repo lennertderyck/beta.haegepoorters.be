@@ -39,7 +39,7 @@ const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disab
                                     <Icon name="close" size="1.6rem" />
                                 </Button>}
                             </div>
-                            <div className="px-6 pb-6 md:p-8 ">
+                            <div className="px-6 pb-6 md:px-8 md:pb-8">
                                 { typeof children === 'function' ? children({ 
                                     toggle: setOpen
                                 }) : children }

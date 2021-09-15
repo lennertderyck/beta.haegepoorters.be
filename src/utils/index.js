@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import dayjs from "dayjs";
-// import resolveConfig from 'tailwindcss/resolveConfig'
-// import tailwindConfig from '../../tailwind.config.js'
+
+import { GET } from './requests'
 
 export const className = (...params) => ({ className: classNames(params) });
 export const sortActivitiesByDate = (
@@ -26,8 +26,19 @@ export const cookieHook = {
             value
         )
     },
+    delete(name) {
+        localStorage.removeItem(
+            this.name(name)
+        )
+    },
     exists(name) {
-        const result = localStorage.getItem(this.name(name))
+        const result = localStorage.getItem(
+            this.name(name)
+        )
         return result ? true : false
     }
+}
+
+export {
+    GET
 }
