@@ -17,9 +17,9 @@ const initOptions = {
 const _keycl = new Keycloak(config);
 
 const initKeycloak = (callback) => {
-    _keycl
+    return _keycl
         .init(initOptions)
-        .then(callback)
+        .then(callback && callback)
 }
 
 const login = _keycl.login
