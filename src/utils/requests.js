@@ -18,11 +18,11 @@ const request = (method, url, manualToken) => {
         return;
     }
     
-    return _axios(manualToken || getToken())[method](url)
+    return _axios(manualToken || getToken())
 }
 
 const GET = {
-    PROFILE: () => request('GET', '/lid/profiel')
+    PROFILE: () => request().get('/lid/profiel')
 }
 
 export {
