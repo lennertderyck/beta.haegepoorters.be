@@ -13,12 +13,13 @@ import client from './graphql'
 
 import 'remixicon/fonts/remixicon.css'
 import './sass/index.scss'
+import { initKeycloak } from './utils/keycloak.vendors';
 
 dayjs.locale('nl-be')
 dayjs.extend(relativeTime)
 dayjs.extend(calendar)
 
-ReactDOM.render(
+const renderApp = () => ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={ client }>
       <App />
@@ -27,4 +28,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+initKeycloak(renderApp)
 serviceWorker.register();
