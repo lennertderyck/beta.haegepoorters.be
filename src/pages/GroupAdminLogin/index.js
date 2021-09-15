@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { CenterMessage } from '../../components';
 import PageLayout from '../../layouts/PageLayout';
 import * as Keycloak from 'keycloak-js';
+// import * as Keycloak from 'keycloak-js';
 
 const GroupAdminLogin = () => {
     useEffect(() => {
@@ -10,24 +11,28 @@ const GroupAdminLogin = () => {
         // https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/protocol/openid-connect/auth?client_id=groepsadmin-production-client&redirect_uri=https://groepsadmin.scoutsengidsenvlaanderen.be/client&state=308524a1-fbab-4e19-896f-f209fa7cf758&response_mode=fragment&response_type=code&scope=openid&nonce=4ed52399-dc15-4986-8e98-943b4fe849ff
         // https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/protocol/openid-connect/auth?client_id=groepsadmin-production-client&redirect_uri=https://groepsadmin.scoutsengidsenvlaanderen.be.haegepoorters.be
         // https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/protocol/openid-connect/login-status-iframe.html/init?client_id=groepsadmin-production-client&origin=http%3A%2F%2Flocalhost%3A3000
+        // https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/protocol/openid-connect/auth?client_id=groepsadmin-production-client&origin=http%3A%2F%2Flocalhost%3A3000
+        // https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/protocol/openid-connect/auth?client_id=groepsadmin-production-client&redirect_uri=https://localhost:3000&state=e4cc12c4-7d54-4f12-8bbc-612b39a87bf4&response_mode=fragment&response_type=code&scope=openid&nonce=a5c95309-0fa5-4f37-8541-0bc0c459e74a
+        // https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/protocol/openid-connect/auth?client_id=groepsadmin-production-client&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fga&state=7824175e-d237-47fe-8fcf-9638d40e002d&response_mode=fragment&response_type=code&scope=openid&nonce=4a099a2b-d140-4aad-9e1a-e233114e50b3
+        // https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/protocol/openid-connect/auth?client_id=groepsadmin-production-client&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fga&state=f946f025-2d3d-4cf4-86d1-01c3395e855d&response_mode=fragment&response_type=code&scope=openid&nonce=581ac3f5-5514-40ab-b9ad-1f82ef3a2f01
         
         let initOptions = {
-          url: 'https://login.scoutsengidsenvlaanderen.be/auth', 
-          realm: 'scouts', 
-          clientId: 'groepsadmin-production-client', 
-          onLoad: 'login-required'
+            url: 'https://login.scoutsengidsenvlaanderen.be/auth',
+            realm: 'scouts',
+            clientId: 'groep-O1306G-Haegepoorters-Destelbergen',
+            redirectUri: window.location.href
         }
         
-        let keycloak = Keycloak(initOptions);
-        keycloak.init({ onLoad: 'check-sso' }).then((auth) => {
-          if (!auth) {
-            console.log('Not authenticated')
-          } else {
-            console.log('User authenticated')
-          }
-        })
-        
+        // eslint-disable-next-line
+        let keycloak = new Keycloak(initOptions); 
+        keycloak.init({
+          onLoad: 'login-required'
+        }).then((auth) => {
+          if (!auth) console.log('Not authenticated')
+          else console.log('User authenticated')
+        }).catch(err => console.log({ err }))
     }, [])
+
     return (
         <PageLayout
             title="Groepsadmin"
