@@ -10,13 +10,13 @@ const GroupAdminLogin = () => {
 
     useEffect(() => {
         // console.log(isLoggedIn())
-        GET.PROFILE().then(d => console.log(d))
-        // initKeycloak(auth => {
-        //     console.log(`Authenticated: ${ auth }`)
-        //     if (auth) {
-        //         console.log(getToken())
-        //     }
-        // })
+        // GET.PROFILE().then(d => console.log(d))
+        initKeycloak(auth => {
+            console.log(`Authenticated: ${ auth }`)
+            if (auth) {
+                console.log(getToken())
+            }
+        })
     }, [])
 
     // useEffect(() => {
