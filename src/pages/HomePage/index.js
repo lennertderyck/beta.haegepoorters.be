@@ -54,8 +54,8 @@ export default function Home() {
       <div className="container mx-auto mb-24 px-8 md:px-0">
         <h3 className="font-serif mb-6">Komt ook van pas...</h3>
         <div className="grid grid-cols-12 gap-6 lg:gap-4">
-          { homeRelatedLinks.map(({ title, descr_short, url, button_text }) => (
-            <div className="col-span-12 md:col-span-6 lg:col-span-3">
+          { homeRelatedLinks.map(({ title, descr_short, url, button_text }, index) => (
+            <div className="col-span-12 md:col-span-6 lg:col-span-3" key={ index }>
               <h4 className="font-semibold text-lg mb-1">{ title }</h4>
               <p className="font-serif text-base">{ descr_short }</p>
               <Button to={ url } theme="simple" className="mt-4">{ button_text || 'Meer hierover' }</Button>

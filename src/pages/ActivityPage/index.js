@@ -72,9 +72,9 @@ const ActivityCard = ({ data, simple, scrollTo }) => {
     const { title, descr, period: { start }} = data;
     const isPast = activityIsPassed(start);
     
-    useEffect(() => {
-        cardRef.current.scrollIntoView()
-    }, [])
+    // useEffect(() => {
+    //     cardRef.current.scrollIntoView()
+    // }, [])
     
     return (
         <div
