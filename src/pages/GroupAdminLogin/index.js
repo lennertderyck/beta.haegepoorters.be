@@ -3,18 +3,20 @@ import { Button, CenterMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import PageLayout from '../../layouts/PageLayout';
 import { GET } from '../../utils';
-import { initKeycloak } from '../../utils/keycloak.vendors';
+import _keycl, { initKeycloak } from '../../utils/keycloak.vendors';
 
 const GroupAdminLogin = () => {
     const { getToken } = useVisitor()
 
     useEffect(() => {
         // console.log(isLoggedIn())
-        GET.PROFILE().then(d => console.log(d))
+        // GET.PROFILE().then(d => console.log(d))
         initKeycloak(auth => {
             console.log(`Authenticated: ${ auth }`)
             if (auth) {
                 console.log(getToken())
+            } else {
+                _keycl.login()
             }
         })
     }, [])

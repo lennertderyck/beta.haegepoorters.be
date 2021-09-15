@@ -10,8 +10,6 @@ const config = {
 }
 
 const initOptions = {
-    onLoad: 'login-required',
-    token: manualToken
 }
 
 const _keycl = new Keycloak(config);
