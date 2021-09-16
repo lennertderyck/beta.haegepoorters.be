@@ -39,7 +39,7 @@ const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => 
 
 const RoleSelector = memo(({ menuOpen }) => {
     const [ open, setOpen ] = useState(false)
-    const { role } = useVisitor()
+    const { role, profile } = useVisitor()
     
     useEffect(() => {
         setOpen(false)
@@ -58,7 +58,7 @@ const RoleSelector = memo(({ menuOpen }) => {
             <Icon size="1.2rem" name="settings-4" className="mt-2.5" />
         </div>
     )
-})
+});
 
 const MainMenu = () => {
     const [ open, setOpen ] = useState(false)

@@ -1,8 +1,9 @@
-import React, { createContext, useState, useContext } from 'react';
-import { useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+
 import { visitorRoles } from '../data/site';
 import { cookieHook } from '../utils';
 import * as keycloakServices from '../utils/keycloak.vendors';
+import profileData from '../data/fake/profiel.fake.json'
 
 const visitorContext = createContext();
 const { Provider } = visitorContext;
@@ -29,11 +30,6 @@ const VisitorProvider = ({ children }) => {
         else cookieHook.delete('skipSignIn')
     }, [skippedSignIn])
     
-    // useEffect(() => {
-    //     if (!sensitiveHidden) window.localStorage.setItem('sensitiveHidden', false)
-    //     else window.localStorage.removeItem('sensitiveHidden')
-    // }, [sensitiveHidden])
-
     return <Provider value={{
         visitorRoles,
         role: visitorRoles.find(({ value }) => value === role ),
@@ -49,7 +45,8 @@ const VisitorProvider = ({ children }) => {
         skippedSignIn,
         
         // groepsadministratie
-        ...keycloakServices
+        ...keycloakServices,
+        profile: profileData
     }}>
         { children }
     </Provider>

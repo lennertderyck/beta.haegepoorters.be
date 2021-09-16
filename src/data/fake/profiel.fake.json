@@ -1,1 +1,329 @@
-{"links":[{"rel":"self","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6","method":"GET","secties":[]},{"rel":"self","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6","method":"PATCH","secties":["adressen","contacten","groepseigenVelden.O1306G","persoonsgegevens","vgagegevens","email","functies.O1306G"]},{"rel":"steekkaart","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6/steekkaart","method":"GET","secties":[]}],"id":"d5f75b320ef19609010ef2d4016001a6","aangepast":"2021-06-19T14:17:57.165+02:00","persoonsgegevens":{"geslacht":"man","gsm":"0499 14 83 65"},"vgagegevens":{"voornaam":"Lennert","achternaam":"De Ryck","geboortedatum":"1999-07-20","beperking":false,"verminderdlidgeld":false,"individueleSteekkaartdatumaangepast":"2020-06-09"},"verbondsgegevens":{"lidnummer":"1999072002651","klantnummer":"I18191","lidgeldbetaald":false,"lidkaartafgedrukt":false},"email":"lennyderyck@gmail.com","gebruikersnaam":"lennertderyck","adressen":[{"id":"d5f75e2331e6d07a0131e85827e21e14","land":"BE","postcode":"9070","gemeente":"Destelbergen","straat":"Europalaan","nummer":"2","bus":"","telefoon":"09 229 22 46","postadres":true,"status":"normaal","positie":{"latitude":51.05366598293086,"longitude":3.768864330864281},"omschrijving":""}],"contacten":[{"id":"8a00808d6c9070d0016ca59396397c2d","adres":"d5f75e2331e6d07a0131e85827e21e14","voornaam":"Maddy","achternaam":"Termmerman","zelfdeAdres":false,"gsm":"0499148365","email":"euroteam2@gmail.com","rol":"moeder"}],"groepseigenVelden":{"O1306G":{"schema":[{"id":"692cde76-6a2a-4596-938f-00a543736ddf","type":"vinkje","label":"Lidgeld betaald 20-21?","verplicht":false,"kanLeidingWijzigen":false,"kanLidWijzigen":false,"kanGebruikerWijzigen":true,"sort":0},{"id":"8a00808d6ca90476016caecac1dc0159","type":"vinkje","label":"Lidgeld betaald 19-20?","verplicht":false,"kanLeidingWijzigen":false,"kanLidWijzigen":false,"kanGebruikerWijzigen":true,"sort":1},{"id":"d5f75b3315ed83760115f18156790a21","type":"tekst","label":"Totemnaam","beschrijving":"","verplicht":false,"kanLeidingWijzigen":false,"kanLidWijzigen":true,"kanGebruikerWijzigen":true,"sort":2}],"waarden":{"d5f75b3315ed83760115f18156790a21":"Vindingrijke Patrijs","8a00808d6ca90476016caecac1dc0159":"true"}},"O1302G":{"schema":[],"waarden":{}}},"functies":[{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125565203c1","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b8125565203c1","begin":"2013-09-01T00:00:00.000+02:00","einde":"2016-09-01T00:00:00.000+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555b50398","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b812555b50398","begin":"2020-08-19T14:30:06.532+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125567703cb","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b8125567703cb","begin":"2007-10-16T00:00:00.000+02:00","einde":"2010-09-01T00:00:00.000+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555c1039b","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1302G","method":"GET","secties":[]}],"groep":"O1302G","functie":"d5f75b320b812440010b812555c1039b","begin":"2016-10-12T11:45:46.569+02:00","einde":"2017-09-20T12:06:49.871+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b812555ec03a5","begin":"2019-08-21T11:51:06.749+02:00","einde":"2020-08-19T14:56:27.406+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e234ac0816d014ac9dd200a0000","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75e234ac0816d014ac9dd200a0000","begin":"2020-08-19T14:30:06.541+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555de03a2","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b812555de03a2","begin":"2006-11-16T00:00:00.000+01:00","einde":"2007-10-16T00:00:00.000+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555cc039e","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b812555cc039e","begin":"2017-08-29T15:45:16.937+02:00","einde":"2019-08-21T11:50:48.649+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555d603a0","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b812555d603a0","begin":"2010-09-01T00:00:00.000+02:00","einde":"2013-09-01T00:00:00.000+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e232d1339cd012dadd48b2328ec","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75e232d1339cd012dadd48b2328ec","begin":"2016-08-25T17:27:23.875+02:00","einde":"2017-08-29T15:45:20.986+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b812555970393","begin":"2020-08-19T14:57:00.649+02:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b812555ec03a5","begin":"2017-08-29T15:45:14.136+02:00","einde":"2017-11-02T10:20:21.406+01:00"},{"links":[{"rel":"functie","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b81255456034c","method":"GET","secties":[]},{"rel":"groep","href":"https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G","method":"GET","secties":[]}],"groep":"O1306G","functie":"d5f75b320b812440010b81255456034c","begin":"2020-08-25T10:20:44.197+02:00"}]}
+{
+    "links": [{
+        "rel": "self",
+        "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6",
+        "method": "GET",
+        "secties": []
+    }, {
+        "rel": "self",
+        "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6",
+        "method": "PATCH",
+        "secties": ["adressen", "contacten", "groepseigenVelden.O1306G", "persoonsgegevens", "vgagegevens", "email", "functies.O1306G"]
+    }, {
+        "rel": "steekkaart",
+        "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6/steekkaart",
+        "method": "GET",
+        "secties": []
+    }],
+    "id": "d5f75b320ef19609010ef2d4016001a6",
+    "aangepast": "2021-06-19T14:17:57.165+02:00",
+    "persoonsgegevens": {
+        "geslacht": "man",
+        "gsm": "0499 14 83 65"
+    },
+    "vgagegevens": {
+        "voornaam": "Lennert",
+        "achternaam": "De Ryck",
+        "geboortedatum": "1999-07-20",
+        "beperking": false,
+        "verminderdlidgeld": false,
+        "individueleSteekkaartdatumaangepast": "2020-06-09"
+    },
+    "verbondsgegevens": {
+        "lidnummer": "1999072002651",
+        "klantnummer": "I18191",
+        "lidgeldbetaald": false,
+        "lidkaartafgedrukt": false
+    },
+    "email": "lennyderyck@gmail.com",
+    "gebruikersnaam": "lennertderyck",
+    "adressen": [{
+        "id": "d5f75e2331e6d07a0131e85827e21e14",
+        "land": "BE",
+        "postcode": "9070",
+        "gemeente": "Destelbergen",
+        "straat": "Europalaan",
+        "nummer": "2",
+        "bus": "",
+        "telefoon": "09 229 22 46",
+        "postadres": true,
+        "status": "normaal",
+        "positie": {
+            "latitude": 51.05366598293086,
+            "longitude": 3.768864330864281
+        },
+        "omschrijving": ""
+    }, {
+        "id": "d5f75e2331e6d07a0131e85827e21e14",
+        "land": "BE",
+        "postcode": "9070",
+        "gemeente": "Destelbergen",
+        "straat": "Europalaan",
+        "nummer": "2",
+        "bus": "",
+        "telefoon": "09 229 22 46",
+        "postadres": true,
+        "status": "normaal",
+        "positie": {
+            "latitude": 51.05366598293086,
+            "longitude": 3.768864330864281
+        },
+        "omschrijving": ""
+    }],
+    "contacten": [{
+        "id": "8a00808d6c9070d0016ca59396397c2d",
+        "adres": "d5f75e2331e6d07a0131e85827e21e14",
+        "voornaam": "Maddy",
+        "achternaam": "Termmerman",
+        "zelfdeAdres": false,
+        "gsm": "0499148365",
+        "email": "euroteam2@gmail.com",
+        "rol": "moeder"
+    }],
+    "groepseigenVelden": {
+        "O1306G": {
+            "schema": [{
+                "id": "692cde76-6a2a-4596-938f-00a543736ddf",
+                "type": "vinkje",
+                "label": "Lidgeld betaald 20-21?",
+                "verplicht": false,
+                "kanLeidingWijzigen": false,
+                "kanLidWijzigen": false,
+                "kanGebruikerWijzigen": true,
+                "sort": 0
+            }, {
+                "id": "8a00808d6ca90476016caecac1dc0159",
+                "type": "vinkje",
+                "label": "Lidgeld betaald 19-20?",
+                "verplicht": false,
+                "kanLeidingWijzigen": false,
+                "kanLidWijzigen": false,
+                "kanGebruikerWijzigen": true,
+                "sort": 1
+            }, {
+                "id": "d5f75b3315ed83760115f18156790a21",
+                "type": "tekst",
+                "label": "Totemnaam",
+                "beschrijving": "",
+                "verplicht": false,
+                "kanLeidingWijzigen": false,
+                "kanLidWijzigen": true,
+                "kanGebruikerWijzigen": true,
+                "sort": 2
+            }],
+            "waarden": {
+                "d5f75b3315ed83760115f18156790a21": "Vindingrijke Patrijs",
+                "8a00808d6ca90476016caecac1dc0159": "true"
+            }
+        },
+        "O1302G": {
+            "schema": [],
+            "waarden": {}
+        }
+    },
+    "functies": [{
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125565203c1",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b8125565203c1",
+        "begin": "2013-09-01T00:00:00.000+02:00",
+        "einde": "2016-09-01T00:00:00.000+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555b50398",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b812555b50398",
+        "begin": "2020-08-19T14:30:06.532+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125567703cb",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b8125567703cb",
+        "begin": "2007-10-16T00:00:00.000+02:00",
+        "einde": "2010-09-01T00:00:00.000+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555c1039b",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1302G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1302G",
+        "functie": "d5f75b320b812440010b812555c1039b",
+        "begin": "2016-10-12T11:45:46.569+02:00",
+        "einde": "2017-09-20T12:06:49.871+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b812555ec03a5",
+        "begin": "2019-08-21T11:51:06.749+02:00",
+        "einde": "2020-08-19T14:56:27.406+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e234ac0816d014ac9dd200a0000",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75e234ac0816d014ac9dd200a0000",
+        "begin": "2020-08-19T14:30:06.541+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555de03a2",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b812555de03a2",
+        "begin": "2006-11-16T00:00:00.000+01:00",
+        "einde": "2007-10-16T00:00:00.000+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555cc039e",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b812555cc039e",
+        "begin": "2017-08-29T15:45:16.937+02:00",
+        "einde": "2019-08-21T11:50:48.649+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555d603a0",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b812555d603a0",
+        "begin": "2010-09-01T00:00:00.000+02:00",
+        "einde": "2013-09-01T00:00:00.000+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e232d1339cd012dadd48b2328ec",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75e232d1339cd012dadd48b2328ec",
+        "begin": "2016-08-25T17:27:23.875+02:00",
+        "einde": "2017-08-29T15:45:20.986+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b812555970393",
+        "begin": "2020-08-19T14:57:00.649+02:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b812555ec03a5",
+        "begin": "2017-08-29T15:45:14.136+02:00",
+        "einde": "2017-11-02T10:20:21.406+01:00"
+    }, {
+        "links": [{
+            "rel": "functie",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b81255456034c",
+            "method": "GET",
+            "secties": []
+        }, {
+            "rel": "groep",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+            "method": "GET",
+            "secties": []
+        }],
+        "groep": "O1306G",
+        "functie": "d5f75b320b812440010b81255456034c",
+        "begin": "2020-08-25T10:20:44.197+02:00"
+    }]
+}

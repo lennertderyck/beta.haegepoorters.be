@@ -1,56 +1,68 @@
 import React, { useEffect } from 'react';
-import { Button, CenterMessage } from '../../components';
+import { Button, CenterMessage, Form, Input } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import PageLayout from '../../layouts/PageLayout';
 import { GET } from '../../utils';
 import _keycl, { initKeycloak } from '../../utils/keycloak.vendors';
+import { PATCH } from '../../utils/requests';
+
+const ProfileSummary = () => {
+    const { profile } = useVisitor()
+
+    const handleEmailChange = ({ email }) => {
+        PATCH.CHANGE_EMAIL(profile.id)
+    }
+
+    return <>
+        <div className="mb-8">
+            <h3 className="font-serif">Emailadres</h3>
+            <p>Voor het aanmelden, en ontvangen van mails</p>
+            <Form className="mt-4" onSubmit={ handleEmailChange }>
+                <Input defaultValue={ profile.email } name="email" type="email" />
+                <Button theme="button" type="submit">Wijzigen</Button>
+            </Form>
+        </div>
+        <div className="mb-8">
+            <h3 className="font-serif mb-4">Adressen</h3>
+            <div className="grid grid-cols-2 gap-6">
+                { profile['adressen'].map(({ straat, nummer, postcode, gemeente }, index) => (
+                    <div 
+                        key={ index }
+                        className="border-2 border-gray-300 p-5 col-span-1"
+                    >
+                        <h3 className="font-medium text-xl -mb-1">{ straat } { nummer }</h3>
+                        <h4 className="font-serif text-lg">{ postcode } { gemeente }</h4>
+                    </div>
+                ))}
+            </div>
+        </div>
+        <div className="mb-8">
+            <h3 className="font-serif mb-4">Contacten</h3>
+            <div className="grid grid-cols-2 gap-6">
+                { profile['contacten'].map(({ voornaam, achternaam, rol }, index) => (
+                    <div 
+                        key={ index }
+                        className="border-2 border-gray-300 p-5 col-span-1"
+                    >
+                        <h4 className="font-serif text-lg">{ rol }</h4>
+                        <h3 className="font-medium text-xl">{ voornaam } { achternaam }</h3>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </>
+}
 
 const GroupAdminLogin = () => {
-    const { getToken } = useVisitor()
-
-    useEffect(() => {
-        // console.log(isLoggedIn())
-        GET.PROFILE().then(d => console.log(d))
-        // initKeycloak(auth => {
-        //     console.log(`Authenticated: ${ auth }`)
-        //     if (auth) {
-        //         console.log(getToken())
-        //     } else {
-        //         _keycl.login()
-        //     }
-        // })
-    }, [])
-
-    // useEffect(() => {
-    //     let initOptions = {
-    //         url: 'https://login.scoutsengidsenvlaanderen.be/auth',
-    //         realm: 'scouts',
-    //         clientId: 'groep-O1306G-Haegepoorters-Destelbergen',
-    //         redirectUri: window.location.href
-    //     }
-        
-    //     // eslint-disable-next-line
-    //     let keycloak = new Keycloak(initOptions); 
-    //     keycloak.init({
-    //       onLoad: 'login-required'
-    //     }).then((auth) => {
-    //       if (!auth) console.log('Not authenticated')
-    //       else console.log('User authenticated', keycloak.token)
-    //     }).catch(err => console.log({ err }))
-    // }, [])
+    const { isLoggedIn } = useVisitor()
 
     return (
         <PageLayout
             title="Groepsadmin"
-            subtitle="Meld je aan om en haal alles uit onze site"
+            subtitle={ isLoggedIn ? 'Dit konden we van je vinden' : 'Meld je aan om en haal alles uit onze site' }
         >
-            <Button theme="button">Aanmelden</Button>
-            <CenterMessage
-                intro="We zetten alles voor je op"
-            >
-                Binnenkort kan je hier je persoonlijke gegevens bij Scouts en Gidsen Vlaanderen bekijken
-            </CenterMessage>
-            <small className="block mt-12 font-serif text-md">*Wij bewaren je gegevens nooit op externe madia.<br />Al je peresoonlijke data blijft veilig bij Scouts en Gidsen Vlaanderen of lokaal op je computer.</small>
+            <ProfileSummary />
+            <small className="block mt-12 font-serif text-md">*Wij bewaren je gegevens nooit bij derde partijen.<br />Al je peresoonlijke data blijft veilig bij Scouts en Gidsen Vlaanderen of lokaal op je computer.</small>
         </PageLayout>
     )
 }
