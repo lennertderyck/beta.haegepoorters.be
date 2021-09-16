@@ -121,6 +121,7 @@ const Form = ({
     button,
     className: cls,
     action,
+    method = 'POST',
     nativeAction,
     onSubmit,
     onChange,
@@ -134,7 +135,7 @@ const Form = ({
     const nestedFunction = typeof children === 'function';
     
     const handleSubmit = data => {
-        if (action && !nativeAction) submit({ method: 'POST', body: data, url: action })
+        if (action && !nativeAction) submit({ method, body: data, url: action })
         if (onSubmit) onSubmit(data)
     };
     
@@ -149,7 +150,7 @@ const Form = ({
             <div className="relative">
                 <form
                     action={ nativeAction && action }
-                    onSubmit={ methods.handleSubmit( handleSubmit )} 
+                    onSubmit={ methods.handleSubmit(handleSubmit) } 
                     { ...className(
                         cls
                     )}

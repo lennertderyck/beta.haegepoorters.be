@@ -25,6 +25,11 @@ const GET = {
     PROFILE: () => request().get('/lid/profiel')
 }
 
+const PATCH = {
+    CHANGE_EMAIL: (userId, email) => request().patch('/lid/' + userId, { email })
+}
+
 export {
-    GET
+    GET,
+    PATCH
 }
