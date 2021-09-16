@@ -58,23 +58,6 @@ const userSaved = () => {
     return stored ? true : false;
 }
 
-// Events
-_keycl.onAuthSuccess(() => {
-    getToken(true)
-})
-
-_keycl.onAuthLogout(() => {
-    localStorage.removeItem('gaToken')
-})
-
-_keycl.onTokenExpired(() => {
-    updateToken()
-})
-
-_keycl.onAuthRefreshSuccess(() => {
-    getToken(true)
-})
-
 export default _keycl
 export {
     manualToken,
