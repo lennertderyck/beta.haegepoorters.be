@@ -30,27 +30,28 @@ const renderApp = () => ReactDOM.render(
 
 initKeycloak(() => {
     renderApp()
-  
     // Keycloak events
-    _keycl.onReady = (auth) => {
-        console.log('onReady')
-        if (auth) getToken(true)
-    }
-    _keycl.onAuthSuccess = () => {
-        console.log('onAuthSuccess')
-        getToken(true)
-    }
-    _keycl.onAuthLogout = () => {
-        console.log('onAuthLogout')
-        localStorage.removeItem('gaToken')
-    }
-    _keycl.onTokenExpired = () => {
-        console.log('onTokenExpired')
-        updateToken()
-    }
-    _keycl.onAuthRefreshSuccess = () => {
-        console.log('onAuthRefreshSuccess')
-        getToken(true)
-    }
 })
+
+_keycl.onReady = (auth) => {
+    console.log('onReady')
+    if (auth) getToken(true)
+}
+_keycl.onAuthSuccess = () => {
+    console.log('onAuthSuccess')
+    getToken(true)
+}
+_keycl.onAuthLogout = () => {
+    console.log('onAuthLogout')
+    localStorage.removeItem('gaToken')
+}
+_keycl.onTokenExpired = () => {
+    console.log('onTokenExpired')
+    updateToken()
+}
+_keycl.onAuthRefreshSuccess = () => {
+    console.log('onAuthRefreshSuccess')
+    getToken(true)
+}
+
 serviceWorker.register();
