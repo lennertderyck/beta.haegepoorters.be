@@ -3,7 +3,7 @@ import { useVisitor } from '../../contexts/visitorContext';
 import Button from '../Button';
 
 const SignInMessage = () => {
-    const { skipSignIn, initKeycloak } = useVisitor()
+    const { skipSignIn, login } = useVisitor()
     
     const handleSigninSkip = () => {
         skipSignIn(true)
@@ -20,7 +20,7 @@ const SignInMessage = () => {
             <div className="flex flex-col lg:flex-row items-center justify-center mt-6 font-lg">
                 <Button 
                     className="border-2 border-red-500 p-3 text-red-500 flex-1 w-full justify-center"
-                    onClick={ initKeycloak }
+                    onClick={ login }
                 >aanmelden</Button>
                 <div className="my-3 mx-4">of</div>
                 <Button 
