@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 import { visitorRoles } from '../data/site';
-import { cookieHook } from '../utils';
+import { cookieHook, GET } from '../utils';
 import * as keycloakServices from '../utils/keycloak.vendors';
 import profileData from '../data/fake/profiel.fake.json'
 
@@ -18,12 +18,20 @@ const VisitorProvider = ({ children }) => {
     const [ sensitiveHidden, setSensitiveHidden ] = useState(true)
     const [ skippedSignIn, setSkipSignIn ] = useState(cookieHook.exists('skipSignIn'))
     
+    const [ profile, setProfile ] = useState()
+    
     useEffect(() => {
         window.sessionStorage.setItem(
             'visitorType',
             role
         )
     }, [role])
+    
+    useEffect(() => {
+        if (keycloakServices.userSaved()) {
+            GET.PROFILE().then(({ data }) => setProfile(data))
+        }
+    }, [])
     
     useEffect(() => {
         if (skippedSignIn) cookieHook.set('skipSignIn', skippedSignIn)
@@ -46,7 +54,7 @@ const VisitorProvider = ({ children }) => {
         
         // groepsadministratie
         ...keycloakServices,
-        profile: profileData
+        profile: process.env.NODE_ENV === 'development' ? profileData : profile;
     }}>
         { children }
     </Provider>

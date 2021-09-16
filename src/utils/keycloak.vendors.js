@@ -12,8 +12,10 @@ const config = {
 const initOptions = {
 }
 
+// Keycloak instance
 const _keycl = new Keycloak(config);
 
+// Methods
 const initKeycloak = (callback) => {
     return _keycl
         .init(initOptions)
@@ -24,7 +26,17 @@ const login = _keycl.login
 
 const logout = _keycl.logout
 
-const getToken = () => _keycl.token
+/**
+ * Returns the current bearer token, the token is also saved to the localStorage if needed
+ * @param { boolean } save Whether to save the token to the localStorage
+ * @returns { string } Bearer-token
+ */
+const getToken = (save) => {
+    const token = _keycl.token
+    
+    if (save) localStorage.setItem('gaToken', token)
+    return token;
+}
 
 const isLoggedIn = () => !!_keycl.token
 
@@ -40,6 +52,29 @@ const getProfile = () => {
         .loadUserProfile()
 }
 
+const userSaved = () => {
+    const stored = localStorage.getItem('gaToken');
+    
+    return stored ? true : false;
+}
+
+// Events
+_keycl.onAuthSuccess(() => {
+    getToken(true)
+})
+
+_keycl.onAuthLogout(() => {
+    localStorage.removeItem('gaToken')
+})
+
+_keycl.onTokenExpired(() => {
+    updateToken()
+})
+
+_keycl.onAuthRefreshSuccess(() => {
+    getToken(true)
+})
+
 export default _keycl
 export {
     manualToken,
@@ -50,5 +85,6 @@ export {
     getToken,
     isLoggedIn,
     updateToken,
-    getProfile
+    getProfile,
+    userSaved
 }
