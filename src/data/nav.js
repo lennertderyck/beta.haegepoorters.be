@@ -38,3 +38,7 @@ export const homeRelatedLinks = [
         button_text: 'Steun ons!'
     },
 ]
+
+export const links = {
+    gaProfile: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel'
+}

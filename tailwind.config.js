@@ -54,6 +54,7 @@ module.exports = {
     variants: {
         extend: {
             padding: ['first', 'last'],
+            spacing: ['first', 'last'],
             margin: ['last'],
             borderWidth: ['last']
         },

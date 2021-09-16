@@ -53,22 +53,6 @@
             "longitude": 3.768864330864281
         },
         "omschrijving": ""
-    }, {
-        "id": "d5f75e2331e6d07a0131e85827e21e14",
-        "land": "BE",
-        "postcode": "9070",
-        "gemeente": "Destelbergen",
-        "straat": "Europalaan",
-        "nummer": "2",
-        "bus": "",
-        "telefoon": "09 229 22 46",
-        "postadres": true,
-        "status": "normaal",
-        "positie": {
-            "latitude": 51.05366598293086,
-            "longitude": 3.768864330864281
-        },
-        "omschrijving": ""
     }],
     "contacten": [{
         "id": "8a00808d6c9070d0016ca59396397c2d",
@@ -76,9 +60,16 @@
         "voornaam": "Maddy",
         "achternaam": "Termmerman",
         "zelfdeAdres": false,
-        "gsm": "0499148365",
         "email": "euroteam2@gmail.com",
         "rol": "moeder"
+    }, {
+        "id": "8a00808d6c9070d0016ca59396397c2b",
+        "adres": "d5f75e2331e6d07a0131e85827e21e14",
+        "voornaam": "Tom",
+        "achternaam": "Holland",
+        "zelfdeAdres": false,
+        "gsm": "0499148365",
+        "rol": "vader"
     }],
     "groepseigenVelden": {
         "O1306G": {
