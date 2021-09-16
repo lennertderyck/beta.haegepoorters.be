@@ -83,7 +83,7 @@ const ProfileSummary = () => {
         
         <hr className="border-t-2 border-gray-300 my-8" />
         
-        <div className="mb-8 grid grid-cols-2 gap-8 lg:gap-6">
+        <div className="grid grid-cols-2 gap-8 lg:gap-6">
             <div className="col-span-2 lg:col-span-1">
                 <h3 className="font-serif mb-4">Functie(s)</h3>
                 <div className="-mt-4">
