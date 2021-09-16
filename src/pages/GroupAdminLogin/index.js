@@ -3,7 +3,7 @@ import { Button, CenterMessage, Form, Input } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import PageLayout from '../../layouts/PageLayout';
 import { GET } from '../../utils';
-import _keycl, { initKeycloak } from '../../utils/keycloak.vendors';
+import _keycl from '../../utils/keycloak.vendors';
 import { PATCH } from '../../utils/requests';
 
 const ProfileSummary = () => {
@@ -62,7 +62,7 @@ const GroupAdminLogin = () => {
             title="Groepsadmin"
             subtitle={ isLoggedIn ? 'Dit konden we van je vinden' : 'Meld je aan om en haal alles uit onze site' }
         >
-            <ProfileSummary />
+            { isLoggedIn && <ProfileSummary />}
             <small className="block mt-12 font-serif text-md">*Wij bewaren je gegevens nooit bij derde partijen.<br />Al je peresoonlijke data blijft veilig bij Scouts en Gidsen Vlaanderen of lokaal op je computer.</small>
         </PageLayout>
     )
