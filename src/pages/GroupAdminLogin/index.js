@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
-import { Button, CenterMessage, Form, Input } from '../../components';
+import { Button, CenterMessage, Form, Input, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import PageLayout from '../../layouts/PageLayout';
-import { GET } from '../../utils';
+import { GET, PATCH } from '../../utils';
 import _keycl from '../../utils/keycloak.vendors';
-import { PATCH } from '../../utils/requests';
 
 const ProfileSummary = () => {
-    const { profile } = useVisitor()
+    const { profile, userSaved } = useVisitor()
 
     const handleEmailChange = async ({ email }) => {
         const req = await PATCH.CHANGE_EMAIL(profile.id, email);
         console.log(req)
     }
     
-    if (!profile) return <h3>Loading</h3>
-
+    if (userSaved()) return <SignInMessage />
+    else if (!profile) return <h3>Loading</h3>
     return <>
         <div className="mb-8">
             <h3 className="font-serif">Emailadres</h3>
