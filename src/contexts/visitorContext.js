@@ -54,7 +54,7 @@ const VisitorProvider = ({ children }) => {
         
         // groepsadministratie
         ...keycloakServices,
-        profile: process.env.NODE_ENV === 'development' ? profileData : profile;
+        profile: process.env.NODE_ENV === 'development' ? profileData : profile
     }}>
         { children }
     </Provider>
