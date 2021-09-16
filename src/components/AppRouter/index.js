@@ -39,7 +39,7 @@ const AppRouter = ({ route, embedded }) => {
             <Route path="/contact" exact>
                 <ContactPage />
             </Route>
-            <Route path="/ga" exact>
+            <Route path={['/ga', '/profiel']} exact>
                 <GroupAdminLogin />
             </Route>
                                     
