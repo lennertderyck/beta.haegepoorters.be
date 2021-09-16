@@ -13,6 +13,8 @@ const ProfileSummary = () => {
         const req = await PATCH.CHANGE_EMAIL(profile.id, email);
         console.log(req)
     }
+    
+    if (!profile) return <h3>Loading</h3>
 
     return <>
         <div className="mb-8">
