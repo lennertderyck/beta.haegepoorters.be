@@ -35,9 +35,9 @@ const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loadin
                         cls
                     )}>
                         <Container className="mb-12">
-                            <h1 className="font-serif font-bold text-5xl text-gray-600">{ title }</h1>
+                            <h1 className="font-serif font-bold text-3xl lg:text-5xl text-gray-600">{ title }</h1>
                             { date && <p className="mt-2">Laatst aangepast, { dayjs(date).fromNow() }</p> }
-                            { subtitle && <p className="mt-6">{ subtitle }</p> }
+                            { subtitle && <p className="mt-4 lg:mt-6">{ subtitle }</p> }
                         </Container>
                         { banner && <div className="container container-lg mb-10"> 
                             <Img src={ banner } height="55vh" />

@@ -127,8 +127,8 @@ const GroupAdminLogin = () => {
 
     return (
         <PageLayout
-            title="Groepsadmin"
-            subtitle={ isLoggedIn ? 'Dit konden we van je vinden' : 'Meld je aan om en haal alles uit onze site' }
+            title="Groepsadministratie"
+            subtitle="Je gegevens bij Scouts en Gidsen Vlaanderen"
         >
             { isLoggedIn && <ProfileSummary />}
             <small className="block mt-12 font-serif text-md">*Wij bewaren je gegevens nooit bij derde partijen.<br />Al je peresoonlijke data blijft veilig bij Scouts en Gidsen Vlaanderen of lokaal op je computer.</small>
