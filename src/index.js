@@ -28,10 +28,8 @@ const renderApp = () => ReactDOM.render(
     document.getElementById('root')
 );
 
-initKeycloak(() => {
-    renderApp()
-    // Keycloak events
-})
+// Keycloak init
+initKeycloak(renderApp)
 
 _keycl.onReady = (auth) => {
     console.log('onReady')
@@ -54,4 +52,5 @@ _keycl.onAuthRefreshSuccess = () => {
     getToken(true)
 }
 
+// PWA service init
 serviceWorker.register();
