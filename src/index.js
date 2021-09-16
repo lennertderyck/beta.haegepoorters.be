@@ -32,9 +32,25 @@ initKeycloak(() => {
     renderApp()
   
     // Keycloak events
-    _keycl.onAuthSuccess = () => getToken(true)
-    _keycl.onAuthLogout = () => localStorage.removeItem('gaToken')
-    _keycl.onTokenExpired = () => updateToken()
-    _keycl.onAuthRefreshSuccess = () => getToken(true)
+    _keycl.onReady = (auth) => {
+        console.log('onReady')
+        if (auth) getToken(true)
+    }
+    _keycl.onAuthSuccess = () => {
+        console.log('onAuthSuccess')
+        getToken(true)
+    }
+    _keycl.onAuthLogout = () => {
+        console.log('onAuthLogout')
+        localStorage.removeItem('gaToken')
+    }
+    _keycl.onTokenExpired = () => {
+        console.log('onTokenExpired')
+        updateToken()
+    }
+    _keycl.onAuthRefreshSuccess = () => {
+        console.log('onAuthRefreshSuccess')
+        getToken(true)
+    }
 })
 serviceWorker.register();
