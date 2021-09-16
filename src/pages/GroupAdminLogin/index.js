@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Button, CenterMessage, Form, Icon, Input, SignInMessage } from '../../components';
+import { Button, Form, Icon, Input, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
@@ -21,7 +21,7 @@ const ProfileSummary = () => {
     if (!_keycl.token && process.env.NODE_ENV !== 'development') return <SignInMessage />
     else if (!profile) return <h3>Loading</h3>
     return <>
-        <div className="mb-8">
+        <div className="mb-14">
             <h3 className="font-serif">Emailadres</h3>
             <p>Voor het aanmelden, en ontvangen van mails</p>
             <Form className="mt-4" onSubmit={ handleEmailChange }>
@@ -29,10 +29,9 @@ const ProfileSummary = () => {
                 <Button theme="button" type="submit">Wijzigen</Button>
             </Form>
         </div>
+
         
-        <hr className="border-t-2 border-gray-300 my-8" />
-        
-        <div className="mb-8">
+        <div className="mb-6">
             <h3 className="font-serif mb-4">Adressen</h3>
             <div className="grid grid-cols-2 gap-6">
                 { profile['adressen'].map(({ straat, nummer, postcode, gemeente }, index) => (
@@ -48,7 +47,7 @@ const ProfileSummary = () => {
                 ))}
             </div>
         </div>
-        <div className="mb-12">
+        <div className="mb-14">
             <h3 className="font-serif mb-4">Contacten</h3>
             <div className="grid grid-cols-2 gap-6">
                 { profile['contacten'].map(({ voornaam, achternaam, rol, email, gsm }, index) => (
@@ -80,8 +79,6 @@ const ProfileSummary = () => {
                 ))}
             </div>
         </div>
-        
-        <hr className="border-t-2 border-gray-300 my-8" />
         
         <div className="grid grid-cols-2 gap-8 lg:gap-6">
             <div className="col-span-2 lg:col-span-1">
