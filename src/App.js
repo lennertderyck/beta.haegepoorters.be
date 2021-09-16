@@ -11,9 +11,6 @@ import { ActivityPage, BasePage, BlogPage, GalleryPage, HomePage, SearchPage, Co
 import { AppRouter, ContextMenu, ErrorPopup } from "./components";
 import { cookieHook } from './utils';
 
-console.log(cookieHook.set('test'))
-console.log(cookieHook.exists('test'))
-
 function App() {
     return (
         <NetworkContext>

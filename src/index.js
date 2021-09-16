@@ -8,7 +8,7 @@ import 'dayjs/locale/nl-be';
 
 import * as serviceWorker from './serviceWorker';
 import client from './graphql'
-import { getToken, initKeycloak, updateToken } from './utils/keycloak.vendors';
+import { getToken, initKeycloak, updateToken, _keycl } from './utils/keycloak.vendors';
 
 import App from './App';
 
@@ -20,32 +20,21 @@ dayjs.extend(relativeTime)
 dayjs.extend(calendar)
 
 const renderApp = () => ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={ client }>
-      <App />
-    </ApolloProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <ApolloProvider client={ client }>
+            <App />
+        </ApolloProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 initKeycloak(() => {
-  renderApp()
+    renderApp()
   
-  // Keycloak events
-  _keycl.onAuthSuccess(() => {
-      getToken(true)
-  })
-
-  _keycl.onAuthLogout(() => {
-      localStorage.removeItem('gaToken')
-  })
-
-  _keycl.onTokenExpired(() => {
-      updateToken()
-  })
-
-  _keycl.onAuthRefreshSuccess(() => {
-      getToken(true)
-  })
+    // Keycloak events
+    _keycl.onAuthSuccess = () => getToken(true)
+    _keycl.onAuthLogout = () => localStorage.removeItem('gaToken')
+    _keycl.onTokenExpired = () => updateToken()
+    _keycl.onAuthRefreshSuccess = () => getToken(true)
 })
 serviceWorker.register();

@@ -12,8 +12,6 @@ import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, Co
 const AppRouter = ({ route, embedded }) => {
     const currentLocation = useLocation()
     
-    console.log({ currentLocation })
-    
     const routeObject = {
         pathname: route
     }
