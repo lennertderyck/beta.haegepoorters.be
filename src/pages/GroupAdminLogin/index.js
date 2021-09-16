@@ -9,8 +9,9 @@ import { PATCH } from '../../utils/requests';
 const ProfileSummary = () => {
     const { profile } = useVisitor()
 
-    const handleEmailChange = ({ email }) => {
-        PATCH.CHANGE_EMAIL(profile.id)
+    const handleEmailChange = async ({ email }) => {
+        const req = await PATCH.CHANGE_EMAIL(profile.id, email);
+        console.log(req)
     }
 
     return <>
