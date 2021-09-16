@@ -1,20 +1,20 @@
 import classNames from "classnames";
 import dayjs from "dayjs";
 
-import { GET } from './requests'
-
 export const className = (...params) => ({ className: classNames(params) });
+
 export const sortActivitiesByDate = (
     { period: { start: a }}, 
     { period: { start: b }},
 ) => {
     return new Date(a) - new Date(b)
-}
-export const activityIsPassed = (date) => dayjs(new Date()).isAfter(dayjs(date))
+};
+
+export const activityIsPassed = (date) => dayjs(new Date()).isAfter(dayjs(date));
 
 export const filterTeamOnFunction = (items, fn) => items.filter(({ content: { functions } }) => {
     return functions?.content?.shortcode === fn
-})
+});
 
 export const cookieHook = {
     name(name) {
@@ -39,6 +39,4 @@ export const cookieHook = {
     }
 }
 
-export {
-    GET
-}
+export * from './requests'
