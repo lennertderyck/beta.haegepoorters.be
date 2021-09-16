@@ -13,7 +13,7 @@ const ProfileSummary = () => {
         console.log(req)
     }
     
-    if (userSaved()) return <SignInMessage />
+    if (!userSaved()) return <SignInMessage />
     else if (!profile) return <h3>Loading</h3>
     return <>
         <div className="mb-8">
