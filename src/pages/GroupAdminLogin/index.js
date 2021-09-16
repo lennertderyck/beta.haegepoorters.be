@@ -17,7 +17,6 @@ const ProfileSummary = () => {
         console.log(req)
     }
     
-    console.log('GroupPage token log', _keycl.token)
     if (!_keycl.token && process.env.NODE_ENV !== 'development') return <SignInMessage />
     else if (!profile) return <h3>Loading</h3>
     return <>
