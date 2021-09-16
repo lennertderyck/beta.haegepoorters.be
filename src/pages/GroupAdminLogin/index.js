@@ -14,7 +14,7 @@ const ProfileSummary = () => {
     }
     
     console.log('GroupPage token log', _keycl.token)
-    if (!userSaved()) return <SignInMessage />
+    if (!_keycl.token) return <SignInMessage />
     else if (!profile) return <h3>Loading</h3>
     return <>
         <div className="mb-8">
