@@ -37,7 +37,7 @@ const ProfileSummary = () => {
                 { profile['adressen'].map(({ straat, nummer, postcode, gemeente }, index) => (
                     <div 
                         key={ index }
-                        className="border-2 border-gray-300 p-5 col-span-1"
+                        className="border-2 border-gray-300 p-5 col-span-2 md:col-span-1"
                     >
                         <h3 className="font-medium text-xl -mb-1">{ straat } { nummer }</h3>
                         <h4 className="font-serif text-lg">{ postcode } { gemeente }</h4>
