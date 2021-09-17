@@ -19,7 +19,9 @@ const ProfileSummary = () => {
         console.log(req)
     }
     
-    if (!_keycl.token && process.env.NODE_ENV !== 'development') return <SignInMessage />
+    console.log('initialToken', _keycl.token)
+
+    if (!_keycl.token) return <SignInMessage />
     else if (!profile) return <h3>Loading</h3>
     return <>
         <div className="mb-14">
