@@ -28,14 +28,24 @@ const logout = _keycl.logout
 
 /**
  * Returns the current bearer token, the token is also saved to the localStorage if needed
- * @param { boolean } save Whether to save the token to the localStorage
- * @returns { string } Bearer-token
+ * @param { Boolean } save Whether to save the token to the localStorage
+ * @returns { Promise } Bearer-token
  */
 const getToken = (save) => {
-    const token = _keycl.token
-    
-    if (save) localStorage.setItem('gaToken', token)
-    return token;
+    const tokenValid = !_keycl.isTokenExpired();
+
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (tokenValid) {
+                const token = _keycl.token;
+                if (save) localStorage.setItem('gaToken', token)
+                resolve(token);
+            } else {
+                const newToken = await updateToken();
+                return resolve(await newToken);
+            }
+        } catch (error) { reject(error) }
+    })
 }
 
 const isLoggedIn = () => !!_keycl.token
