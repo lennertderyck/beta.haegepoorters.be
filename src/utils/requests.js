@@ -1,12 +1,15 @@
 import axios from 'axios';
 import _keycl, { isLoggedIn, getToken, login, userSaved, updateToken } from './keycloak.vendors';
 
-const _axios = token => axios.create({
-    baseURL: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga',
-    headers: {
-        'Authorization': `Bearer ${ token }`
-    }
-})
+const _axios = async (manualToken) => {
+    const freshToken = await getToken()
+    axios.create({
+        baseURL: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga',
+        headers: {
+            'Authorization': `Bearer ${ await freshToken }`
+        }
+    })
+}
 
 
 const request = async (method, url, manualToken) => {
@@ -27,11 +30,11 @@ const request = async (method, url, manualToken) => {
 }
 
 const GET = {
-    PROFILE: () => request().get('/lid/profiel')
+    PROFILE: () => _axios().get('/lid/profiel')
 }
 
 const PATCH = {
-    CHANGE_EMAIL: (userId, email) => request().patch('/lid/' + userId, { email })
+    CHANGE_EMAIL: (userId, email) => _axios().patch('/lid/' + userId, { email })
 }
 
 export {
