@@ -16,8 +16,6 @@ const ProfileSummary = () => {
         const req = await PATCH.CHANGE_EMAIL(profile.id, email);
         console.log(req)
     }
-    
-    console.log('initialToken', _keycl.token)
 
     if (!_keycl.token) return <SignInMessage />
     else if (!profile) return <h3>Loading</h3>

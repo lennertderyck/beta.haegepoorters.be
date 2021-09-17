@@ -7,7 +7,6 @@ const access_token = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ5MnZ0TV
 
 const _axios = async (method, url, data) => {
     const freshToken = await getToken(true)
-    console.log({ freshToken })
     const req = await axios({
         method,
         url: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga' + url,
@@ -16,7 +15,7 @@ const _axios = async (method, url, data) => {
             'Authorization': `Bearer ${ process.env.NODE_ENV === 'development' ? access_token : await freshToken }`
         }
     })
-    console.log('req', req)
+
     return req;
 }
 
