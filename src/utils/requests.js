@@ -13,17 +13,17 @@ const request = async (method, url, manualToken) => {
     const requestBase = _axios(manualToken || getToken())
 
     // check if authenticated
-    const authenticated = _keycl.token
-    const wasSaved = userSaved()
+    // const authenticated = _keycl.token
+    // const wasSaved = userSaved()
     
-    if (!authenticated && wasSaved) {
-        await updateToken()
-        return requestBase
-    } 
-    else if (!authenticated && !wasSaved) {
-        login()
-        return requestBase
-    }
+    // if (!authenticated && wasSaved) {
+    //     await updateToken()
+    //     return requestBase
+    // } 
+    // else if (!authenticated && !wasSaved) {
+    //     login()
+    //     return requestBase
+    // }
     
     return requestBase
 }
