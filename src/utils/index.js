@@ -39,4 +39,8 @@ export const cookieHook = {
     }
 }
 
+export const findTag = (taglist) => {
+    return taglist.filter(({ einde }) => !einde)
+}
+
 export * from './requests'

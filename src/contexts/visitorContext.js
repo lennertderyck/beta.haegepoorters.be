@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 import { visitorRoles } from '../data/site';
-import { cookieHook, GET } from '../utils';
+import { cookieHook, findTag, GET } from '../utils';
 import * as keycloakServices from '../utils/keycloak.vendors';
 import profileData from '../data/fake/profiel.fake.json'
 
@@ -13,7 +13,7 @@ const VisitorProvider = ({ children }) => {
     const storedVisitorType = window.sessionStorage.getItem('visitorType');
     // const storedSensitiveHidden = window.sessionStorage.getItem('sensitiveHidden');
     
-    const [ role, setType ] = useState(storedVisitorType || 'kap')
+    const [ role, setRole ] = useState(storedVisitorType || 'kap')
     const [ subRole, setSubRole ] = useState()
     const [ sensitiveHidden, setSensitiveHidden ] = useState(true)
     const [ skippedSignIn, setSkipSignIn ] = useState(cookieHook.exists('skipSignIn'))
@@ -29,7 +29,11 @@ const VisitorProvider = ({ children }) => {
     
     useEffect(() => {
         if (keycloakServices.userSaved()) {
-            GET.PROFILE().then(({ data }) => setProfile(data))
+            GET.PROFILE().then(({ data }) => {
+                setProfile(data)
+                console.log(findTag(data['functies']))
+                // setRole()
+            })
         }
     }, [])
     
@@ -41,7 +45,7 @@ const VisitorProvider = ({ children }) => {
     return <Provider value={{
         visitorRoles,
         role: visitorRoles.find(({ value }) => value === role ),
-        setRole: setType,
+        setRole: setRole,
         subRole,
         setSubRole,
         
