@@ -7,7 +7,7 @@ const access_token = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ5MnZ0TV
 
 const _axios = async (method, url, data) => {
     const freshToken = await getToken(true)
-
+    console.log({ freshToken })
     const req = await axios({
         method,
         url: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga' + url,

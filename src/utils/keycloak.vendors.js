@@ -10,8 +10,8 @@ const config = {
 }
 
 const initOptions = {
-    token: localStorage.getItem('gaToken'),
-    refreshToken: localStorage.getItem('gaRefreshToken')
+    token: localStorage.getItem('gaToken') || null,
+    refreshToken: localStorage.getItem('gaRefreshToken') || null
 }
 
 // Keycloak instance
