@@ -10,8 +10,6 @@ const _axios = token => axios.create({
 
 
 const request = async (method, url, manualToken) => {
-    const requestBase = _axios(manualToken || getToken())
-
     // check if authenticated
     // const authenticated = _keycl.token
     // const wasSaved = userSaved()
@@ -24,8 +22,8 @@ const request = async (method, url, manualToken) => {
     //     login()
     //     return requestBase
     // }
-    
-    return requestBase
+
+    return _axios(manualToken || getToken())
 }
 
 const GET = {
