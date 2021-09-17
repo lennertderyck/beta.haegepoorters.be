@@ -4,7 +4,7 @@ import { Button, Form, Icon, Input, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
-import { PATCH } from '../../utils';
+import { GET, PATCH } from '../../utils';
 import _keycl from '../../utils/keycloak.vendors';
 import { functies as userTags } from '../../data/fake/tags.fake.json'
 import dayjs from 'dayjs';
