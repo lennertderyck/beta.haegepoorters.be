@@ -33,15 +33,17 @@ const logout = _keycl.logout
  */
 const getToken = (save) => {
     const tokenValid = !_keycl.isTokenExpired();
-
+    console.log({ tokenValid })
     return new Promise(async (resolve, reject) => {
         try {
             if (tokenValid) {
                 const token = _keycl.token;
+                console.log({ token })
                 if (save) localStorage.setItem('gaToken', token)
                 resolve(token);
             } else {
                 const newToken = await updateToken();
+                console.log({ newToken })
                 return resolve(await newToken);
             }
         } catch (error) { reject(error) }
