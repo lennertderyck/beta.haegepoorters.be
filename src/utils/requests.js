@@ -1,5 +1,5 @@
 import axios from 'axios';
-import _keycl, { isLoggedIn, getToken, login, initKeycloak } from './keycloak.vendors';
+import _keycl, { isLoggedIn, getToken, login, userSaved, updateToken } from './keycloak.vendors';
 
 const _axios = token => axios.create({
     baseURL: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga',
@@ -9,16 +9,19 @@ const _axios = token => axios.create({
 })
 
 
-const request = (method, url, manualToken) => {
+const request = async (method, url, manualToken) => {
+    const requestBase = _axios(manualToken || getToken())
+
     // check if authenticated
-    const authenticated = getToken()
+    const authenticated = _keycl.token
+    const wasSaved = userSaved()
     
-    if (!authenticated) {
-        _keycl.login()
-        return;
-    }
-    
-    return _axios(manualToken || getToken())
+    if (!authenticated && wasSaved) {
+        await updateToken()
+        return requestBase;
+    } 
+    else if (!authenticated && !wasSaved) login()
+    else return requestBase
 }
 
 const GET = {
