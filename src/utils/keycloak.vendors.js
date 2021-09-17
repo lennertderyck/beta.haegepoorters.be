@@ -41,9 +41,9 @@ const getToken = (save) => {
 const isLoggedIn = () => !!_keycl.token
 
 const updateToken = (callback) => {
-    _keycl
+    return _keycl
         .updateToken(5)
-        .then(callback)
+        .then(callback && callback)
         .catch(login);
 }
 
