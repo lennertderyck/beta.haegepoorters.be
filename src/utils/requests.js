@@ -10,7 +10,7 @@ const _axios = async (method, url, data) => {
 
     const req = await axios({
         method,
-        url,
+        url: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga' + url,
         data,
         headers: {
             'Authorization': `Bearer ${ process.env.NODE_ENV === 'development' ? access_token : await freshToken }`
