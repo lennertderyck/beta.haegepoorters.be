@@ -10,6 +10,7 @@ const config = {
 }
 
 const initOptions = {
+    token: localStorage.getItem('gaToken')
 }
 
 // Keycloak instance
