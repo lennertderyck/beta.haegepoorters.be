@@ -12,8 +12,6 @@ import dayjs from 'dayjs';
 const ProfileSummary = () => {
     const { profile, userSaved } = useVisitor()
 
-    GET.PROFILE()
-
     const handleEmailChange = async ({ email }) => {
         const req = await PATCH.CHANGE_EMAIL(profile.id, email);
         console.log(req)
