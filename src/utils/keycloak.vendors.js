@@ -10,7 +10,8 @@ const config = {
 }
 
 const initOptions = {
-    token: localStorage.getItem('gaToken')
+    token: localStorage.getItem('gaToken'),
+    refreshToken: localStorage.getItem('gaRefreshToken')
 }
 
 // Keycloak instance
@@ -20,6 +21,10 @@ const _keycl = new Keycloak(config);
 const initKeycloak = (callback) => {
     return _keycl
         .init(initOptions)
+        .then(() => {
+            localStorage.setItem('gaToken', _keycl.token);
+            localStorage.setItem('gaRefreshToken', _keycl.refreshToken);
+        })
         .then(callback && callback)
 }
 
@@ -34,18 +39,14 @@ const logout = _keycl.logout
  */
 const getToken = (save) => {
     const tokenValid = !_keycl.isTokenExpired();
-    console.log({ tokenValid })
+
     return new Promise(async (resolve, reject) => {
         try {
             if (tokenValid) {
                 const token = _keycl.token;
-                console.log({ token })
-                if (save) localStorage.setItem('gaToken', token)
                 resolve(token);
             } else {
                 const newToken = await updateToken();
-                console.log({ newToken })
-                if (save) localStorage.setItem('gaToken', newToken)
                 return resolve(await newToken);
             }
         } catch (error) { reject(error) }
