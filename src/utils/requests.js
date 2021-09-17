@@ -6,7 +6,7 @@ const access_token = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ5MnZ0TV
 
 
 const _axios = async (method, url, data) => {
-    const freshToken = await getToken()
+    const freshToken = await getToken(true)
 
     const req = await axios({
         method,

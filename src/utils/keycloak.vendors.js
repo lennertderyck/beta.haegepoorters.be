@@ -45,6 +45,7 @@ const getToken = (save) => {
             } else {
                 const newToken = await updateToken();
                 console.log({ newToken })
+                if (save) localStorage.setItem('gaToken', newToken)
                 return resolve(await newToken);
             }
         } catch (error) { reject(error) }
