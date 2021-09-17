@@ -18,10 +18,14 @@ const request = async (method, url, manualToken) => {
     
     if (!authenticated && wasSaved) {
         await updateToken()
-        return requestBase;
+        return requestBase
     } 
-    else if (!authenticated && !wasSaved) login()
-    else return requestBase
+    else if (!authenticated && !wasSaved) {
+        login()
+        return requestBase
+    }
+    
+    return requestBase
 }
 
 const GET = {
