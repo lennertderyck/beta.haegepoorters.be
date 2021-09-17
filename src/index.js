@@ -32,7 +32,7 @@ const renderApp = () => ReactDOM.render(
 initKeycloak(renderApp)
 
 _keycl.onReady = (auth) => {
-    console.log('onReady')
+    console.log('onReady', auth)
     if (auth) getToken(true)
 }
 _keycl.onAuthSuccess = () => {
