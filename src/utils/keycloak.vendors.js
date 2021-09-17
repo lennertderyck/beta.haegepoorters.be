@@ -46,8 +46,8 @@ const getToken = (save) => {
                 const token = _keycl.token;
                 resolve(token);
             } else {
-                const newToken = await updateToken();
-                return resolve(await newToken);
+                await updateToken();
+                return resolve(_keycl.token);
             }
         } catch (error) { reject(error) }
     })
