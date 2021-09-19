@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { Img, Button } from '../../components';
 import PageLayout from '../../layouts/PageLayout';
 import QUERIES from '../../graphql/queries';
-import { visitorRoles } from '../../data/site'
+import { siteGroups } from '../../data/site'
 
 const GroupsDisplay = ({ groups }) => {
     
@@ -13,7 +13,7 @@ const GroupsDisplay = ({ groups }) => {
         key={ index }
         className="text-gray-400 text-xs font-semibold uppercase tracking-widest"
     >
-        { visitorRoles.find(({ value }) => value == group).plur }
+        { siteGroups.find(({ value }) => value == group).plur }
     </span>))
 }
 

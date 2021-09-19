@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import dayjs from "dayjs";
+import { siteGroups } from '../data/site';
 
 export const className = (...params) => ({ className: classNames(params) });
 
@@ -42,5 +43,13 @@ export const cookieHook = {
 export const findTag = (taglist) => {
     return taglist.filter(({ einde }) => !einde)
 }
+
+export const generatePaymentQR = ({ reciever = 'Groepskas', account = 'BE', amount = 0, descr = 'beetaling'}) => {
+    // const url = new URL(null, 'https://qrcode.tec-it.com/API/QRCode')
+    // console.log({ url });
+    return `https://qrcode.tec-it.com/API/QRCode?data=BCD%0a001%0a1%0aSCT%0aKREDBEBB%0a${ reciever }+HAEGEPOORTERS%0a${ account }%0a${ amount }%0a%0a${ descr }&backcolor=%23ffffff&method=image`
+}
+
+export const siteGroup = (value) => siteGroups.find(({ value: v }) => value === v);
 
 export * from './requests'

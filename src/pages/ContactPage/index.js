@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Input } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
-import { contactSubjects, uris, visitorRoles } from '../../data/site';
+import { contactSubjects, uris, siteGroups } from '../../data/site';
 import PageLayout from '../../layouts/PageLayout'
 
 const ContactPage = () => {
     const { searchParams } = new URL(window.location)
     const { role } = useVisitor()
-    const groups = visitorRoles.filter(({ contactForm }) => contactForm)
+    const groups = siteGroups.filter(({ contactForm }) => contactForm)
     
     const selectedReciever = searchParams.get('r')
     const selectedSubject = searchParams.get('subject')

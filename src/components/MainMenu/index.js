@@ -65,7 +65,7 @@ const MainMenu = () => {
     const container = useRef()
     const [ toggleModal, setToggleModal ] = useState()
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
-    const { visitorRoles, setRole, role, skipSignIn, skippedSignIn } = useVisitor()
+    const { siteGroups, setRole, role, skipSignIn, skippedSignIn } = useVisitor()
     const isHovered = useHover(container)
     const { status } = useNetwork()
         
@@ -89,7 +89,7 @@ const MainMenu = () => {
                     { !skippedSignIn && <SignInMessage />}
                     { skippedSignIn && (<>
                         <div className="pb-6">
-                            { visitorRoles.filter(({ isGroup, value }) => isGroup ).map(({ label, value }, index) => (
+                            { siteGroups.filter(({ isGroup, value }) => isGroup ).map(({ label, value }, index) => (
                                 <Button
                                     key={ index }
                                     onClick={() => {

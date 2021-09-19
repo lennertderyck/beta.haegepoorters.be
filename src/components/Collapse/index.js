@@ -1,47 +1,27 @@
-import React, { createContext, useContext, useRef } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Button from '../Button';
 
-const collapseContext = createContext();
-const { Provider } = collapseContext;
-const useCollapse = () => useContext(collapseContext);
+const CollapseWrapper = styled.div`
+    max-height: ${({ open }) => open ? '100vh' : '0vh'};
+    overflow: hidden;
+    opacity: ${({ open }) => open ? '1' : '0'};
+    transition: all .3s ease;
+`
 
-const Collapse = ({ initalState, children }) => {
-    const ref = useRef();
-    const { openChild, setOpenChild } = useCollapse();
-    const [ isOpen, setOpen ] = useState(initalState);
+const Collapse = ({ label, open: defaultState, className, children }) => {
+    const [ open, setOpen ] = useState(defaultState)
     
-    const handleCollapse = ({ target }) => {
-        setOpenChild(target);
-        setOpen(true);
-    }
-    
-    useEffect(() => {
-        ref.current !== openChild && setOpen(false)
-    }, [ openChild ])
-    
-    return (
-        <div onClick={ handleCollapse } ref={ ref }>
+    return (<div className={ className }>
+        <Button 
+            iconAfter="arrow-down-s"
+            theme="simple"
+            onClick={() => setOpen(s => !s)}
+        >{ label }</Button>
+        <CollapseWrapper open={ open }><div className="mt-3">
             { children }
-        </div>
-    )
+        </div></CollapseWrapper>
+    </div>)
 }
 
-const CollapseWrapper = ({ children }) => {
-    const [ openChild, setOpenChild ] = useState();
-    
-    return (
-        <Provider value={{
-            openChild,
-            setOpenChild
-        }}>
-            { children }
-        </Provider>
-    )
-}
-
-export { 
-    useCollapse, 
-    Collapse
-}
-export default CollapseWrapper
+export default Collapse

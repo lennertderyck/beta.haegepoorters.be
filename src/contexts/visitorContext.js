@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-import { visitorRoles } from '../data/site';
+import { siteGroups } from '../data/site';
 import { cookieHook, findTag, GET } from '../utils';
 import * as keycloakServices from '../utils/keycloak.vendors';
 import profileData from '../data/fake/profiel.fake.json'
@@ -43,8 +43,8 @@ const VisitorProvider = ({ children }) => {
     }, [skippedSignIn])
     
     return <Provider value={{
-        visitorRoles,
-        role: visitorRoles.find(({ value }) => value === role ),
+        siteGroups,
+        role: siteGroups.find(({ value }) => value === role ),
         setRole: setRole,
         subRole,
         setSubRole,

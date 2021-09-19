@@ -9,23 +9,32 @@ import Icon from '../Icon';
 
 import styles from './Form.module.scss'
 
-const GroupWrapper = ({ label, required, children }) => <div>
-     { label && <span className="text-gray-400 mb-1 block">{ label } { required && '*' }</span> }
+const GroupWrapper = ({ label, required, className: cls, children }) => <div className={ cls }>
+    { label && (
+        <span {...className(
+            'text-gray-400 mb-1 block'
+        )}>{ label } { required && '*' }</span>
+    )}
     { children }
 </div>
-const FieldWrapper = ({ disableBorder = false, className: cls, type, children }) => <label {...className(
-    'p-2 mb-5',
+
+const FieldWrapper = ({ disableBorder = false, className: cls, type, hasComment, children }) => <label {...className(
+    'p-2',
+    hasComment ? 'mb-2' : 'mb-5',
     !disableBorder && 'border-2 border-gray-300 block',
     cls
 )}>{ children }</label>
 
-const Field = ({ label, name, className: cls, type = 'text', required = false, ...otherProps }) => {
+const Field = ({ label, name, className: cls, containerClassName, type = 'text', required = false, comment, ...otherProps }) => {
     const { register } = useFormContext();
 
     return (
-        <GroupWrapper>
+        <GroupWrapper {...className(
+            comment && 'mb-5',
+            containerClassName
+        )}>
             { label && <span className="text-gray-400 mb-1 block">{ label } { required && '*' }</span> }
-            <FieldWrapper>
+            <FieldWrapper hasComment={ comment }>
                 <input 
                     type={ type }
                     { ...className(
@@ -36,6 +45,7 @@ const Field = ({ label, name, className: cls, type = 'text', required = false, .
                     { ...otherProps }
                 />
             </FieldWrapper>
+            { comment && <p className="font-serif text-sm">{ comment }</p>}
         </GroupWrapper>
     )
 }
@@ -60,12 +70,17 @@ const Area = ({ label, name, className: cls, required = false, ...otherProps }) 
     )
 }
 
-const Select = ({ label, name, className: cls, required = false, children, ...otherProps }) => {
+const Select = ({ label, name, className: cls, required = false, children, comment, ...otherProps }) => {
     const { register } = useFormContext();
 
     return (
-        <GroupWrapper {...{ label, required }}>
-            <FieldWrapper>
+        <GroupWrapper 
+            {...{ label, required }}
+            {...className(
+                comment && 'mb-5'
+            )}
+        >
+            <FieldWrapper hasComment={ comment }>
                 <select 
                     { ...className(
                         cls,
@@ -77,6 +92,7 @@ const Select = ({ label, name, className: cls, required = false, children, ...ot
                     { children }
                 </select>
             </FieldWrapper>
+            { comment && <p className="font-serif text-sm">{ comment }</p>}
         </GroupWrapper>
     )
 }

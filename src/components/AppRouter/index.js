@@ -4,7 +4,7 @@ import {
   Route,
   useLocation
 } from "react-router-dom";
-import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage } from '../../pages';
+import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage } from '../../pages';
 
 /**
  * embedded param so that not needed padding can be removed in views
@@ -41,6 +41,9 @@ const AppRouter = ({ route, embedded }) => {
             </Route>
             <Route path={['/ga', '/profiel']} exact>
                 <GroupAdminLogin />
+            </Route>
+            <Route path={['/betalingen/:code?', '/payments/:code?']} exact>
+                <PaymentsPage />
             </Route>
                                     
             {/* Catch all other pages by slug */}

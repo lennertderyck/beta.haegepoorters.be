@@ -21,9 +21,11 @@ const _keycl = new Keycloak(config);
 const initKeycloak = (callback) => {
     return _keycl
         .init(initOptions)
-        .then(() => {
-            localStorage.setItem('gaToken', _keycl.token);
-            localStorage.setItem('gaRefreshToken', _keycl.refreshToken);
+        .then((auth) => {
+            if (auth) {
+                localStorage.setItem('gaToken', _keycl.token);
+                localStorage.setItem('gaRefreshToken', _keycl.refreshToken);
+            }
         })
         .then(callback && callback)
 }
@@ -58,6 +60,10 @@ const isLoggedIn = () => !!_keycl.token
 const updateToken = (callback) => {
     return _keycl
         .updateToken(5)
+        .then(() => {
+            localStorage.setItem('gaToken', _keycl.token);
+            localStorage.setItem('gaRefreshToken', _keycl.refreshToken);
+        })
         .then(callback && callback)
         .catch(login);
 }

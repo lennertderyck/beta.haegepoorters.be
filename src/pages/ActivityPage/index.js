@@ -16,9 +16,9 @@ import { activityIsPassed, className, sortActivitiesByDate } from '../../utils';
 
 const VisitorSelector = () => {
     const [ open, setOpen ] = useState(false);
-    const { role, setRole, visitorRoles } = useVisitor();
+    const { role, setRole, siteGroups } = useVisitor();
     
-    const groups = visitorRoles.filter(({ isGroup }) => isGroup);
+    const groups = siteGroups.filter(({ isGroup }) => isGroup);
     
     return (
         <div className="relative z-10">
@@ -96,7 +96,7 @@ const ActivityCard = ({ data, simple, scrollTo }) => {
 
 const RenderActivities = () => {
     const { data, loading, error } = useQuery(QUERIES.HAEGEPREKERKE)
-    const { role, visitorRoles, setRole } = useVisitor()
+    const { role, siteGroups, setRole } = useVisitor()
     
     if (loading) return <Container>
         <RenderTimes>
@@ -117,7 +117,7 @@ const RenderActivities = () => {
         return activityIsPassed(start) === false
     })
     
-    const groups = visitorRoles.filter(({ isGroup }) => isGroup )
+    const groups = siteGroups.filter(({ isGroup }) => isGroup )
         
     if (role.isGroup) return (
         <Container>

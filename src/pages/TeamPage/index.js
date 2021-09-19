@@ -5,7 +5,7 @@ import { Button, Img, Icon, Modal, Withauth } from '../../components';
 import QUERIES from '../../graphql/queries';
 import PageLayout from '../../layouts/PageLayout';
 import { useVisitor } from '../../contexts/visitorContext';
-import { visitorRoles } from '../../data/site';
+import { siteGroups } from '../../data/site';
 import { filterTeamOnFunction } from '../../utils';
 
 const teamContext = createContext();
@@ -98,7 +98,7 @@ const TeamPage = () => {
                 </div>
                
                 
-                { visitorRoles
+                { siteGroups
                     .filter(({ isGroup }) => isGroup)
                     .map(({ plur, value }) => (<div className="mb-12">
                         <h3 className="font-serif mb-6 capitalize font-bold text-3xl">{ plur }</h3>

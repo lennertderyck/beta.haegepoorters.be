@@ -7,7 +7,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
     const styles = {
         global: 'flex items-center w-fit',
         clear: '',
-        simple: 'text-xs font-semibold uppercase tracking-widest',
+        simple: 'text-xs font-semibold uppercase tracking-widest text-red-500',
         button: 'w-fit px-3 py-2 uppercase tracking-widest font-semibold text-xs bg-red-100 text-red-500',
     }
     
