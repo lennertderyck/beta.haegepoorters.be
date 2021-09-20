@@ -4,7 +4,7 @@ import { Button, Form, Icon, Input, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
-import { GET, PATCH } from '../../utils';
+import { GET, inDev, PATCH } from '../../utils';
 import _keycl from '../../utils/keycloak.vendors';
 import { functies as userTags } from '../../data/fake/tags.fake.json'
 import dayjs from 'dayjs';
@@ -17,8 +17,8 @@ const ProfileSummary = () => {
         console.log(req)
     }
 
-    if (!_keycl.token) return <SignInMessage />
-    else if (!profile) return <h3>Loading</h3>
+    if (!_keycl.token && !inDev()) return <SignInMessage />
+    else if (!profile && !inDev()) return <h3>Loading</h3>
     return <>
         <div className="mb-14">
             <h3 className="font-serif">Emailadres</h3>
