@@ -52,4 +52,25 @@ export const generatePaymentQR = ({ reciever = 'Groepskas', account = 'BE', amou
 
 export const siteGroup = (value) => siteGroups.find(({ value: v }) => value === v);
 
+export const inDev = () => process.env.NODE_ENV === 'development'
+
+export const autoFillPermission = (permission, callbackFn) => {
+    switch (permission) {
+        case 'always':
+            cookieHook.set('autoFill', permission)
+            if (callbackFn) callbackFn(permission)
+            break;
+        case 'onetime':
+            cookieHook.set('autoFill', permission)
+            if (callbackFn) callbackFn(permission)
+            break;
+        case 'never':
+            cookieHook.set('autoFill', permission)
+            if (callbackFn) callbackFn(permission)
+            break;
+        default:
+            break;
+    }
+}
+
 export * from './requests'

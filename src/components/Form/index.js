@@ -142,9 +142,10 @@ const Form = ({
     onSubmit,
     onChange,
     children,
+    defaultValues,
     ...otherProps
 }) => {
-    const methods = useForm();
+    const methods = useForm({ defaultValues });
     const { watch } = methods;
     const { submit, status } = useApi(action)
     
@@ -160,6 +161,10 @@ const Form = ({
     useEffect(() => {
         if (onChange) onChange(watchedValues)
     }, [ watchedValues ])
+
+    useEffect(() => {
+        methods.trigger()
+    }, [defaultValues])
           
     return (
         <FormProvider {...methods}>
