@@ -41,6 +41,12 @@ const ContactPage = () => {
                                 </Input>
                                 <Input name="name" label="Naam" defaultValue={ profile?.vgagegevens['voornaam'] } />
                                 <Input name="sender" label="Email" type="email" defaultValue={ profile?.['email'] } />
+                                <Input 
+                                    name="childId" 
+                                    label="Lidnummer kind" 
+                                    defaultValue={ profile?.verbondsgegevens['lidnummer'] } 
+                                    comment="Optioneel maar zo vinden we eenvoudig je gegevens terug"
+                                />
                                 {/* <Input name="subject" label="Onderwerp" /> */}
                                 <Input name="subject" label="Onderwerp" type="select" defaultValue={ selectedSubject || null }>
                                     { contactSubjects.map(({ value, label}) => (
