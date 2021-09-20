@@ -6,7 +6,7 @@ import PageLayout from '../../layouts/PageLayout'
 
 const ContactPage = () => {
     const { searchParams } = new URL(window.location)
-    const { role } = useVisitor()
+    const { role, profile } = useVisitor()
     const groups = siteGroups.filter(({ contactForm }) => contactForm)
     
     const selectedReciever = searchParams.get('r')
@@ -39,8 +39,8 @@ const ContactPage = () => {
                                         <option value={ contactForm } key={ value } >{ plur }</option>
                                     ))}
                                 </Input>
-                                <Input name="name" label="Naam" />
-                                <Input name="sender" label="Email" type="email" />
+                                <Input name="name" label="Naam" defaultValue={ profile?.vgagegevens['voornaam'] } />
+                                <Input name="sender" label="Email" type="email" defaultValue={ profile?.['email'] } />
                                 {/* <Input name="subject" label="Onderwerp" /> */}
                                 <Input name="subject" label="Onderwerp" type="select" defaultValue={ selectedSubject || null }>
                                     { contactSubjects.map(({ value, label}) => (
