@@ -152,7 +152,10 @@ const MainMenu = () => {
                         !open && 'max-w-0'
                     )}>
                         <Fade when={ open } duration={ 500 }> 
-                            <Button onClick={() => setToggleModal(p => !p)}>
+                            {/* <Button onClick={() => setToggleModal(p => !p)}>
+                                <RoleSelector menuOpen={ open } />
+                            </Button> */}
+                            <Button to="/profiel" theme="clean">
                                 <RoleSelector menuOpen={ open } />
                             </Button>
                         </Fade>

@@ -10,6 +10,8 @@ const { Provider } = prefillContext;
 const usePrefillContext = () => useContext(prefillContext)
 
 const PrefillMessage = () => {
+    const { setPrefill } = usePrefillContext()
+
     return (
         <div className="bg-gray-100 p-4 mb-4">
             <p className="mb-3">
@@ -37,7 +39,6 @@ const ContactPage = () => {
     const { searchParams } = new URL(window.location)
     const { role, profile } = useVisitor()
     const [ prefill, setPrefill ] = useState(false)
-    const {  } = usePrefillContext()
 
     const groups = siteGroups.filter(({ contactForm }) => contactForm)
     
