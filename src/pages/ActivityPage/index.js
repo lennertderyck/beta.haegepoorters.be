@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import Fade from 'react-reveal/Fade';
 import dayjs from 'dayjs';
 
-import { Button, CenterMessage, Container, Icon, PageWrapper, RenderContent, RenderTimes } from '../../components';
+import { Button, CenterMessage, Container, Icon, PageWrapper, RenderContent, RenderTimes, ShareService } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import QUERIES from '../../graphql/queries';
 import Skeleton from 'react-loading-skeleton';
@@ -160,15 +160,8 @@ const ActivityPage = () => {
                 <VisitorSelector />
             </div>
         </Container>
-        {/* { !role.isGroup &&
-            <CenterMessage
-                intro="Hier is niks te vinden"
-                className="mt-4"
-            >
-                Kies een groep om activiteiten weer te geven
-            </CenterMessage>
-        } */}
         <RenderActivities />
+        <ShareService />
     </PageWrapper>)
 }
 

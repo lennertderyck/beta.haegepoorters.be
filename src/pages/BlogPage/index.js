@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 
 import queries from '../../graphql/queries';
-import { RenderContent, Container, Button, Icon, Img, PageWrapper, RenderTimes, Form, Input, Modal, HideByCookie } from '../../components';
+import { RenderContent, Container, Button, Icon, Img, PageWrapper, RenderTimes, Form, Input, Modal, HideByCookie, ShareService } from '../../components';
 import ArticleLayout from '../../layouts/ArticleLayout';
 import QUERIES from '../../graphql/queries';
 import dayjs from 'dayjs';
@@ -41,6 +41,7 @@ const BlogArticlePage = () => {
             goBack="/blog"
         >
             <RenderContent content={ body } />
+            <ShareService />
         </ArticleLayout>
     )
 }
