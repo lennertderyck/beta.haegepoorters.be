@@ -86,4 +86,16 @@ export const autoFillPermission = (permission, callbackFn) => {
     }
 }
 
+export const handleShare = ({ 
+    url = window.location.href,
+    text = 'Haegepoorters Destelbergen', 
+    title = 'Haegepoorters Destelbergen'
+}) => {
+    navigator.share({
+        url,
+        text,
+        title
+    })
+}
+
 export * from './requests'

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import QUERIES from '../../graphql/queries';
 import PageLayout from '../../layouts/PageLayout';
-import { Button, Container, RenderContent } from '../../components';
+import { Button, Container, RenderContent, ShareService } from '../../components';
 import ErrorPage from '../ErrorPage';
 
 const BasePage = () => {
@@ -56,6 +56,7 @@ const BasePage = () => {
                         />
                     }
                 </>}
+                <ShareService />
             </PageLayout>
         </>
     )

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import Draggable from 'react-draggable';
 
 import { Button, Collapse, Form, Icon, Input } from '../../components';
 import { siteGroups } from '../../data/site';
@@ -12,9 +11,7 @@ import styles from './PaymentsPage.module.scss';
 const PaymentsPage = () => {
     const { code } = useParams()
     const [ composedDesrc, setComposedDescr ] = useState()
-    
-    const decodedPayment = decodePaymentCode(code)
-    console.log(decodedPayment)
+    const [ decodedPayment, setDecodedPayment ] = useState(decodePaymentCode(code))
 
     return (
         <PageLayout 
@@ -32,6 +29,7 @@ const PaymentsPage = () => {
                                         label="Deelcode" 
                                         placeholder="Bv. Z3JrOzA7SW5zY2hyaWp2aW5n"
                                         defaultValue={ code }
+                                        onChange={({ target: { value }}) => setDecodedPayment(value)}
                                     />
                                 </Collapse>
                                 <Input 
@@ -39,7 +37,7 @@ const PaymentsPage = () => {
                                     label="Omschrijving"
                                     placeholder="Bijvoorbeeld drankkaart 5 euro"
                                     comment="Dit is ook de mededeling voor de overschrijving"
-                                    defaultValue={ decodedPayment.descr }
+                                    defaultValue={ decodedPayment?.descr }
                                 />
                                 { false && <Collapse label="Gebruik variabelen" className="-mt-2 mb-6">
                                     <p className="text-sm font-serif">Deze variabelen kan je gebruiken voor een link in een mail in de Groepsadministratie. Klik om ze toe te voegen.</p>
@@ -59,14 +57,14 @@ const PaymentsPage = () => {
                                     comment="Het verschuldigde bedrag"
                                     min={ 0 }
                                     max={ 50 }
-                                    defaultValue={ decodedPayment.amount || 0 }
+                                    defaultValue={ decodedPayment?.amount || 0 }
                                 />
                                 <Input
                                     name="reciever"
                                     label="Ontvanger"
                                     type="select"
                                     comment="Voor welke kas is de overschrijving bestemt?"
-                                    defaultValue={ decodedPayment.reciever || 'grk' }
+                                    defaultValue={ decodedPayment?.reciever || 'grk' }
                                 >
                                     { siteGroups.filter(({ payments }) => payments).map(({ plur, value }) => (
                                         <option value={ value }>{ plur }</option>
@@ -78,10 +76,10 @@ const PaymentsPage = () => {
                             { (reciever || decodedPayment) 
                                 ? <img 
                                     src={ generatePaymentQR({
-                                        amount: decodedPayment.amount || amount,
-                                        descr: decodedPayment.descr || descr,
-                                        account: siteGroup(decodedPayment.reciever || reciever)?.plur,
-                                        reciever: siteGroup(decodedPayment.reciever || reciever)?.payments
+                                        amount: decodedPayment?.amount || amount,
+                                        descr: decodedPayment?.descr || descr,
+                                        account: siteGroup(decodedPayment?.reciever || reciever)?.plur,
+                                        reciever: siteGroup(decodedPayment?.reciever || reciever)?.payments
                                     })}
                                     className="w-40 self-center mb-6"
                                 />
@@ -94,9 +92,9 @@ const PaymentsPage = () => {
                             }
                             { (reciever || decodedPayment) && <>
                                 <p className="text-center">
-                                    Storting naar <strong>{ siteGroup(decodedPayment.reciever || reciever)?.plur }</strong>
+                                    Storting naar <strong>{ siteGroup(decodedPayment?.reciever || reciever)?.plur }</strong>
                                 </p>
-                                <h3 className="text-center">{ siteGroup(decodedPayment.reciever || reciever)?.payments }</h3>
+                                <h3 className="text-center">{ siteGroup(decodedPayment?.reciever || reciever)?.payments }</h3>
                                 { (amount != 0 || decodedPayment != 0) 
                                     ? <p className="text-center mt-2">
                                         van <strong>{ amount } euro</strong>
@@ -124,7 +122,6 @@ const PaymentsPage = () => {
                         <div className="grid grid-cols-12 gap-6">
                             <div className="col-span-12 lg:col-span-6">
                                 <p className="mb-3">Met de code</p>
-                                { amount } { descr }
                                 <p className="mb-5 break-words font-serif bg-gray-100 p-4 select-all">{ generatePaymentCode({
                                     amount,
                                     descr,
