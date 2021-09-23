@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Button, Collapse, Form, Icon, Input } from '../../components';
 import { siteGroups } from '../../data/site';
 import { PageLayout } from '../../layouts';
-import { className, decodePaymentCode, generatePaymentCode, generatePaymentQR, siteGroup } from '../../utils';
+import { decodePaymentCode, generatePaymentCode, generatePaymentQR, siteGroup } from '../../utils';
 
-import styles from './PaymentsPage.module.scss';
+// import styles from './PaymentsPage.module.scss';
 
 const PaymentsPage = () => {
     const { code } = useParams()
-    const [ composedDesrc, setComposedDescr ] = useState()
+    const [ , setComposedDescr ] = useState()
     const [ decodedPayment, setDecodedPayment ] = useState(decodePaymentCode(code))
 
     return (
@@ -23,7 +23,7 @@ const PaymentsPage = () => {
                     <div className="grid grid-cols-12 gap-x-6 gap-y-1 mb-12">
                         <div className="col-span-12 lg:col-span-6">
                             <div className="">
-                                <Collapse label="Heb je een code?" className="mb-6" open={ decodedPayment ? true : false }>
+                                <Collapse label="Heb je een deelcode?" className="mb-6" open={ decodedPayment ? true : false }>
                                     <Input 
                                         name="paymentCode" 
                                         label="Deelcode" 
@@ -32,6 +32,7 @@ const PaymentsPage = () => {
                                         onChange={({ target: { value }}) => setDecodedPayment(value)}
                                     />
                                 </Collapse>
+                                <hr className="border-t-2 border-gray-300 mb-6" />
                                 <Input 
                                     name="descr"
                                     label="Omschrijving"
@@ -82,6 +83,7 @@ const PaymentsPage = () => {
                                         reciever: siteGroup(decodedPayment?.reciever || reciever)?.payments
                                     })}
                                     className="w-40 self-center mb-6"
+                                    alt=""
                                 />
                                 : <>
                                     <div className="bg-gray-100 p-6 flex flex-col">
@@ -90,12 +92,12 @@ const PaymentsPage = () => {
                                     </div>
                                 </>
                             }
-                            { (reciever || decodedPayment) && <>
+                            {( reciever || decodedPayment ) && <>
                                 <p className="text-center">
                                     Storting naar <strong>{ siteGroup(decodedPayment?.reciever || reciever)?.plur }</strong>
                                 </p>
                                 <h3 className="text-center">{ siteGroup(decodedPayment?.reciever || reciever)?.payments }</h3>
-                                { (amount != 0 || decodedPayment != 0) 
+                                {( amount != 0 || decodedPayment != 0 ) // eslint-disable-line
                                     ? <p className="text-center mt-2">
                                         van <strong>{ amount } euro</strong>
                                     </p>
@@ -104,7 +106,7 @@ const PaymentsPage = () => {
                                         Aangezien het bedrag 0 euro is zal je manueel nog een bedrag moeten invoeren alvorens de betaling te bevestigen in je bank-app.
                                     </div> 
                                 }
-                            </> }
+                            </>}
                         </div>
                     </div>
                     <div className="mb-8">

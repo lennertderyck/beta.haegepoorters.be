@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Fade from 'react-reveal/Fade';
 import { className } from '../../utils';
 import Button from '../Button';
 import Icon from '../Icon';
@@ -15,7 +14,7 @@ const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disab
     useEffect(() => {
         setOpen(initialState)
         if (!initialState && onClose) onClose(open)
-    }, [initialState])
+    }, [initialState]) // eslint-disable-line
     
     return (
         <>

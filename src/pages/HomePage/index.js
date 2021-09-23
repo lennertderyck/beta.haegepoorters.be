@@ -58,7 +58,13 @@ export default function Home() {
             <div className="col-span-12 md:col-span-6 lg:col-span-3" key={ index }>
               <h4 className="font-semibold text-lg mb-1">{ title }</h4>
               <p className="font-serif text-base">{ descr_short }</p>
-              <Button to={ url } theme="simple" className="mt-4">{ button_text || 'Meer hierover' }</Button>
+              <Button 
+                href={ url } 
+                theme="simple" 
+                className="mt-4"
+                target="_blank"
+                iconAfter="arrow-right-up"
+              >{ button_text || 'Meer hierover' }</Button>
             </div>
           ))}
         </div>

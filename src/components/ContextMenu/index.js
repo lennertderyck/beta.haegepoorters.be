@@ -72,7 +72,7 @@ const ContextMenu = () => {
         return () => {
             window.removeEventListener('contextmenu', contextFn)
         }
-    }, [])
+    }, []) // eslint-disable-line
     
     
     return <>

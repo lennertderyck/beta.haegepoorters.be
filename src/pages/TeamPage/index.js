@@ -1,7 +1,7 @@
 import React, { useContext, useState, createContext } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { Button, Img, Icon, Modal, Withauth } from '../../components';
+import { Button, Img, Icon, Modal } from '../../components';
 import QUERIES from '../../graphql/queries';
 import PageLayout from '../../layouts/PageLayout';
 import { useVisitor } from '../../contexts/visitorContext';
@@ -13,7 +13,7 @@ const { Provider } = teamContext;
 const useTeamContext = () => useContext(teamContext)
 
 const Card = ({ data }) => {
-    const { sensitiveHidden, showSensitive } = useVisitor()
+    const { sensitiveHidden } = useVisitor()
     const { content: { first_name, tel, image: { filename }, functions_extra }} = data;
     const { toggleModal } = useTeamContext()
     

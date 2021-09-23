@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 
 import { className } from '../../utils';
@@ -156,15 +156,18 @@ const Form = ({
         if (onSubmit) onSubmit(data)
     };
     
-    const watchedValues = nestedFunction || onChange ? watch() : {};
+    const watchedValues = useMemo(() =>
+        nestedFunction || onChange ? watch() : {},
+        [ nestedFunction, onChange, watch ]
+    ) ;
     
     useEffect(() => {
         if (onChange) onChange(watchedValues)
-    }, [ watchedValues ])
+    }, [ watchedValues, onChange ])
 
     useEffect(() => {
         methods.trigger()
-    }, [defaultValues])
+    }, [defaultValues]) // eslint-disable-line
           
     return (
         <FormProvider {...methods}>

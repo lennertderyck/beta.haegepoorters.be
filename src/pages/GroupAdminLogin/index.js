@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Button, Form, Icon, Input, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
-import { GET, inDev, PATCH } from '../../utils';
+import { inDev, PATCH } from '../../utils';
 import _keycl from '../../utils/keycloak.vendors';
 import { functies as userTags } from '../../data/fake/tags.fake.json'
 import dayjs from 'dayjs';
 
 const ProfileSummary = () => {
-    const { profile, userSaved } = useVisitor()
+    const { profile } = useVisitor()
 
     const handleEmailChange = async ({ email }) => {
         const req = await PATCH.CHANGE_EMAIL(profile.id, email);

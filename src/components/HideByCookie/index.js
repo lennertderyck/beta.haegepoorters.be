@@ -1,4 +1,4 @@
-import React, { useState  } from 'react';
+import { useState } from 'react';
 import { cookieHook } from '../../utils';
 
 const HideByCookie = ({ name, children }) => {

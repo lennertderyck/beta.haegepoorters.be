@@ -1,8 +1,8 @@
 import React, { useEffect, createContext, useState, useContext } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
-import { AppRouter, Button, Form, Icon, Input, Modal } from '../../components';
+import { AppRouter, Form, Icon, Input, Modal } from '../../components';
 import PageLayout from '../../layouts/PageLayout';
 import QUERIES from '../../graphql/queries';
 
@@ -28,7 +28,7 @@ const Results = ({ data }) => {
     return (
         <>
             <div className="uppercase tracking-widest text-xs font-semibold text-red-500 mb-6">{ items.length } { resultString(items.length) }</div>
-            { items.map(({ name, content, full_slug, parent_id }, index) => (
+            { items.map(({ name, full_slug, parent_id }, index) => (
                 <div 
                     key={ index }
                     onClick={ () => setRoute('/' + full_slug) }
@@ -46,7 +46,7 @@ const Results = ({ data }) => {
 }
 
 const SearchPage = () => {
-    const [ search, { data, loading, error }] = useLazyQuery(QUERIES.SEARCH_BY_TERM);
+    const [ search, { data }] = useLazyQuery(QUERIES.SEARCH_BY_TERM);
     const { query: queryInUrl } = useParams();
     const { push } = useHistory()
     const [ resultRoute, setRoute ] = useState(null)
@@ -66,7 +66,7 @@ const SearchPage = () => {
                 query: queryInUrl
             }
         })
-    }, [])
+    }, []) // eslint-disable-line
     
     return (
         <Provider value={{

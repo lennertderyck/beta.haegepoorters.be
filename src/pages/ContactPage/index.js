@@ -61,9 +61,11 @@ const ContactPage = () => {
                             allowfullscreen="" 
                             loading="lazy"
                             height="400"
+                            title="google maps"
                         />
                     </div>
                     <div className="col-span-12 lg:col-span-7">
+                        { false && <PrefillMessage /> }
                         <div className="bg-gray-100 p-4 mb-4">
                             <p className="mb-3">
                                 Wil je je gegevens automatisch aanvullen vanuit je profiel?

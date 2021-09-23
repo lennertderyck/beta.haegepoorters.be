@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useQuery } from '@apollo/client';
 import Fade from 'react-reveal/Fade';
 import dayjs from 'dayjs';

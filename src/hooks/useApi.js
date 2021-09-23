@@ -24,7 +24,7 @@ const useApi = (endPoint, isLazy = true) => {
     
     useEffect(() => {
         if (!isLazy) handleRequest();
-    }, [])
+    }, []) // eslint-disable-line
     
     return {
         ...state,

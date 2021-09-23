@@ -15,21 +15,24 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
         button: '#6f101d'
     }
     
+    const iconConfig = {
+        size: ".95rem",
+        color: iconColor[theme] || styles['button']
+    }
+    
     const catchDisabled = (target) => !disabled && target
     
     const inside = <>
         { icon && <Icon 
             name={ icon } 
             className="-ml-1 mr-1.5" 
-            size=".85rem"
-            color={ iconColor[theme] || styles['button'] }
+            { ...iconConfig }
         />}
         { children }
         { iconAfter && <Icon
             name={ iconAfter } 
             className="-mr-1 ml-1.5" 
-            size=".85rem"
-            color={ iconColor[theme] || styles['button'] }
+            { ...iconConfig }
         />}
     </>
 

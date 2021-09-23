@@ -13,7 +13,7 @@ const GroupsDisplay = ({ groups }) => {
         key={ index }
         className="text-gray-400 text-xs font-semibold uppercase tracking-widest"
     >
-        { siteGroups.find(({ value }) => value == group).plur }
+        { siteGroups.find(({ value }) => value === group).plur }
     </span>))
 }
 
@@ -43,7 +43,7 @@ const Card = ({ data }) => {
 }
 
 const GalleryPage = () => {
-    const { data, loading, error } = useQuery(QUERIES.GALLERY_ALBUMS)
+    const { data, loading } = useQuery(QUERIES.GALLERY_ALBUMS)
     
     if (loading) return <PageLayout
         title="Galerij"

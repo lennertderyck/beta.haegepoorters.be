@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive'
 import Icon from '../Icon';
 import Logo from '../Logo';
 import { mainNav } from '../../data/nav';
-import { className, cookieHook } from '../../utils';
+import { className } from '../../utils';
 import styles from './MainMenu.module.scss';
 import Button from '../Button';
 import Modal from '../Modal';
@@ -38,12 +38,12 @@ const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => 
 </Button>)
 
 const RoleSelector = memo(({ menuOpen }) => {
-    const [ open, setOpen ] = useState(false)
-    const { role, profile } = useVisitor()
+    const [ ,setOpen ] = useState(false)
+    const { role } = useVisitor()
     
     useEffect(() => {
         setOpen(false)
-    }, [ menuOpen ])
+    }, [ menuOpen ]) // eslint-disable-line
     
     return (
         <div className="flex pr-4 cursor-pointer">
@@ -63,7 +63,7 @@ const RoleSelector = memo(({ menuOpen }) => {
 const MainMenu = () => {
     const [ open, setOpen ] = useState(false)
     const container = useRef()
-    const [ toggleModal, setToggleModal ] = useState()
+    const [ toggleModal ] = useState()
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const { siteGroups, setRole, role, skipSignIn, skippedSignIn } = useVisitor()
     const isHovered = useHover(container)
@@ -74,9 +74,9 @@ const MainMenu = () => {
         else setOpen(false)
     }, [isHovered])
     
-    const handleSigninSkip = () => {
-        skipSignIn(true)
-    }
+    // const handleSigninSkip = () => {
+    //     skipSignIn(true)
+    // }
     
     const handleSignInForced = () => {
         skipSignIn(false)
