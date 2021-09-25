@@ -158,8 +158,8 @@ const Form = ({
     
     const watchedValues = useMemo(() =>
         nestedFunction || onChange ? watch() : {},
-        [ nestedFunction, onChange, watch ]
-    ) ;
+        [ nestedFunction, onChange, watch() ]
+    );
     
     useEffect(() => {
         if (onChange) onChange(watchedValues)

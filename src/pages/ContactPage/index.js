@@ -1,4 +1,5 @@
 import React, { useState, createContext, useContext } from 'react';
+
 import { Button, Form, Input } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { contactSubjects, uris, siteGroups } from '../../data/site';
@@ -66,7 +67,7 @@ const ContactPage = () => {
                     </div>
                     <div className="col-span-12 lg:col-span-7">
                         { false && <PrefillMessage /> }
-                        <div className="bg-gray-100 p-4 mb-4">
+                        {/* <div className="bg-gray-100 p-4 mb-4">
                             <p className="mb-3">
                                 Wil je je gegevens automatisch aanvullen vanuit je profiel?
                             </p>
@@ -84,8 +85,10 @@ const ContactPage = () => {
                                 })}>Alleen deze keer</Button>
                                 <Button theme="button" className="mr-4" onClick={() => autoFillPermission('never')}>Nooit</Button>
                             </div>
-                        </div>
-                        <Form button="Versturen" action="http://localhost:5050">
+                        </div> */}
+                        <Form button="Versturen" action="http://localhost:5050" defaultValues={profile && {
+                            childId: profile.verbondsgegevens.lidnummer
+                        }}>
                             {({ subject }) => (
                                 <>
                                     <Input name="reciever" label="Aanspreekpunt" type="select" defaultValue={ selectedReciever || role.contactForm }>
@@ -103,7 +106,7 @@ const ContactPage = () => {
                                         comment="Optioneel maar zo vinden we eenvoudig je gegevens terug"
                                     />
                                     {/* <Input name="subject" label="Onderwerp" /> */}
-                                    <Input name="subject" label="Onderwerp" type="select" defaultValue={ selectedSubject || null }>
+                                    <Input name="subject" label="Onderwerp" type="select" defaultValue={ selectedSubject || 'groepsadmin' }>
                                         { contactSubjects.map(({ value, label}) => (
                                             <option value={ value }>{ label }</option>
                                         ))}

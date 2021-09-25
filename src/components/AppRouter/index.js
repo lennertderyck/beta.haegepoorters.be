@@ -42,6 +42,9 @@ const AppRouter = ({ route, embedded }) => {
             <Route path={['/ga', '/profiel']} exact>
                 <GroupAdminLogin />
             </Route>
+            <Route path={['/ga/leden']} exact>
+                <GroupAdminLogin />
+            </Route>
             <Route path={['/betalingen/:code?', '/payments/:code?']} exact>
                 <PaymentsPage />
             </Route>
