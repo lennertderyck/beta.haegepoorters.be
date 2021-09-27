@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext } from 'react';
 
 import { Button, Form, Input } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
+import formTemplates from '../../data/formTemplates';
 import { contactSubjects, uris, siteGroups } from '../../data/site';
 import PageLayout from '../../layouts/PageLayout'
 import { autoFillPermission } from '../../utils';
@@ -45,6 +46,7 @@ const ContactPage = () => {
     
     const selectedReciever = searchParams.get('r')
     const selectedSubject = searchParams.get('subject')
+    const selectedTemplate = searchParams.get('templ')
     
     const recievers = [
         { value: 'vzw', contactForm: 'vzw', plur: 'VZW' },
@@ -86,12 +88,23 @@ const ContactPage = () => {
                                 <Button theme="button" className="mr-4" onClick={() => autoFillPermission('never')}>Nooit</Button>
                             </div>
                         </div> */}
-                        <Form button="Versturen" action="http://localhost:5050" defaultValues={profile && {
-                            childId: profile.verbondsgegevens.lidnummer
-                        }}>
+                        <Form button="Versturen" action="http://localhost:5050" defaultValues={
+                            selectedTemplate ? formTemplates[selectedTemplate]({
+                                voornaam: profile.vgagegevens.voornaam,
+                                lidnummer: profile.verbondsgegevens.lidnummer
+                            }) : profile && {
+                                childId: profile.verbondsgegevens.lidnummer,
+                            }
+                        }>
                             {({ subject }) => (
                                 <>
-                                    <Input name="reciever" label="Aanspreekpunt" type="select" defaultValue={ selectedReciever || role.contactForm }>
+                                    <Input 
+                                        name="reciever" 
+                                        label="Aanspreekpunt" 
+                                        type="select" 
+                                        defaultValue={ selectedReciever || role.contactForm }
+                                        disabled={ selectedTemplate && true }
+                                    >
                                         <option value="groepsleiding">groepsleiding</option>
                                         { recievers.map(({ value, contactForm, plur }) => (
                                             <option value={ contactForm } key={ value } >{ plur }</option>
@@ -103,20 +116,28 @@ const ContactPage = () => {
                                         name="childId" 
                                         label="Lidnummer kind" 
                                         defaultValue={ prefill ? profile?.verbondsgegevens['lidnummer'] : '' } 
+                                        disabled={ selectedTemplate && true }
                                         comment="Optioneel maar zo vinden we eenvoudig je gegevens terug"
                                     />
                                     {/* <Input name="subject" label="Onderwerp" /> */}
-                                    <Input name="subject" label="Onderwerp" type="select" defaultValue={ selectedSubject || 'groepsadmin' }>
-                                        { contactSubjects.map(({ value, label}) => (
-                                            <option value={ value }>{ label }</option>
-                                        ))}
-                                    </Input>
-                                    <div className="bg-gray-100 p-4 text-sm mb-6">
-                                        { subject 
-                                            ? contactSubjects.find(({ value }) => value === subject).faqText 
-                                            : contactSubjects.find(({ value }) => value === 'groepsadmin').faqText }
-                                    </div>
-                                    {subject !== 'verhuur' && <Input name="message" label="Bericht" type="area" />}
+                                    { !selectedTemplate && <>
+                                        <Input name="subject" label="Onderwerp" type="select" defaultValue={ selectedSubject || 'groepsadmin' }>
+                                            { contactSubjects.map(({ value, label}) => (
+                                                <option value={ value }>{ label }</option>
+                                            ))}
+                                        </Input>
+                                        <div className="bg-gray-100 p-4 text-sm mb-6">
+                                            { subject 
+                                                ? contactSubjects.find(({ value }) => value === subject).faqText 
+                                                : contactSubjects.find(({ value }) => value === 'groepsadmin').faqText }
+                                        </div>
+                                    </>}
+                                    {subject !== 'verhuur' && <Input 
+                                        name="message" 
+                                        label="Bericht" 
+                                        type="area"
+                                        disabled={ selectedTemplate && true }
+                                    />}
                                 </>
                             )}
                         </Form>
