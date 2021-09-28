@@ -134,7 +134,7 @@ const GroupAdminLogin = () => {
             { isLoggedIn && (
                 <div className="pt-12 flex justify-center">
                     <Button theme="simple" iconAfter="logout-circle-r" onClick={() => {
-                        logout({ redirectUri: window.location.protocol + window.location.host +  '/ga' })
+                        logout({ redirectUri: window.location.origin +  '/ga' })
                     }}>Afmelden</Button>
                 </div> 
             )}
