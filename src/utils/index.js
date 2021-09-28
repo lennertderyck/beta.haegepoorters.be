@@ -13,8 +13,8 @@ export const sortActivitiesByDate = (
 
 export const activityIsPassed = (date) => dayjs(new Date()).isAfter(dayjs(date));
 
-export const filterTeamOnFunction = (items, fn) => items.filter(({ content: { functions } }) => {
-    return functions?.content?.shortcode === fn
+export const filterTeamOnFunction = (items, funct) => items.filter(({ content: { functions } }) => {
+    return functions?.content?.shortcode === funct
 });
 
 export const cookieHook = {

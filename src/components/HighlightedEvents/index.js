@@ -9,6 +9,9 @@ import queries from '../../graphql/queries'
 import RenderTimes from '../RenderTimes';
 import { className } from '../../utils';
 import CenterMessage from '../CenterMessage';
+import Collapse from '../Collapse';
+import Button from '../Button';
+import { Link } from 'react-router-dom';
 
 const resolver = new RichTextResolver()
 
@@ -108,7 +111,7 @@ const HighlightedEvents = () => {
         }
     ]
     
-    return (
+    return (<>
         <div className="bg-gray-100">
             { groups.map(({ label, data: g}) => 
                 g && <Card 
@@ -118,7 +121,13 @@ const HighlightedEvents = () => {
                 />
             )}
         </div>
-    )
+        <Collapse label="Zie je je tak niet?" className="mt-6">
+            <div className="text-sm">
+                Het kan zijn dat jouw tak hun activeiten nog niet doorgegeven heeft. In dat geval zullen ze hier snel verschijnen.
+                Had je toch graag meer info? <Link to="/contact" className="underline">Contacteer dan je tak</Link>.
+            </div>
+        </Collapse>
+    </>)
 }
 
 export default HighlightedEvents

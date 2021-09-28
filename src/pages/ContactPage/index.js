@@ -56,7 +56,7 @@ const ContactPage = () => {
     return (
         <Provider value={{ prefill, setPrefill }}>
             <PageLayout title="Contact" subtitle="Vraag? Suggestie? Laat het ons weten!" wide>
-                <div className="grid grid-cols-12 gap-12">
+                <div className="grid grid-cols-12 gap-y-12 lg:gap-12">
                     <div className="col-span-12 lg:col-span-5">
                         <iframe 
                             src={ uris.mapsIntegration }

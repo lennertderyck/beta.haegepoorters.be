@@ -137,7 +137,8 @@ const QUERIES = {
     `,
     TEAM_FULL: gql`
         {
-            TeammemberItems(sort_by: "content.functions_extra:desc, content.first_name:desc") {
+            TeammemberItems(sort_by: "content.functions_extra:desc, content.first_name:desc", per_page: 45) {
+                total
                 items {
                     content {
                         first_name
@@ -148,6 +149,8 @@ const QUERIES = {
                         functions {
                           content
                         }
+                        totem
+                        wel_name
                     }
                 }
             }

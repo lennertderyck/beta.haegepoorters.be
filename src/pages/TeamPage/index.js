@@ -14,7 +14,7 @@ const useTeamContext = () => useContext(teamContext)
 
 const Card = ({ data }) => {
     const { sensitiveHidden } = useVisitor()
-    const { content: { first_name, tel, image: { filename }, functions_extra }} = data;
+    const { content: { first_name, tel, image: { filename }, functions_extra, wel_name }} = data;
     const { toggleModal } = useTeamContext()
     
     const isGroupResp = functions_extra.includes('group_resp');
@@ -29,7 +29,7 @@ const Card = ({ data }) => {
     return <div className="border-b-2 border-gray-200 pb-6 h-full">
         <Img src={ filename } height="15rem" className="mb-4" />
         <h4 className="font-bold text-xl -mb-1">{ first_name }</h4>
-        <p className="font-serif text-lg">Originele stokstaart</p>
+        { wel_name && <p className="font-serif text-lg">{ wel_name }</p>}
         {( sensitiveHidden && showTelByFunction) && <button onClick={ handleSensitiveForceClick } className="flex items-center mt-3">
             <Icon name="phone" size="1.2rem" className="mr-2" /> 
             <span className="filter blur-sm">+32412456789</span>
@@ -67,6 +67,8 @@ const TeamPage = () => {
 
     const { TeammemberItems: { items }} = data
     
+    console.log(items)
+    
     return (
         <Provider value={{
             toggleModal
@@ -99,7 +101,7 @@ const TeamPage = () => {
                
                 
                 { siteGroups
-                    .filter(({ isGroup }) => isGroup)
+                    .filter(({ isGroup }) => isGroup )
                     .map(({ plur, value }) => (<div className="mb-12">
                         <h3 className="font-serif mb-6 capitalize font-bold text-3xl">{ plur }</h3>
                         <Group shortcode={ value } data={ filterTeamOnFunction(items, value) } />
