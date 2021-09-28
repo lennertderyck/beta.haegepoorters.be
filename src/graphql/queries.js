@@ -30,7 +30,7 @@ const QUERIES = {
     `,
     HIGHLIGHTED_NEWS: gql`
         {
-            NewsItems(per_page: 3, page: 1) {
+            NewsItems(per_page: 3, page: 1, sort_by: "first_published_at:desc") {
                 items {
                     name
                     slug
