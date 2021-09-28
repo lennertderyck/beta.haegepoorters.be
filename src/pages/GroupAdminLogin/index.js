@@ -123,7 +123,7 @@ const ProfileSummary = () => {
 }
 
 const GroupAdminLogin = () => {
-    const { isLoggedIn } = useVisitor()
+    const { isLoggedIn, logout } = useVisitor()
 
     return (
         <PageLayout
@@ -131,9 +131,13 @@ const GroupAdminLogin = () => {
             subtitle="Je gegevens bij Scouts en Gidsen Vlaanderen"
         >
             { isLoggedIn && <ProfileSummary />}
-            <div className="pt-12 flex justify-center">
-                <Button theme="simple" iconAfter="logout-circle-r">Afmelden</Button>
-            </div>
+            { isLoggedIn && (
+                <div className="pt-12 flex justify-center">
+                    <Button theme="simple" iconAfter="logout-circle-r" onClick={() => {
+                        logout({ redirectUri: window.location.protocol + window.location.host +  '/ga' })
+                    }}>Afmelden</Button>
+                </div> 
+            )}
             <small className="block mt-12 font-serif text-md text-center">*Wij bewaren je gegevens nooit bij derde partijen.<br />Al je peresoonlijke data blijft veilig bij Scouts en Gidsen Vlaanderen of lokaal op je computer.</small>
         </PageLayout>
     )

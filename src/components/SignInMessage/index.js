@@ -22,11 +22,11 @@ const SignInMessage = () => {
                     className="border-2 border-red-500 p-3 text-red-500 flex-1 w-full justify-center"
                     onClick={ login }
                 >aanmelden</Button>
-                <div className="my-3 mx-4">of</div>
+                {/* <div className="my-3 mx-4">of</div>
                 <Button 
                     className="border-2 border-red-500 p-3 text-red-500 flex-1 w-full justify-center opacity-40 hover:opacity-100"
                     onClick={ handleSigninSkip }
-                >verder gaan zonder aanmelden</Button>
+                >verder gaan zonder aanmelden</Button> */}
             </div>
                         
             <p className="text-sm font-serif mt-6">* We slaan je gegevens nergens anders dan de Groepsadministratie, het officiële ledenheerplatform van Scouts en Gidsen Vlaanderen</p>

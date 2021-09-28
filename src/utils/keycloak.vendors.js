@@ -32,7 +32,11 @@ const initKeycloak = (callback) => {
 
 const login = _keycl.login
 
-const logout = _keycl.logout
+const logout = ({ redirectUri }) => {
+    localStorage.removeItem('gaToken')
+    localStorage.removeItem('gaRefreshToken')
+    _keycl.logout({ redirectUri })
+}
 
 /**
  * Returns the current bearer token, the token is also saved to the localStorage if needed
