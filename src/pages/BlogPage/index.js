@@ -130,7 +130,7 @@ const BlogPage = () => {
                     <h1 className="font-serif font-bold text-5xl text-gray-600 mb-6">Nieuws &amp; blog</h1>
                     <p>Het reilen en zeilen binnen onze scouts</p>
             </Container>
-            <HideByCookie name="mc-signup">
+            {/* <HideByCookie name="mc-signup">
                 {({ hide }) => <Container className="mb-4">
                     <div className="bg-gray-100 p-6 flex justify-between items-center">
                         <div>
@@ -141,7 +141,7 @@ const BlogPage = () => {
                         <Button onClick={() => hide()}><Icon name="close" size="1.4rem" /></Button>
                     </div>
                 </Container>}
-            </HideByCookie>
+            </HideByCookie> */}
             <Container wide>
                 <ArticlesOverview />
             </Container>
