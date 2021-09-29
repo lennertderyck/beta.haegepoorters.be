@@ -4,6 +4,12 @@ import Button from '../Button';
 
 const currentYear = dayjs().format('YYYY')
 
+const footerCredits = [
+    '&copy; 2007 - { currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen',
+    'Ontwikkeld door <a href="https://jung.gent" target="_blank" rel="noreferrer">JUNG･Gent</a>',
+    '<a href="https://app.storyblok.com/beta-v2/#/me/spaces/106950/stories/0/0/index/0" target="_blank">Aanmelden als webmaster<a/>'
+]
+
 const Footer = () => {
     return (
         <div className="bg-gray-300 w-full pt-8 mt:pt-12 pb-8">
@@ -23,9 +29,10 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <small className="block font-medium text-gray-400">
-                        &copy; 2007 - { currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen &nbsp; | &nbsp; Ontwikkeld door <a href="https://jung.gent" target="_blank" rel="noreferrer">JUNG･Gent</a>
-                    </small>
+                    <small 
+                        className="block font-medium text-gray-400" 
+                        dangerouslySetInnerHTML={{__html: footerCredits.join(' &nbsp; | &nbsp; ')}}
+                    />
                     <small className="block font-medium text-gray-400 text-right">
                         <Button to="/privacy" theme="clear">Privacy &amp; cookiebeleid</Button>
                     </small>
