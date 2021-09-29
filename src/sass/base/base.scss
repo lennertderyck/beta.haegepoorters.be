@@ -6,3 +6,8 @@ body {
     @apply text-gray-500;
     scroll-behavior: smooth;
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
