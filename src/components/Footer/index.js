@@ -5,7 +5,7 @@ import Button from '../Button';
 const currentYear = dayjs().format('YYYY')
 
 const footerCredits = [
-    '&copy; 2007 - { currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen',
+    `&copy; 2007 - ${ currentYear } Scouts &amp; Gidsen Haegepoorters Destelbergen`,
     'Ontwikkeld door <a href="https://jung.gent" target="_blank" rel="noreferrer">JUNG･Gent</a>',
     '<a href="https://app.storyblok.com/beta-v2/#/me/spaces/106950/stories/0/0/index/0" target="_blank">Aanmelden als webmaster<a/>'
 ]
