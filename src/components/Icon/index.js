@@ -9,7 +9,7 @@ const I = styled.i`
     font-size: ${({ size }) => size};
     max-height: ${({ size }) => size};
     line-height: ${({ size }) => size};
-    color: ${({ tint }) => tint};
+    color: ${({ tint }) => tint };
 `
 
 const Icon = ({ name = 'shirt', style = 'line', size = '1rem', color: tint = 'grey', className: cls }) => {

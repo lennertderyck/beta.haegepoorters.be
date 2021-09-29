@@ -193,6 +193,22 @@ const QUERIES = {
                 }
             }
         }
+    `,
+    SPONSORS_ALL: gql`
+        {
+            SponsorItems {
+                total
+                items {
+                    name
+                    content {
+                        logo { filename }
+                        url
+                        prio
+                        services
+                    }
+                }
+            }
+        }
     `
 }
 

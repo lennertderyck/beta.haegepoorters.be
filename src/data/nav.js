@@ -5,7 +5,7 @@ export const mainNav = [
     { icon: 'team', label: 'Leiding', slug: '/leiding' },
     // { icon: 'hand-heart', label: 'HP Renové', slug: '/vzw' },
     { icon: 'hammer', label: 'HP Renové', slug: '/vzw' },
-    { icon: 'gallery', label: 'Galerij', slug: '/galerij' },
+    // { icon: 'gallery', label: 'Galerij', slug: '/galerij' },
     // { icon: 'lifebuoy', label: 'FAQ', slug: '/veelgestelde-vragen' },
     { icon: 'question', label: 'FAQ', slug: '/veelgestelde-vragen' },
     // { icon: 'virus', label: 'Corona', slug: '/corona' },
@@ -34,7 +34,7 @@ export const homeRelatedLinks = [
     { 
         title: 'Trooper', 
         descr_short: 'Steun gratis onze scouts met je online aankopen',
-        url: 'https://scoutsengidsenvlaanderen.be',
+        url: 'https://www.trooper.be/nl/trooperverenigingen/hp',
         button_text: 'Steun ons!'
     },
 ]

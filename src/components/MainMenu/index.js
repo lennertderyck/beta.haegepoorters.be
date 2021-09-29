@@ -156,7 +156,7 @@ const MainMenu = () => {
                             {/* <Button onClick={() => setToggleModal(p => !p)}>
                                 <RoleSelector menuOpen={ open } />
                             </Button> */}
-                            <Button to="/profiel" theme="clean">
+                            <Button to="/profiel" theme="clean" onClick={() => setOpen(false)}>
                                 <RoleSelector menuOpen={ open } />
                             </Button>
                         </Fade>

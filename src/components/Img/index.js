@@ -38,7 +38,8 @@ const Img = ({ src, height = 'auto', width = '100%', className: cls }) => {
             height={ height } 
             width={ width }
             { ...className(
-                'bg-gray-200 relative overflow-hidden',
+                'relative overflow-hidden',
+                !state.loaded && 'bg-gray-200',
                 cls
             )}
         >

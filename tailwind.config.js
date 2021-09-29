@@ -11,10 +11,11 @@ module.exports = {
             center: true,
         },
         extend: {
-            maxWidth: {
+            maxWidth: (theme) => ({
+                ...theme('spacing'),
                 'screen': '100vw',
-                '1/2': '50%'
-            },
+                '1/2': '50%',
+            }),
             minWidth: {
                 'screen-1/2': '50vw',
                 'screen-2/3': '66vw'
