@@ -21,7 +21,8 @@ const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => 
     theme="clear"
     { ...className(
         'py-5 pl-5 flex border-b-2 border-gray-200',
-        disabled && 'opacity-50 cursor-default'
+        disabled && 'opacity-50 cursor-default',
+        // open ? 'border-opacity-100' : 'border-opacity-0'
     )}
     disabled= { disabled }
     { ...otherProps }
@@ -135,14 +136,14 @@ const MainMenu = () => {
             </Button>
             <div 
                 { ...className(
-                    'bg-white h-screen fixed top-0 z-30 transform lg:translate-x-0',
+                    'bg-white h-screen fixed top-0 z-30 transform lg:translate-x-0 overflow-y-scroll scrollbar-none border-r-2 border-gray-200',
                     open && 'shadow-xl translate-x-0',
                     !open && '-translate-x-screen-x'
                 )}
                 ref={ container }
                 onMouseMove={() => setOpen(true)}
             >
-                <div className="flex justify-between">
+                <div className="flex justify-between bg-white sticky top-0">
                     <Button theme="clear" to="/" className="block p-3 bg-red-500 h-fit" onClick={() => setOpen(false)}>
                         <Logo width="44.5px" />
                     </Button>
@@ -161,7 +162,7 @@ const MainMenu = () => {
                         </Fade>
                     </div>
                 </div>
-                <div className="border-r-2 border-gray-200 h-full">
+                <div className="">
                     <div className="">
                         { mainNav.map(({ icon, slug, label, offlineSupport }, index) => (
                             <MenuItem
@@ -183,6 +184,7 @@ const MainMenu = () => {
                         disabled={ status === 'offline' }
                         onClick={() => setOpen(false)}
                     />
+                    <div className="h-14 w-full sticky bottom-0 bg-gradient-to-t from-white to-transparent" />
                 </div>
             </div>
             { open && <div
