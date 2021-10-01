@@ -22,6 +22,7 @@ const AppRouter = ({ route, embedded }) => {
 
     return (
         <>
+            { isMember ? 'is member' : 'not a member '}
             { !isMember && _keycl.token ?
                 <NotMemberMsg /> :
                 <Switch location={ route ? routeObject : currentLocation }>
