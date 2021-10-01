@@ -9,7 +9,7 @@ const NotMemeberMsg = () => {
         >
             <p>Je bent geen lid van onze groep, maar wel aangemeld met de groepsadmin.</p>
             <p className="font-semibold">Meld je eerst af om verder te gaan</p>
-
+            <LogoutButton className="mt-6" />
         </CenterMessage>
     </div>)
 }

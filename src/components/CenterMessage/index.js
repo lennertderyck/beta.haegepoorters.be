@@ -17,7 +17,6 @@ const CenterMessage = ({ icon = 'seedling', intro, msg, className: cls, children
             />
             <h2 className="text-2xl text-center font-serif">{ intro }</h2>
             <p className="text-center">{ msg || children  }</p>
-            <LogoutButton className="mt-6" />
         </>
     </Fade>
 )
