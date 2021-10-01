@@ -16,7 +16,7 @@ function App() {
                         <BaseLayout>
                             <AppRouter />
                         </BaseLayout>
-                        { process.env.NODE_ENV !== 'development' && <ContextMenu /> }
+                        {/* { process.env.NODE_ENV !== 'development' && <ContextMenu /> } */}
                         <ErrorPopup />
                     </div>
                 </Router>
