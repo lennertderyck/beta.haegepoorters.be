@@ -23,7 +23,7 @@ const AppRouter = ({ route, embedded }) => {
 
     return (
         <>
-            { !profile.isMember && _keycl.token ?
+            { !profile?.isMember && _keycl.token ?
                 <NotMemberMsg /> :
                 <Switch location={ route ? routeObject : currentLocation }>
                     <Route path="/" exact>
