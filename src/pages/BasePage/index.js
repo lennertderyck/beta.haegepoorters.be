@@ -66,7 +66,7 @@ const RedirectProcessor = ({ data }) => {
     const { seconds, pause } = useTimer({
         expiryTimestamp: time,
         autoStart: timeout === 'man' ? false : true,
-        // onExpire: () => window.location.replace(redirect_url)
+        onExpire: () => window.location.replace(redirect_url)
     });
     
     useEffect(() => {
