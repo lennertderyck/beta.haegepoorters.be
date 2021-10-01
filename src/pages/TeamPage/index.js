@@ -66,9 +66,7 @@ const TeamPage = () => {
     if (loading) return <p>loading</p>
 
     const { TeammemberItems: { items }} = data
-    
-    console.log(items)
-    
+        
     return (
         <Provider value={{
             toggleModal

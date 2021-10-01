@@ -91,7 +91,6 @@ const ContextMenu = () => {
                         disabled={ !textSelected }
                         callback={() => {
                             setOpen(false)
-                            console.log(window.lennert.space)
                             document.execCommand('copy')
                         }}
                     />

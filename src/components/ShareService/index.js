@@ -22,7 +22,6 @@ const ShareService = () => {
     }
     
     useEffect(() => {
-        console.log(error)
         if (attempts === 0) setShowMsg(true)
     }, [error])
     

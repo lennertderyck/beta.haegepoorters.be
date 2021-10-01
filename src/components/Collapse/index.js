@@ -16,6 +16,7 @@ const Collapse = ({ label, open: defaultState, className, children }) => {
         <Button 
             iconAfter="arrow-down-s"
             theme="simple"
+            type="button"
             onClick={() => setOpen(s => !s)}
         >{ label }</Button>
         <CollapseWrapper open={ open }><div className="mt-3">

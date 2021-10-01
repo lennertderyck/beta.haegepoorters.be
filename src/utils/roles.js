@@ -1,6 +1,5 @@
 export const activeRoles = (data) => data.filter(({ einde }) => !einde)
 export const memberCheck = (data) => {
-    console.log(data)
     // check if user has roles with our groupid
     const isMember = data.filter(({ groep }) => groep === 'O1306G').length > 0;
 

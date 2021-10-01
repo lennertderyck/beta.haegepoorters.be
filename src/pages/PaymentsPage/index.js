@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { Button, Collapse, Form, Icon, Input } from '../../components';
 import { siteGroups } from '../../data/site';
 import { PageLayout } from '../../layouts';
-import { decodePaymentCode, generatePaymentCode, generatePaymentQR, siteGroup } from '../../utils';
+import { className, decodePaymentCode, generatePaymentCode, generatePaymentQR, siteGroup } from '../../utils';
 
 // import styles from './PaymentsPage.module.scss';
 
 const PaymentsPage = () => {
     const { code } = useParams()
+    const loc  = useLocation()
     const [ , setComposedDescr ] = useState()
     const [ decodedPayment, setDecodedPayment ] = useState(decodePaymentCode(code))
-
+    const currentLocation = new URL(window.location)
+    const controlsHidden = currentLocation.searchParams.get('controlsHidden')
+    
     return (
         <PageLayout 
             title="Betalingen"
@@ -21,7 +24,7 @@ const PaymentsPage = () => {
             <Form>
                 {({ amount, descr, reciever }) => (<>
                     <div className="grid grid-cols-12 gap-x-6 gap-y-1 mb-12">
-                        <div className="col-span-12 lg:col-span-6">
+                        { !controlsHidden && <div className="col-span-12 lg:col-span-6">
                             <div className="">
                                 <Collapse label="Heb je een deelcode?" className="mb-6" open={ decodedPayment ? true : false }>
                                     <Input 
@@ -29,7 +32,7 @@ const PaymentsPage = () => {
                                         label="Deelcode" 
                                         placeholder="Bv. Z3JrOzA7SW5zY2hyaWp2aW5n"
                                         defaultValue={ code }
-                                        onChange={({ target: { value }}) => setDecodedPayment(value)}
+                                        // onChange={({ target: { value }}) => setDecodedPayment(value)}
                                     />
                                 </Collapse>
                                 <hr className="border-t-2 border-gray-300 mb-6" />
@@ -72,8 +75,11 @@ const PaymentsPage = () => {
                                     ))}
                                 </Input>
                             </div>
-                        </div>
-                        <div className="col-span-12 lg:col-span-6 flex flex-col">
+                        </div>}
+                        <div {...className([
+                            'col-span-12 flex flex-col',
+                            !controlsHidden && 'lg:col-span-6'
+                        ])}>
                             { (reciever || decodedPayment) 
                                 ? <img 
                                     src={ generatePaymentQR({
@@ -97,9 +103,9 @@ const PaymentsPage = () => {
                                     Storting naar <strong>{ siteGroup(decodedPayment?.reciever || reciever)?.plur }</strong>
                                 </p>
                                 <h3 className="text-center">{ siteGroup(decodedPayment?.reciever || reciever)?.payments }</h3>
-                                {( amount != 0 || decodedPayment != 0 ) // eslint-disable-line
+                                {( amount != 0 || decodedPayment != 0 || decodedPayment?.amount != 0 ) // eslint-disable-line
                                     ? <p className="text-center mt-2">
-                                        van <strong>{ amount } euro</strong>
+                                        van <strong>{ decodedPayment?.amount || amount } euro</strong>
                                     </p>
                                     : <div className="p-4 bg-gray-100 text-sm mt-6">
                                         <h4 className="font-bold mb-2">Opgelet</h4>
@@ -109,14 +115,14 @@ const PaymentsPage = () => {
                             </>}
                         </div>
                     </div>
-                    <div className="mb-8">
+                    <div className="mb-4">
                         <h4 className="text-center mb-4 font-serif">Ondersteund door</h4>
-                        <div className="flex items-center justify-center">
-                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/ml36ldb4bqmjanut38sr.svg" className="h-7 mr-4" alt="Logo Kbc" height="35px" />
-                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/ignqtssujkocqd8oklqr.svg" className="h-7 mr-4" alt="Logo Argenta" height="35px" />
-                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/jt41u1euwcfqghiqsw2u.svg" className="h-5 mr-4" alt="Logo Belfius" height="20px" />
-                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1632171970/tfak2eyntzba2qtxnei8.svg" className="h-6 mr-4" alt="Logo ING" height="35px" />
-                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/hhoar3wstamzzfg3dcci.svg" className="h-7" alt="Logo BNP Paribas" height="35px" />
+                        <div className="flex flex-wrap items-center justify-center">
+                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/ml36ldb4bqmjanut38sr.svg" className="h-7 mr-4 mb-4" alt="Logo Kbc" height="35px" />
+                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/ignqtssujkocqd8oklqr.svg" className="h-7 mr-4 mb-4" alt="Logo Argenta" height="35px" />
+                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/jt41u1euwcfqghiqsw2u.svg" className="h-5 mr-4 mb-4" alt="Logo Belfius" height="20px" />
+                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1632171970/tfak2eyntzba2qtxnei8.svg" className="h-6 mr-4 mb-4" alt="Logo ING" height="35px" />
+                              <img src="https://res.cloudinary.com/haegepoortersbe/image/upload/v1569434104/hhoar3wstamzzfg3dcci.svg" className="h-7 mb-4" alt="Logo BNP Paribas" height="35px" />
                         </div> 
                     </div>
                     <hr className="border-t-2 border-gray-300 my-6" />
@@ -124,7 +130,7 @@ const PaymentsPage = () => {
                         <div className="grid grid-cols-12 gap-6">
                             <div className="col-span-12 lg:col-span-6">
                                 <p className="mb-3">Met de code</p>
-                                <p className="mb-5 break-words font-serif bg-gray-100 p-4 select-all">{ generatePaymentCode({
+                                <p className="mb-5 break-words font-serif bg-gray-100 p-4 select-all">{ code || generatePaymentCode({
                                     amount,
                                     descr,
                                     reciever
@@ -132,11 +138,11 @@ const PaymentsPage = () => {
                             </div>
                             <div className="col-span-12 lg:col-span-6">
                                 <p className="mb-3">Of surf naar</p>
-                                <p className="mb-5 break-words font-serif bg-gray-100 p-4 select-all">{ window.location.href }/{ generatePaymentCode({
+                                <p className="mb-5 break-words font-serif bg-gray-100 p-4 select-all">{ currentLocation.origin + currentLocation.pathname }{ !code && generatePaymentCode({
                                     amount,
                                     descr,
                                     reciever
-                                }) }</p>
+                                })}</p>
                             </div>
                         </div>
                                     

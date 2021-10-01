@@ -41,5 +41,6 @@
     
     a {
         word-break: break-all;
+        @apply text-red-500 underline;
     }
 }

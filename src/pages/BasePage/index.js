@@ -13,9 +13,7 @@ const BasePage = () => {
     const { data, loading, error } = useQuery(QUERIES.PAGE_BY_SLUG, {
         variables: { slug: 'pagina/' + slug }
     })
-    
-    console.log(slug);
-    
+        
     if (loading) return <PageLayout loading />
     if (error || !data.PageItem) return <ErrorPage />
     
