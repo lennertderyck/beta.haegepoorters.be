@@ -1,5 +1,6 @@
 import React from 'react'
 import CenterMessage from '../CenterMessage'
+import LogoutButton from '../LogoutButton'
 
 const NotMemeberMsg = () => {
     return (<div className="flex items-center justify-center h-full">

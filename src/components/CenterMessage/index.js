@@ -2,7 +2,6 @@ import React from 'react';
 import Icon from '../Icon';
 import Fade from 'react-reveal/Fade';
 import { className } from '../../utils';
-import LogoutButton from '../LogoutButton';
 
 const CenterMessage = ({ icon = 'seedling', intro, msg, className: cls, children }) => (
     <Fade bottom duration={ 500 }>
