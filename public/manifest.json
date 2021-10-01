@@ -44,7 +44,7 @@
       "name": "Steun op Trooper",
       "short_name": "Trooper",
       "description": "Steun ons gratis en veilig op Trooper",
-      "url": "https://www.trooper.be/nl/trooperverenigingen/hp",
+      "url": "/trooper",
       "icons": [{ "src": "/icons/trooper.png", "sizes": "2000x2000" }]
     }
   ],
