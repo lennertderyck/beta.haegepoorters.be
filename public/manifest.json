@@ -24,7 +24,7 @@
       "short_name": "Haegeprekerke",
       "description": "Bekijk de activiteiten voor de komende maanden",
       "url": "/haegeprekerke",
-      "icons": [{ "src": "/icons/haegeeprekerke.png", "sizes": "2000x2000" }]
+      "icons": [{ "src": "/icons/haegeprekerke.png", "sizes": "2000x2000" }]
     },
     {
       "name": "Je Groepsadministratie profiel",
@@ -38,7 +38,7 @@
       "short_name": "Nieuws",
       "description": "Blijf op de hoogte van wat er gebeurt op onze scouts",
       "url": "/blog",
-      "icons": [{ "src": "/icons/blogs.png", "sizes": "2000x2000" }]
+      "icons": [{ "src": "/icons/blog.png", "sizes": "2000x2000" }]
     }
   ],
   "start_url": ".",
