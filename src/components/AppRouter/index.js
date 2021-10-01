@@ -7,6 +7,7 @@ import {
 import { NotMemberMsg } from '..';
 import { useVisitor } from '../../contexts/visitorContext';
 import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage } from '../../pages';
+import _keycl from '../../utils/keycloak.vendors';
 
 /**
  * embedded param so that not needed padding can be removed in views
@@ -21,7 +22,7 @@ const AppRouter = ({ route, embedded }) => {
 
     return (
         <>
-            { !isMember ?
+            { !isMember && _keycl.token ?
                 <NotMemberMsg /> :
                 <Switch location={ route ? routeObject : currentLocation }>
                     <Route path="/" exact>
