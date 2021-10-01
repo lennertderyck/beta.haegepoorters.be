@@ -89,7 +89,7 @@ const QUERIES = {
         }
     `,
     PAGE_BY_SLUG: gql`
-        query PageBySlug($slug: ID!) {
+        query PageBySlug($slug: ID!, $redirectSlug: ID!) {
             PageItem(id: $slug) {
                 name
                 published_at
@@ -100,6 +100,14 @@ const QUERIES = {
                         filename
                     }
                     iframe
+                }
+            }
+            RedirectItem(id: $redirectSlug) {
+                name
+                content {
+                    timeout
+                    manual_skip_timeout
+                    redirect_url
                 }
             }
         }

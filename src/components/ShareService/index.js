@@ -10,7 +10,7 @@ const ShareService = () => {
     
     const handleShare = () => {
         if (attempts !== 2) {
-            share({ title: 'Haegepoorters Destelbergen', text: 'Over onze nieuwe website' })
+            share({ title: 'Haegepoorters Destelbergen', text: 'Haegepoorters Destelbergen' })
         } else share({ method: 'copy' })
     }
     
