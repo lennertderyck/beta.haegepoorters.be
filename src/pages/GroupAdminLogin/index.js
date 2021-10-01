@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Form, Icon, Input, SignInMessage } from '../../components';
+import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
@@ -19,6 +19,7 @@ const ProfileSummary = () => {
 
     if (!_keycl.token && !inDev()) return <SignInMessage />
     else if (!profile && !inDev()) return <h3>Loading</h3>
+    else if (!profile?.isMember && _keycl.token) return <NotMemberMsg />
     return <>
         <div className="mb-14">
             <h3 className="font-serif">Emailadres</h3>

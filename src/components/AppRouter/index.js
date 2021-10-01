@@ -23,46 +23,43 @@ const AppRouter = ({ route, embedded }) => {
 
     return (
         <>
-            { !profile?.isMember && _keycl.token ?
-                <NotMemberMsg /> :
-                <Switch location={ route ? routeObject : currentLocation }>
-                    <Route path="/" exact>
-                        <HomePage />
-                    </Route>
-                    <Route path="/leiding/:person?" exact>
-                        <TeamPage />
-                    </Route>
-                    <Route path="/haegeprekerke/:group?" exact>
-                        <ActivityPage />
-                    </Route>
-                    <Route path="/blog/:slug?" exact>
-                        <BlogPage />
-                    </Route>
-                    <Route path="/galerij" exact>
-                        <GalleryPage />
-                    </Route>
-                    <Route path="/zoeken/:query?" exact>
-                        <SearchPage />
-                    </Route>
-                    <Route path="/contact" exact>
-                        <ContactPage />
-                    </Route>
-                    <Route path={['/ga', '/profiel']} exact>
-                        <GroupAdminLogin />
-                    </Route>
-                    <Route path={['/ga/leden']} exact>
-                        <GroupAdminLogin />
-                    </Route>
-                    <Route path={['/betalingen/:code?', '/payments/:code?']} exact>
-                        <PaymentsPage />
-                    </Route>
-                                            
-                    {/* Catch all other pages by slug */}
-                    <Route path={['/:slug', '/pagina/:slug' ]} exact>
-                        <BasePage />
-                    </Route>
-                </Switch>
-            }
+            <Switch location={ route ? routeObject : currentLocation }>
+                <Route path="/" exact>
+                    <HomePage />
+                </Route>
+                <Route path="/leiding/:person?" exact>
+                    <TeamPage />
+                </Route>
+                <Route path="/haegeprekerke/:group?" exact>
+                    <ActivityPage />
+                </Route>
+                <Route path="/blog/:slug?" exact>
+                    <BlogPage />
+                </Route>
+                <Route path="/galerij" exact>
+                    <GalleryPage />
+                </Route>
+                <Route path="/zoeken/:query?" exact>
+                    <SearchPage />
+                </Route>
+                <Route path="/contact" exact>
+                    <ContactPage />
+                </Route>
+                <Route path={['/ga', '/profiel']} exact>
+                    <GroupAdminLogin />
+                </Route>
+                <Route path={['/ga/leden']} exact>
+                    <GroupAdminLogin />
+                </Route>
+                <Route path={['/betalingen/:code?', '/payments/:code?']} exact>
+                    <PaymentsPage />
+                </Route>
+                                        
+                {/* Catch all other pages by slug */}
+                <Route path={['/:slug', '/pagina/:slug' ]} exact>
+                    <BasePage />
+                </Route>
+            </Switch>
         </>
     )
 }

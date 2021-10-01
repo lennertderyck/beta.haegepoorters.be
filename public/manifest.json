@@ -18,6 +18,29 @@
       "sizes": "512x512"
     }
   ],
+  "shortcuts": [
+    {
+      "name": "Haegeprekerke",
+      "short_name": "Haegeprekerke",
+      "description": "Bekijk de activiteiten voor de komende maanden",
+      "url": "/haegeprekerke",
+      "icons": [{ "src": "/icons/haegeeprekerke.png", "sizes": "2000x2000" }]
+    },
+    {
+      "name": "Je Groepsadministratie profiel",
+      "short_name": "Groepsadministratie",
+      "description": "Bekijk en bewerk je persoonlijke gegevens",
+      "url": "/profiel",
+      "icons": [{ "src": "/icons/groepsadmin.png", "sizes": "2000x2000" }]
+    },
+    {
+      "name": "Nieuws & blog",
+      "short_name": "Nieuws",
+      "description": "Blijf op de hoogte van wat er gebeurt op onze scouts",
+      "url": "/blog",
+      "icons": [{ "src": "/icons/blogs.png", "sizes": "2000x2000" }]
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#6f101d",
