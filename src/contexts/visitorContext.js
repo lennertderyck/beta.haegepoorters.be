@@ -40,10 +40,6 @@ const VisitorProvider = ({ children }) => {
             })
         }
     }, [])
-
-    useEffect(() => {
-        console.log(activeRoles(profileData.functies))
-    }, [])
     
     useEffect(() => {
         if (skippedSignIn) cookieHook.set('skipSignIn', skippedSignIn)

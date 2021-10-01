@@ -14,7 +14,8 @@ import _keycl from '../../utils/keycloak.vendors';
  */
 const AppRouter = ({ route, embedded }) => {
     const currentLocation = useLocation()
-    const { isMember } = useVisitor()
+    const { profile } = useVisitor()
+    const use = useVisitor()
     
     const routeObject = {
         pathname: route
@@ -22,8 +23,7 @@ const AppRouter = ({ route, embedded }) => {
 
     return (
         <>
-            { isMember ? 'is member' : 'not a member '}
-            { !isMember && _keycl.token ?
+            { !profile.isMember && _keycl.token ?
                 <NotMemberMsg /> :
                 <Switch location={ route ? routeObject : currentLocation }>
                     <Route path="/" exact>
