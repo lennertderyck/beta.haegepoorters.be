@@ -39,6 +39,13 @@
       "description": "Blijf op de hoogte van wat er gebeurt op onze scouts",
       "url": "/blog",
       "icons": [{ "src": "/icons/blog.png", "sizes": "2000x2000" }]
+    },
+    {
+      "name": "Steun op Trooper",
+      "short_name": "Trooper",
+      "description": "Steun ons gratis en veilig op Trooper",
+      "url": "/blog",
+      "icons": [{ "src": "https://www.trooper.be/nl/trooperverenigingen/hp", "sizes": "2000x2000" }]
     }
   ],
   "start_url": ".",
