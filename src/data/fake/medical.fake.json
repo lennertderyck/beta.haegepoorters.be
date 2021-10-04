@@ -1,0 +1,410 @@
+{
+    "links": [{
+        "rel": "self",
+        "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6/steekkaart",
+        "method": "GET",
+        "secties": []
+    }, {
+        "rel": "self",
+        "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6/steekkaart",
+        "method": "PATCH",
+        "secties": []
+    }, {
+        "rel": "lid",
+        "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320ef19609010ef2d4016001a6",
+        "method": "GET",
+        "secties": []
+    }],
+    "id": "d5f75b320ef19609010ef2d4016001a6",
+    "gegevens": {
+        "schema": [{
+            "id": "d5f75e1e4610ed0201461f1464ef001a",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Bij hygi&euml;ne:",
+            "beschrijving": "(vb. zelfstandigheid, allergie, bedwateren, &hellip;)",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 15
+        }, {
+            "id": "d5f75e1e463384de01463916d21b00e8",
+            "type": "lijst",
+            "label": "Bloedgroep:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 27,
+            "keuzes": ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-", "onbekend"]
+        }, {
+            "id": "d5f75e1e4610ed0201461f15b3fe001d",
+            "type": "groep",
+            "label": "Medische informatie",
+            "beschrijving": "Het is verboden om als leid(st)er, behalve EHBO, op eigen initiatief medische handelingen uit te voeren. Ook het verstrekken van lichte pijnstillende en koortswerende medicatie zoals Perdolan, Dafalgan of Aspirine is, zonder toelating van de ouders, voorbehouden aan een arts. Daarom is het noodzakelijk om via het onderstaande kader op deze steekkaart vooraf toestemming van ouders te hebben voor het eventueel toedienen van dergelijke hulp.",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 18
+        }, {
+            "id": "d5f75e1e463384de0146390f8cb000e3",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Info over noodzakelijke aanpak bij deze aandoening:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 23
+        }, {
+            "id": "d5f75e1e480b9aa901481224fea601cd",
+            "type": "tekst",
+            "label": "Functie (indien van toepassing)",
+            "beschrijving": "Eventueel voor kinderen die in een instelling verblijven.",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 7
+        }, {
+            "id": "d5f75e1e4610ed0201461f026f8e0013",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Eventueel belangrijke afspraken vanuit de gezinssituatie:",
+            "beschrijving": "(vb. regeling echtscheiding)",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 10
+        }, {
+            "id": "d5f75e1e463a56ef01463d0240f5000d",
+            "type": "tekst",
+            "label": "Eventueel naam van verblijfsinstelling:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 8
+        }, {
+            "id": "d5f75e1e463384de01463905280100de",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Zijn er ziekten te melden? (vb. astma, suikerziekte , hooikoorts, epilepsie, hart, …): Zo ja, welke?",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 22
+        }, {
+            "id": "d5f75e1e463384de014639188d5400ea",
+            "type": "groep",
+            "label": "Aanvullende opmerkingen",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 29
+        }, {
+            "id": "d5f75e1e4610ed0201461f1523c6001c",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Andere beperkingen of zorgen:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 17
+        }, {
+            "id": "d5f75e1e463384de0146391800f100e9",
+            "type": "tekst",
+            "label": "Onze huisarts: naam en telefoon:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 28
+        }, {
+            "id": "d5f75e1e4610ed0201461f14d9de001b",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Bij sociale omgang:",
+            "beschrijving": "(vb. pesten, heimwee, angsten, slaapwandelen, &hellip;)",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 16
+        }, {
+            "id": "d5f75e1e463384de014639190ebb00eb",
+            "type": "lijst",
+            "label": "Onze zoon of dochter mag tijdens de activiteiten worden gefotografeerd voor publicatie in het groepsblad, op een website van scouting, ...:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 30,
+            "keuzes": ["ja", "nee"]
+        }, {
+            "id": "d5f75e1e480b9aa901480c7fb70100de",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Bij sporten:",
+            "beschrijving": "(vb. zwemmen, fietsen, hoogte, rust, &hellip;)",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 14
+        }, {
+            "id": "GAVeld_202123_1236_35",
+            "type": "lijst",
+            "label": "Is er bijzondere aandacht nodig OM RISICO’s TE VOORKOMEN?",
+            "beschrijving": "\r\n",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 14,
+            "keuzes": ["ja", "nee"]
+        }, {
+            "id": "GAVeld_202123_1242_21",
+            "type": "lijst",
+            "label": "Zijn er bepaalde aspecten waarmee leiding rekening kan houden als de omstandigheden dat toestaan binnen de visie van scouting:",
+            "beschrijving": "\r\n",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 32,
+            "keuzes": ["ja", "nee"]
+        }, {
+            "id": "d5f75e1e463384de0146390e395900e2",
+            "type": "lijst",
+            "label": "Wij geven toestemming aan de leiding om bij hoogdringendheid aan onze zoon of dochter een dosis via de apotheek vrij verkrijgbare pijnstillende en koortswerende medicatie toe te dienen: *",
+            "beschrijving": "*  gebaseerd op aanbeveling Kind&amp;Gezin 09.12.2009 &ndash; Aanpak van koorts / Toedienen van geneesmiddelen in de kinderopvang",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 19,
+            "keuzes": ["nee", "ja"]
+        }, {
+            "id": "d5f75e1e463384de0146391a3b4800ed",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Zo ja, op vlak van voeding (vb. vegetariër, halal):",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 31
+        }, {
+            "id": "d5f75e1e46f060b2014720e22ec507c3",
+            "type": "groep",
+            "label": "Attest van de arts",
+            "beschrijving": "Dit is een bijlage aan de individuele steekkaart voor het toedienen van medicatie: <a href=\"https://oudesite.scoutsengidsenvlaanderen.be/files/paginas/publicaties/virtueel_boekenrek/individuele_steekkaart_extras/individuele_steekkaart_dokterattest_medicatie_20110210.pdf\">hier downloaden </a>",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 21
+        }, {
+            "id": "d5f75e1e463a56ef01463cec788d0002",
+            "type": "tekst",
+            "label": "Voornaam en naam:",
+            "beschrijving": "Wie vult deze steekkaart in?",
+            "verplicht": true,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 108
+        }, {
+            "id": "d5f75e1e463384de01463901e13c00dc",
+            "type": "lijst",
+            "label": "Onze zoon of dochter moet specifieke medicatie krijgen:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 20,
+            "keuzes": ["nee", "ja: zeker bijlage doktersattest medicatie aan de leiding bezorgen!"]
+        }, {
+            "id": "d5f75e1e463a56ef01463cedcdb00003",
+            "type": "lijst",
+            "label": "Ouder, voogd of opvoedingsverantwoordelijke?",
+            "beschrijving": "*  bij leden die verblijven in een instelling kan het moeilijk zijn om deze formulieren door ouders of voogd te laten invullen; in dat geval kan ook een opvoeder de gegevens invullen.",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 109,
+            "keuzes": ["ouder", "voogd", "ikzelf (voor meerderjarigen)", "opvoeder*", "opvoedingsverantwoordelijke"]
+        }, {
+            "id": "d5f75e1e463384de0146391b5df600ef",
+            "type": "groep",
+            "label": "Als er iets verandert aan de gezondheidstoestand van uw zoon of dochter na de invuldatum van deze steekkaart, dan vragen wij uitdrukkelijk dit zo snel mogelijk hier aan te passen.",
+            "beschrijving": "Vergeet niet de Kids-Id, EID of ISI-kaart, mee te brengen bij vertrek op meerdaagse activiteiten.",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 106,
+            "keuzes": [""]
+        }, {
+            "id": "d5f75e1e463a56ef01463cebc8be0001",
+            "type": "groep",
+            "label": "Bevestiging",
+            "beschrijving": "Ik verklaar dat de ingevulde gegevens volledig en correct zijn. Het is raadzaam deze steekkaart voor elk kamp na te kijken.",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 107
+        }, {
+            "id": "d5f75e1e463a56ef01463cfac643000c",
+            "type": "groep",
+            "label": "Engagement",
+            "beschrijving": "Leiding engageert er zich toe om samen zorg te dragen voor de veiligheid en het welzijn van alle leden. Bij twijfels of vragen hieromtrent is het absoluut  wenselijk dat ouders en leiding contact met elkaar opnemen.Wij danken u voor het vertrouwen in Scouts en Gidsen Vlaanderen.",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 105
+        }, {
+            "id": "d5f75e1e463384de0146391abdd000ee",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Zo ja, andere aandachtspunten die belang kunnen hebben bij de omgang met ons kind:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 32
+        }, {
+            "id": "d5f75e1e4610ed0201461f01ebc70012",
+            "type": "groep",
+            "label": "Adres en bereikbaarheid",
+            "beschrijving": "Wie contacteren als de ouders niet bereikbaar zijn (zoals op kinderpas -12 jarigen)?",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 4
+        }, {
+            "id": "d5f75e1e4610ed0201461f0312090014",
+            "type": "groep",
+            "label": "Deelname aan activiteiten",
+            "beschrijving": "Zaken om rekening mee te houden bij organisatie van activiteiten. Onze zoon of dochter kan en mag deelnemen aan alle gewone scoutingactiviteiten op maat van de leeftijdstak (op tocht gaan, spelen, kamperen, &hellip; ).",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 11
+        }, {
+            "id": "d5f75e1e480b9aa901481227773101cf",
+            "type": "tekst",
+            "label": "Naam:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 5
+        }, {
+            "id": "d5f75e1e463384de01463912fadd00e6",
+            "type": "lijst",
+            "label": "Onze zoon of dochter werd inge&euml;nt tegen klem (tetanus):",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 25,
+            "keuzes": ["ja", "nee"]
+        }, {
+            "id": "d5f75e1e463a56ef01463d07711e000f",
+            "type": "groep",
+            "label": "INDIVIDUELE STEEKKAART",
+            "beschrijving": "Met deze individuele steekkaart geven ouders jaarlijks aan de takleiding alle noodzakelijke inlichtingen over hun kind(eren) aangesloten bij een plaatselijke groep van Scouts en Gidsen Vlaanderen. <br>Deze informatie draagt bij aan een veilige en persoonlijke begeleiding van alle leden en wordt vertrouwelijk behandeld door de leidingsploeg. <br>Wanneer er wijzigingen zijn in deze gegevens is het belangrijk om deze onmiddellijk aan te passen. <br><br>Het is noodzakelijk om deze steekkaart op te maken voor iedereen actief in Scouts en Gidsen Vlaanderen binnen de drie eerste weken van het lidmaatschap en te laten invullen door de ouders of voogd van alle leden. Jaarlijks binnen de eerste drie maanden van elk nieuw werkjaar opnieuw na te kijken. Leid(st)ers kunnen hun eigen gegevens op deze steekkaart zelf invullen en ondertekenen indien meerderjarig.",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": false,
+            "kanGebruikerWijzigen": true,
+            "sort": 2
+        }, {
+            "id": "d5f75e1e463384de01463907763900e1",
+            "type": "tekst",
+            "label": "Telefoon/gsm:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 6
+        }, {
+            "id": "d5f75e1e46f060b2014720df14c607c2",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Voornaam, naam en tak van broers of zussen in dezelfde groep:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 9
+        }, {
+            "id": "d5f75e1e463384de0146391124af00e5",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Onze zoon of dochter moet een bepaald dieet volgen: Zo ja, welk?",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 24
+        }, {
+            "id": "d5f75e1e463384de01463913fa7600e7",
+            "type": "tekst",
+            "label": "Zo ja, in welk jaar?",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 26
+        }, {
+            "id": "d5f75e1e4610ed0201461f119f740016",
+            "type": "tekst_meerdere_lijnen",
+            "label": "Zo neen, deze activiteiten zijn onmogelijk of niet toegestaan:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 12
+        }, {
+            "id": "d5f75e1e4610ed0201461f1204140017",
+            "type": "tekst_meerdere_lijnen",
+            "label": "eventuele reden:",
+            "beschrijving": "",
+            "verplicht": false,
+            "kanLeidingWijzigen": false,
+            "kanLidWijzigen": true,
+            "kanGebruikerWijzigen": true,
+            "sort": 13
+        }],
+        "waarden": {
+            "d5f75e1e463384de0146390e395900e2": "ja",
+            "d5f75e1e463384de01463901e13c00dc": "ja: zeker bijlage doktersattest medicatie aan de leiding bezorgen!",
+            "d5f75e1e463384de01463907763900e1": "0494403813",
+            "d5f75e1e463384de01463912fadd00e6": "ja",
+            "d5f75e1e463384de0146391800f100e9": "Katleen Keppens, 09/2284132",
+            "d5f75e1e480b9aa901481227773101cf": "Tilly Van de Gaer",
+            "d5f75e1e463384de01463916d21b00e8": "O+",
+            "d5f75e1e463384de014639190ebb00eb": "ja",
+            "d5f75e1e463a56ef01463cec788d0002": "Lennert De Ryck",
+            "d5f75e1e463a56ef01463cedcdb00003": "ikzelf (voor meerderjarigen)"
+        }
+    }
+}

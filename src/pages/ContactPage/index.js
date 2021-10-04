@@ -88,7 +88,7 @@ const ContactPage = () => {
                                 <Button theme="button" className="mr-4" onClick={() => autoFillPermission('never')}>Nooit</Button>
                             </div>
                         </div> */}
-                        <Form button="Versturen" action="http://localhost:5050" defaultValues={
+                        <Form button="Versturen" action="https://fwd.haegepoorters.be" defaultValues={
                             selectedTemplate ? formTemplates[selectedTemplate]({
                                 voornaam: profile.vgagegevens.voornaam,
                                 lidnummer: profile.verbondsgegevens.lidnummer
