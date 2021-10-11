@@ -7,7 +7,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 import queries from '../../graphql/queries'
 import RenderTimes from '../RenderTimes';
-import { className } from '../../utils';
+import { activityIsPassed, className } from '../../utils';
 import CenterMessage from '../CenterMessage';
 import Collapse from '../Collapse';
 import Button from '../Button';
@@ -85,29 +85,29 @@ const HighlightedEvents = () => {
     </CenterMessage>
         
     const { 
-        HaegeprekerkeItems: { items: [{ content: { kap: [kap], wel: [wel], wol: [wol], jgv: [jgv], giv: [giv] }}]},
+        HaegeprekerkeItems: { items: [{ content: { kap, wel, wol, jgv, giv }}]},
         // ActivityItems: { items }
     } = data;
     const groups = [
         {
             label: 'kapoenentak',
-            data: kap
+            data: kap.find(({ period: { start }}) => !activityIsPassed(start))
         },
         {
             label: 'welpentak',
-            data: wel
+            data: wel.find(({ period: { start }}) => !activityIsPassed(start))
         },
         {
             label: 'woudlopertak',
-            data: wol
+            data: wol.find(({ period: { start }}) => !activityIsPassed(start))
         },
         {
             label: 'jonggivertak',
-            data: jgv
+            data: jgv.find(({ period: { start }}) => !activityIsPassed(start))
         },
         {
             label: 'givertak',
-            data: giv
+            data: giv.find(({ period: { start }}) => !activityIsPassed(start))
         }
     ]
     
