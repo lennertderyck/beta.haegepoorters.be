@@ -5,6 +5,7 @@ import { className } from '../utils';
 import styles from './Layouts.module.scss'
 
 const BaseLayout = ({ children }) => {
+    
     return (
         <div className="flex">
             <div className={ styles.mainMenu }> 

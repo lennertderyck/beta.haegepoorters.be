@@ -25,7 +25,7 @@ const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loadin
     
     useEffect(() => {
         !disableScroll && window.scrollTo(0, 0)
-    }, [ disableScroll ])
+    }, [])
     
     return (
         <PageWrapper embedded={ embedded }>

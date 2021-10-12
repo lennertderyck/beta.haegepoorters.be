@@ -22,7 +22,7 @@ const ActivityEditor = () => {
     </div>
     
     if (!group) return <PageLayout
-        title="Haegeprekerkes"
+        title="Haegeprekerkes indienen"
         subtitle="Bewerk de Haegeprekerkes"
     >
         <div className="bg-gray-100 py-4 px-5 text-sm mb-6">
