@@ -29,7 +29,8 @@ const ActivityEditor = () => {
             <ul className="list-disc list-inside">
                 <li>Vul in deze documenten het Haegeprekerke aan per maand</li>
                 <li>Maak een overzichtelijk onderscheid tussen elke periode</li>
-                <li><strong>Het Haegeprekerke wordt niet automatisch aangepast</strong>, je bewerkingen moeten door de redactie nog steeds overgezet worden, breng ons dus zeker op de hoogte!</li>
+                <li className="mb-2"><strong>Het Haegeprekerke wordt niet automatisch aangepast</strong>, je bewerkingen moeten door de redactie nog steeds overgezet worden, breng ons dus zeker op de hoogte!</li>
+                <li>In de toekomst zullen bewerkingen wel automatisch worden gepubliceerd</li>
             </ul>
         </div>
         
