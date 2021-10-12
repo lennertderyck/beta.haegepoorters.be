@@ -23,8 +23,10 @@ const Loader = () => (
                 <Skeleton height=".75rem" />
             </div>
             <div className="w-full">
-                <Skeleton height="1.5rem" width="18rem" /><br/>
-                <Skeleton width="12rem" />
+                <div className="max-w-96">
+                    <Skeleton className="block" height="1.5rem" width="100%" /><br/>
+                    <Skeleton className="block" width="60%" />
+                </div>
             </div>
         </div>
     </>
