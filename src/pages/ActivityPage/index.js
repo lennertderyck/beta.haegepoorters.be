@@ -161,7 +161,9 @@ const ActivityPage = () => {
             </div>
         </Container>
         <RenderActivities />
-        <ShareService />
+        <Container>
+            <ShareService />
+        </Container>
     </PageWrapper>)
 }
 

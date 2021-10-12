@@ -7,7 +7,7 @@ import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.cjs'
 
 import queries from '../../graphql/queries'
 import RenderTimes from '../RenderTimes';
-import { activityIsPassed, className } from '../../utils';
+import { checkActivities, className, findFirstActivity } from '../../utils';
 import CenterMessage from '../CenterMessage';
 import Collapse from '../Collapse';
 import Button from '../Button';
@@ -85,41 +85,54 @@ const HighlightedEvents = () => {
     </CenterMessage>
         
     const { 
-        HaegeprekerkeItems: { items: [{ content: { kap, wel, wol, jgv, giv }}]},
+        HaegeprekerkeItems: { items: [{ content: { kap, wel, wol, jgv, giv, group_activities }}]},
         // ActivityItems: { items }
     } = data;
+    
+    const firstGroupActivity = findFirstActivity(group_activities);
+    
     const groups = [
         {
             label: 'kapoenentak',
-            data: kap.find(({ period: { start }}) => !activityIsPassed(start))
+            data: checkActivities(kap, firstGroupActivity)
         },
         {
             label: 'welpentak',
-            data: wel.find(({ period: { start }}) => !activityIsPassed(start))
+            data: checkActivities(wel, firstGroupActivity)
         },
         {
             label: 'woudlopertak',
-            data: wol.find(({ period: { start }}) => !activityIsPassed(start))
+            data: checkActivities(wol, firstGroupActivity)
         },
         {
             label: 'jonggivertak',
-            data: jgv.find(({ period: { start }}) => !activityIsPassed(start))
+            data: checkActivities(jgv, firstGroupActivity)
         },
         {
             label: 'givertak',
-            data: giv.find(({ period: { start }}) => !activityIsPassed(start))
-        }
+            data: checkActivities(giv, firstGroupActivity)
+        },
+        {
+            label: 'alle takken',
+            data: firstGroupActivity
+        },
     ]
     
     return (<>
         <div className="bg-gray-100">
-            { groups.map(({ label, data: g}) => 
-                g && <Card 
-                    key={ g['_uid'] } 
-                    data={ g } 
-                    group={ label } 
+            { groups[0].data ? 
+                groups.map(({ label, data: g}) => 
+                    g && <Card 
+                        key={ g['_uid'] } 
+                        data={ g } 
+                        group={ label } 
+                    />
+                ) :
+                <Card 
+                    data={ firstGroupActivity } 
+                    group="Alle takken"
                 />
-            )}
+            }
         </div>
         <Collapse label="Zie je je tak niet?" className="mt-6">
             <div className="text-sm">

@@ -32,7 +32,7 @@ const Results = ({ data }) => {
                 <div 
                     key={ index }
                     onClick={ () => setRoute('/' + full_slug) }
-                    className="flex flex-col items-start border-b-2 py-5 lg:px-5 lg:hover:bg-gray-100 w-full"
+                    className="flex flex-col items-start border-b-2 py-5 lg:px-5 lg:hover:bg-gray-100 w-full cursor-pointer"
                 >
                     <div className="flex items-center justify-start mb-2">
                         <Icon name={ iconByResultType(parent_id) } size="1.2rem" className="mr-2" />

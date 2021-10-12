@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Button, CoronaStatusBanner, HeroBanner, HighlightedEvents, HighlightedNews, Modal } from '../../components'
+import { Button, CoronaStatusBanner, HeroBanner, HighlightedEvents, HighlightedNews, Icon, Modal } from '../../components'
 import { homeRelatedLinks } from '../../data/nav';
 import QUERIES from '../../graphql/queries';
 
@@ -35,11 +36,17 @@ export default function Home() {
         <CoronaStatusBanner />
         <div className="grid grid-cols-12 py-12 lg:gap-12">
           <div className="col-span-12 lg:col-span-8 mb-12">
-            <h3 className="font-serif mb-6">Activiteiten in de kijker</h3>
+            <Link className="flex items-center mb-6" to="/haegeprekerke">
+              <h3 className="font-serif">Activiteiten in de kijker</h3>
+              <Icon name="arrow-right" size="1.4rem" className="ml-3"/>
+            </Link>
             <HighlightedEvents />
           </div>
           <div className="col-span-12 lg:col-span-4">
-            <h3 className="font-serif mb-6">Nieuwtjes &amp; blog</h3>
+            <Link className="flex items-center mb-6" to="/blog">
+              <h3 className="font-serif">Nieuwtjes &amp; blog</h3>
+              <Icon name="arrow-right" size="1.4rem" className="ml-3"/>
+            </Link>
             <HighlightedNews />
           </div>
         </div>

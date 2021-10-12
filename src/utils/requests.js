@@ -18,7 +18,8 @@ const _axios = async (method, url, data) => {
 }
 
 const GET = {
-    PROFILE: () => _axios('GET', '/lid/profiel')
+    PROFILE: () => _axios('GET', '/lid/profiel'),
+    USER_TAGS: () => _axios('GET', '/functie')
 }
 
 const PATCH = {

@@ -40,7 +40,7 @@ const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => 
 
 const RoleSelector = memo(({ menuOpen }) => {
     const [ ,setOpen ] = useState(false)
-    const { role } = useVisitor()
+    const { profile, _keycl } = useVisitor()
     
     useEffect(() => {
         setOpen(false)
@@ -50,13 +50,22 @@ const RoleSelector = memo(({ menuOpen }) => {
         <div className="flex pr-4 cursor-pointer">
             <div className="mr-2">
                 <div className="text-right transform -translate-y-0.5">
-                    <span className="font-serif opacity-70 -mb-1 block whitespace-nowrap">ik ben </span>
-                    <div className="text-xs uppercase tracking-wider font-medium whitespace-nowrap">
-                        { role.label }
-                    </div>
+                    { _keycl.token || process.env.NODE_ENV === 'development' ? 
+                        <>
+                            <span className="font-serif opacity-70 -mb-1 block whitespace-nowrap">Je account</span>
+                            <div className="text-xs uppercase tracking-wider font-medium whitespace-nowrap">
+                                { profile?.vgagegevens.voornaam }
+                            </div>
+                        </> : <>
+                            <span className="font-serif opacity-70 -mb-1 block whitespace-nowrap">Je account</span>
+                            <div className="text-xs uppercase tracking-wider font-medium whitespace-nowrap">
+                                Aanmelden
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
-            <Icon size="1.2rem" name="settings-4" className="mt-2.5" />
+            <Icon size="1.2rem" name="account-circle" className="mt-2.5" />
         </div>
     )
 });
@@ -128,6 +137,7 @@ const MainMenu = () => {
                     </>)}
                 </>)}
             </Modal>
+            
             <Button 
                 className="fixed top-4 right-4 z-40 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden"
                 onClick={() => setOpen(p => !p)}
@@ -153,17 +163,14 @@ const MainMenu = () => {
                         !open && 'max-w-0'
                     )}>
                         <Fade when={ open } duration={ 500 }> 
-                            {/* <Button onClick={() => setToggleModal(p => !p)}>
-                                <RoleSelector menuOpen={ open } />
-                            </Button> */}
                             <Button to="/profiel" theme="clean" onClick={() => setOpen(false)}>
                                 <RoleSelector menuOpen={ open } />
                             </Button>
                         </Fade>
                     </div>
                 </div>
-                <div className="">
-                    <div className="">
+                <div>
+                    <div>
                         { mainNav.map(({ icon, slug, label, offlineSupport }, index) => (
                             <MenuItem
                                 icon={ icon }
@@ -184,9 +191,13 @@ const MainMenu = () => {
                         disabled={ status === 'offline' }
                         onClick={() => setOpen(false)}
                     />
+                    
+                    {/* STICKY WHITE OVERFLOW GRADIENT */}
                     <div className="h-14 w-full sticky bottom-0 bg-gradient-to-t from-white to-transparent" />
                 </div>
             </div>
+            
+            {/* BACKDROP */}
             { open && <div
                 onClick={ e => setOpen(false) }
                 { ...className(styles.backdrop, 'w-screen h-screen fixed top-0 bottom-0 left-0 right-0 z-20 bg-black')} 

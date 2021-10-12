@@ -21,6 +21,16 @@ const ProfileSummary = () => {
     else if (!profile && !inDev()) return <h3>Loading</h3>
     else if (!profile?.isMember && _keycl.token) return <NotMemberMsg />
     return <>
+        { profile.isLeader && <div className="">
+            <h3 className="font-serif">Leidingstuff</h3>
+            <p>Alle tools voor actieve leiding</p>
+            <div className="mt-6">
+                <Button to="/haegeprekerke/edit" iconAfter="arrow-right">Haegeprekerke indienen</Button>
+            </div>
+        </div>}
+        
+        <hr className="border-gray-300 border-t-2 my-10" />
+        
         <div className="mb-14">
             <h3 className="font-serif">Emailadres</h3>
             <p>Voor het aanmelden, en ontvangen van mails</p>
@@ -29,7 +39,6 @@ const ProfileSummary = () => {
                 <Button theme="button" type="submit">Wijzigen</Button>
             </Form>
         </div>
-
         
         <div className="mb-6">
             <h3 className="font-serif mb-4">Adressen</h3>

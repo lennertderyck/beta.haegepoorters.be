@@ -13,6 +13,19 @@ export const sortActivitiesByDate = (
 
 export const activityIsPassed = (date) => dayjs(new Date()).isAfter(dayjs(date));
 
+export const findFirstActivity = (acts) => {
+    return acts?.find(({ period: { start }}) => !activityIsPassed(start))
+}
+
+export const checkActivities = (acts, group_acts) => {
+    const { period: { start: a }} = findFirstActivity(acts);
+    const { period: { start: b }} = group_acts;
+    
+    const diff = dayjs(a).diff(dayjs(b))
+
+    return diff !== 0 ? findFirstActivity(acts) : null
+}
+
 export const filterTeamOnFunction = (items, funct) => items.filter(({ content: { functions } }) => {
     return functions?.content?.shortcode === funct
 });

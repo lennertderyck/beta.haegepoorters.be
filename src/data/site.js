@@ -1,15 +1,78 @@
 export const siteGroups = [
-    { value: 'oud', isGroup: false, label: 'ouder', plur: 'ouders' },
-    { value: 'kap', isGroup: true, contactForm: 'kapoenen', label: 'kapoen', plur: 'kapoenen', payments: 'BE71 7360 3138 9769' },
-    { value: 'wel', isGroup: true, contactForm: 'welpen', label: 'welp', plur: 'welpen', payments: 'BE38 7360 3139 0072' },
-    { value: 'wol', isGroup: true, contactForm: 'woudlopers', label: 'woudloper', plur: 'woudlopers', payments: 'BE16 7360 3139 0274' },
-    { value: 'jgv', isGroup: true, contactForm: 'jonggivers', label: 'jonggiver', plur: 'jonggivers', payments: 'BE91 7360 3139 0476' },
-    { value: 'giv', isGroup: true, contactForm: 'givers', label: 'giver', plur: 'givers', payments: 'BE80 7360 3139 0577' },
-    { value: 'lei', isGroup: false, label: 'leiding', plur: 'leiding' },
-    { value: 'grk', isGroup: false, label: 'groepskas', plur: 'groepskas', payments: 'BE18 7360 3138 9365'},
-    { value: 'stm', isGroup: false, label: 'stam', plur: 'stam', payments: 'BE58 7360 3139 0779'},
-    { value: 'kle', isGroup: false, label: 'team kledij', plur: 'team kledij', payments: 'BE47 7360 3139 0880'},
-    { value: 'mat', isGroup: false, label: 'materiaal en verhuur', plur: 'materiaal en verhuur'},
+    {
+        value: 'oud',
+        isGroup: false,
+        label: 'ouder',
+        plur: 'ouders'
+    }, {
+        value: 'kap',
+        isGroup: true,
+        contactForm: 'kapoenen',
+        label: 'kapoen',
+        plur: 'kapoenen',
+        payments: 'BE71 7360 3138 9769',
+        activityEditorCode: '1xKE80SO0QoQxaROiRJ8RzdJPnjwhWvjTSEesH34bUog'
+    }, {
+        value: 'wel',
+        isGroup: true,
+        contactForm: 'welpen',
+        label: 'welp',
+        plur: 'welpen',
+        payments: 'BE38 7360 3139 0072',
+        activityEditorCode: '1bGSzL8K0zx86W6jI5N32pIIqYVQynNsCJLc2ZmXvruo'
+    }, {
+        value: 'wol',
+        isGroup: true,
+        contactForm: 'woudlopers',
+        label: 'woudloper',
+        plur: 'woudlopers',
+        payments: 'BE16 7360 3139 0274',
+        activityEditorCode: '1lOvvTJz47P3rydZ2z0oAuJQua0PMvA4rTFS4PNMrFjc'
+    }, {
+        value: 'jgv',
+        isGroup: true,
+        contactForm: 'jonggivers',
+        label: 'jonggiver',
+        plur: 'jonggivers',
+        payments: 'BE91 7360 3139 0476',
+        activityEditorCode: '1SXHACHIvb33MOJfQsj9ODvUWRtUvgPgT9P1Tdjz6rzM'
+    }, {
+        value: 'giv',
+        isGroup: true,
+        contactForm: 'givers',
+        label: 'giver',
+        plur: 'givers',
+        payments: 'BE80 7360 3139 0577',
+        activityEditorCode: '1UUIe4eFn_kZtawg_M6v4vuBm1zyRqxyLJFKUGSumpas'
+    }, {
+        value: 'lei',
+        isGroup: false,
+        label: 'leiding',
+        plur: 'leiding'
+    }, {
+        value: 'grk',
+        isGroup: false,
+        label: 'groepskas',
+        plur: 'groepskas',
+        payments: 'BE18 7360 3138 9365'
+    }, {
+        value: 'stm',
+        isGroup: false,
+        label: 'stam',
+        plur: 'stam',
+        payments: 'BE58 7360 3139 0779'
+    }, {
+        value: 'kle',
+        isGroup: false,
+        label: 'team kledij',
+        plur: 'team kledij',
+        payments: 'BE47 7360 3139 0880'
+    }, {
+        value: 'mat',
+        isGroup: false,
+        label: 'materiaal en verhuur',
+        plur: 'materiaal en verhuur'
+    },
 ]
 
 export const uris = {

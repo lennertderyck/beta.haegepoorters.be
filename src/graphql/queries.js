@@ -11,6 +11,7 @@ const QUERIES = {
                         wol
                         jgv
                         giv
+                        group_activities
                         period
                     }
                 }
@@ -125,6 +126,7 @@ const QUERIES = {
                         wol
                         jgv
                         giv
+                        group_activities
                     }
                 }
             }

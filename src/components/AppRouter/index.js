@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { NotMemberMsg } from '..';
 import { useVisitor } from '../../contexts/visitorContext';
-import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage } from '../../pages';
+import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor } from '../../pages';
 import _keycl from '../../utils/keycloak.vendors';
 
 /**
@@ -29,6 +29,9 @@ const AppRouter = ({ route, embedded }) => {
                 </Route>
                 <Route path="/leiding/:person?" exact>
                     <TeamPage />
+                </Route>
+                <Route path="/haegeprekerke/edit/:group?" exact>
+                    <ActivityEditor />
                 </Route>
                 <Route path="/haegeprekerke/:group?" exact>
                     <ActivityPage />

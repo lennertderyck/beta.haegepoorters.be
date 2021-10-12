@@ -4,6 +4,7 @@ import { siteGroups } from '../data/site';
 import { activeRoles, cookieHook, findTag, GET, memberCheck } from '../utils';
 import * as keycloakServices from '../utils/keycloak.vendors';
 import profileData from '../data/fake/profiel.fake.json'
+import fakeUserTags from '../data/fake/tags.fake.json'
 
 const visitorContext = createContext();
 const { Provider } = visitorContext;
@@ -29,14 +30,14 @@ const VisitorProvider = ({ children }) => {
     
     useEffect(() => {
         if (keycloakServices.userSaved()) {
-            GET.PROFILE().then(({ data }) => {
-                setProfile({
-                    ...data,
-                    ...memberCheck(data['functies'])
+            GET.PROFILE().then(({ data: profileData }) => {
+                
+                GET.USER_TAGS().then(({ data: tagsData }) => {
+                    setProfile({
+                        ...profileData,
+                        ...memberCheck(profileData['functies'], tagsData.functies)
+                    })
                 })
-
-                console.log('functies', findTag(data['functies']))
-                // setRole()
             })
         }
     }, [])
@@ -64,7 +65,7 @@ const VisitorProvider = ({ children }) => {
         ...keycloakServices,
         profile: process.env.NODE_ENV === 'development' ? {
             ...profileData,
-            ...memberCheck(profileData['functies'])
+            ...memberCheck(profileData['functies'], fakeUserTags.functies)
         } : profile
     }}>
         { children }
