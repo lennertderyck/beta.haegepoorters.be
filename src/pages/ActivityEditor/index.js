@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, CenterMessage, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
@@ -8,7 +8,8 @@ import { PageLayout } from '../../layouts';
 const ActivityEditor = () => {
     const { group } = useParams()
     const { _keycl, profile } = useVisitor()
-
+    const editorRef = useRef()
+    
     if (!_keycl.token && process.env.NODE_ENV !== 'development') return <PageLayout>
         <div className="h-full ">
             <SignInMessage />
@@ -49,7 +50,7 @@ const ActivityEditor = () => {
     
     return (
         <>
-            <div className="bg-gray-200 flex justify-between py-3 px-5 w-full mb-3">
+            <div className="bg-gray-200 flex justify-between py-3 px-5 w-full">
                 <Button theme="simple" icon="arrow-left" to="/haegeprekerke/edit">
                     terug naar overzicht
                 </Button>
@@ -57,8 +58,9 @@ const ActivityEditor = () => {
                     Je bent momenteel het Haegeprekerke voor de <span className="underline inline font-semibold">{ activeEdit.plur }</span> aan het bewerken
                 </h3>
             </div>
-            <iframe 
-                src={`https://docs.google.com/document/d/${ activeEdit.activityEditorCode }/edit`}
+            <iframe
+                ref={ editorRef }
+                src={`https://docs.google.com/document/d/${ activeEdit.activityEditorCode }/edit?rm=demo`}
                 width="100%" 
                 className="h-screen"
             />
