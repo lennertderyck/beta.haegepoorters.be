@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, CoronaStatusBanner, HeroBanner, HighlightedEvents, HighlightedNews, Icon, Modal } from '../../components'
+import { Button, CoronaStatusBanner, Footer, HeroBanner, HighlightedEvents, HighlightedNews, Icon, Modal } from '../../components'
 import { homeRelatedLinks } from '../../data/nav';
 import QUERIES from '../../graphql/queries';
 
@@ -76,6 +76,7 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   )
 }

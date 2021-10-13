@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import Fade from 'react-reveal/Fade';
+import Skeleton from 'react-loading-skeleton';
 
 import { Container, Img, PageWrapper } from '../components';
-import Skeleton from 'react-loading-skeleton';
 import { className } from '../utils';
 
 const Loader = () => <>

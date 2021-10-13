@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Button, CenterMessage, SignInMessage } from '../../components';
+import { isMobile } from "react-device-detect";
+
+import { Button, CenterMessage, Icon, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { siteGroups } from '../../data/site';
 import { PageLayout } from '../../layouts';
@@ -16,7 +18,7 @@ const ActivityEditor = () => {
         </div>
     </PageLayout>
     
-    if (!profile?.isLeader) return  <div className="h-full flex items-center justify-center">
+    if (!profile?.isLeader) return <div className="h-full flex items-center justify-center">
         <CenterMessage intro="Jij bent geen leiding ;)" icon="shield-user">
             Enkel actieve leiding kan deze pagina bekijken
         </CenterMessage>
@@ -45,26 +47,35 @@ const ActivityEditor = () => {
             </Link>
         </>) }
     </PageLayout>
+
+    if (group && isMobile) return <div className="h-full flex items-center justify-center">
+        <CenterMessage intro="Gebruik een desktop" icon="macbook">
+            Deze pagina is niet geoptimaliseerd voor smartphones
+        </CenterMessage>
+    </div>
     
     const activeEdit = siteGroups.find(({ value }) => value === group)
     
     return (
-        <>
+        <div className="flex flex-col h-full">
             <div className="bg-gray-200 flex justify-between py-3 px-5 w-full">
                 <Button theme="simple" icon="arrow-left" to="/haegeprekerke/edit">
                     terug naar overzicht
                 </Button>
-                <h3 className="font-medium text-base mr-2">
-                    Je bent momenteel het Haegeprekerke voor de <span className="underline inline font-semibold">{ activeEdit.plur }</span> aan het bewerken
-                </h3>
+                <div className="flex items-center">
+                    <h3 className="text-base mr-2">
+                        Je bent momenteel het Haegeprekerke voor de <span className="underline inline font-semibold">{ activeEdit.plur }</span> aan het bewerken
+                    </h3>
+                    <Icon name="edit-2" className="ml-1.5" size="1.4rem" />
+                </div>
             </div>
             <iframe
                 ref={ editorRef }
                 src={`https://docs.google.com/document/d/${ activeEdit.activityEditorCode }/edit?rm=demo`}
                 width="100%" 
-                className="h-screen"
+                className="flex-1"
             />
-        </>
+        </div>
     )
 }
 

@@ -3,7 +3,7 @@
 }
 
 .screen {
-    --offset: 66px;
+    --offset: calc(66px + 4px);
     
     @media (min-width: 1024px) {
         width: calc(100vw - var(--offset));

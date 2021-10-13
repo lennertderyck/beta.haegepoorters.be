@@ -15,7 +15,6 @@ const BaseLayout = ({ children }) => {
                 <div className="flex-1">
                     { children }
                 </div>
-                <Footer />
             </div>
         </div>
     )
