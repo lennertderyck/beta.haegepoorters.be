@@ -1,25 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Switch,
   Route,
   useLocation
 } from "react-router-dom";
+import { addListener, launch, stop } from 'devtools-detector';
+
 import { NotMemberMsg } from '..';
 import { useVisitor } from '../../contexts/visitorContext';
 import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor } from '../../pages';
 import _keycl from '../../utils/keycloak.vendors';
+import CenterMessage from '../CenterMessage';
 
 /**
  * embedded param so that not needed padding can be removed in views
  */
 const AppRouter = ({ route, embedded }) => {
     const currentLocation = useLocation()
-    const { profile } = useVisitor()
-    const use = useVisitor()
+    const { profile, setDevTools, devTools } = useVisitor()
+    
+    useEffect(() => {
+        if (process.env.NODE_ENV !== 'development') {
+            addListener( state => setDevTools(state));
+            launch()
+        }
+        return stop
+    }, [])
     
     const routeObject = {
         pathname: route
     }
+    
+    if (devTools) return <div className="h-full flex items-center justify-center">
+        <CenterMessage intro="Sluit de devtools" icon="bug">
+            Sluit de ontwikkelaartools om verder te gaan.
+        </CenterMessage>
+    </div>
 
     return (
         <>
