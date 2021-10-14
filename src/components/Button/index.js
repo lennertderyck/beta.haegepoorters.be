@@ -9,6 +9,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
         clear: '',
         simple: 'text-xs font-semibold uppercase tracking-widest text-red-500',
         button: 'w-fit px-3 py-2 uppercase tracking-widest font-semibold text-xs bg-red-100 text-red-500',
+        list: 'w-full h-full p-4 justify-between uppercase tracking-widest font-semibold text-sm bg-red-100 text-red-500'
     }
     
     const iconColor = {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
-import { links } from '../../data/nav';
+import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
 import { inDev, PATCH } from '../../utils';
 import _keycl from '../../utils/keycloak.vendors';
@@ -25,8 +25,12 @@ const ProfileSummary = () => {
             <div className="">
                 <h3 className="font-serif">Leidingstuff</h3>
                 <p>Alle tools voor actieve leiding</p>
-                <div className="mt-6">
-                    <Button to="/haegeprekerke/edit" iconAfter="arrow-right">Haegeprekerke indienen</Button>
+                <div className="grid grid-cols-12 mt-6 gap-4">
+                    { accountLeaderLinks.map(({ to, label }, index) => 
+                        <div className="col-span-12 md:col-span-6" key={ index }>
+                            <Button to={ to } iconAfter="arrow-right" theme="list">{ label }</Button>
+                        </div>
+                    )}
                 </div>
             </div>
             <hr className="border-gray-300 border-t-2 my-10" />
