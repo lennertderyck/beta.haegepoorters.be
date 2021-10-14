@@ -48,6 +48,10 @@ export const accountLeaderLinks = [
         label: 'Betaal QR aanmaken',
         to: '/betalingen'
     },
+    {
+        label: 'Webmail',
+        to: '/mail'
+    },
 ]
 
 export const links = {
