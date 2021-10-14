@@ -11,6 +11,7 @@ import { useVisitor } from '../../contexts/visitorContext';
 import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor } from '../../pages';
 import _keycl from '../../utils/keycloak.vendors';
 import CenterMessage from '../CenterMessage';
+import { useQuery } from '@apollo/client';
 
 /**
  * embedded param so that not needed padding can be removed in views
@@ -18,9 +19,10 @@ import CenterMessage from '../CenterMessage';
 const AppRouter = ({ route, embedded }) => {
     const currentLocation = useLocation()
     const { profile, setDevTools, devTools } = useVisitor()
+    const { searchParams } = new URL(window.location)
     
     useEffect(() => {
-        if (process.env.NODE_ENV !== 'development') {
+        if (process.env.NODE_ENV !== 'development' && searchParams.get('force') !== 'dev') {
             addListener( state => setDevTools(state));
             launch()
         }

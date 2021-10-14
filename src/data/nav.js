@@ -39,6 +39,21 @@ export const homeRelatedLinks = [
     },
 ]
 
+export const accountLeaderLinks = [
+    {
+        label: 'Haegeprekerke indienen',
+        to: '/haegeprekerke/edit'
+    },
+    {
+        label: 'Betaal QR aanmaken',
+        to: '/betalingen'
+    },
+    {
+        label: 'Webmail',
+        to: '/mail'
+    },
+]
+
 export const links = {
     gaProfile: 'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel'
 }

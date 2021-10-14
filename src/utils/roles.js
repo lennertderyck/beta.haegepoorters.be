@@ -1,3 +1,5 @@
+import { functies as userTags } from '../data/fake/tags.fake.json'
+
 export const activeRoles = (data) => data.filter(({ einde }) => !einde)
 export const memberCheck = (data, tagsData) => {
     // check if user has roles with our groupid
@@ -20,3 +22,5 @@ export const memberCheck = (data, tagsData) => {
         isLeader
     }
 }
+
+export const findUserTags = (functie) => userTags.find(({ id }) => id === functie);
