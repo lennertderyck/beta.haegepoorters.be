@@ -10,7 +10,6 @@ import { PageLayout } from '../../layouts';
 const ActivityEditor = () => {
     const { group } = useParams()
     const { _keycl, profile } = useVisitor()
-    const editorRef = useRef()
     
     if (!_keycl.token && process.env.NODE_ENV !== 'development') return <PageLayout>
         <div className="h-full ">
@@ -70,7 +69,6 @@ const ActivityEditor = () => {
                 </div>
             </div>
             <iframe
-                ref={ editorRef }
                 src={`https://docs.google.com/document/d/${ activeEdit.activityEditorCode }/edit?rm=demo`}
                 width="100%" 
                 className="flex-1"

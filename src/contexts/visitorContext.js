@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 import { siteGroups } from '../data/site';
-import { activeRoles, cookieHook, findTag, GET, memberCheck } from '../utils';
+import { cookieHook, GET, memberCheck } from '../utils';
 import * as keycloakServices from '../utils/keycloak.vendors';
 import profileData from '../data/fake/profiel.fake.json'
 import fakeUserTags from '../data/fake/tags.fake.json'
@@ -18,6 +18,7 @@ const VisitorProvider = ({ children }) => {
     const [ subRole, setSubRole ] = useState()
     const [ sensitiveHidden, setSensitiveHidden ] = useState(true)
     const [ skippedSignIn, setSkipSignIn ] = useState(cookieHook.exists('skipSignIn'))
+    const [ devTools, setDevTools ] = useState()
     
     const [ profile, setProfile ] = useState()
     
@@ -66,7 +67,10 @@ const VisitorProvider = ({ children }) => {
         profile: process.env.NODE_ENV === 'development' ? {
             ...profileData,
             ...memberCheck(profileData['functies'], fakeUserTags.functies)
-        } : profile
+        } : profile,
+        
+        devTools,
+        setDevTools
     }}>
         { children }
     </Provider>
