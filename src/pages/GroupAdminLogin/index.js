@@ -4,10 +4,11 @@ import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage } from '../../co
 import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
-import { inDev, PATCH } from '../../utils';
+import { findUserTags, inDev, PATCH } from '../../utils';
 import _keycl from '../../utils/keycloak.vendors';
 import { functies as userTags } from '../../data/fake/tags.fake.json'
 import dayjs from 'dayjs';
+import { scoutingGroups } from '../../data/site';
 
 const ProfileSummary = () => {
     const { profile } = useVisitor()
@@ -20,6 +21,24 @@ const ProfileSummary = () => {
     if (!_keycl.token && !inDev()) return <SignInMessage />
     else if (!profile && !inDev()) return <h3>Loading</h3>
     else if (!profile?.isMember && _keycl.token) return <NotMemberMsg />
+
+    const adjustedTags = profile['functies'].map((data) => {
+        const { functie } = data
+        
+        const tagInfo = findUserTags(functie)
+        const isLeader = tagInfo['groeperingen'].find(({ naam }) => naam === 'Leiding');
+
+        return { ...data, isLeader, tagInfo }
+    })
+
+    const tagsCurrent = adjustedTags
+        .filter(({ einde }) => !einde)
+        .sort(({ begin: x }, { begin: y }) => new Date(y) - new Date(x))
+
+    const tagsOld = adjustedTags
+        .filter(({ einde }) => einde)
+        .sort(({ einde: x }, { einde: y }) => new Date(y) - new Date(x))
+
     return <>
         { profile.isLeader && <>
             <div className="">
@@ -97,41 +116,51 @@ const ProfileSummary = () => {
         
         <div className="grid grid-cols-2 gap-8 lg:gap-6">
             <div className="col-span-2 lg:col-span-1">
-                <h3 className="font-serif mb-4">Functie(s)</h3>
+                <h3 className="font-serif mb-4">Huidige functie{tagsCurrent.length !== 1 && 's'}</h3>
                 <div className="-mt-4">
-                    { profile['functies'].filter(({ einde }) => !einde).map(({ functie, begin }, index) => (
-                        <div 
-                            key={ index }
-                            className="border-b-2 border-gray-300 py-4"
-                        >
-                            <h3 className="text-base font-normal">{ userTags.find(({ id }) => id === functie)['beschrijving'] }</h3>
-                            <h4 className="font-serif text-lg text-gray-400">sinds { dayjs(begin).format('DD MMMM \'YY') }</h4>
-                        </div>
-                    ))}
+                    {
+                        tagsCurrent.map(({ isLeader, tagInfo, begin, groep }, index) => {
+                            return (
+                                <div 
+                                    key={ index }
+                                    className="border-b-2 border-gray-300 py-4 flex justify-between items-center"
+                                >
+                                    <div>
+                                        <h3 className="text-base font-normal mb">{ tagInfo['beschrijving'] }</h3>
+                                        <h4 className="font-medium text-xs uppercase tracking-wider mb-2 text-gray-400">{ scoutingGroups[groep] }</h4>
+                                        <h4 className="font-serif text-lg text-gray-400">sinds { dayjs(begin).format('DD MMMM \'YY') }</h4>
+                                    </div>
+                                    <div className="px-4">
+                                        { isLeader && <Icon name="team" size="1.5rem" color="#6f101d" />}
+                                    </div>
+                                </div>
+                            )
+                        }
+                    )}
                 </div>
             </div>
             <div className="col-span-2 lg:col-span-1">
-                <h3 className="font-serif mb-4">Oude functie(s)</h3>
+                <h3 className="font-serif mb-4">Oude functie{tagsOld.length !== 1 && 's'}</h3>
                 <div className="-mt-4">
-                    { profile['functies'].filter(({ einde }) => einde).map(({ functie, einde }, index) => {
-                        const tagInfo = userTags.find(({ id }) => id === functie);
-                        const isLeader = tagInfo['groeperingen'].find(({ naam }) => naam === 'Leiding');
-                        
-                        return (
-                            <div 
-                                key={ index }
-                                className="border-b-2 border-gray-300 py-4 flex justify-between items-center"
-                            >
-                                <div>
-                                    <h3 className="text-base font-normal">{ tagInfo['beschrijving'] }</h3>
-                                    <h4 className="font-serif text-lg text-gray-400">tot { dayjs(einde).format('DD MMMM \'YY') }</h4>
+                    { 
+                        tagsOld.map(({ isLeader, tagInfo, einde, groep }, index) => {
+                            return (
+                                <div 
+                                    key={ index }
+                                    className="border-b-2 border-gray-300 py-4 flex justify-between items-center"
+                                >
+                                    <div>
+                                        <h3 className="text-base font-normal mb">{ tagInfo['beschrijving'] }</h3>
+                                        <h4 className="font-medium text-xs uppercase tracking-wider mb-2 text-gray-400">{ scoutingGroups[groep] }</h4>
+                                        <h4 className="font-serif text-lg text-gray-400">tot { dayjs(einde).format('DD MMMM \'YY') }</h4>
+                                    </div>
+                                    <div className="px-4">
+                                        { isLeader && <Icon name="team" size="1.5rem" color="#6f101d" />}
+                                    </div>
                                 </div>
-                                <div className="px-4">
-                                    { isLeader && <Icon name="team" size="1.5rem" color="#6f101d" />}
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        }
+                    )}
                 </div>
             </div>
         </div>
@@ -143,7 +172,7 @@ const GroupAdminLogin = () => {
 
     return (
         <PageLayout
-            title="Groepsadministratie"
+            title="Account"
             subtitle="Je gegevens bij Scouts en Gidsen Vlaanderen"
         >
             { isLoggedIn && <ProfileSummary />}

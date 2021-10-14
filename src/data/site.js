@@ -75,6 +75,11 @@ export const siteGroups = [
     },
 ]
 
+export const scoutingGroups = {
+    O1306G: 'Haegepoorters Destelbergen',
+    O1302G: 'Jin Gentse Zwabbers'
+}
+
 export const uris = {
     mapsIntegration: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20067.32038937371!2d3.7758826000000005!3d51.04542365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1e72273a2eee6c6a!2sScouts%20en%20Gidsen%20Haegeporters%20Destelbergen!5e0!3m2!1snl!2sbe!4v1630695585935!5m2!1snl!2sbe'
 }
