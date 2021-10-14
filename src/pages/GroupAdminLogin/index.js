@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage } from '../../components';
+import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage, SmartLookSensitive } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
@@ -89,8 +89,10 @@ const ProfileSummary = () => {
                         key={ index }
                         className="border-2 border-gray-300 p-5 col-span-2 md:col-span-1"
                     >
-                        <h4 className="font-serif text-lg">{ rol }</h4>
-                        <h3 className="font-medium text-xl">{ voornaam } { achternaam }</h3>
+                            <h4 className="font-serif text-lg">{ rol }</h4>
+                        <SmartLookSensitive>
+                            <h3 className="font-medium text-xl">{ voornaam } { achternaam }</h3>
+                        </SmartLookSensitive>
                         
                         <div className="mb-4">
                             <h4 className="mt-4 text-gray-400 text-sm">{ 
