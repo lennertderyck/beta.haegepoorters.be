@@ -45,9 +45,9 @@ const ProfileSummary = () => {
                 <h3 className="font-serif">Leidingstuff</h3>
                 <p>Alle tools voor actieve leiding</p>
                 <div className="grid grid-cols-12 mt-6 gap-4">
-                    { accountLeaderLinks.map(({ to, label }, index) => 
+                    { accountLeaderLinks.map(({ to, href, label, ...otherProps }, index) => 
                         <div className="col-span-12 md:col-span-6" key={ index }>
-                            <Button to={ to } iconAfter="arrow-right" theme="list">{ label }</Button>
+                            <Button { ...{ to, href, ...otherProps }} iconAfter="arrow-right" theme="list">{ label }</Button>
                         </div>
                     )}
                 </div>
@@ -89,7 +89,7 @@ const ProfileSummary = () => {
                         key={ index }
                         className="border-2 border-gray-300 p-5 col-span-2 md:col-span-1"
                     >
-                            <h4 className="font-serif text-lg">{ rol }</h4>
+                        <h4 className="font-serif text-lg">{ rol }</h4>
                         <SmartLookSensitive>
                             <h3 className="font-medium text-xl">{ voornaam } { achternaam }</h3>
                         </SmartLookSensitive>

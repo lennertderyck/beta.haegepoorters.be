@@ -52,6 +52,11 @@ export const accountLeaderLinks = [
         label: 'Webmail',
         to: '/mail'
     },
+    {
+        label: 'Leidingsplanning',
+        href: 'https://calendar.google.com/calendar/embed?src=7gpbo1ecja01hkdtpbo157v4m4%40group.calendar.google.com&ctz=Europe%2FBrussels',
+        target: '_blank'
+    }
 ]
 
 export const links = {
