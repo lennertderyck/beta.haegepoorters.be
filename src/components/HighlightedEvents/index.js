@@ -116,15 +116,16 @@ const HighlightedEvents = () => {
         },
         {
             label: 'alle takken',
-            data: firstGroupActivity
+            data: firstGroupActivity,
+            ignore: true
         },
     ]
     
     return (<>
         <div className="bg-gray-100">
             { groups[0].data ? 
-                groups.map(({ label, data: g}) => 
-                    g && <Card 
+                groups.map(({ label, data: g, ignore }) => 
+                    (g && !ignore) && <Card 
                         key={ g['_uid'] } 
                         data={ g } 
                         group={ label } 

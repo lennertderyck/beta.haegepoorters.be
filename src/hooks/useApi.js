@@ -4,7 +4,7 @@ import { apiReducer, initialApiState } from '../reducers';
 const useApi = (endPoint, isLazy = true) => {
     const [ state, dispatch ] = useReducer(apiReducer, initialApiState);
     
-    const handleRequest = async ({ method, body, url } = { method: 'GET', body: {}, url: endPoint }) => {
+    const handleRequest = async ({ method, body, url, params } = { method: 'GET', body: {}, url: endPoint }) => {
         if (!url) throw new Error('No url defined');
         try {
             dispatch({ type: 'loading' });

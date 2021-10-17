@@ -18,7 +18,9 @@ const useSearchRoute = () => useContext(context)
 
 const Results = ({ data }) => {
     const { setRoute } = useSearchRoute()
+    const { push } = useHistory()
     const { items } = data.ContentNodes;
+    
     
     const resultString = (amount) => {
         if (amount === 0 || amount > 1) return 'resultaten'
@@ -31,7 +33,8 @@ const Results = ({ data }) => {
             { items.map(({ name, full_slug, parent_id }, index) => (
                 <div 
                     key={ index }
-                    onClick={ () => setRoute('/' + full_slug) }
+                    // onClick={() => setRoute('/' + full_slug)}
+                    onClick={() => push('/' + full_slug)}
                     className="flex flex-col items-start border-b-2 py-5 lg:px-5 lg:hover:bg-gray-100 w-full cursor-pointer"
                 >
                     <div className="flex items-center justify-start mb-2">

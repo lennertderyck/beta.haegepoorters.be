@@ -1,14 +1,70 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { useAxios } from "use-axios-client";
 
 import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage, SmartLookSensitive } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
-import { findUserTags, inDev, PATCH } from '../../utils';
+import { className, findUserTags, GET, inDev, PATCH } from '../../utils';
 import _keycl from '../../utils/keycloak.vendors';
-import { functies as userTags } from '../../data/fake/tags.fake.json'
 import dayjs from 'dayjs';
-import { scoutingGroups } from '../../data/site';
+import { scoutingGroups, uris } from '../../data/site';
+import { calendarUpdate } from '../../data/dateFormat';
+
+const Card = ({ data, group }) => {
+    const [ open, setOpen ] = useState(false);
+    const el = useRef();
+    
+    const { summary, description, start, location, htmlLink } = data;
+    const date = dayjs(start.date || start.dateTime)
+    const descrIsEmpty = description === '' || !description;
+                
+    return (<a href={ htmlLink } target="_blank" { ...className('flex py-4 px-6 border-b-2 border-gray-200 cursor-pointer')}>
+        <div className="mr-6">
+            <p className="font-bold text-3xl -mb-2 text-center text-gray-400 relative">
+                <span>{ date.format('D') }</span>
+                {/* <span className="absolute righ-0 text-sm top-1/2 transform -translate-y-1/2">{ period.multiple && '+' }</span> */}
+            </p>
+            <p className="text-center font-serif uppercase text-gray-400">{ date.format('MMM').replace('.', '') }</p>
+        </div>
+        <div className="w-full flex justify-center flex-col">
+            <h4 className="font-bold text-xl">{ summary }</h4>
+            {/* <h5 className="text-gray-400 text-xs font-semibold uppercase tracking-widest">{ location }</h5> */}
+            { !descrIsEmpty && 
+                <div className="overflow-hidden transition-all font-serif">
+                    { description }
+                </div>
+            }
+        </div>
+    </a>)
+}
+
+const HighlightedLeaderEvents = () => {
+    const { data, error, loading } = useAxios(GET.LEADER_CALENDAR);
+    
+    if (!data) return null
+    
+    const { updated, items } = data
+    
+    const updateTimeFormatted = dayjs(updated).calendar(null, calendarUpdate)
+
+    return <>
+        <div className="flex items-start justify-between">
+            <div>
+                <h3 className="font-serif">Komende activeiten</h3>
+                <p className="mb-6">Leidingsactiviteiten</p>
+            </div>
+            <div className="flex flex-col items-end">
+                <Button theme="button" icon="rss" href={ uris.leaderCalendarSubscribtion } target="_blank">Abonneren op agenda</Button>
+                <div className="text-xs uppercase tracking-widest mt-2 font-medium">Laatste update { updateTimeFormatted }</div>
+            </div>
+        </div>
+        { items.map(( data ) => (
+            <Card data={ data } />
+        ))}
+        
+    </>
+}
 
 const ProfileSummary = () => {
     const { profile } = useVisitor()
@@ -41,8 +97,8 @@ const ProfileSummary = () => {
 
     return <>
         { profile.isLeader && <>
-            <div className="">
-                <h3 className="font-serif">Leidingstuff</h3>
+            <div className="mb-12">
+                <h3 className="font-serif">Snelkoppelingen</h3>
                 <p>Alle tools voor actieve leiding</p>
                 <div className="grid grid-cols-12 mt-6 gap-4">
                     { accountLeaderLinks.map(({ to, href, label, ...otherProps }, index) => 
@@ -52,6 +108,10 @@ const ProfileSummary = () => {
                     )}
                 </div>
             </div>
+            <div>
+                <HighlightedLeaderEvents />
+            </div>
+            
             <hr className="border-gray-300 border-t-2 my-10" />
         </> }
         
