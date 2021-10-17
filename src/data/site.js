@@ -82,7 +82,8 @@ export const scoutingGroups = {
 
 export const uris = {
     mapsIntegration: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20067.32038937371!2d3.7758826000000005!3d51.04542365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1e72273a2eee6c6a!2sScouts%20en%20Gidsen%20Haegeporters%20Destelbergen!5e0!3m2!1snl!2sbe!4v1630695585935!5m2!1snl!2sbe',
-    leaderCalendarSubscribtion: 'https://calendar.google.com/calendar/u/0/r?cid=7gpbo1ecja01hkdtpbo157v4m4@group.calendar.google.com'
+    leaderCalendarSubscribtion: 'https://calendar.google.com/calendar/u/0/r?cid=7gpbo1ecja01hkdtpbo157v4m4@group.calendar.google.com',
+    leaderCalendarOverview: 'https://calendar.google.com/calendar/embed?src=7gpbo1ecja01hkdtpbo157v4m4%40group.calendar.google.com&ctz=Europe%2FBrussels'
 }
 
 export const contactSubjects = [

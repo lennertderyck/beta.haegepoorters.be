@@ -33,7 +33,7 @@ const GET = {
     USER_TAGS: () => _gaBase('GET', '/functie'),
     LEADER_CALENDAR: {
         url: 'https://www.googleapis.com/calendar/v3/calendars/7gpbo1ecja01hkdtpbo157v4m4@group.calendar.google.com/events',
-        params: { key: 'AIzaSyDWPbXMKtMPi6cXFMtiVQrIAwwe8CWmf4A' }
+        params: { key: 'AIzaSyDWPbXMKtMPi6cXFMtiVQrIAwwe8CWmf4A', maxResults: 4 }
     }
 }
 

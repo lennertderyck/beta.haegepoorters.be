@@ -15,17 +15,19 @@ const Card = ({ data, group }) => {
     const [ open, setOpen ] = useState(false);
     const el = useRef();
     
-    const { summary, description, start, location, htmlLink } = data;
-    const date = dayjs(start.date || start.dateTime)
+    const { summary, description, start, end, location, htmlLink } = data;
+    const startDate = dayjs(start.date || start.dateTime)
+    const endDate = dayjs(end.date || end.dateTime)
+    const periodDiff = endDate.diff(startDate, 'day')
     const descrIsEmpty = description === '' || !description;
                 
     return (<a href={ htmlLink } target="_blank" { ...className('flex py-4 px-6 border-b-2 border-gray-200 cursor-pointer')}>
         <div className="mr-6">
             <p className="font-bold text-3xl -mb-2 text-center text-gray-400 relative">
-                <span>{ date.format('D') }</span>
-                {/* <span className="absolute righ-0 text-sm top-1/2 transform -translate-y-1/2">{ period.multiple && '+' }</span> */}
+                <span>{ startDate.format('D') }</span>
+                <span className="absolute righ-0 text-sm top-1/2 transform -translate-y-1/2">{ periodDiff > 1 && '+' }</span>
             </p>
-            <p className="text-center font-serif uppercase text-gray-400">{ date.format('MMM').replace('.', '') }</p>
+            <p className="text-center font-serif uppercase text-gray-400">{ startDate.format('MMM').replace('.', '') }</p>
         </div>
         <div className="w-full flex justify-center flex-col">
             <h4 className="font-bold text-xl">{ summary }</h4>
@@ -54,15 +56,20 @@ const HighlightedLeaderEvents = () => {
                 <h3 className="font-serif">Komende activeiten</h3>
                 <p className="mb-6">Leidingsactiviteiten</p>
             </div>
-            <div className="flex flex-col items-end">
-                <Button theme="button" icon="rss" href={ uris.leaderCalendarSubscribtion } target="_blank">Abonneren op agenda</Button>
-                <div className="text-xs uppercase tracking-widest mt-2 font-medium">Laatste update { updateTimeFormatted }</div>
-            </div>
+            <div className="text-xs uppercase tracking-widest mt-2 font-medium text-right">Laatste update<br /><strong>{ updateTimeFormatted }</strong></div>
         </div>
-        { items.map(( data ) => (
-            <Card data={ data } />
-        ))}
-        
+        { items
+            .sort(({ start: a}, { start: b}) => {
+                return new Date(a.dateTime || a.date) - new Date(b.dateTime || b.date)
+            })
+            .map(( data ) => (
+                <Card data={ data } />
+            ))}
+        <div className="flex mt-6">
+            <Button theme="button" icon="rss" href={ uris.leaderCalendarSubscribtion } target="_blank" className="mr-4">Abonneren op agenda</Button>
+            <Button theme="simple" iconAfter="arrow-right-up" href={ uris.leaderCalendarOverview } target="_blank">Volledig overzicht</Button>
+            
+        </div>
     </>
 }
 
