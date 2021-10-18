@@ -4,7 +4,7 @@
 #### Front-end
 - Created with the help of [create-react-app](https://github.com/facebook/create-react-app)
 - Content is loaded from [Storyblok](https://www.storyblok.com/) via a [GraphQL](https://github.com/graphql) api connection, using [Apollo Client](https://github.com/apollographql/apollo-client)
-- The login & registration feature is made possible with the SSO integration from [Scouts & Gidsen Vlaanderen](https://github.com/ScoutsGidsenVL)
+- The login & registration feature is made possible with the SSO integration from [Scouts & Gidsen Vlaanderen](https://github.com/ScoutsGidsenVL). Keycloak client is used for the initialization, redirection and handeling of login tokens.
 - The [Google Calendar api](https://developers.google.com/calendar) is used in some places for getting calendar data in JSON format
 
 #### Back-end
