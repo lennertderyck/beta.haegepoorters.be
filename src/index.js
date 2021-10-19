@@ -13,7 +13,9 @@ import { getToken, initKeycloak, updateToken, _keycl } from './utils/keycloak.ve
 import App from './App';
 
 import 'remixicon/fonts/remixicon.css'
+import 'react-tabs/style/react-tabs.css';
 import './sass/index.scss'
+
 
 dayjs.locale('nl-be')
 dayjs.extend(relativeTime)
