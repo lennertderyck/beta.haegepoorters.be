@@ -4,12 +4,17 @@ import { className } from '../../utils';
 import Icon from '../Icon';
 
 const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, disabled, ...otherProps}) => {
+    const baseStyles = {
+        modern: 'font-semibold uppercase tracking-widest'
+    }
+
     const styles = {
         global: 'flex items-center w-fit',
         clear: '',
-        simple: 'text-xs font-semibold uppercase tracking-widest text-red-500',
-        button: 'w-fit px-3 py-2 uppercase tracking-widest font-semibold text-xs bg-red-100 text-red-500',
-        list: 'w-full h-full p-4 justify-between uppercase tracking-widest font-semibold text-sm bg-red-100 text-red-500'
+        simple: 'text-xs text-red-500' + ' ' + baseStyles.modern,
+        button: 'w-fit px-3 py-2 text-xs bg-red-100 text-red-500' + ' ' + baseStyles.modern,
+        list: 'w-full h-full p-4 justify-between text-sm bg-red-100 text-red-500' + ' ' + baseStyles.modern,
+        "simple-white": 'text-xs text-white' + ' ' + baseStyles.modern
     }
     
     const iconColor = {
