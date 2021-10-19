@@ -108,25 +108,31 @@ const ProfileSummary = () => {
         <Tabs>
             { profile.isLeader && <TabList className="mb-12">
               <Tab>Leidingtools</Tab>
+              <Tab>Profiel</Tab>
               <Tab>Groepsadministratie</Tab>
             </TabList>}
 
-            { profile.isLeader && <TabPanel>
-                <div className="mb-14">
-                    <h3 className="font-serif">Snelkoppelingen</h3>
-                    <p>Alle tools voor actieve leiding</p>
-                    <div className="grid grid-cols-12 mt-6 gap-4">
-                        { accountLeaderLinks.map(({ to, href, label, ...otherProps }, index) => 
-                            <div className="col-span-12 md:col-span-6" key={ index }>
-                                <Button { ...{ to, href, ...otherProps }} iconAfter="arrow-right" theme="list">{ label }</Button>
-                            </div>
-                        )}
+            { profile.isLeader && <>
+                <TabPanel>
+                    <div className="mb-14">
+                        <h3 className="font-serif">Snelkoppelingen</h3>
+                        <p>Alle tools voor actieve leiding</p>
+                        <div className="grid grid-cols-12 mt-6 gap-4">
+                            { accountLeaderLinks.map(({ to, href, label, ...otherProps }, index) => 
+                                <div className="col-span-12 md:col-span-6" key={ index }>
+                                    <Button { ...{ to, href, ...otherProps }} iconAfter="arrow-right" theme="list">{ label }</Button>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <HighlightedLeaderEvents />
-                </div>
-            </TabPanel>}
+                    <div>
+                        <HighlightedLeaderEvents />
+                    </div>
+                </TabPanel>
+                <TabPanel>
+                    Profiel
+                </TabPanel>
+            </>}
             <TabPanel>
                 {/* <div className="mb-14 bg-gray-100 p-5">
                     <h3 className="font-serif">Individuele steekkaart</h3>
