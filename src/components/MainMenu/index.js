@@ -163,7 +163,7 @@ const MainMenu = () => {
                         !open && 'max-w-0'
                     )}>
                         <Fade when={ open } duration={ 500 }> 
-                            <Button to="/profiel" theme="clean" onClick={() => setOpen(false)}>
+                            <Button to="/account" theme="clean" onClick={() => setOpen(false)}>
                                 <RoleSelector menuOpen={ open } />
                             </Button>
                         </Fade>

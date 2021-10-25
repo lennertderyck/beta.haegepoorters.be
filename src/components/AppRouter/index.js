@@ -8,7 +8,7 @@ import { addListener, launch, stop } from 'devtools-detector';
 
 import { NotMemberMsg } from '..';
 import { useVisitor } from '../../contexts/visitorContext';
-import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor } from '../../pages';
+import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor, DropboxLeaderArchive } from '../../pages';
 import _keycl from '../../utils/keycloak.vendors';
 import CenterMessage from '../CenterMessage';
 import { useQuery } from '@apollo/client';
@@ -66,7 +66,10 @@ const AppRouter = ({ route, embedded }) => {
                 <Route path="/contact" exact>
                     <ContactPage />
                 </Route>
-                <Route path={['/ga', '/profiel']} exact>
+                <Route path="/account/dropbox" exact>
+                    <DropboxLeaderArchive />
+                </Route>
+                <Route path={['/ga', '/profiel', '/account']} exact>
                     <GroupAdminLogin />
                 </Route>
                 <Route path={['/ga/leden']} exact>
