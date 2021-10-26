@@ -15,28 +15,42 @@ import { useEffect } from 'react';
 import { useVisitor } from '../../contexts/visitorContext';
 import { useNetwork } from '../../contexts/networkContext';
 import SignInMessage from '../SignInMessage';
+import Collapse from '../Collapse';
+import { useRouteMatch } from 'react-router';
 
-const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => <Button 
-    to={ slug } 
-    theme="clear"
-    { ...className(
-        'py-5 pl-5 flex border-b-2 border-gray-200',
-        disabled && 'opacity-50 cursor-default',
-        // open ? 'border-opacity-100' : 'border-opacity-0'
-    )}
-    disabled= { disabled }
-    { ...otherProps }
->
-    <Icon name={ icon } size="1.5rem" color={ '#4b5563' } className="mr-5" />
-    <div { ...className(
-        'overflow-hidden text-gray-600 flex items-center justify-between w-full',
-        open && 'max-w-screen opacity-100',
-        !open && 'max-w-0 opacity-0'
-    )}>
-        <span className="mr-28 font-medium whitespace-nowrap">{ label }</span>
-        <Icon name="arrow-right" size="1.2rem" className="block ml-auto mr-5" />
-    </div>
-</Button>)
+const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => {
+
+    // const isCurrent = useRouteMatch({
+    //     path: slug,
+    //     strict: true,
+    //     sensitive: true,
+    // });
+
+    const isCurrent = false
+
+    return <Button 
+        to={ slug } 
+        theme="clear"
+        { ...className(
+            'py-5 pl-5 flex border-b-2 border-gray-200',
+            open ? 'border-opacity-100' : 'border-opacity-0',
+            disabled && 'opacity-50 cursor-default',
+            // open ? 'border-opacity-100' : 'border-opacity-0'
+        )}
+        disabled= { disabled }
+        { ...otherProps }
+    >
+        <Icon name={ icon } size="1.5rem" color={ isCurrent ? '#5E1A1C' : '#4b5563' } className="mr-5" />
+        <div { ...className(
+            'overflow-hidden text-gray-600 flex items-center justify-between w-full',
+            open && 'max-w-screen opacity-100',
+            !open && 'max-w-0 opacity-0'
+        )}>
+            <span className="mr-28 font-medium whitespace-nowrap">{ label }</span>
+            <Icon name="arrow-right" size="1.2rem" className="block ml-auto mr-5" />
+        </div>
+    </Button>
+})
 
 const RoleSelector = memo(({ menuOpen }) => {
     const [ ,setOpen ] = useState(false)
@@ -170,6 +184,19 @@ const MainMenu = () => {
                     </div>
                 </div>
                 <div>
+                    {/* <div { ...className(
+                        'overflow-hidden',
+                        open ? 'max-h-0 opacity-0' : 'max-h-screen opacity-100'
+                    )}>
+                        <MenuItem
+                            icon="account-circle"
+                            slug="/zoeken"
+                            label="Zoeken"
+                            open={ open || isTabletOrMobile  }
+                            disabled={ status === 'offline' }
+                            onClick={() => setOpen(false)}
+                        />
+                    </div> */}
                     <div>
                         { mainNav.map(({ icon, slug, label, offlineSupport }, index) => (
                             <MenuItem
