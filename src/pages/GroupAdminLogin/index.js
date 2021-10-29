@@ -3,7 +3,7 @@ import { useAxios } from "use-axios-client";
 import dayjs from 'dayjs';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import { Button, Collapse, Form, Icon, Input, NotMemberMsg, SignInMessage, SmartLookSensitive } from '../../components';
+import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage, SmartLookSensitive } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
@@ -104,12 +104,16 @@ const ProfileSummary = () => {
         .filter(({ einde }) => einde)
         .sort(({ einde: x }, { einde: y }) => new Date(y) - new Date(x))
 
+        
+    console.log(profile)
+        
     return <>
         <Tabs>
             { profile.isLeader && <TabList className="mb-12">
               <Tab>Leidingtools</Tab>
               <Tab>Profiel</Tab>
               <Tab>Groepsadministratie</Tab>
+              { profile.isWebmaster && <Tab>Site instellingen</Tab> }
             </TabList>}
 
             { profile.isLeader && <>
@@ -134,14 +138,6 @@ const ProfileSummary = () => {
                 </TabPanel>
             </>}
             <TabPanel>
-                {/* <div className="mb-14 bg-gray-100 p-5">
-                    <h3 className="font-serif">Individuele steekkaart</h3>
-                    <p>Belangrijke medische gegevens, laatst aangepast <span className="font-medium">{ dayjs(profile.vgagegevens.individueleSteekkaartdatumaangepast).fromNow() }</span></p>
-                    <div className="mt-2">
-                        <p className="text-gray-400 text-sm">Hou je individuele steekkaart up-to-date, het is het eerste document dat leiding raadpleegt in geval van nood.</p>
-                        <Button theme="simple" iconAfter="arrow-right-up" className="mt-4" href={ uris.medicalInfoBase + profile.id } target="_blank">Bekijken en bewerken</Button>
-                    </div>
-                </div> */}
                 <div className="mb-14 bg-red-500 p-6 text-white">
                     <h3 className="font-serif">Individuele steekkaart</h3>
                     <p>Belangrijke medische gegevens, laatst aangepast <span className="font-medium">{ dayjs(profile.vgagegevens.individueleSteekkaartdatumaangepast).fromNow() }</span></p>
@@ -262,6 +258,21 @@ const ProfileSummary = () => {
                         </div>
                     </div>
                 </div>
+            </TabPanel>
+            <TabPanel>
+                <Form>
+                    <Input 
+                        type="select" 
+                        label="Coronastatus" 
+                        name="corona_status"
+                        comment={'In welke mate gaan activiteiten door? Kies voor "Niet van toepassing" wanneer deze instelling niet meer relevant is, dan zal ook de banner op de homepagina verborgen worden.'}
+                    >
+                        <option value="2">Activiteiten toegelaten</option>
+                        <option value="1">Aangepaste maatregelen</option>
+                        <option value="0">Activiteiten opgeschort</option>
+                        <option value="nvt">Niet van toepassing</option>
+                    </Input>
+                </Form>
             </TabPanel>
         </Tabs>
     </>

@@ -1,0 +1,30 @@
+.react-tabs {
+    &__tab {
+        position: relative;
+        
+        @apply
+            uppercase 
+            tracking-widest 
+            font-medium 
+            text-sm 
+            border-t-0 
+            border-l-0 
+            border-r-0
+            border-gray-400 
+            rounded-none
+            text-gray-500
+            
+    }
+        
+    &__tab--selected {
+        @apply bg-red-100 text-red-500
+    }
+    
+    &__tab--selected::after {
+        opacity: 1;
+    }
+}
+
+.react-tabs [role="tablist"] {
+    @apply border-b-2 border-gray-300 pb-3
+}

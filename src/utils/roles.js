@@ -16,10 +16,18 @@ export const memberCheck = (data, tagsData) => {
         return thisTag.groeperingen.find(g => g.naam === 'Leiding')
     })
     
+    const isWebmaster = roles.some(r => {
+        const thisTag = tagsData.find(f => f.id === r.functie)
+        return thisTag.beschrijving !== 'Webmaster'
+    })
+    
+    
+    
     return {
         isMember: true,
         activeMember,
-        isLeader
+        isLeader,
+        isWebmaster
     }
 }
 
