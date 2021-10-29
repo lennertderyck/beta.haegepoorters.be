@@ -12,7 +12,7 @@ const Loader = () => <>
         <Skeleton height="1.2rem" width="14rem" />
     </div>
     <div className="container container-lg mb-10"> 
-        <Skeleton height="55vh" width="100%" />
+        <Skeleton height="55vh" width="100%" className="max-h-96" />
     </div>
     <div className="container container-md px-8 lg:px-0 mb-6">
         <Skeleton height="1.2rem" width="80%" />
@@ -40,7 +40,7 @@ const PageLayout = ({ title, subtitle, intro, banner, wide = false, date, loadin
                             { subtitle && <p className="mt-4 lg:mt-6">{ subtitle }</p> }
                         </Container>
                         { banner && <div className="container container-lg mb-10"> 
-                            <Img src={ banner } height="55vh" />
+                            <Img src={ banner } height="55vh" className="max-h-96" />
                         </div> }
                         {( intro || children ) && <Container wide={ wide }>
                             <p className="text-lg font-medium text-gray-600 mb-6">{ intro }</p>

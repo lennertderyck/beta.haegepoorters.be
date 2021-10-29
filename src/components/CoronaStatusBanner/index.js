@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Button from '../Button';
 import Icon from '../Icon';
+import CoronaStatusBadge from '../CoronaStatusBadge';
 
 // import styles from './CoronaStatusBanner.module.scss';
 
@@ -20,10 +22,7 @@ const CoronaStatusBanner = () => {
                     </div>
                 </div>
                 <div className="hidden lg:flex items-center justify-end">
-                    <div className="rounded-full bg-white tracking-widest font-serif font-bold uppercase text-green-500 px-3 py-2 text-sm flex items-center">
-                        activiteiten toegelaten
-                        <Icon name="check-double" className="opacity-50 inline text-green-500 ml-2" />
-                    </div>
+                    <CoronaStatusBadge className="bg-white" />
                 </div>
             </div>
         </Button>

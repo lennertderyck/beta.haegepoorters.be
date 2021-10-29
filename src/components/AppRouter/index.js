@@ -8,7 +8,7 @@ import { addListener, launch, stop } from 'devtools-detector';
 
 import { NotMemberMsg } from '..';
 import { useVisitor } from '../../contexts/visitorContext';
-import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor, DropboxLeaderArchive } from '../../pages';
+import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor, DropboxLeaderArchive, CoronaUpdatesPage } from '../../pages';
 import _keycl from '../../utils/keycloak.vendors';
 import CenterMessage from '../CenterMessage';
 import { useQuery } from '@apollo/client';
@@ -77,6 +77,9 @@ const AppRouter = ({ route, embedded }) => {
                 </Route>
                 <Route path={['/betalingen/:code?', '/payments/:code?']} exact>
                     <PaymentsPage />
+                </Route>
+                <Route path={['/corona']} exact>
+                    <CoronaUpdatesPage />
                 </Route>
                                         
                 {/* Catch all other pages by slug */}
