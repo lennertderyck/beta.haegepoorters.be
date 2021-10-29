@@ -96,7 +96,7 @@ export const contactSubjects = [
     { 
         value: 'inschrijvingen',
         label: 'Inschrijvingen',
-        faqText: null
+        faqText: 'Inschrijvingen vinden jaarlijks plaats tegen eind april / begin mei. Als er nog plaatsen over zijn in een tak kan je mogelijks ook inschrijven tijdens het jaar. Broers/zussen en kinderen van oud-leiding krijgen voorrang tijdens de inschrijvingen.'
     },
     { 
         value: 'evementen',
@@ -106,7 +106,7 @@ export const contactSubjects = [
     { 
         value: 'verhuur',
         label: 'Verhuur',
-        faqText: 'We verhuren onze lokalen niet. Je kan echter wel materiaal huren bij ons. Meer info op onze verhuurpagina.'
+        faqText: 'We verhuren onze lokalen niet. Je kan echter wel materiaal huren bij ons. Meer info vind je binnenkort op onze verhuurpagina.'
     },
     { 
         value: 'andere',
