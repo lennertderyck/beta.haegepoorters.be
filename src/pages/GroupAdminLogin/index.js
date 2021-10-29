@@ -62,8 +62,8 @@ const HighlightedLeaderEvents = () => {
             .sort(({ start: a}, { start: b}) => {
                 return new Date(a.dateTime || a.date) - new Date(b.dateTime || b.date)
             })
-            .map(( data ) => (
-                <Card data={ data } />
+            .map(( data, index ) => (
+                <Card data={ data } key={ index } />
             ))}
         <div className="flex mt-6 flex-col lg:flex-row-reverse">
             <div className="text-xs uppercase tracking-widest lg:mt-0 font-medium text-center lg:text-right mb-6 lg:mb-0">Laatste update <br className="hidden lg:inline" /><strong>{ updateTimeFormatted }</strong></div>

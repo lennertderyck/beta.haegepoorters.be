@@ -132,12 +132,12 @@ const ContactPage = () => {
                                                 : contactSubjects.find(({ value }) => value === 'groepsadmin').faqText }
                                         </div>
                                     </>}
-                                    {subject !== 'verhuur' && <Input 
+                                    <Input 
                                         name="message" 
                                         label="Bericht" 
                                         type="area"
                                         disabled={ selectedTemplate && true }
-                                    />}
+                                    />
                                 </>
                             )}
                         </Form>

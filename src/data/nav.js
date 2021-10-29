@@ -53,6 +53,11 @@ export const accountLeaderLinks = [
     {
         label: 'Webmail',
         to: '/mail'
+    },
+    {
+        label: 'Dropbox',
+        href: 'https://www.dropbox.com/sh/6cqa2eif1xs3rki/AACTJ-AZjSBXj6iC_Xhs5oL7a?dl=0',
+        target: '_blank'
     }
 ]
 

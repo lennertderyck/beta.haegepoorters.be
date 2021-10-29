@@ -30,7 +30,7 @@
       "name": "Je Groepsadministratie profiel",
       "short_name": "Groepsadministratie",
       "description": "Bekijk en bewerk je persoonlijke gegevens",
-      "url": "/profiel",
+      "url": "/account",
       "icons": [{ "src": "/icons/groepsadmin.png", "sizes": "2000x2000" }]
     },
     {

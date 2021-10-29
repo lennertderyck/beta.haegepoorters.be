@@ -7,8 +7,6 @@ import NetworkContext from "./contexts/networkContext";
 import { BaseLayout } from "./layouts";
 import { AppRouter, ContextMenu, ErrorPopup } from "./components";
 
-
-
 function App() {
     return (
         <NetworkContext>

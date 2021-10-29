@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { className } from '../../utils';
 import Icon from '../Icon';
 
@@ -43,7 +43,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
     </>
 
     if (to) return (
-        <Link
+        <NavLink
             to={ catchDisabled(to) }
             { ...otherProps } 
             { ...className(
@@ -53,7 +53,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
             )}
         >
             { inside }
-        </Link>
+        </NavLink>
     )
     if (href) return (
         <a 

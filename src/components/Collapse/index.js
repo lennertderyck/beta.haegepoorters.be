@@ -22,6 +22,7 @@ const Collapse = ({ label, open: defaultState, disabled, className: cls, buttonC
 
     useEffect(() => {
         if (defaultState) {
+            console.log('STATE CHANGED')
             console.log('DEFAULT STATE CHANGED')
             setOpen(defaultState)
         }
@@ -35,7 +36,7 @@ const Collapse = ({ label, open: defaultState, disabled, className: cls, buttonC
             type="button"
             onClick={ handleOpening }
         >{ label }</Button>}
-        <CollapseWrapper open={ open }><div className="mt-3">
+        <CollapseWrapper open={ open }><div { ...className(!disabled && label && 'mt-3')}>
             { nestedFunction ? children({ isOpen: open }) : children }
         </div></CollapseWrapper>
     </div>)
