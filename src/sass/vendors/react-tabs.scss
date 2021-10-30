@@ -1,6 +1,7 @@
 .react-tabs {
     &__tab {
         position: relative;
+        white-space: nowrap;
         
         @apply
             uppercase 
@@ -15,6 +16,13 @@
             text-gray-500
             
     }
+    
+    &__tab {
+        &:focus, &:focus-within, &:active {
+            outline: none;
+            box-shadow: none;
+        }
+    }
         
     &__tab--selected {
         @apply bg-red-100 text-red-500
@@ -26,5 +34,12 @@
 }
 
 .react-tabs [role="tablist"] {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
     @apply border-b-2 border-gray-300 pb-3
 }

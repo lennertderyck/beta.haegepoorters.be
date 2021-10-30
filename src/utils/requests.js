@@ -34,7 +34,8 @@ const GET = {
     LEADER_CALENDAR: {
         url: 'https://www.googleapis.com/calendar/v3/calendars/7gpbo1ecja01hkdtpbo157v4m4@group.calendar.google.com/events',
         params: { key: 'AIzaSyDWPbXMKtMPi6cXFMtiVQrIAwwe8CWmf4A', maxResults: 4 }
-    }
+    },
+    GROUP_STATS: () => _gaBase('GET', '/groep/O1306G/ledenaantallen')
 }
 
 const PATCH = {

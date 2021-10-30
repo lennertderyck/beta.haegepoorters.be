@@ -22,7 +22,7 @@ const CoronaStatusBanner = () => {
                     </div>
                 </div>
                 <div className="hidden lg:flex items-center justify-end">
-                    <CoronaStatusBadge className="bg-white" />
+                    <CoronaStatusBadge className="bg-white" statusCode="2" />
                 </div>
             </div>
         </Button>

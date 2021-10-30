@@ -22,24 +22,31 @@ const SiteConfigForm = () => {
     
     if (!data) return <LoaderSpinner />
     
-    console.log(savedData)
-    
     return (
-        <Form onSubmit={submit}>
-            <Input 
-                type="select" 
-                label="Coronastatus" 
-                name="corona_status"
-                defaultValue={ data.corona_status }
-                comment={'In welke mate gaan activiteiten door? Kies voor "Niet van toepassing" wanneer deze instelling niet meer relevant is, dan zal ook de banner op de homepagina verborgen worden.'}
-            >
-                <option value="2">Activiteiten toegelaten</option>
-                <option value="1">Aangepaste maatregelen</option>
-                <option value="0">Activiteiten opgeschort</option>
-                <option value="nvt">Niet van toepassing</option>
-            </Input>
-            <Button type="submit" theme="button">Site configuratie opslaan</Button>
-        </Form>
+        <>
+            <Form onSubmit={submit}>
+                <Input 
+                    type="select" 
+                    label="Coronastatus" 
+                    name="corona_status"
+                    defaultValue={ data.corona_status }
+                    comment={'In welke mate gaan activiteiten door? Kies voor "Niet van toepassing" wanneer deze instelling niet meer relevant is, dan zal ook de banner op de homepagina verborgen worden.'}
+                >
+                    <option value="2">Activiteiten toegelaten</option>
+                    <option value="1">Aangepaste maatregelen</option>
+                    <option value="0">Activiteiten opgeschort</option>
+                    <option value="nvt">Niet van toepassing</option>
+                </Input>
+                <Input 
+                    type="number" 
+                    defaultValue={ data?.members_amount }
+                    name="members_amount"
+                    label="Aantal leden"
+                    comment="Je kan het aantal leden in onze scouts nakijken via de statistieken pagina in de Groepsadministratie. Dit aantal wordt onder andere weergegeven op de Startpagina."
+                />
+                <Button type="submit" theme="button">Site configuratie opslaan</Button>
+            </Form>
+        </>
     )
 }
 

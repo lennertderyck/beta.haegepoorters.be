@@ -2,6 +2,8 @@ import classNames from "classnames";
 import dayjs from "dayjs";
 import { siteGroups } from '../data/site';
 
+import './react-tabs.vendors'
+
 export const className = (...params) => ({ className: classNames(params) });
 
 export const sortActivitiesByDate = (
@@ -109,6 +111,10 @@ export const handleShare = ({
         text,
         title
     })
+}
+
+export const isOverflowing = ({ clientWidth, clientHeight, scrollWidth, scrollHeight }) => {
+    return scrollHeight > clientHeight || scrollWidth > clientWidth;
 }
 
 export * from './requests'

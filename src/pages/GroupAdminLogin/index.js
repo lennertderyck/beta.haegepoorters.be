@@ -3,13 +3,13 @@ import { useAxios } from "use-axios-client";
 import dayjs from 'dayjs';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage, SiteConfigForm, SmartLookSensitive } from '../../components';
+import { Button, Form, Icon, Input, LoaderSpinner, NotMemberMsg, SignInMessage, SiteConfigForm, SmartLookSensitive } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
 import { className, findUserTags, GET, inDev, PATCH } from '../../utils';
 import { scoutingGroups, uris } from '../../data/site';
-import { articleCalendar, calendarUpdate } from '../../data/dateFormat';
+import { calendarUpdate } from '../../data/dateFormat';
 
 const Card = ({ data, group }) => {
     const [ open, setOpen ] = useState(false);
@@ -44,19 +44,13 @@ const Card = ({ data, group }) => {
 const HighlightedLeaderEvents = () => {
     const { data, error, loading } = useAxios(GET.LEADER_CALENDAR);
     
-    if (!data) return null
+    if (!data) return <LoaderSpinner/>
     
     const { updated, items } = data
     
     const updateTimeFormatted = dayjs(updated).calendar(null, calendarUpdate)
 
     return <>
-        <div className="flex items-start justify-between">
-            <div>
-                <h3 className="font-serif">Komende activeiten</h3>
-                <p className="mb-6">Leidingsactiviteiten</p>
-            </div>
-        </div>
         { items
             .sort(({ start: a}, { start: b}) => {
                 return new Date(a.dateTime || a.date) - new Date(b.dateTime || b.date)
@@ -106,7 +100,7 @@ const ProfileSummary = () => {
                 
     return <>
         <Tabs>
-            { profile.isLeader && <TabList className="mb-12">
+            { profile.isLeader && <TabList className="mb-12 flex overflow-scroll">
               <Tab>Leidingtools</Tab>
               <Tab>Profiel</Tab>
               <Tab>Groepsadministratie</Tab>
@@ -127,6 +121,12 @@ const ProfileSummary = () => {
                         </div>
                     </div>
                     <div>
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="font-serif">Komende activeiten</h3>
+                                <p className="mb-6">Leidingsactiviteiten</p>
+                            </div>
+                        </div>
                         <HighlightedLeaderEvents />
                     </div>
                 </TabPanel>
@@ -267,6 +267,10 @@ const ProfileSummary = () => {
                         comment="Gebruik deze token om requests te sturen naar de Groepsadministratie API. Je kan deze token enkel verkrijgen in een productie-omgeving." />
                 </Form>
                 <hr className="border-t-2 border-gray-300 my-8" />
+                <div>
+                    <h3 className="font-serif">Site configuratie</h3>
+                    <p className="mb-6">Instellingen voor onze website</p>
+                </div>
                 <SiteConfigForm />
             </TabPanel>
         </Tabs>

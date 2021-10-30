@@ -29,7 +29,7 @@ const CoronaUpdatesPage = () => {
     const { NewsItems: { items }} = data
 
     return <PageLayout title="Corona updates" subtitle="Alle updates betreffende corona en scouting" loading={ loading } banner="https://res.cloudinary.com/haegepoortersbe/image/upload/v1627595499/ie2ah4fyteq375u98vax.jpg">
-        <CoronaStatusBadge className="border-2 border-green-100 mx-auto" />
+        <CoronaStatusBadge className="border-2 border-green-100 mx-auto" statusCode="2" />
         { items.map((d) => <Card data={ d } />)}
         <ShareService />
     </PageLayout>
