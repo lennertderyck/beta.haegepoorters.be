@@ -3,7 +3,7 @@ import { useAxios } from "use-axios-client";
 import dayjs from 'dayjs';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage, SmartLookSensitive } from '../../components';
+import { Button, Form, Icon, Input, NotMemberMsg, SignInMessage, SiteConfigForm, SmartLookSensitive } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
@@ -104,9 +104,7 @@ const ProfileSummary = () => {
         .filter(({ einde }) => einde)
         .sort(({ einde: x }, { einde: y }) => new Date(y) - new Date(x))
 
-        
-    console.log(profile)
-        
+                
     return <>
         <Tabs>
             { profile.isLeader && <TabList className="mb-12">
@@ -260,19 +258,7 @@ const ProfileSummary = () => {
                 </div>
             </TabPanel>
             <TabPanel>
-                <Form>
-                    <Input 
-                        type="select" 
-                        label="Coronastatus" 
-                        name="corona_status"
-                        comment={'In welke mate gaan activiteiten door? Kies voor "Niet van toepassing" wanneer deze instelling niet meer relevant is, dan zal ook de banner op de homepagina verborgen worden.'}
-                    >
-                        <option value="2">Activiteiten toegelaten</option>
-                        <option value="1">Aangepaste maatregelen</option>
-                        <option value="0">Activiteiten opgeschort</option>
-                        <option value="nvt">Niet van toepassing</option>
-                    </Input>
-                </Form>
+                <SiteConfigForm />
             </TabPanel>
         </Tabs>
     </>
