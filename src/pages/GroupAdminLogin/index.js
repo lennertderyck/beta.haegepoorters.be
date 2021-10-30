@@ -8,7 +8,6 @@ import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
 import { className, findUserTags, GET, inDev, PATCH } from '../../utils';
-import _keycl from '../../utils/keycloak.vendors';
 import { scoutingGroups, uris } from '../../data/site';
 import { articleCalendar, calendarUpdate } from '../../data/dateFormat';
 
@@ -76,7 +75,7 @@ const HighlightedLeaderEvents = () => {
 }
 
 const ProfileSummary = () => {
-    const { profile } = useVisitor()
+    const { profile, _keycl } = useVisitor()
 
     const handleEmailChange = async ({ email }) => {
         const req = await PATCH.CHANGE_EMAIL(profile.id, email);
@@ -258,6 +257,15 @@ const ProfileSummary = () => {
                 </div>
             </TabPanel>
             <TabPanel>
+                <Form>
+                    <Input 
+                        name="token" 
+                        defaultValue={ _keycl.token } 
+                        disabled 
+                        label="Bearer token" 
+                        placeholder="Geen token beschikbaar in non-productie-omgeving"
+                        comment="Gebruik deze token om requests te sturen naar de Groepsadministratie API. Je kan deze token enkel verkrijgen in een productie-omgeving." />
+                </Form>
                 <SiteConfigForm />
             </TabPanel>
         </Tabs>
@@ -265,7 +273,7 @@ const ProfileSummary = () => {
 }
 
 const GroupAdminLogin = () => {
-    const { isLoggedIn, logout } = useVisitor()
+    const { isLoggedIn, logout, _keycl } = useVisitor()
 
     return (
         <PageLayout
