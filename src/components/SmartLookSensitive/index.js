@@ -17,7 +17,6 @@ const Component = ({ children }) => {
     useEffect(() => {
         if (ref?.current) ref.current.setAttribute('data-recording-sensitive', '')
     }, [newChild])
-    
 
     if (!isOnlyChild) return null
     return (

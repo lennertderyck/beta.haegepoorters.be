@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, createContext, useContext } from 'react';
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { Transition } from 'react-transition-group'
 
 import { className } from '../../utils';
 import { useApi } from '../../hooks'
@@ -8,6 +9,8 @@ import CenterMessage from '../CenterMessage';
 import Icon from '../Icon';
 
 import styles from './Form.module.scss'
+import { useLazyAxios } from 'use-axios-client';
+import DelayedUnmount from '../DelayedUnmount';
 
 const GroupWrapper = ({ label, required, className: cls, children }) => <div className={ cls }>
     { label && (
@@ -133,6 +136,11 @@ export const Input = ({
     return <Field type={ type } { ...otherProps } />
 }
 
+const formStatusContext = createContext()
+const { Provider: FormStatusProvider } = formStatusContext;
+
+export const useFormStatus = () => useContext(formStatusContext)
+
 const Form = ({
     button,
     className: cls,
@@ -143,16 +151,20 @@ const Form = ({
     onChange,
     children,
     defaultValues,
+    fetchOptions,
+    overlayMessage = false,
+    confirmation,
+    errorMessage,
     ...otherProps
 }) => {
     const methods = useForm({ defaultValues });
     const { watch } = methods;
-    const { submit, status } = useApi(action)
+    const [ submit, status ] = useLazyAxios({ url: action, method, ...fetchOptions })    
     
     const nestedFunction = typeof children === 'function';
     
     const handleSubmit = data => {
-        if (action && !nativeAction) submit({ method, body: data, url: action })
+        if (action && !nativeAction) submit(data)
         if (onSubmit) onSubmit(data)
     };
     
@@ -170,29 +182,36 @@ const Form = ({
     }, [defaultValues]) // eslint-disable-line
           
     return (
-        <FormProvider {...methods}>
-            <div className="relative">
-                <form
-                    action={ nativeAction && action }
-                    onSubmit={ methods.handleSubmit(handleSubmit) } 
-                    { ...className(
-                        cls
-                    )}
-                    {...otherProps}
-                >
-                    { nestedFunction ? children(watchedValues) : children }
-                    { button && <Button type="submit" theme="button">{ button }</Button>}
-                </form>
-                {( status === 'loading' ) && <div className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-white bg-opacity-60 flex items-center justify-center">
-                    <CenterMessage
-                        icon="thumb-up"
-                        intro="We kleven er nog even een zegel op ..."
+        <FormStatusProvider value={{ submit, status }}>
+            <FormProvider {...methods}>
+                <div className="relative">
+                    <form
+                        action={ nativeAction && action }
+                        onSubmit={ methods.handleSubmit(handleSubmit) } 
+                        { ...className(
+                            cls
+                        )}
+                        {...otherProps}
                     >
-                        Sluit dit venster in de tussentijd nog niet
-                    </CenterMessage>
-                </div> }
-            </div>
-        </FormProvider>
+                        { nestedFunction ? children(watchedValues) : children }
+                        { button && <Button type="submit" theme="button">{ button }</Button>}
+                        
+                        {(( status.error || status.data ) && ( errorMessage || confirmation )) && <div className="p-4 bg-gray-100 mt-4">
+                            { status.error && <p className="text-sm">{ errorMessage }</p>}
+                            { status.data && <p className="text-sm">{ confirmation }</p>}
+                        </div>}
+                    </form>
+                    {( status.loading && overlayMessage ) && <div className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-white bg-opacity-60 flex items-center justify-center">
+                        <CenterMessage
+                            icon="thumb-up"
+                            intro="We kleven er nog even een zegel op ..."
+                        >
+                            Sluit dit venster in de tussentijd nog niet
+                        </CenterMessage>
+                    </div> }
+                </div>
+            </FormProvider>
+        </FormStatusProvider>
     )
 }
 

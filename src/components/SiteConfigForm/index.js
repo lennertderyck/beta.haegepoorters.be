@@ -24,7 +24,17 @@ const SiteConfigForm = () => {
     
     return (
         <>
-            <Form onSubmit={submit}>
+            <Form 
+                action="https://site.hpi.haegepoorters.be/api/site_config"
+                confirmation="Wijzigingen opgeslagen!"
+                errorMessage="Er ging iets fout :("
+                fetchOptions={{
+                    responseType: 'text',
+                    headers: {
+                        'Authorization': `Bearer ${ _keycl.token }`
+                    }
+                }}
+            >
                 <Input 
                     type="select" 
                     label="Coronastatus" 

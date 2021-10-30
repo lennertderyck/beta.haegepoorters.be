@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { className } from '../../utils';
+import { useFormStatus } from '../Form';
 import Icon from '../Icon';
+import LoaderSpinner from '../LoaderSpinner';
 
 const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, disabled, ...otherProps}) => {
+    const { type } = otherProps;
+    const formStatus = useFormStatus()
+    
     const baseStyles = {
         modern: 'font-semibold uppercase tracking-widest'
     }
@@ -28,6 +33,11 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
     
     const catchDisabled = (target) => !disabled && target
     
+    useEffect(() => {
+        if (formStatus) console.log(formStatus.status)
+    }, [formStatus])
+    
+    
     const inside = <>
         { icon && <Icon 
             name={ icon } 
@@ -35,11 +45,12 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
             { ...iconConfig }
         />}
         { children }
-        { iconAfter && <Icon
+        {( iconAfter && type !== 'submit' && !formStatus?.status?.loading ) && <Icon
             name={ iconAfter } 
             className="-mr-1 ml-1.5" 
             { ...iconConfig }
         />}
+        {( type === 'submit' && formStatus?.status?.loading ) && <LoaderSpinner size={ 15 } thickness={ 200 } className="ml-2" /> }
     </>
 
     if (to) return (
@@ -47,7 +58,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
             to={ catchDisabled(to) }
             { ...otherProps } 
             { ...className(
-                'flex items-center',
+                'flex items-center whitespace-nowrap',
                 cls,
                 theme ? styles[theme] : styles['button'],
             )}
@@ -69,7 +80,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
     return <button
         { ...otherProps } 
         { ...className(
-            'flex items-center',
+            'flex items-center whitespace-nowrap',
             cls,
             styles[theme]
         )}
