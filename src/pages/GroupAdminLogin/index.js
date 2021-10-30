@@ -110,7 +110,7 @@ const ProfileSummary = () => {
               <Tab>Leidingtools</Tab>
               <Tab>Profiel</Tab>
               <Tab>Groepsadministratie</Tab>
-              { profile.isWebmaster && <Tab>Site instellingen</Tab> }
+              { profile.isWebmaster && <Tab>Site configuratie</Tab> }
             </TabList>}
 
             { profile.isLeader && <>
@@ -266,6 +266,7 @@ const ProfileSummary = () => {
                         placeholder="Geen token beschikbaar in non-productie-omgeving"
                         comment="Gebruik deze token om requests te sturen naar de Groepsadministratie API. Je kan deze token enkel verkrijgen in een productie-omgeving." />
                 </Form>
+                <hr className="border-t-2 border-gray-300 my-8" />
                 <SiteConfigForm />
             </TabPanel>
         </Tabs>

@@ -38,7 +38,7 @@ const SiteConfigForm = () => {
                 <option value="0">Activiteiten opgeschort</option>
                 <option value="nvt">Niet van toepassing</option>
             </Input>
-            <Button type="submit">Site instellingen opslaan</Button>
+            <Button type="submit" theme="button">Site configuratie opslaan</Button>
         </Form>
     )
 }
