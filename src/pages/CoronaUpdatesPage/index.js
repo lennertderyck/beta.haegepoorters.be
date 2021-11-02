@@ -14,7 +14,7 @@ const Card = ( { data }) => {
     return <div className="border-b-2 border-gray-300 py-8">
         <p className="mt-2 flex items-center text-sm mb-1">
             <span className="mr-1"><Icon name="time" /></span>
-            Update <span className="lowercase">{ calendarTime }</span>
+            Update <span className="lowercase ml-1">{ calendarTime }</span>
         </p>
         <h4 className="font-bold text-xl mb-4 text-gray-600">{ name }</h4>
         <RenderContent content={ body } />
