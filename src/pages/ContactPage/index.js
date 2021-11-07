@@ -96,7 +96,7 @@ const ContactPage = () => {
                                 childId: profile.verbondsgegevens.lidnummer,
                             }
                         }>
-                            {({ subject }) => (
+                            {({ watchedValues: { subject }}) => (
                                 <>
                                     <Input 
                                         name="reciever" 

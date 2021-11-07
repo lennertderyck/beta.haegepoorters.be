@@ -31,12 +31,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
         color: iconColor[theme] || styles['button']
     }
     
-    const catchDisabled = (target) => !disabled && target
-    
-    useEffect(() => {
-        if (formStatus) console.log(formStatus.status)
-    }, [formStatus])
-    
+    const catchDisabled = (target) => !disabled && target 
     
     const inside = <>
         { icon && <Icon 

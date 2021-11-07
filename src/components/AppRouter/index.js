@@ -21,23 +21,23 @@ const AppRouter = ({ route, embedded }) => {
     const { profile, setDevTools, devTools } = useVisitor()
     const { searchParams } = new URL(window.location)
     
-    useEffect(() => {
-        if (process.env.NODE_ENV !== 'development' && searchParams.get('force') !== 'dev') {
-            addListener( state => setDevTools(state));
-            launch()
-        }
-        return stop
-    }, [])
+    // useEffect(() => {
+    //     if (process.env.NODE_ENV !== 'development' && searchParams.get('force') !== 'dev') {
+    //         addListener( state => setDevTools(state));
+    //         launch()
+    //     }
+    //     return stop
+    // }, [])
     
     const routeObject = {
         pathname: route
     }
     
-    if (devTools) return <div className="h-full flex items-center justify-center">
-        <CenterMessage intro="Sluit de devtools" icon="bug">
-            Sluit de ontwikkelaartools om verder te gaan.
-        </CenterMessage>
-    </div>
+    // if (devTools) return <div className="h-full flex items-center justify-center">
+    //     <CenterMessage intro="Sluit de devtools" icon="bug">
+    //         Sluit de ontwikkelaartools om verder te gaan.
+    //     </CenterMessage>
+    // </div>
 
     return (
         <>

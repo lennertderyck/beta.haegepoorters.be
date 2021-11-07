@@ -3,12 +3,12 @@ import { className } from '../../utils';
 import Button from '../Button';
 import Icon from '../Icon';
 
-const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disableClose, className: cls, title, button, buttonTheme, children }) => {
+const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disableClose, className: cls, title, button, buttonTheme, buttonIconAfter, children }) => {
     const [ open, setOpen ] = useState(initialState)
     
     const handleManualClose = () => {
         setOpen(false)
-        onClose()
+        if (onClose) onClose()
     }
     
     useEffect(() => {
@@ -18,7 +18,7 @@ const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disab
     
     return (
         <>
-            { button && <Button theme={ buttonTheme } onClick={() => setOpen(true)}>{ button }</Button> }
+            { button && <Button theme={ buttonTheme } iconAfter={ buttonIconAfter } onClick={() => setOpen(true)}>{ button }</Button> }
             { open && (
                 <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
                     <div className="z-50 flex justify-center items-center p-6 w-full">

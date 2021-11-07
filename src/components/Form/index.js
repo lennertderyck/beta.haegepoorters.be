@@ -1,16 +1,13 @@
 import React, { useEffect, useMemo, createContext, useContext } from 'react';
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import { Transition } from 'react-transition-group'
+import { useForm, FormProvider, useFormContext, useFieldArray } from "react-hook-form";
+import { useLazyAxios } from 'use-axios-client';
 
 import { className } from '../../utils';
-import { useApi } from '../../hooks'
 import Button from '../Button';
 import CenterMessage from '../CenterMessage';
 import Icon from '../Icon';
 
 import styles from './Form.module.scss'
-import { useLazyAxios } from 'use-axios-client';
-import DelayedUnmount from '../DelayedUnmount';
 
 const GroupWrapper = ({ label, required, className: cls, children }) => <div className={ cls }>
     { label && (
@@ -21,19 +18,26 @@ const GroupWrapper = ({ label, required, className: cls, children }) => <div cla
     { children }
 </div>
 
-const FieldWrapper = ({ disableBorder = false, className: cls, type, hasComment, children }) => <label {...className(
-    'p-2',
-    hasComment ? 'mb-2' : 'mb-5',
-    !disableBorder && 'border-2 border-gray-300 block',
-    cls
-)}>{ children }</label>
+const FieldWrapper = ({ disableBorder = false, className: cls, type, hasComment, children }) => <label 
+    {...className(
+        'p-2 bg-white',
+        hasComment ? 'mb-2' : 'mb-5',
+        !disableBorder && 'border-2 border-gray-300 block',
+        cls
+    )}
+>{ children }</label>
 
-const Field = ({ label, name, className: cls, containerClassName, type = 'text', required = false, comment, ...otherProps }) => {
+const Comment = ({ comment }) => {
+    if (!comment) return null;
+    return <p className="font-serif text-sm">{ comment }</p>;
+}
+
+const Field = ({ label, name, className: cls, containerClassName, type = 'text', required = false, comment, standalone, ...otherProps }) => {
     const { register } = useFormContext();
 
     return (
         <GroupWrapper {...className(
-            comment && 'mb-5',
+            (comment && !standalone) && 'mb-5',
             containerClassName
         )}>
             { label && <span className="text-gray-400 mb-1 block">{ label } { required && '*' }</span> }
@@ -44,11 +48,11 @@ const Field = ({ label, name, className: cls, containerClassName, type = 'text',
                         cls,
                         'w-full'
                     )}
-                    {...register(name)}
+                    {...register( otherProps.register || name )}
                     { ...otherProps }
                 />
             </FieldWrapper>
-            { comment && <p className="font-serif text-sm">{ comment }</p>}
+            <Comment comment={ comment } />
         </GroupWrapper>
     )
 }
@@ -65,7 +69,7 @@ const Area = ({ label, name, className: cls, required = false, ...otherProps }) 
                         cls,
                         'w-full'
                     )}
-                    {...register(name)}
+                    {...register(otherProps.register || name)}
                     { ...otherProps }
                 />
             </FieldWrapper>
@@ -89,33 +93,36 @@ const Select = ({ label, name, className: cls, required = false, children, comme
                         cls,
                         'w-full'
                     )}
-                    {...register(name)}
+                    {...register(otherProps.register || name)}
                     { ...otherProps }
                 >
                     { children }
                 </select>
             </FieldWrapper>
-            { comment && <p className="font-serif text-sm">{ comment }</p>}
+            <Comment comment={ comment } />
         </GroupWrapper>
     )
 }
 
-const Check = ({ label, name, className: cls, required = false, type, ...otherProps }) =>{
+const Check = ({ label, name, className: cls, required = false, type, comment, checked, ...otherProps }) =>{
     const { register } = useFormContext();
     
     return (
         <GroupWrapper>
             <FieldWrapper disableBorder {...className(
-                'flex items-center -ml-2',
+                'flex -ml-2',
                 'Input--checkbox',
                 cls,
                 styles['HiddenCheckInput']
-            )}>
-                <input type={ type } {...register(name)} className="hidden" />
-                <div className="w-5 h-5 border-2 border-gray-300 relative" >
+            )} hasComment={ comment }>
+                <input type={ type } {...register(otherProps.register || name)} className="hidden" defaultChecked={ checked } />
+                <div className="w-5 h-5 border-2 border-gray-300 relative transform translate-y-1" >
                     <Icon name="check" size="1.2rem" className="top-1/2 left-1/2" />
                 </div>
-                { label && <span className="text-gray-500 block ml-4">{ label } { required && '*' }</span> }
+                <div className="ml-4">
+                    { label && <span className="text-gray-500 block">{ label } { required && '*' }</span> }
+                    <Comment comment={ comment } />
+                </div>
             </FieldWrapper>
         </GroupWrapper>
     )
@@ -155,11 +162,12 @@ const Form = ({
     overlayMessage = false,
     confirmation,
     errorMessage,
+    fieldArray,
     ...otherProps
 }) => {
     const methods = useForm({ defaultValues });
-    const { watch } = methods;
-    const [ submit, status ] = useLazyAxios({ url: action, method, ...fetchOptions })    
+    const { watch, control } = methods;
+    const [ submit, status ] = useLazyAxios({ url: action, method, ...fetchOptions })
     
     const nestedFunction = typeof children === 'function';
     
@@ -182,7 +190,7 @@ const Form = ({
     }, [defaultValues]) // eslint-disable-line
           
     return (
-        <FormStatusProvider value={{ submit, status }}>
+        <FormStatusProvider value={{ submit, status, control, fieldArray }}>
             <FormProvider {...methods}>
                 <div className="relative">
                     <form
@@ -193,7 +201,7 @@ const Form = ({
                         )}
                         {...otherProps}
                     >
-                        { nestedFunction ? children(watchedValues) : children }
+                        { nestedFunction ? children({ watchedValues }) : children }
                         { button && <Button type="submit" theme="button">{ button }</Button>}
                         
                         {(( status.error || status.data ) && ( errorMessage || confirmation )) && <div className="p-4 bg-gray-100 mt-4">

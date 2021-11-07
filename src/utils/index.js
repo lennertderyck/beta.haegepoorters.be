@@ -20,6 +20,8 @@ export const findFirstActivity = (acts) => {
 }
 
 export const checkActivities = (acts, group_acts) => {
+    if (!group_acts) return findFirstActivity(acts)
+    
     const { period: { start: a }} = findFirstActivity(acts);
     const { period: { start: b }} = group_acts;
     
