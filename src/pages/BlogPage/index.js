@@ -71,7 +71,7 @@ const Card = ({ data }) => {
                     { calendarTime }
                 </p>
                 <h4 className="font-bold text-xl mb-2 text-gray-600">{ name }</h4>
-                <p className="font-serif text-base">{ descr_short }</p>
+                <p className="font-serif text-base whitespace-normal">{ descr_short }</p>
             </div>
             <div className="pt-4 w-full">
                 <Button to={ full_slug } theme="simple" iconAfter="arrow-right">Meer hierover</Button>
