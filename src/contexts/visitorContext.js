@@ -101,7 +101,7 @@ const VisitorProvider = ({ children }) => {
         pwaInstaller,
         setPwaInstaller
     }}>
-        <PwaNotify />
+        {/* <PwaNotify /> */}
         { children }
     </Provider>
 }
