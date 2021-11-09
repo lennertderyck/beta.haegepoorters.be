@@ -14,12 +14,12 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
     }
 
     const styles = {
-        global: 'flex items-center w-fit',
-        clear: '',
-        simple: 'text-xs text-red-500' + ' ' + baseStyles.modern,
-        button: 'w-fit px-3 py-2 text-xs bg-red-100 text-red-500' + ' ' + baseStyles.modern,
-        list: 'w-full h-full p-4 justify-between text-sm bg-red-100 text-red-500' + ' ' + baseStyles.modern,
-        "simple-white": 'text-xs text-white' + ' ' + baseStyles.modern
+        global          : 'flex items-center w-fit',
+        clear           : '',
+        simple          : 'text-xs text-red-500' + ' ' + baseStyles.modern,
+        button          : 'w-fit px-3 py-2 text-xs bg-red-100 text-red-500' + ' ' + baseStyles.modern,
+        list            : 'w-full h-full p-4 justify-between text-sm bg-red-100 text-red-500' + ' ' + baseStyles.modern,
+        "simple-white"  : 'text-xs text-white' + ' ' + baseStyles.modern
     }
     
     const iconColor = {

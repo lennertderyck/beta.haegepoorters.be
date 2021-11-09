@@ -44,15 +44,18 @@ export const cookieHook = {
             value
         )
     },
+    get(name) {
+        return localStorage.getItem(
+            this.name(name)
+        )
+    },
     delete(name) {
         localStorage.removeItem(
             this.name(name)
         )
     },
     exists(name) {
-        const result = localStorage.getItem(
-            this.name(name)
-        )
+        const result = this.get(name)
         return result ? true : false
     }
 }

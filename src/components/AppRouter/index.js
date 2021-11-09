@@ -1,25 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Switch,
   Route,
   useLocation
 } from "react-router-dom";
-import { addListener, launch, stop } from 'devtools-detector';
 
-import { NotMemberMsg } from '..';
-import { useVisitor } from '../../contexts/visitorContext';
 import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor, DropboxLeaderArchive, CoronaUpdatesPage } from '../../pages';
-import _keycl from '../../utils/keycloak.vendors';
-import CenterMessage from '../CenterMessage';
-import { useQuery } from '@apollo/client';
 
 /**
  * embedded param so that not needed padding can be removed in views
  */
-const AppRouter = ({ route, embedded }) => {
+const AppRouter = ({ route }) => {
     const currentLocation = useLocation()
-    const { profile, setDevTools, devTools } = useVisitor()
-    const { searchParams } = new URL(window.location)
     
     // useEffect(() => {
     //     if (process.env.NODE_ENV !== 'development' && searchParams.get('force') !== 'dev') {

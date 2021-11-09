@@ -3,7 +3,19 @@ import { className } from '../../utils';
 import Button from '../Button';
 import Icon from '../Icon';
 
-const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disableClose, className: cls, title, button, buttonTheme, buttonIconAfter, children }) => {
+const Modal = ({ 
+    open: initialState = false, 
+    onClose, 
+    disableOverlayClick, 
+    disableClose, 
+    className: cls,
+    title, 
+    button, 
+    buttonTheme, 
+    buttonIconAfter,
+    children,
+    bottom
+}) => {
     const [ open, setOpen ] = useState(initialState)
     
     const handleManualClose = () => {
@@ -16,12 +28,26 @@ const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disab
         if (!initialState && onClose) onClose(open)
     }, [initialState]) // eslint-disable-line
     
+    useEffect(() => {
+        console.log({ open })
+        if (open === true || initialState === true) document.body.classList.add('overflow-hidden')
+        else if (open === false || initialState === false) document.body.classList.remove('overflow-hidden')
+    }, [open, initialState])
+    
     return (
         <>
             { button && <Button theme={ buttonTheme } iconAfter={ buttonIconAfter } onClick={() => setOpen(true)}>{ button }</Button> }
             { open && (
-                <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
-                    <div className="z-50 flex justify-center items-center p-6 w-full">
+                <div
+                    {...className(
+                        'fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center ',
+                        bottom ? 'items-end' : 'items-center'
+                    )}
+                >
+                    <div { ...className(
+                        'z-50 flex justify-center items-center w-full',
+                        bottom ? 'p-0' : 'p-6'
+                    )}>
                         <div 
                             {...className(
                                 'bg-white z-50 w-full lg:w-min md:min-w-screen-1/2',
@@ -40,7 +66,8 @@ const Modal = ({ open: initialState = false, onClose, disableOverlayClick, disab
                             </div>
                             <div className="px-6 pb-6 md:px-8 md:pb-8">
                                 { typeof children === 'function' ? children({ 
-                                    toggle: setOpen
+                                    toggle: setOpen,
+                                    handleManualClose
                                 }) : children }
                             </div>
                         </div>
