@@ -6,16 +6,18 @@ import { cookieHook } from '../../utils';
 const PwaNotify = () => {
     const { pwaInstaller } = useVisitor()
     const isIgnored = cookieHook.get('pwaNotify') === 'ignore';
+    const isInstalled = cookieHook.get('pwaNotify') === 'installed';
     
     const handleIgnore = () => {
         cookieHook.set('pwaNotify', 'ignore')
     }
     
     const handleInstall = () => {
+        cookieHook.set('pwaNotify', 'installed')
         pwaInstaller()
     }
     
-    if (isIgnored || !pwaInstaller) return null
+    if (isIgnored || !pwaInstaller || isInstalled) return null
     
     return <Modal open={ true } bottom disableClose>
         {({ handleManualClose }) => (
