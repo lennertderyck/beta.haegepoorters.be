@@ -18,11 +18,12 @@ const GroupWrapper = ({ label, required, className: cls, children }) => <div cla
     { children }
 </div>
 
-const FieldWrapper = ({ disableBorder = false, className: cls, type, hasComment, children }) => <label 
+const FieldWrapper = ({ disableBorder = false, className: cls, type, hasComment, children, disabled }) => <label 
     {...className(
         'p-2 bg-white',
         hasComment ? 'mb-2' : 'mb-5',
         !disableBorder && 'border-2 border-gray-300 block',
+        disabled ? 'border-gray-200' : 'border-gray-300',
         cls
     )}
 >{ children }</label>
@@ -41,7 +42,7 @@ const Field = ({ label, name, className: cls, containerClassName, type = 'text',
             containerClassName
         )}>
             { label && <span className="text-gray-400 mb-1 block">{ label } { required && '*' }</span> }
-            <FieldWrapper hasComment={ comment }>
+            <FieldWrapper hasComment={ comment } disabled={ otherProps.disabled }>
                 <input 
                     type={ type }
                     { ...className(
@@ -63,7 +64,7 @@ const Area = ({ label, name, className: cls, required = false, ...otherProps }) 
     return (
         <GroupWrapper>
             { label && <span className="text-gray-400 mb-1 block">{ label } { required && '*' }</span> }
-            <FieldWrapper>
+            <FieldWrapper disabled={ otherProps.disabled }>
                 <textarea 
                     { ...className(
                         cls,
@@ -87,7 +88,7 @@ const Select = ({ label, name, className: cls, required = false, children, comme
                 comment && 'mb-5'
             )}
         >
-            <FieldWrapper hasComment={ comment }>
+            <FieldWrapper hasComment={ comment } disabled={ otherProps.disabled }>
                 <select 
                     { ...className(
                         cls,
@@ -109,12 +110,16 @@ const Check = ({ label, name, className: cls, required = false, type, comment, c
     
     return (
         <GroupWrapper>
-            <FieldWrapper disableBorder {...className(
-                'flex -ml-2',
-                'Input--checkbox',
-                cls,
-                styles['HiddenCheckInput']
-            )} hasComment={ comment }>
+                <FieldWrapper 
+                disableBorder {...className(
+                    'flex -ml-2',
+                    'Input--checkbox',
+                    cls,
+                    styles['HiddenCheckInput']
+                )} 
+                hasComment={ comment }
+                disabled={ otherProps.disabled }
+            >
                 <input type={ type } {...register(otherProps.register || name)} className="hidden" defaultChecked={ checked } />
                 <div className="w-5 h-5 border-2 border-gray-300 relative transform translate-y-1" >
                     <Icon name="check" size="1.2rem" className="top-1/2 left-1/2" />
@@ -163,6 +168,7 @@ const Form = ({
     confirmation,
     errorMessage,
     fieldArray,
+    customPostData,
     ...otherProps
 }) => {
     const methods = useForm({ defaultValues });
@@ -171,9 +177,11 @@ const Form = ({
     
     const nestedFunction = typeof children === 'function';
     
-    const handleSubmit = data => {
-        if (action && !nativeAction) submit(data)
-        if (onSubmit) onSubmit(data)
+    const handleSubmit = (data) => {
+        const payload = customPostData || data;
+        
+        if (action && !nativeAction) submit(payload)
+        if (onSubmit) onSubmit(payload)
     };
     
     const watchedValues = useMemo(() =>

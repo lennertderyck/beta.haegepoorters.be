@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+
 import { className } from '../../utils';
 import Button from '../Button';
 import Icon from '../Icon';
+
+import styles from './Modal.module.scss';
 
 const Modal = ({ 
     open: initialState = false, 
@@ -14,7 +17,8 @@ const Modal = ({
     buttonTheme, 
     buttonIconAfter,
     children,
-    bottom
+    bottom,
+    modalClassName
 }) => {
     const [ open, setOpen ] = useState(initialState)
     
@@ -58,13 +62,20 @@ const Modal = ({
                                 overflow: 'scroll'
                             }}
                         >
-                            <div className="flex justify-between items-center sticky top-0 left-0 right-0 bg-white z-30 px-6 py-6 md:px-8"> 
+                            <div 
+                                { ...className(
+                                    'flex justify-between items-center sticky top-0 left-0 right-0 bg-white z-30 px-6 py-6 md:px-8'
+                                )}
+                            > 
                                 { title && <h3 className="text-gray-600 mr-6">{ title }</h3>}
                                 { !disableClose && <Button theme="clear" onClick={ handleManualClose }>  
                                     <Icon name="close" size="1.6rem" />
                                 </Button>}
                             </div>
-                            <div className="px-6 pb-6 md:px-8 md:pb-8">
+                            <div { ...className(
+                                styles.content,
+                                modalClassName
+                            )}>
                                 { typeof children === 'function' ? children({ 
                                     toggle: setOpen,
                                     handleManualClose

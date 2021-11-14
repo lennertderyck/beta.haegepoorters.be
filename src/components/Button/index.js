@@ -73,6 +73,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
         >{ inside }</a>
     )
     return <button
+        type={ type }
         { ...otherProps } 
         { ...className(
             'flex items-center whitespace-nowrap',

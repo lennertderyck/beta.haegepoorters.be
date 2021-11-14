@@ -28,6 +28,20 @@ const _req = async (method, url, data, params) => {
     return req
 }
 
+const set = (name, url) => {
+    const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api' : 'https://site.hpi.haegepoorters.be/api';
+    
+    return {
+        [name]: baseUrl + url
+    }
+}
+
+const ENDPOINTS = {
+    ...set('SITE_CONFIG', '/site_config'),
+    ...set('CUSTOM_FIELDS', '/custom_fields'),
+    ...set('LEADER_KEYS', '/keys'),
+}
+
 const GET = {
     PROFILE: () => _gaBase('GET', '/lid/profiel'),
     USER_TAGS: () => _gaBase('GET', '/functie'),
@@ -44,5 +58,6 @@ const PATCH = {
 
 export {
     GET,
-    PATCH
+    PATCH,
+    ENDPOINTS
 }

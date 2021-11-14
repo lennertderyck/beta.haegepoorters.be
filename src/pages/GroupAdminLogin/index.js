@@ -3,7 +3,7 @@ import { useAxios } from "use-axios-client";
 import dayjs from 'dayjs';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import { Button, Form, Icon, Input, LoaderSpinner, NotMemberMsg, SignInMessage, SiteConfigForm, SmartLookSensitive } from '../../components';
+import { Button, Form, Icon, Input, LeaderKeys, LoaderSpinner, NotMemberMsg, SignInMessage, SiteConfigForm, SmartLookSensitive } from '../../components';
 import { useVisitor } from '../../contexts/visitorContext';
 import { accountLeaderLinks, links } from '../../data/nav';
 import PageLayout from '../../layouts/PageLayout';
@@ -119,6 +119,9 @@ const ProfileSummary = () => {
                                 </div>
                             )}
                         </div>
+                    </div>
+                    <div className="mb-14">
+                        <LeaderKeys />
                     </div>
                     <div>
                         <div className="flex items-start justify-between">
