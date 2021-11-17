@@ -10,7 +10,7 @@ const CollapseWrapper = styled.div`
     transition: all .3s ease;
 `
 
-const Collapse = ({ label, open: defaultState, disabled, className: cls, buttonClassname, children, onClick }) => {
+const Collapse = ({ label, open: defaultState, disabled, className: cls, buttonClassname, children, onClick, labelIcon }) => {
     const [ open, setOpen ] = useState(disabled ? 'true' : defaultState)
     
     const nestedFunction = typeof children === 'function';
@@ -31,6 +31,7 @@ const Collapse = ({ label, open: defaultState, disabled, className: cls, buttonC
     return (<div className={ cls }>
         { (!disabled && label) && <Button 
             { ...className(buttonClassname) }
+            icon={ labelIcon }
             iconAfter={ open ? 'arrow-up-s' : 'arrow-down-s'}
             theme="simple"
             type="button"

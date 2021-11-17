@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useAxios, useLazyAxios } from 'use-axios-client';
+import React, { useEffect, useRef } from 'react';
+import { useAxios } from 'use-axios-client';
 
 import { useVisitor } from '../../contexts/visitorContext';
 import Form, { Input, useFormStatus } from '../Form';
@@ -9,76 +9,155 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import Collapse from '../Collapse';
 import Modal from '../Modal';
 import ContextStore, { useContextStore } from '../ContextStore';
-import { className } from '../../utils';
+import { className, ENDPOINTS } from '../../utils';
 import Icon from '../Icon';
 
+const defaultPrefillFieldConfig = {
+    prefillIndex: null, 
+    prefill: undefined
+}
+
+const FieldModal = ({ onSubmit, prefill, prefillIndex, ...otherProps }) => {
+    return <Modal 
+        button="Voeg veld toe" 
+        buttonTheme="simple" 
+        title="Site instellingen – aangepaste velden" 
+        buttonIconAfter="menu-add"
+        modalClassName="pb-0"
+        { ...otherProps }
+    >
+        {({ toggle }) => (
+            <Form 
+                onSubmit={data => { 
+                    if (onSubmit) onSubmit({ data, prefillIndex })
+                    toggle(false)
+                }}
+                defaultValues={ prefill }
+            >
+                <Input name="value" label="Waarde" comment="Een waarde die nu al meegegeven wordt" />
+                <Input name="label" label="Label" comment="De titel boven het veld" />
+                <Input name="comment" label="Comment" comment="De extra uitleg die onder het veld wordt weergegeven. Precies zoals deze tekst." />
+                <Input type="select" name="type" label="Type" comment="Het type data dat opgeslagen moet worden">
+                    <option value="text">Tekst</option>
+                    <option value="number">Getal</option>
+                    <option value="email">Email</option>
+                </Input>
+                <Input type="checkbox" name="deletable" label="Verwijderbaar" checked comment="Dit veld kan verwijderd worden door webmasters" />
+                <div className="sticky bottom-0 bg-white pb-8">
+                    <hr className="mb-6" />
+                    <Button type="submit" theme="button">Toevoegen</Button>
+                </div>
+            </Form>
+        )
+    }
+</Modal>
+}
+
 const FormFields = () => {
-    const { fieldArray: { fields, remove }} = useFormStatus()
-    const [ editMode, setEditMode ] = useContextStore()
+    const { fieldArray: { fields, remove, update }} = useFormStatus()
+    const [ , setArrayFieldsContext ] = useContextStore()
+    
+    const setFieldEdit = (prefillIndex, prefill) => {
+        setArrayFieldsContext(s => ({ ...s, prefillIndex, prefill}))
+    }
+    
+    useEffect(() => {
+        // console.clear()
+        console.log(fields)
+    })
     
     return <>
-        {fields.map((field, index) => {
-            const { deletable, value, ...moreProps } = field.obj;
-            
-            return <div { ...className(
-                'relative flex items-start border-l-2 border-gray-300',
-                editMode && 'pl-6 border-opacity-100',
-                !editMode && 'border-opacity-0'
-            )}>
-                <Input { ...moreProps } key={ field.id } defaultValue={ value } register={`siteConfig.${index}.value`} containerClassName="flex-1" standalone />
-                {( deletable && editMode ) && <Button className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-100 p-1" theme="simple" onClick={() => remove(field.id)}><Icon name="close" color="inherit" className="text-red-500" /></Button> }
-            </div>
+        { fields.map((field, index) => {
+            const { value, ...moreProps } = field.obj;
+
+            return (
+                <div
+                    key={ field.id }
+                    { ...className(
+                        'relative flex items-start mb-6'
+                    )}
+                >
+                    <Input { ...moreProps } key={ field.id } defaultValue={ value } register={`siteConfig.${index}.value`} containerClassName="flex-1" standalone />
+                    <Button 
+                        className="absolute right-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1" 
+                        theme="simple" 
+                        type="button"
+                        onClick={() => setFieldEdit(index, field.obj)}
+                    >
+                        <Icon name="edit-2" color="inherit" className="text-red-500" />
+                    </Button>
+                </div>
+            )
         })}
     </>
 }
 
 const Content = () => {
+    const $saveFieldsButton = useRef()
     const { _keycl } = useVisitor()
-    const { data, loading } = useAxios({
-        url: 'https://site.hpi.haegepoorters.be/api/site_config'
+    const [ arrayFieldsContext, setArrayFieldsContext ] = useContextStore()
+    const { data } = useAxios({
+        url: ENDPOINTS.SITE_CONFIG
+    })
+    const { data: customFieldsData, refetch } = useAxios({
+        url: ENDPOINTS.CUSTOM_FIELDS
     })
     
-    const [ editMode, setEditMode ] = useContextStore()
-    
     const { control } = useForm();
-    const { fields, prepend, remove } = useFieldArray({
-        control, // control props comes from useForm (optional: if you are using FormContext)
-        name: "siteConfig", // unique name for your Field Array
+    const arrayFieldContext = useFieldArray({
+        control,
+        name: "siteConfig",
     });
-    
-    const handleAddField = (obj) => {
-        prepend({ obj })
-    }
+    const { fields, append, update } = arrayFieldContext;
     
     useEffect(() => {
-        console.log({ fields })
-    }, [fields])
+        setArrayFieldsContext({ 
+            ...arrayFieldContext, 
+            ...defaultPrefillFieldConfig
+        })
+    }, [])
     
-    if (!data) return <LoaderSpinner />
+    useEffect(() => {
+        if (customFieldsData) append(customFieldsData)
+    }, [customFieldsData])
+    
+    const handleFieldUpdate = ({ prefillIndex, data }) => {
+        console.log('handle update', data)
+        setArrayFieldsContext(s => ({ ...s, ...defaultPrefillFieldConfig }))
+        update(prefillIndex, { obj: data })
+    }
+    
+    if (!data && !customFieldsData) return <LoaderSpinner />
     return (
         <>
+            { arrayFieldsContext?.prefillIndex && (
+                <FieldModal prefill={ arrayFieldsContext.prefill } prefillIndex={ arrayFieldsContext.prefillIndex } open onSubmit={ handleFieldUpdate } />
+            )}
+            
             <div className="mb-6">
                 <div className="flex items-center">
-                    <Button onClick={() => setEditMode(s => !s)} theme="button" className="mr-4" iconAfter={ editMode ? 'save' : 'edit-2' }>{ editMode ? 'Velden opslaan' : 'Bewerk velden' }</Button>
-                    <Modal button="Voeg veld toe" buttonTheme="simple" title="Site instellingen – aangepaste velden" buttonIconAfter="menu-add">
-                        {({ toggle }) => <Form onSubmit={ data => { handleAddField(data) && toggle()} }>
-                            <Input name="value" label="Waarde" comment="Een waarde die nu al meegegeven wordt" />
-                            <Input name="label" label="Label" comment="De titel boven het veld" />
-                            <Input name="comment" label="Comment" comment="De extra uitleg die onder het veld wordt weergegeven. Precies zoals deze tekst." />
-                            <Input type="select" name="type" label="Type" comment="Het type data dat opgeslagen moet worden">
-                                <option value="text">Tekst</option>
-                                <option value="number">Getal</option>
-                                <option value="email">Email</option>
-                            </Input>
-                            <Input type="checkbox" name="deletable" label="Verwijderbaar" checked comment="Dit veld kan verwijderd worden door webmasters" />
-                            <Button type="submit" theme="button" className="mt-6">Toevoegen</Button>
-                        </Form>}
-                    </Modal>
+                    <FieldModal onSubmit={({ data }) => append({ obj: data })} />
                 </div>
             </div>
 
-            <Form fieldArray={{ fields, prepend, remove }} className="mb-12">
+            <Form 
+                action="http://localhost:3001/api/custom_fields"
+                confirmation="Wijzigingen opgeslagen!"
+                errorMessage="Er ging iets fout :("
+                className="mb-12"
+                fieldArray={arrayFieldContext}
+                customPostData={ fields }
+            >
                 <FormFields />
+                { fields.length !== 0 && 
+                    <Button 
+                        theme="button"
+                        type="submit"
+                        className="mr-4"
+                        iconAfter="save"
+                        ref={ $saveFieldsButton }
+                    >Velden opslaan</Button>
+                }
             </Form>
             
             <Form 
@@ -117,7 +196,7 @@ const Content = () => {
     )
 }
 
-const Wrapper = () => {
+const Wrapper = () => {    
     return <ContextStore>
         <Content />
     </ContextStore>

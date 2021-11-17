@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactIs from 'react-is';
 
 import { className } from '../../utils';
 import Button from '../Button';
@@ -32,11 +33,11 @@ const Modal = ({
         if (!initialState && onClose) onClose(open)
     }, [initialState]) // eslint-disable-line
     
-    useEffect(() => {
-        console.log({ open })
-        if (open === true || initialState === true) document.body.classList.add('overflow-hidden')
-        else if (open === false || initialState === false) document.body.classList.remove('overflow-hidden')
-    }, [open, initialState])
+    // useEffect(() => {
+    //     console.log({ open })
+    //     if (open === true || initialState === true) document.body.classList.add('overflow-hidden')
+    //     else if (open === false || initialState === false) document.body.classList.remove('overflow-hidden')
+    // }, [open, initialState])
     
     return (
         <>
@@ -64,10 +65,10 @@ const Modal = ({
                         >
                             <div 
                                 { ...className(
-                                    'flex justify-between items-center sticky top-0 left-0 right-0 bg-white z-30 px-6 py-6 md:px-8'
+                                    'flex justify-between sticky top-0 left-0 right-0 bg-white z-30 px-6 py-6 md:px-8'
                                 )}
                             > 
-                                { title && <h3 className="text-gray-600 mr-6">{ title }</h3>}
+                                { title && ( ReactIs.isElement(title) ? title : <h3 className="text-gray-600 mr-6">{ title }</h3> )}
                                 { !disableClose && <Button theme="clear" onClick={ handleManualClose }>  
                                     <Icon name="close" size="1.6rem" />
                                 </Button>}
