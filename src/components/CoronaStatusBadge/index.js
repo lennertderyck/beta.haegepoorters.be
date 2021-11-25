@@ -14,7 +14,7 @@ const custom = (statusCode) => {
             borderClassName: 'border-green-100'
         },
         '1': {
-            label: 'Activiteiten beperkt',
+            label: 'Aangepaste maatregelen',
             icon: 'surgical-mask',
             className: 'text-kiwi-500',
             borderClassName: 'border-kiwi-100'
