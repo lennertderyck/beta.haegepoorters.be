@@ -5,7 +5,7 @@ import { useFormStatus } from '../Form';
 import Icon from '../Icon';
 import LoaderSpinner from '../LoaderSpinner';
 
-const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, disabled, ...otherProps}) => {
+const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, disabled, loading, ...otherProps}) => {
     const { type } = otherProps;
     const formStatus = useFormStatus()
     
@@ -45,7 +45,7 @@ const Button = ({ children, href, to, className: cls, theme, icon, iconAfter, di
             className="-mr-1 ml-1.5" 
             { ...iconConfig }
         />}
-        {( type === 'submit' && formStatus?.status?.loading ) && <LoaderSpinner size={ 15 } thickness={ 200 } className="ml-2" /> }
+        {(( type === 'submit' && formStatus?.status?.loading ) || loading) && <LoaderSpinner size={ 15 } thickness={ 200 } className="ml-2" /> }
     </>
 
     if (to) return (

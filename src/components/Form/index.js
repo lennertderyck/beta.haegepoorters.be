@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, createContext, useContext } from 'react';
-import { useForm, FormProvider, useFormContext, useFieldArray } from "react-hook-form";
+import React, { useEffect, useMemo, createContext, useContext, useState } from 'react';
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { useLazyAxios } from 'use-axios-client';
 
 import { className } from '../../utils';
@@ -105,22 +105,22 @@ const Select = ({ label, name, className: cls, required = false, children, comme
     )
 }
 
-const Check = ({ label, name, className: cls, required = false, type, comment, checked, ...otherProps }) =>{
+const Check = ({ label, name, className: cls, required = false, type, comment, checked, ...otherProps }) => {
     const { register } = useFormContext();
     
     return (
         <GroupWrapper>
                 <FieldWrapper 
-                disableBorder {...className(
-                    'flex -ml-2',
-                    'Input--checkbox',
-                    cls,
-                    styles['HiddenCheckInput']
-                )} 
-                hasComment={ comment }
-                disabled={ otherProps.disabled }
-            >
-                <input type={ type } {...register(otherProps.register || name)} className="hidden" defaultChecked={ checked } />
+                    disableBorder {...className(
+                        'flex -ml-2',
+                        'Input--checkbox',
+                        cls,
+                        styles['HiddenCheckInput']
+                    )} 
+                    hasComment={ comment }
+                    disabled={ otherProps.disabled }
+                >
+                <input type={ type } {...register(otherProps.register || name)} className="hidden" defaultChecked={ checked } { ...otherProps } />
                 <div className="w-5 h-5 border-2 border-gray-300 relative transform translate-y-1" >
                     <Icon name="check" size="1.2rem" className="top-1/2 left-1/2" />
                 </div>
@@ -133,18 +133,45 @@ const Check = ({ label, name, className: cls, required = false, type, comment, c
     )
 }
 
+const Wrapper = ({ name, children, multiple, checked, containerClassName, ...otherProps }) => {
+    const { register, watch } = useFormContext();
+    const watchedValue = watch(name)
+    
+    const nestedFunction = typeof children === 'function';
+    
+    return <label
+        className={ containerClassName }
+    >
+        <input 
+            type={ multiple ? 'checkbox' : 'radio' } 
+            defaultChecked={ checked } 
+            className="hidden"
+            { ...register(otherProps.register || name )}
+            { ...otherProps }
+        />
+        { nestedFunction ? children({ checked: watchedValue == otherProps.value }) : children }
+    </label>
+}
+
 export const Input = ({
     type,
     children,
     ...otherProps
 }) => {    
-    if (type === 'area' || type === 'textarea') return <Area { ...otherProps } />
+    if (
+        type === 'area' || 
+        type === 'textarea'
+    ) return <Area { ...otherProps } />
     if (type === 'select') return <Select { ...otherProps }>{ children }</Select>
     if (
         type === 'check' || 
         type === 'checkbox' || 
         type === 'radio'
     ) return <Check type={ type } { ...otherProps } />
+    if (
+        type === 'custom' || 
+        type === 'wrapper'
+    ) return <Wrapper { ...otherProps }>{ children }</Wrapper>
     return <Field type={ type } { ...otherProps } />
 }
 

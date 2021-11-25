@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactIs from 'react-is';
+import { ScrollBox } from '..';
 
 import { className } from '../../utils';
 import Button from '../Button';
@@ -77,10 +78,12 @@ const Modal = ({
                                 styles.content,
                                 modalClassName
                             )}>
-                                { typeof children === 'function' ? children({ 
-                                    toggle: setOpen,
-                                    handleManualClose
-                                }) : children }
+                                <ScrollBox>
+                                    { typeof children === 'function' ? children({ 
+                                        toggle: setOpen,
+                                        handleManualClose
+                                    }) : children }
+                                </ScrollBox>
                             </div>
                         </div>
                     </div>

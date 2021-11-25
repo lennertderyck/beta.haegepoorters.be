@@ -2,6 +2,7 @@ import React, { useRef, useState, memo } from 'react';
 import useHover from '@react-hook/hover'
 import Fade from 'react-reveal/Fade';
 import { useMediaQuery } from 'react-responsive'
+import { useRouteMatch } from 'react-router';
 
 import Icon from '../Icon';
 import Logo from '../Logo';
@@ -16,17 +17,11 @@ import { useVisitor } from '../../contexts/visitorContext';
 import { useNetwork } from '../../contexts/networkContext';
 import SignInMessage from '../SignInMessage';
 import Collapse from '../Collapse';
-import { useRouteMatch } from 'react-router';
 
-const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => {
+const MenuItem = memo(({ slug, label, icon, open, disabled, ignoreActiveClass, ...otherProps }) => {
+    const match = useRouteMatch(slug)
 
-    // const isCurrent = useRouteMatch({
-    //     path: slug,
-    //     strict: true,
-    //     sensitive: true,
-    // });
-
-    const isCurrent = false
+    const isCurrent = match && (match.path !== '/' || match.path === '/' && match.isExact);
 
     return <Button 
         to={ slug } 
@@ -38,6 +33,7 @@ const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => 
             // open ? 'border-opacity-100' : 'border-opacity-0'
         )}
         disabled= { disabled }
+        activeClassName={ isCurrent && 'bg-red-100' }
         { ...otherProps }
     >
         <Icon name={ icon } size="1.5rem" color={ isCurrent ? '#5E1A1C' : '#4b5563' } className="mr-5" />
@@ -46,8 +42,13 @@ const MenuItem = memo(({ slug, label, icon, open, disabled, ...otherProps }) => 
             open && 'max-w-screen opacity-100',
             !open && 'max-w-0 opacity-0'
         )}>
-            <span className="mr-28 font-medium whitespace-nowrap">{ label }</span>
-            <Icon name="arrow-right" size="1.2rem" className="block ml-auto mr-5" />
+            <span
+                { ...className(
+                    'mr-28 font-medium whitespace-nowrap',
+                    isCurrent && 'text-red-500'
+                )}
+            >{ label }</span>
+            <Icon name="arrow-right" size="1.2rem" color={ isCurrent && '#5E1A1C' } { ...className('block ml-auto mr-5' )} />
         </div>
     </Button>
 })
@@ -198,7 +199,7 @@ const MainMenu = () => {
                         />
                     </div> */}
                     <div>
-                        { mainNav.map(({ icon, slug, label, offlineSupport }, index) => (
+                        { mainNav.map(({ icon, slug, label, offlineSupport, ignoreActiveClass }, index) => (
                             <MenuItem
                                 icon={ icon }
                                 slug={ slug }
@@ -207,6 +208,7 @@ const MainMenu = () => {
                                 key={ index }
                                 disabled={ status === 'offline' && !offlineSupport }
                                 onClick={() => setOpen(false)}
+                                ignoreActiveClass={ ignoreActiveClass }
                             />
                         ))}
                     </div>

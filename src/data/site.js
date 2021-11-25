@@ -114,3 +114,9 @@ export const contactSubjects = [
         faqText: 'Neem ook eens een kijkje tussen de veelgestelde vragen, daar vind je ook al een heleboel informatie.'
     },
 ]
+
+export const surveyOptions = [
+    { value: 1, icon: 'emotion-unhappy' },
+    { value: 2, icon: 'emotion-normal' },
+    { value: 3, icon: 'emotion' },
+]

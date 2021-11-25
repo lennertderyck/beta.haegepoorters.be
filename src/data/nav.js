@@ -1,17 +1,17 @@
 import { uris } from './site'
 
 export const mainNav = [
-    { icon: 'home-5', label: 'Startpagina', slug: '/', offlineSupport: true },
-    { icon: 'book-3', label: 'Haegeprekerke', slug: '/haegeprekerke', offlineSupport: true },
-    { icon: 'newspaper', label: 'Nieuws & blog', slug: '/blog' },
-    { icon: 'team', label: 'Leiding', slug: '/leiding' },
+    { icon: 'home-5', label: 'Startpagina', slug: '/', offlineSupport: true, ignoreActiveClass: true },
+    { icon: 'book-3', label: 'Haegeprekerke', slug: '/haegeprekerke', offlineSupport: true, ignoreActiveClass: false },
+    { icon: 'newspaper', label: 'Nieuws & blog', slug: '/blog', ignoreActiveClass: false },
+    { icon: 'team', label: 'Leiding', slug: '/leiding', ignoreActiveClass: false },
     // { icon: 'hand-heart', label: 'HP Renové', slug: '/vzw' },
-    { icon: 'hammer', label: 'HP Renové', slug: '/vzw' },
+    { icon: 'hammer', label: 'HP Renové', slug: '/vzw', ignoreActiveClass: false },
     // { icon: 'gallery', label: 'Galerij', slug: '/galerij' },
     // { icon: 'lifebuoy', label: 'FAQ', slug: '/veelgestelde-vragen' },
-    { icon: 'question', label: 'FAQ', slug: '/veelgestelde-vragen' },
+    // { icon: 'question', label: 'FAQ', slug: '/veelgestelde-vragen' },
     // { icon: 'virus', label: 'Corona', slug: '/corona' },
-    { icon: 'chat-4', label: 'Contact', slug: '/contact' },
+    { icon: 'chat-4', label: 'Contact', slug: '/contact', ignoreActiveClass: false },
 ]
 
 export const homeRelatedLinks = [

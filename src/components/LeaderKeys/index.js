@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Tooltip } from 'react-tippy';
+
 import { useAxios } from 'use-axios-client';
-import { Collapse, Icon, LoaderSpinner, Modal, Tooltip } from '..';
+import { CatchError, Collapse, Icon, LoaderSpinner, Modal } from '..';
 import { useVisitor } from '../../contexts/visitorContext';
 import { className, ENDPOINTS } from '../../utils';
 
@@ -14,7 +16,8 @@ const Card = ({ data, className: cls }) => {
         // data.access.map(({ name }) => name).join(', ')
     }
 
-    return <>
+    return <CatchError
+    >
         <div 
             {...className(
                 'border-2 border-gray-300 col-span-1 relative cursor-pointer',
@@ -54,8 +57,29 @@ const Card = ({ data, className: cls }) => {
                 onClose={() => setOpen(false)}
             >
                 <div className="grid grid-cols-12 divide-y-2 divide-gray-300">
+                    <div className="grid grid-cols-12 col-span-12 gap-x-8 py-4">
+                        <div className="col-span-12 lg:col-span-6">
+                            <h3 className="font-serif text-xl">Kenmerk</h3>
+                            <p className="text-sm">Sleutelnummer (witte sticker)</p>
+
+                        </div>
+                        <div className="col-span-12 lg:col-span-6">
+                            { data.key_id ? 
+                                <p className="text-sm">Dit is <strong>sleutel { data.key_id }</strong></p> :
+                                <p className="text-sm text-gray-400">Deze sleutel heeft geen nummer</p>
+                            }
+                        </div>
+                        <div className="col-span-12 mt-4">
+                            <Collapse label="Meer info" className="">
+                                <p className="text-gray-400 font-serif text-sm">
+                                    Sinds heden krijgt elke sleutel een uniek nummer. Hierdoor kunnen we elke sleutel opzich koppelen aan een persoon en volgen in een nieuw systeem. 
+                                    Een sleutel met een nieuw nummer heeft een witte sticker. Sleutels zonder witte sticker zijn nog niet voorzien van het nieuw nummer.
+                                </p>
+                            </Collapse>
+                        </div>
+                    </div>
+                    
                     <div className="grid grid-cols-12 col-span-12 gap-8 py-4">
-                        
                         <div className="col-span-12 lg:col-span-6">
                             <h3 className="font-serif text-xl">Waarborg</h3>
                             <p className="text-sm">25 euro per sleutel</p>
@@ -97,7 +121,7 @@ const Card = ({ data, className: cls }) => {
                 </div>
             </Modal>
         )}
-    </>
+    </CatchError>
 }
 
 const LeaderKeys = () => {
@@ -124,9 +148,12 @@ const LeaderKeys = () => {
                 </div>
                 
                 { data && <Tooltip
-                    className="col-span-12 lg:col-span-6 "
+                    className="col-span-12 lg:col-span-6"
+                    title="De hoeveelheid waarborg die je betaald hebt"
+                    position="top"
+                    arrow
                 >
-                    <div className="bg-gray-100 p-4 flex-1 flex items-center justify-between">
+                    <div className="bg-gray-100 p-4 flex-1 flex items-center justify-between cursor-pointer">
                         <span className="flex items-center">
                             <Icon name="money-euro-circle" size="1.3rem" className="mr-1" />
                             Waarborg

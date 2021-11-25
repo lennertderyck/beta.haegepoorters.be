@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, CoronaStatusBanner, Footer, HeroBanner, HighlightedEvents, HighlightedNews, Icon, Modal } from '../../components'
+import { Button, Container, CoronaStatusBanner, Footer, HeroBanner, HighlightedEvents, HighlightedNews, Icon, Survey } from '../../components'
 import { homeRelatedLinks } from '../../data/nav';
 import QUERIES from '../../graphql/queries';
 
@@ -29,10 +29,6 @@ export default function Home() {
   return (
     <>
       <div className="container mx-auto px-8">
-        <Modal>
-          <h3>Put a title here</h3>
-          <p>Some content</p>
-        </Modal>
         <CoronaStatusBanner />
         <div className="grid grid-cols-12 py-12 lg:gap-12">
           <div className="col-span-12 lg:col-span-8 mb-12">
@@ -76,6 +72,13 @@ export default function Home() {
           ))}
         </div>
       </div>
+      
+      <Container>
+        <div className="max-w-md mx-auto">
+          <Survey className="mb-8" />
+        </div>
+      </Container>
+      
       <Footer />
     </>
   )

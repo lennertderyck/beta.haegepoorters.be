@@ -40,6 +40,7 @@ const ENDPOINTS = {
     ...set('SITE_CONFIG', '/site_config'),
     ...set('CUSTOM_FIELDS', '/custom_fields'),
     ...set('LEADER_KEYS', '/keys'),
+    ...set('SURVEY_1_SITE', '/survey/1'),
 }
 
 const GET = {

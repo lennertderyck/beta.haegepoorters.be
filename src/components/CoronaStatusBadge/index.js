@@ -2,45 +2,64 @@ import React from 'react'
 
 import { Icon } from '..'
 import { className } from '../../utils'
+import { useAxios } from 'use-axios-client'
+import { ENDPOINTS } from '../../utils'
 
 const custom = (statusCode) => {
     return {
         '2': {
             label: 'Activiteiten toegelaten',
             icon: 'check-double',
-            className: 'text-green-500'
+            className: 'text-green-500',
+            borderClassName: 'border-green-100'
         },
         '1': {
             label: 'Activiteiten beperkt',
             icon: 'surgical-mask',
-            className: ''
+            className: 'text-kiwi-500',
+            borderClassName: 'border-kiwi-100'
         },
         '0': {
             label: 'Activiteiten opgeschort',
             icon: 'close-circle',
-            className: ''
+            className: 'text-red-500',
+            borderClassName: 'border-red-100'
         },
+        'loading': {
+            label: 'Status ophalen',
+            icon: 'loader-5',
+            className: 'text-gray-500',
+            iconClassName: 'animate-spin',
+            borderClassName: 'border-gray-200',
+        }
     }[statusCode]
 }
 
-const Wrapper = ({ className: cls }) => <div { ...className(
-    'rounded-full tracking-widest font-serif font-bold uppercase text-green-500 px-3 py-2 text-sm flex items-center w-fit',
-    cls
-)}>
-    activiteiten toegelaten
-    <Icon name="check-double" className="opacity-50 inline text-green-500 ml-2" color="inherit" />
-</div>
-
-const CoronaStatusBadge = ({ className: cls, statusCode }) => {
-    const { label, icon, className: customCls } = custom(statusCode);
+const Wrapper = ({ className: cls, border, status }) => {
+    const { label, icon, className: customCls, borderClassName, iconClassName } = custom(status);
     
-    return <Wrapper className={ cls }>
-        { label }
+    return <div { ...className(
+        'rounded-full px-3 py-2 flex items-center w-fit',
+        cls,
+        border && borderClassName + ' border-2', customCls
+    )}>
+        <span className="tracking-widest font-serif font-bold uppercase text-sm">{ label }</span>
         <Icon name={ icon } { ...className(
             'opacity-50 inline ml-2',
-            customCls
+            customCls,
+            iconClassName
         ) } color="inherit" />
-    </Wrapper>
+    </div>
+}
+
+const CoronaStatusBadge = ({ className: cls, border, statusCode = '2' }) => {
+    const { data } = useAxios(ENDPOINTS.SITE_CONFIG)
+    
+    if (!data) return <Wrapper { ...{ border, className: cls }} status="loading" />
+    
+    const { corona_status } = data;
+    
+    return <Wrapper { ...{ border, className: cls }} status={ corona_status } />
 }
 
 export default CoronaStatusBadge
