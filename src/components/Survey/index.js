@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Fade from 'react-reveal/Fade';
 import { useLazyAxios } from 'use-axios-client';
+import dayjs from 'dayjs';
 
 import { Button, CenterMessage, Collapse, Form, Icon, Input } from '..';
 import { surveyOptions } from '../../data/site';
-import { className, cookieHook, ENDPOINTS } from '../../utils';
+import { className, checkSurveyResponse, cookieHook, ENDPOINTS } from '../../utils';
 
 const Survey = ({ className: cls }) => {
     const [ savedResponse, setSavedResponse ] = useState()
@@ -15,7 +15,7 @@ const Survey = ({ className: cls }) => {
     
     // use useRef?
     useEffect(() => {
-        setSavedResponse(JSON.parse(cookieHook.get('survey_1_site')))
+        checkSurveyResponse((responded, data) => responded && setSavedResponse(data))
     }, [])
     
     

@@ -1,9 +1,11 @@
 import { functies as userTags } from '../data/fake/tags.fake.json'
 
-export const activeRoles = (data) => data.filter(({ einde }) => !einde)
-export const memberCheck = (data, tagsData) => {
+const activeRoles = (data) => data.filter(({ einde }) => !einde)
+const hasMemberRoles = data => data.filter(({ groep }) => groep === 'O1306G').length > 0;
+
+const memberCheck = (data, tagsData) => {
     // check if user has roles with our groupid
-    const isMember = data.filter(({ groep }) => groep === 'O1306G').length > 0;
+    const isMember = hasMemberRoles(data);
 
     // if not return false
     if (!isMember) return { isMember: false }
@@ -31,4 +33,18 @@ export const memberCheck = (data, tagsData) => {
     }
 }
 
-export const findUserTags = (functie) => userTags.find(({ id }) => id === functie);
+const findUserTags = (functie) => userTags.find(({ id }) => id === functie);
+const findTag = (taglist) => {
+    return taglist.filter(({ einde }) => !einde)
+}
+const filterTeamOnFunction = (items, funct) => items.filter(({ content: { functions } }) => {
+    return functions?.content?.shortcode === funct
+});
+
+export {
+    activeRoles,
+    memberCheck,
+    findUserTags,
+    findTag,
+    filterTeamOnFunction
+}

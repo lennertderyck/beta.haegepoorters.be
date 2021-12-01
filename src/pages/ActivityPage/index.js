@@ -72,6 +72,8 @@ const ActivityCard = ({ data, simple, scrollTo }) => {
     const { title, descr, period: { start }} = data;
     const isPast = activityIsPassed(start);
     
+    
+    console.log(scrollTo)
     // useEffect(() => {
     //     cardRef.current.scrollIntoView()
     // }, [])
@@ -84,10 +86,13 @@ const ActivityCard = ({ data, simple, scrollTo }) => {
                 isPast && 'opacity-60'
             )}
         >
-            <div className="absolute -left-1.5 top-2 w-3 h-3 bg-red-500 border-2 border-red-500 rounded-full" />
-            <h3 className="text-gray-600">{ dayjs(start).format('DD MMMM') }</h3>
-            <h4 className="mb-2">{ title }</h4>
-            {!simple && <div className="font-serif">
+            <div { ...className(
+                'absolute -left-1.5 top-2 w-3 h-3 bg-red-500 border-2 border-red-500 rounded-full',
+                scrollTo && 'transform scale-110'
+            )} />
+            <h3 className="text-red-500 font-serif text-xl">{ dayjs(start).format('D MMMM') }</h3>
+            <h4 className="mb-3 font-medium text-lg">{ title }</h4>
+            {!simple && <div>
                 <RenderContent content={ descr } />
             </div>}
         </div>
