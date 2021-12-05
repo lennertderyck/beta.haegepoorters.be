@@ -13,7 +13,7 @@ const { Provider } = teamContext;
 const useTeamContext = () => useContext(teamContext)
 
 const Card = ({ data }) => {
-    const { sensitiveHidden, profile: { isLeader } } = useVisitor()
+    const { sensitiveHidden, profile } = useVisitor()
     const { content: { first_name, tel, image: { filename }, functions_extra, wel_name }} = data;
     const { toggleModal } = useTeamContext()
     
@@ -35,8 +35,8 @@ const Card = ({ data }) => {
         <button onClick={ !shown ? () => window.open('tel:' + tel, '_self') : handleSensitiveForceClick} className="flex items-center mt-3">
             <Icon name="phone" size="1.2rem" className="mr-2" /> 
             <span {...className(
-                (shown && !isLeader) && 'filter blur-sm'
-            )}>{ shown && !isLeader ? '+32412456789' : tel }</span>
+                (shown && !profile?.isLeader) && 'filter blur-sm'
+            )}>{ shown && !profile?.isLeader ? '+32412456789' : tel }</span>
         </button>
         
         {/* {(( sensitiveHidden && showTelByFunction)) && <button onClick={ handleSensitiveForceClick } className="">
@@ -67,7 +67,7 @@ const Group = ({ data: items }) => {
 
 const TeamPage = () => {
     const { data, loading } = useQuery(QUERIES.TEAM_FULL)
-    const { sensitiveHidden, showSensitive, profile: { isLeader } } = useVisitor()
+    const { sensitiveHidden, showSensitive, profile } = useVisitor()
     const [ showModal, setShowModal ] = useState()
 
     const toggleModal = n => setShowModal(p => n ? n : !p)
@@ -98,7 +98,7 @@ const TeamPage = () => {
             
             <PageLayout title="Leiding" subtitle="Ons team van gemotiveerde leiding" wide className="relative">
                 <Container>
-                    { isLeader && <div className="sticky bottom-0 p-4 bg-gray-200 mb-12 mt-6 flex items-center">
+                    { profile?.isLeader && <div className="sticky bottom-0 p-4 bg-gray-200 mb-12 mt-6 flex items-center">
                         <Icon name="information" size="1.3rem" className="mr-2" />
                         Gsm-nummers worden weergegeven aangezien je aangemeld bent als leiding
                     </div>}
@@ -122,7 +122,7 @@ const TeamPage = () => {
                     </div>
                 ))}
                 
-                {( sensitiveHidden && !isLeader) && <div className="sticky bottom-0 p-4 bg-gray-200 mx-8 mt-12">
+                {( sensitiveHidden && !profile?.isLeader) && <div className="sticky bottom-0 p-4 bg-gray-200 mx-8 mt-12">
                     <Button 
                         theme="simple" 
                         icon="eye-close"
