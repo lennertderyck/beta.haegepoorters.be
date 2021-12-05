@@ -49,7 +49,7 @@ const AppRouter = ({ route }) => {
                 <Route path="/blog/:slug?" exact>
                     <BlogPage />
                 </Route>
-                <Route path="/galerij" exact>
+                <Route path={['/galerij/album?', '/gallery/album?']} exact>
                     <GalleryPage />
                 </Route>
                 <Route path="/zoeken/:query?" exact>

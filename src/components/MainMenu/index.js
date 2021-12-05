@@ -103,128 +103,69 @@ const MainMenu = () => {
     //     skipSignIn(true)
     // }
     
-    const handleSignInForced = () => {
-        skipSignIn(false)
-    }
-    
     return (
-        <>
-            <Modal disableOverlayClick open={ toggleModal } title={ skippedSignIn ? 'Kies een tak' : 'Meld je aan bij de Groepsadministratie' }>
-                {({ toggle }) => (<>
-                    { !skippedSignIn && <SignInMessage />}
-                    { skippedSignIn && (<>
-                        <div className="pb-6">
-                            { siteGroups.filter(({ isGroup, value }) => isGroup ).map(({ label, value }, index) => (
-                                <Button
-                                    key={ index }
-                                    onClick={() => {
-                                        setRole(value)
-                                        // setToggleModal(false)
-                                    }}
-                                    {...className(
-                                        'py-4 border-b-2 w-full font-serif text-lg capitalize bg-opacity-20 px-4 last:border-b-0',
-                                        role.value === value ? 'bg-red-500 text-red-500' : 'bg-white border-gray-200'
-                                    )}
-                                >
-                                    <Icon name="check" {...className(
-                                        'mr-4',
-                                        role.value === value ? 'opacity-100' : 'opacity-0'
-                                    )} size="1.4rem" color={ null } />
-                                    <span className="font-semibold">{ label }</span>
-                                </Button>
-                            ))}
-                            <Form className="mt-8">
-                                <h4 className="mb-2">Ik ben ook ...</h4>
-                                <div className="flex -mb-6">
-                                    <Input type="radio" name="subrole" label="ouder" className="mr-4" />
-                                    <Input type="radio" name="subrole" label="leiding" />
-                                </div>
-                            </Form>
-                        </div>
-                        <div className="sticky bottom-0 bg-white">
-                            <hr className="mb-4" />
-                            <h4 className="mb-4 text-lg">Krijg toegang tot alle handige functies</h4>
-                            <Button 
-                                className="border-2 border-red-500 p-3 text-red-500 flex-1 w-full justify-center"
-                                onClick={ handleSignInForced }
-                            >Aanmelden bij Groepsadministratie</Button>
-                        </div>
-                    </>)}
-                </>)}
-            </Modal>
-            
+        <>       
             <Button 
                 className="fixed top-4 right-4 z-40 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden"
                 onClick={() => setOpen(p => !p)}
             >
                 <Icon name="menu" size="1.2rem" color="white" />
             </Button>
-            <div 
-                { ...className(
-                    'bg-white h-screen fixed top-0 z-30 transform lg:translate-x-0 overflow-y-scroll scrollbar-none border-r-2 border-gray-200',
-                    open && 'shadow-xl translate-x-0',
-                    !open && '-translate-x-screen-x'
-                )}
-                ref={ container }
-                onMouseMove={() => setOpen(true)}
-            >
-                <div className="flex justify-between bg-white sticky top-0">
-                    <Button theme="clear" to="/" className="block p-3 bg-red-500 h-fit" onClick={() => setOpen(false)}>
-                        <Logo width="44.5px" />
-                    </Button>
-                    <div { ...className(
-                        'overflow-hidden flex justify-end py-3',
-                        open && 'max-w-screen',
-                        !open && 'max-w-0'
-                    )}>
-                        <Fade when={ open } duration={ 500 }> 
-                            <Button to="/account" theme="clean" onClick={() => setOpen(false)}>
-                                <RoleSelector menuOpen={ open } />
-                            </Button>
-                        </Fade>
+                <div 
+                    { ...className(
+                        'bg-white h-screen fixed top-0 z-30 transform lg:translate-x-0 overflow-y-scroll scrollbar-none border-r-2 border-gray-200',
+                        open && 'shadow-xl translate-x-0',
+                        !open && '-translate-x-screen-x'
+                    )}
+                    ref={ container }
+                    onMouseMove={() => setOpen(true)}
+                >
+                    <div className="flex justify-between bg-white sticky top-0">
+                        <Button theme="clear" to="/" className="block p-3 bg-red-500 h-fit" onClick={() => setOpen(false)}>
+                            <Logo width="44.5px" />
+                        </Button>
+                        <div { ...className(
+                            'overflow-hidden flex justify-end py-3',
+                            open && 'max-w-screen',
+                            !open && 'max-w-0'
+                        )}>
+                            <Fade when={ open } duration={ 500 }> 
+                                <Button to="/account" theme="clean" onClick={() => setOpen(false)}>
+                                    <RoleSelector menuOpen={ open } />
+                                </Button>
+                            </Fade>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    {/* <div { ...className(
-                        'overflow-hidden',
-                        open ? 'max-h-0 opacity-0' : 'max-h-screen opacity-100'
-                    )}>
-                        <MenuItem
-                            icon="account-circle"
-                            slug="/zoeken"
-                            label="Zoeken"
-                            open={ open || isTabletOrMobile  }
-                            disabled={ status === 'offline' }
-                            onClick={() => setOpen(false)}
-                        />
-                    </div> */}
                     <div>
-                        { mainNav.map(({ icon, slug, label, offlineSupport, ignoreActiveClass }, index) => (
-                            <MenuItem
-                                icon={ icon }
-                                slug={ slug }
-                                label={ label }
-                                open={ open || isTabletOrMobile }
-                                key={ index }
-                                disabled={ status === 'offline' && !offlineSupport }
-                                onClick={() => setOpen(false)}
-                                ignoreActiveClass={ ignoreActiveClass }
-                            />
-                        ))}
+                        <Fade right duration={ 700 } cascade mirror>
+                            <div>
+                                { mainNav.map(({ icon, slug, label, offlineSupport, ignoreActiveClass }, index) => (
+                                    <MenuItem
+                                        icon={ icon }
+                                        slug={ slug }
+                                        label={ label }
+                                        open={ open || isTabletOrMobile }
+                                        key={ index }
+                                        disabled={ status === 'offline' && !offlineSupport }
+                                        onClick={() => setOpen(false)}
+                                        ignoreActiveClass={ ignoreActiveClass }
+                                    />
+                                ))}
+                                <MenuItem
+                                    icon="search-2"
+                                    slug="/zoeken"
+                                    label="Zoeken"
+                                    open={ open || isTabletOrMobile  }
+                                    disabled={ status === 'offline' }
+                                    onClick={() => setOpen(false)}
+                                />
+                            </div>
+                        </Fade>
+                        
+                        {/* STICKY WHITE OVERFLOW GRADIENT */}
+                        <div className="h-14 w-full sticky bottom-0 bg-gradient-to-t from-white to-transparent" />
                     </div>
-                    <MenuItem
-                        icon="search-2"
-                        slug="/zoeken"
-                        label="Zoeken"
-                        open={ open || isTabletOrMobile  }
-                        disabled={ status === 'offline' }
-                        onClick={() => setOpen(false)}
-                    />
-                    
-                    {/* STICKY WHITE OVERFLOW GRADIENT */}
-                    <div className="h-14 w-full sticky bottom-0 bg-gradient-to-t from-white to-transparent" />
                 </div>
-            </div>
             
             {/* BACKDROP */}
             { open && <div
