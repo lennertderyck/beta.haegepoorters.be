@@ -1,4 +1,4 @@
-import React, { useContext, useState, createContext } from 'react';
+import React, { useContext, useState, createContext, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { Button, Img, Icon, Modal, Container } from '../../components';
@@ -20,6 +20,11 @@ const Card = ({ data }) => {
     const isGroupResp = functions_extra.includes('group_resp');
     const isGrl = functions_extra.includes('grl');
     
+    
+    useEffect(() => {
+        profile.isLeader && showSensitive()
+    }, [profile.isLeader])
+    
     const handleSensitiveForceClick = () => {
         toggleModal()
     }
@@ -35,8 +40,8 @@ const Card = ({ data }) => {
         <button onClick={ !shown ? () => window.open('tel:' + tel, '_self') : handleSensitiveForceClick} className="flex items-center mt-3">
             <Icon name="phone" size="1.2rem" className="mr-2" /> 
             <span {...className(
-                (shown && !profile?.isLeader) && 'filter blur-sm'
-            )}>{ shown && !profile?.isLeader ? '+32412456789' : tel }</span>
+                (shown) && 'filter blur-sm'
+            )}>{ shown ? '+32412456789' : tel }</span>
         </button>
         
         {/* {(( sensitiveHidden && showTelByFunction)) && <button onClick={ handleSensitiveForceClick } className="">
