@@ -1,7 +1,7 @@
 import React, { useContext, useState, createContext } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { Button, Img, Icon, Modal } from '../../components';
+import { Button, Container, Img, Icon, Modal } from '../../components';
 import QUERIES from '../../graphql/queries';
 import PageLayout from '../../layouts/PageLayout';
 import { useVisitor } from '../../contexts/visitorContext';
@@ -59,7 +59,7 @@ const Group = ({ data: items }) => {
 
 const TeamPage = () => {
     const { data, loading } = useQuery(QUERIES.TEAM_FULL)
-    const { sensitiveHidden, showSensitive } = useVisitor()
+    const { sensitiveHidden, showSensitive, profile } = useVisitor()
     const [ showModal, setShowModal ] = useState()
 
     const toggleModal = n => setShowModal(p => n ? n : !p)
@@ -89,6 +89,13 @@ const TeamPage = () => {
             </Modal>
             
             <PageLayout title="Leiding" subtitle="Ons team van gemotiveerde leiding" wide className="relative">
+                <Container className="-mt-6">
+                    { profile?.isLeader && <div className="sticky bottom-0 p-4 bg-gray-200 mb-12 -mx-6 sm:mx-0 flex items-center">
+                        <Icon name="information" size="1.3rem" className="mr-3" />
+                        Alle gsm-nummers worden weergegeven omdat je aangemeld bent als leiding
+                    </div>}
+                </Container>
+                
                 <h3 className="font-serif mb-6 capitalize font-bold text-3xl">Groepsleiding</h3>
                 <div className="grid grid-cols-4 gap-6 mb-12">
                     { items.filter(({ content: { functions_extra }}) => functions_extra.includes('grl')).map(data => (
