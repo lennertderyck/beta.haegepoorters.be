@@ -5,8 +5,11 @@ import dayjs from 'dayjs';
 import { Button, CenterMessage, Collapse, Form, Icon, Input } from '..';
 import { surveyOptions } from '../../data/site';
 import { className, checkSurveyResponse, cookieHook, ENDPOINTS } from '../../utils';
+import { useVisitor } from '../../contexts'
+
 
 const Survey = ({ className: cls }) => {
+    const visitor = useVisitor()
     const [ savedResponse, setSavedResponse ] = useState()
     const [ sendData, { data, error, loading }] = useLazyAxios({
         url: ENDPOINTS.SURVEY_1_SITE,
@@ -30,7 +33,10 @@ const Survey = ({ className: cls }) => {
         sendData({
             identifier: window.localStorage.getItem('SL_L_23361dd035530_VID'),
             rating,
-            comment
+            comment,
+            origin: window.location.href,
+            dev_mode: process.env.NODE_ENV === 'development',
+            ga_id: visitor?.profile?.id
         })
     }
     
