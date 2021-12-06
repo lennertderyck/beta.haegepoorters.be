@@ -65,6 +65,12 @@ const HighlightedLeaderEvents = () => {
                 <Button theme="simple" iconAfter="arrow-right-up" href={ uris.leaderCalendarOverview } target="_blank" className="px-2 block mx-auto lg:mx-0">Volledig overzicht</Button>
             </div>
         </div>
+        <div className="mt-4">
+            <p>Kalender toevoegen bij <a className="text-red-500 underline" theme="link" href="https://support.google.com/calendar/answer/37100?co=GENIE.Platform=Desktop&hl=nl" target="_blank">Google</a>, 
+                Apple (<a className="text-red-500 underline" theme="link" href="https://support.apple.com/nl-nl/guide/iphone/iph3d1110d4/ios" target="_blank">iOS</a>, <a className="text-red-500 underline" theme="link" href="https://support.apple.com/nl-be/HT202361" target="_blank">MacOS</a>)
+            </p>
+            <p>(Kopieer de agenda url van de "Abonneren op agenda"-knop)</p>
+        </div>
     </>
 }
 
