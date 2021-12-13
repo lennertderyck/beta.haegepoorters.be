@@ -52,8 +52,13 @@ const Survey = ({ className: cls }) => {
             {({ watchedValues: data }) => <>
                 <h3 className="text-lg text-center">Wat is je gevoel bij onze nieuwe site?</h3>
                 <div className="flex justify-center mt-4">
-                    { surveyOptions.map(({ icon, value }) => (
-                        <Input type="wrapper" name="rating" value={ value }>
+                    { surveyOptions.map(({ icon, value }, index) => (
+                        <Input 
+                            type="wrapper" 
+                            name="rating" 
+                            value={ value }
+                            key={ index }
+                        >
                             {({ checked }) => (
                                 <Icon 
                                     name={ icon } 

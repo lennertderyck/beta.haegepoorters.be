@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="mt:pt-12">
             <SponsorsBar />
             <div className="bg-gray-300 w-full py-8">
-                <div className="container px-8 md:px-0">
+                <div className="container px-8 2xl:px-0">
                     <div className="grid grid-cols-12 mb-8 gap-6">
                         <div className="col-span-6 md:col-span-4">
                             <h4 className="font-bold">Scouts &amp; Gidsen Haegepoorters</h4>

@@ -8,6 +8,7 @@ import { useVisitor } from '../../contexts/visitorContext';
 import QUERIES from '../../graphql/queries';
 import Skeleton from 'react-loading-skeleton';
 import { activityIsPassed, className, sortActivitiesByDate } from '../../utils';
+import { useDetectClickOutside } from 'react-detect-click-outside';
 
 /**
  * Sort all activities by date
@@ -17,11 +18,14 @@ import { activityIsPassed, className, sortActivitiesByDate } from '../../utils';
 const VisitorSelector = () => {
     const [ open, setOpen ] = useState(false);
     const { role, setRole, siteGroups } = useVisitor();
+    const ref = useDetectClickOutside({
+        onTriggered: () => setOpen(false)
+    })
     
     const groups = siteGroups.filter(({ isGroup }) => isGroup);
     
     return (
-        <div className="relative z-10">
+        <div className="relative z-10" ref={ ref }>
             <Button 
                 onClick={() => setOpen(p => !p)}
                 theme="clear"
@@ -69,7 +73,7 @@ const Loader = () => {
 const ActivityCard = ({ data, simple, scrollTo }) => {
     const cardRef = useRef()
     
-    const { title, descr, period: { start }} = data;
+    const { title, descr, period: { start, end, multiple }} = data;
     const isPast = activityIsPassed(start);
     
     
@@ -90,7 +94,10 @@ const ActivityCard = ({ data, simple, scrollTo }) => {
                 'absolute -left-1.5 top-2 w-3 h-3 bg-red-500 border-2 border-red-500 rounded-full',
                 scrollTo && 'transform scale-110'
             )} />
-            <h3 className="text-red-500 font-serif text-xl">{ dayjs(start).format('D MMMM') }</h3>
+            <h3 className="text-red-500 font-serif text-xl">
+                { dayjs(start).format('D MMMM') }
+                { multiple && <> tot { dayjs(end).format('D MMMM') }</>}
+            </h3>
             <h4 className="mb-3 font-medium text-lg">{ title }</h4>
             {!simple && <div>
                 <RenderContent content={ descr } />

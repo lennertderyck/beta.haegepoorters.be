@@ -5,31 +5,31 @@ import {
   useLocation
 } from "react-router-dom";
 
-import { HomePage, TeamPage, ActivityPage, BlogPage, GalleryPage, SearchPage, ContactPage, GroupAdminLogin, BasePage, PaymentsPage, ActivityEditor, DropboxLeaderArchive, CoronaUpdatesPage } from '../../pages';
+import { 
+    HomePage, 
+    TeamPage, 
+    ActivityPage, 
+    BlogPage, 
+    GalleryPage, 
+    SearchPage, 
+    ContactPage, 
+    GroupAdminLogin, 
+    BasePage, 
+    PaymentsPage, 
+    ActivityEditor, 
+    DropboxLeaderArchive,
+    CoronaUpdatesPage, 
+    ActivityEditorV2
+} from '../../pages';
 
 /**
- * embedded param so that not needed padding can be removed in views
+ * @todo Embedded param so that not needed padding can be removed in views
  */
 const AppRouter = ({ route }) => {
     const currentLocation = useLocation()
-    
-    // useEffect(() => {
-    //     if (process.env.NODE_ENV !== 'development' && searchParams.get('force') !== 'dev') {
-    //         addListener( state => setDevTools(state));
-    //         launch()
-    //     }
-    //     return stop
-    // }, [])
-    
     const routeObject = {
         pathname: route
     }
-    
-    // if (devTools) return <div className="h-full flex items-center justify-center">
-    //     <CenterMessage intro="Sluit de devtools" icon="bug">
-    //         Sluit de ontwikkelaartools om verder te gaan.
-    //     </CenterMessage>
-    // </div>
 
     return (
         <>
@@ -42,6 +42,9 @@ const AppRouter = ({ route }) => {
                 </Route>
                 <Route path="/haegeprekerke/edit/:group?" exact>
                     <ActivityEditor />
+                </Route>
+                <Route path="/haegeprekerke/editor/beta/:group?" exact>
+                    <ActivityEditorV2 />
                 </Route>
                 <Route path="/haegeprekerke/:group?" exact>
                     <ActivityPage />

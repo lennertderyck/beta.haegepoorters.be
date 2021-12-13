@@ -4,6 +4,10 @@ import { className } from '../../utils';
 
 import styles from './RenderContent.module.scss';
 
-const RenderContent = ({ content, className: cls }) => <div {...className(styles.container, cls)}>{ render(content) }</div>
+const RenderContent = ({ content, className: cls, children }) => (
+    <div {...className(styles.container, cls)}>
+        { children || render(content) }
+    </div>
+)
 
 export default RenderContent

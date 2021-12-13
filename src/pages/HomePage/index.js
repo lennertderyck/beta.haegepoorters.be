@@ -54,7 +54,7 @@ export default function Home() {
         </div>
         <MembersStats />
       </HeroBanner>
-      <div className="container mx-auto mb-24 px-8 md:px-0">
+      <div className="container mx-auto mb-24 px-8 2xl:px-0">
         <h3 className="font-serif mb-6">Komt ook van pas...</h3>
         <div className="grid grid-cols-12 gap-6 lg:gap-4">
           { homeRelatedLinks.map(({ title, descr_short, url, button_text }, index) => (

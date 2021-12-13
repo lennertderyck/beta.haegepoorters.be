@@ -53,6 +53,9 @@ module.exports = {
             },
             brightness: {
                 '60': '.6'
+            },
+            dropShadow: {
+                'softCenter': '0px 0px 13px 7px #0000000a'
             }
         }
     },
