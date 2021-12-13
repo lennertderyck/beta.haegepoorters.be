@@ -66,6 +66,10 @@ const ActivityEditor = () => {
                         Je bent momenteel het Haegeprekerke voor de <span className="underline inline font-semibold">{ activeEdit.plur }</span> aan het bewerken
                     </h3>
                     <Icon name="edit-2" className="ml-1.5" size="1.4rem" />
+                    <div className="hidden lg:flex items-center h-full">
+                        <div className="h-full border-l-2 border-gray-400 mx-4" />
+                        <Button theme="simple" iconAfter="arrow-right" to={ '/haegeprekerke/editor/beta/' + group }>Bekijk de nieuwe editor</Button>
+                    </div>
                 </div>
             </div>
             <iframe

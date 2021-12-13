@@ -44,7 +44,7 @@ const ActivityEditorV2 = () => {
     useEffect(() => {
         if (data) {
             const { HaegeprekerkeItems: { items: [{ content }]}} = data;
-            updateList(content['giv']);
+            updateList(content[group]);
         }
     }, [data])
        
@@ -60,9 +60,11 @@ const ActivityEditorV2 = () => {
     return (
         <PageWrapper>
             <Container>
+                <Button theme="button" icon="arrow-left" className="mb-12" to={ '/haegeprekerke/edit/' + group }>Terug naar oude editor</Button>
                 <div className="bg-gray-100 py-4 px-5 text-sm mb-6">
                     <ul className="list-disc list-inside">
-                        <li>Klik op een activiteit om die te bewerken</li>
+                        <li>Deze editor werkt nog niet, maar dient als demo en werkt mogelijks nog niet goed op alle apparaten.</li>
+                        {/* <li>Klik op een activiteit om die te bewerken.</li> */}
                         <li>Activiteiten kunnen in elke volgorde gesleept worden met de hendel aan de linkerkant. Let op! Datums worden automatisch aangepast.</li>
                     </ul>
                 </div>
@@ -108,7 +110,7 @@ const ActivityEditorV2 = () => {
                                                                 <Fade spy={ period.multiple }>
                                                                     { period.multiple ?
                                                                         <p className="text-sm">Activiteiten over meerdere dagen kan je nog niet bewerken. Stuur iemand van redactie.</p> :
-                                                                        <Button icon="edit-2" theme="simple">Activiteit bewerken</Button>
+                                                                        <Button icon="edit-2" theme="simple" className="cursor-not-allowed opacity-50">Activiteit bewerken</Button>
                                                                     }
                                                                 </Fade>
                                                             </div>
