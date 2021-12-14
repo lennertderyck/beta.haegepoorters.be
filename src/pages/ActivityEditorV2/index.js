@@ -21,12 +21,47 @@ const reorder = (list, { index: startIndex }, { index: endIndex }) => {
     return newDates;
 };
 
+const Date = (props) => {
+    const { current, snapshot, period, index, source, destination } = props
+    const isOverlapped = current === index;
+    const isDragged = snapshot?.draggingOver
+    
+    return (
+        <Fade spy={ period }>
+            <h3 className="text-red-500 font-serif text-xl">
+                <span { ...className(
+                    (
+                        current !== -1 && isDragged && !isOverlapped ||
+                        isOverlapped && !isDragged
+                    ) && 'line-through mr-2')}
+                >
+                    { dayjs(period.start).format('D MMMM') }
+                    { period.multiple && <> tot { dayjs(period.end).format('D MMMM') }</>} 
+                </span>
+                {( isDragged && !isOverlapped && destination ) && <>{ dayjs(destination.period.start).format('D MMMM') } { destination.period.multiple && <>tot { dayjs(destination.period.end).format('D MMMM') }</> }</>}
+                {( isOverlapped && !isDragged && source ) && <>{ dayjs(source.period.start).format('D MMMM') } { source.period.multiple && <>tot { dayjs(source.period.end).format('D MMMM') }</> }</>}
+            </h3>
+        </Fade>
+    )
+}
+
 const ActivityEditorV2 = () => {
     const [ list, updateList ] = useState([])
+    const [{ current, source, destination }, setCurrent ] = useState({
+        current: -1,
+        source: undefined,
+        destination: undefined
+    })
     const { group } = useParams()
-    const { data, loading, error } = useQuery(QUERIES.HAEGEPREKERKE)
+    const { data, error } = useQuery(QUERIES.HAEGEPREKERKE)
     
-    const onDragEnd = (result) => {
+    const handleDragEnd = (result) => {
+        setCurrent({
+            current: -1,
+            source: undefined,
+            destination: undefined
+        })
+        
         // dropped outside the list
         if (!result.destination) {
           return;
@@ -41,6 +76,17 @@ const ActivityEditorV2 = () => {
         updateList(items);
     }
     
+    const handleDragStart = (s) => {
+        const source = s.source.index
+        const destination = s.destination.index
+        
+        setCurrent({
+            current: destination,
+            source: list[source],
+            destination: list[destination]
+        })
+    }
+    
     useEffect(() => {
         if (data) {
             const { HaegeprekerkeItems: { items: [{ content }]}} = data;
@@ -49,7 +95,6 @@ const ActivityEditorV2 = () => {
     }, [data])
        
     if (!data) return <p>Loading</p>
-    
     if (error) return <CenterMessage
         icon="signal-wifi-error"
         intro="We konden het Haegeprekerke niet ophalen"
@@ -69,7 +114,7 @@ const ActivityEditorV2 = () => {
                     </ul>
                 </div>
                 <div className='border-l-2 border-red-500 border-opacity-40'>
-                    <DragDropContext onDragEnd={ onDragEnd }>
+                    <DragDropContext onDragEnd={ handleDragEnd } onDragUpdate={ handleDragStart }>
                         <Droppable droppableId="activitiesList">
                             {( provided, snapshot ) => (
                                 <div
@@ -84,9 +129,12 @@ const ActivityEditorV2 = () => {
                                                         { ...provided.draggableProps }
                                                         ref={ provided.innerRef }
                                                     >
-                                                        
                                                         <TimeLineCard
-                                                            { ...className('bg-white border-2 border-gray-300', snapshot.draggingOver && 'shadow-lg')}
+                                                            { ...className(
+                                                                'bg-white border-2 border-gray-300', 
+                                                                snapshot.draggingOver && 'shadow-lg',
+                                                                (current === index && !snapshot?.draggingOver) ? 'border-gray-500' : 'border-gray-300'
+                                                            )}
                                                             draggable={ 
                                                                 <div
                                                                     className="absolute -left-3 top-0 bg-white border-2 border-red-500 text-red-500 py-1.5"
@@ -98,10 +146,21 @@ const ActivityEditorV2 = () => {
                                                         >
                                                             <div className="p-5">
                                                                 <Fade spy={ period }>
-                                                                    <h3 className="text-red-500 font-serif text-xl">
-                                                                        { dayjs(period.start).format('D MMMM')}
-                                                                        { period.multiple && <> tot { dayjs(period.end).format('D MMMM') }</>} 
-                                                                    </h3>
+                                                                    <Date { ...{ current, snapshot, period, index, source, destination }} />
+                                                                    {/* <h3 className="text-red-500 font-serif text-xl"> */}
+                                                                        {/* <span { ...className(
+                                                                            (
+                                                                                current !== -1 && snapshot?.draggingOver ||
+                                                                                current === index && !snapshot?.draggingOver
+                                                                            ) && 'line-through mr-2')}>{ dayjs(period.start).format('D MMMM') }
+                                                                        </span> */}
+                                                                        {/* { 
+                                                                            (current === index && !snapshot?.draggingOver) ?
+                                                                            source && dayjs(source.period.start).format('D MMMM') : 
+                                                                            destination && dayjs(destination.period.start).format('D MMMM') 
+                                                                        } */}
+                                                                        {/* { period.multiple && <> tot { dayjs(period.end).format('D MMMM') }</>}  */}
+                                                                    {/* </h3> */}
                                                                 </Fade>
                                                                 <h4 className="mb-3 font-medium text-lg">{ title }</h4>
                                                                 <RenderContent content={ descr } />
