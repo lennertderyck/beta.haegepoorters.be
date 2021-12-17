@@ -133,7 +133,7 @@ const ActivityEditorV2 = () => {
                                                             { ...className(
                                                                 'bg-white border-2 border-gray-300', 
                                                                 snapshot.draggingOver && 'shadow-lg',
-                                                                (current === index && !snapshot?.draggingOver) ? 'border-gray-500' : 'border-gray-300'
+                                                                (current === index && !snapshot?.draggingOver) ? 'border-red-500' : 'border-gray-300'
                                                             )}
                                                             draggable={ 
                                                                 <div
