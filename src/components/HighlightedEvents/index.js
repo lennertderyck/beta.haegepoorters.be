@@ -45,6 +45,8 @@ const Card = ({ data, group }) => {
     const [ open, setOpen ] = useState(false);
     const el = useRef();
     
+    if (!data) return null
+    
     const { title, period, descr } = data;
     const date = dayjs(period.start)
     const descrIsEmpty = descr === '';
