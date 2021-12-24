@@ -9,6 +9,7 @@ import QUERIES from '../../graphql/queries';
 import Skeleton from 'react-loading-skeleton';
 import { activityIsPassed, className, sortActivitiesByDate } from '../../utils';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { Link } from 'react-router-dom';
 
 /**
  * Sort all activities by date
@@ -75,9 +76,7 @@ const ActivityCard = ({ data, simple, scrollTo }) => {
     
     const { title, descr, period: { start, end, multiple }} = data;
     const isPast = activityIsPassed(start);
-    
-    
-    console.log(scrollTo)
+
     // useEffect(() => {
     //     cardRef.current.scrollIntoView()
     // }, [])
@@ -131,11 +130,27 @@ const RenderActivities = () => {
     
     const groups = siteGroups.filter(({ isGroup }) => isGroup )
         
-    if (role.isGroup) return (
-        <Container>
-            { groupActivities().map((data, index) => <ActivityCard data={ data } key={ index } />) }
-        </Container>
-    )
+    if (role.isGroup) {
+        const activityData = groupActivities()
+        
+        if (activityData.length === 0) return (
+            <div className="mb-20">
+                <CenterMessage
+                    intro="Geen activiteiten gevonden"
+                    icon="file-shred"
+                >
+                    De { role.plur } gaven nog geen activiteiten door. Neem met hen contact op als je vragen hebt.
+                    <Button to={'/contact?r=' + role.plur } iconAfter="arrow-right" className="mx-auto block mt-4">Contact</Button>
+                </CenterMessage>
+            </div>
+        )
+        
+        return (
+            <Container>
+                { activityData.map((data, index) => <ActivityCard data={ data } key={ index } />) }
+            </Container>
+        )
+    }
     
     return (
         <Container wide>
@@ -147,12 +162,22 @@ const RenderActivities = () => {
                         onClick={() => setRole(value)}
                     >
                         <h4 className="text-2xl font-serif mb-4 font-medium capitalize">{ plur }</h4>
-                        { [...content[value]]
-                            .sort(sortActivitiesByDate)
-                            .map((data, index) => (
-                                <ActivityCard data={ data } simple key={ index } scrollTo={ data['_uid'] === nextActivity['_uid'] } />
+                        { [...content[value]].length === 0 ? <div className="mb-20">
+                                <CenterMessage
+                                    intro="Geen activiteiten gevonden"
+                                    icon="file-shred"
+                                >
+                                    De { plur } gaven nog geen activiteiten door. Neem met hen contact op als je vragen hebt.
+                                    <Button to={'/contact?r=' + plur } iconAfter="arrow-right" className="mx-auto block mt-4">Contact</Button>
+                                </CenterMessage>
+                            </div> :
+                            [...content[value]]
+                                .sort(sortActivitiesByDate)
+                                .map((data, index) => (
+                                    <ActivityCard data={ data } simple key={ index } scrollTo={ data['_uid'] === nextActivity['_uid'] } />
+                                )
                             )
-                        )}
+                        }
                     </div>
                 )}
             </div>
