@@ -1,3 +1,9 @@
 h3 {
     @apply text-2xl;
 }
+
+.list-disc {
+    padding-left: 1rem;
+    
+    @apply list-outside;
+}

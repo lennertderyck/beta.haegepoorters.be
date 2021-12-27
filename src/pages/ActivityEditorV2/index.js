@@ -8,6 +8,7 @@ import Fade from 'react-reveal/Fade';
 import { Container, PageWrapper, RenderContent, TimeLineCard, CenterMessage, Button, Icon } from '../../components';
 import QUERIES from '../../graphql/queries';
 import { className, sortActivitiesByDate } from '../../utils';
+import { Tooltip } from 'react-tippy';
 
 const reorder = (list, { index: startIndex }, { index: endIndex }) => {
     const oldDates = list.map(({ period }) => period);
@@ -107,7 +108,7 @@ const ActivityEditorV2 = () => {
             <Container>
                 <Button theme="button" icon="arrow-left" className="mb-12" to={ '/haegeprekerke/edit/' + group }>Terug naar oude editor</Button>
                 <div className="bg-gray-100 py-4 px-5 text-sm mb-6">
-                    <ul className="list-disc list-inside">
+                    <ul className="list-disc list-outside">
                         <li>Deze editor werkt nog niet, maar dient als demo en werkt mogelijks nog niet goed op alle apparaten.</li>
                         {/* <li>Klik op een activiteit om die te bewerken.</li> */}
                         <li>Activiteiten kunnen in elke volgorde gesleept worden met de hendel aan de linkerkant. Let op! Datums worden automatisch aangepast.</li>
@@ -136,31 +137,22 @@ const ActivityEditorV2 = () => {
                                                                 (current === index && !snapshot?.draggingOver) ? 'border-red-500' : 'border-gray-300'
                                                             )}
                                                             draggable={ 
-                                                                <div
-                                                                    className="absolute -left-3 top-0 bg-white border-2 border-red-500 text-red-500 py-1.5"
-                                                                    { ...provided.dragHandleProps }
+                                                                <Tooltip
+                                                                    position="top"
+                                                                    title="Wijzigingen zullen nog niet bewaard worden"
                                                                 >
-                                                                    <Icon name="more-2" color="inherit" size="1.2rem" className="font-bold"/>
-                                                                </div> 
+                                                                    <div
+                                                                        className="absolute -left-3 top-0 bg-white border-2 border-red-500 text-red-500 py-1.5"
+                                                                        { ...provided.dragHandleProps }
+                                                                    >
+                                                                            <Icon name="more-2" color="inherit" size="1.2rem" className="font-bold"/>
+                                                                    </div> 
+                                                                </Tooltip>
                                                             }
                                                         >
                                                             <div className="p-5">
                                                                 <Fade spy={ period }>
                                                                     <Date { ...{ current, snapshot, period, index, source, destination }} />
-                                                                    {/* <h3 className="text-red-500 font-serif text-xl"> */}
-                                                                        {/* <span { ...className(
-                                                                            (
-                                                                                current !== -1 && snapshot?.draggingOver ||
-                                                                                current === index && !snapshot?.draggingOver
-                                                                            ) && 'line-through mr-2')}>{ dayjs(period.start).format('D MMMM') }
-                                                                        </span> */}
-                                                                        {/* { 
-                                                                            (current === index && !snapshot?.draggingOver) ?
-                                                                            source && dayjs(source.period.start).format('D MMMM') : 
-                                                                            destination && dayjs(destination.period.start).format('D MMMM') 
-                                                                        } */}
-                                                                        {/* { period.multiple && <> tot { dayjs(period.end).format('D MMMM') }</>}  */}
-                                                                    {/* </h3> */}
                                                                 </Fade>
                                                                 <h4 className="mb-3 font-medium text-lg">{ title }</h4>
                                                                 <RenderContent content={ descr } />
@@ -169,7 +161,12 @@ const ActivityEditorV2 = () => {
                                                                 <Fade spy={ period.multiple }>
                                                                     { period.multiple ?
                                                                         <p className="text-sm">Activiteiten over meerdere dagen kan je nog niet bewerken. Stuur iemand van redactie.</p> :
-                                                                        <Button icon="edit-2" theme="simple" className="cursor-not-allowed opacity-50">Activiteit bewerken</Button>
+                                                                        <Tooltip
+                                                                            position="top-start"
+                                                                            title="Je kan activiteiten nog niet bewerken."
+                                                                        >
+                                                                            <Button icon="edit-2" theme="simple" className="cursor-not-allowed opacity-50 w-fit">Activiteit bewerken</Button>
+                                                                        </Tooltip>
                                                                     }
                                                                 </Fade>
                                                             </div>

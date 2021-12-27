@@ -57,18 +57,18 @@ const ActivityEditor = () => {
     
     return (
         <div className="flex flex-col h-full">
-            <div className="bg-gray-200 flex justify-between py-3 px-5 w-full">
+            <div className="bg-gray-200 flex justify-between py-3 px-5 w-full select-none">
                 <Button theme="simple" icon="arrow-left" to="/haegeprekerke/edit">
                     terug naar overzicht
                 </Button>
                 <div className="flex items-center">
-                    <h3 className="text-base mr-2">
+                    {/* <Icon name="edit-2" className="mr-3" size="1.4rem" /> */}
+                    <h3 className="text-base">
                         Je bent momenteel het Haegeprekerke voor de <span className="underline inline font-semibold">{ activeEdit.plur }</span> aan het bewerken
                     </h3>
-                    <Icon name="edit-2" className="ml-1.5" size="1.4rem" />
                     <div className="hidden lg:flex items-center h-full">
                         <div className="h-full border-l-2 border-gray-400 mx-4" />
-                        <Button theme="simple" iconAfter="arrow-right" to={ '/haegeprekerke/editor/beta/' + group }>Bekijk de nieuwe editor</Button>
+                        <Button theme="simple" icon="pen-nib" iconAfter="arrow-right" to={ '/haegeprekerke/editor/beta/' + group }>Bekijk de nieuwe editor</Button>
                     </div>
                 </div>
             </div>
