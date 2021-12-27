@@ -32,7 +32,7 @@ const ActivityEditor = () => {
                 <li>Vul in deze documenten het Haegeprekerke aan per maand</li>
                 <li>Maak een overzichtelijk onderscheid tussen elke periode</li>
                 <li className="mb-2"><strong>Het Haegeprekerke wordt niet automatisch aangepast</strong>, je bewerkingen moeten door de redactie nog steeds overgezet worden, breng ons dus zeker op de hoogte!</li>
-                <li>In de toekomst zullen bewerkingen wel automatisch worden gepubliceerd</li>
+                <li>In de toekomst zullen bewerkingen wel automatisch worden gepubliceerd.<br />(Je kan de nieuwe editor al uitproberen door een tak te kiezen en op de knop rechts vanboven te klikken.)</li>
             </ul>
         </div>
         
