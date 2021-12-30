@@ -33,9 +33,7 @@ const Card = ({ data, group }) => {
             <h4 className="font-bold text-xl">{ summary }</h4>
             {/* <h5 className="text-gray-400 text-xs font-semibold uppercase tracking-widest">{ location }</h5> */}
             { !descrIsEmpty && 
-                <div className="overflow-hidden transition-all font-serif">
-                    { description }
-                </div>
+                <div className="overflow-hidden transition-all font-serif" dangerouslySetInnerHTML={{ __innerHTML: description}} />
             }
         </div>
     </a>)
@@ -96,15 +94,13 @@ const ProfileSummary = () => {
                 return { ...data, isLeader, tagInfo }
             })
             
-            
             const _tagsCurrent = _adjustedTags
-            .filter(({ einde }) => !einde)
-            .sort(({ begin: x }, { begin: y }) => new Date(y) - new Date(x))
+                .filter(({ einde }) => !einde)
+                .sort(({ begin: x }, { begin: y }) => new Date(y) - new Date(x))
             
             const _tagsOld = _adjustedTags
-            .filter(({ einde }) => einde)
-            .sort(({ einde: x }, { einde: y }) => new Date(y) - new Date(x))
-            
+                .filter(({ einde }) => einde)
+                .sort(({ einde: x }, { einde: y }) => new Date(y) - new Date(x))
             
             setAdjustedTags(_adjustedTags)
             setTagsCurrent(_tagsCurrent)
