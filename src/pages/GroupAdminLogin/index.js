@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAxios } from "use-axios-client";
 import dayjs from 'dayjs';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -76,34 +76,46 @@ const HighlightedLeaderEvents = () => {
 
 const ProfileSummary = () => {
     const { profile, _keycl } = useVisitor()
+    const [ adjustedTags, setAdjustedTags ] = useState()
+    const [ tagsCurrent, setTagsCurrent ] = useState()
+    const [ tagsOld, setTagsOld ] = useState()
 
     const handleEmailChange = async ({ email }) => {
         const req = await PATCH.CHANGE_EMAIL(profile.id, email);
         console.log(req)
     }
+    
+    useEffect(() => {
+        if (profile) {  // && !tagInfo 
+            const _adjustedTags = profile['functies'].map((data) => {
+                const { functie } = data
+        
+                const tagInfo = findUserTags(functie)
+                const isLeader = tagInfo?.['groeperingen'].find(({ naam }) => naam === 'Leiding');
+
+                return { ...data, isLeader, tagInfo }
+            })
+            
+            
+            const _tagsCurrent = _adjustedTags
+            .filter(({ einde }) => !einde)
+            .sort(({ begin: x }, { begin: y }) => new Date(y) - new Date(x))
+            
+            const _tagsOld = _adjustedTags
+            .filter(({ einde }) => einde)
+            .sort(({ einde: x }, { einde: y }) => new Date(y) - new Date(x))
+            
+            
+            setAdjustedTags(_adjustedTags)
+            setTagsCurrent(_tagsCurrent)
+            setTagsOld(_tagsOld)
+        }
+    }, [ profile ])
 
     if (!_keycl.token && !inDev()) return <SignInMessage />
-    else if (!profile && !inDev()) return <h3>Loading</h3>
+    else if (!profile && !inDev() && (!adjustedTags && !tagsCurrent && !tagsOld)) return <h3>Loading</h3>
     else if (!profile?.isMember && _keycl.token) return <NotMemberMsg />
-
-    const adjustedTags = profile['functies'].map((data) => {
-        const { functie } = data
-        
-        const tagInfo = findUserTags(functie)
-        const isLeader = tagInfo['groeperingen'].find(({ naam }) => naam === 'Leiding');
-
-        return { ...data, isLeader, tagInfo }
-    })
-
-    const tagsCurrent = adjustedTags
-        .filter(({ einde }) => !einde)
-        .sort(({ begin: x }, { begin: y }) => new Date(y) - new Date(x))
-
-    const tagsOld = adjustedTags
-        .filter(({ einde }) => einde)
-        .sort(({ einde: x }, { einde: y }) => new Date(y) - new Date(x))
-
-                
+          
     return <>
         <Tabs>
             { profile.isLeader && <TabList className="mb-12 flex overflow-scroll">
@@ -216,10 +228,10 @@ const ProfileSummary = () => {
             
                 <div className="grid grid-cols-2 gap-8 lg:gap-6">
                     <div className="col-span-2 lg:col-span-1">
-                        <h3 className="font-serif mb-4">Huidige functie{tagsCurrent.length !== 1 && 's'}</h3>
+                        <h3 className="font-serif mb-4">Huidige functie{tagsCurrent?.length !== 1 && 's'}</h3>
                         <div className="-mt-4">
                             {
-                                tagsCurrent.map(({ isLeader, tagInfo, begin, groep }, index) => {
+                                tagsCurrent?.map(({ isLeader, tagInfo, begin, groep }, index) => {
                                     return (
                                         <div 
                                             key={ index }
@@ -240,17 +252,17 @@ const ProfileSummary = () => {
                         </div>
                     </div>
                     <div className="col-span-2 lg:col-span-1">
-                        <h3 className="font-serif mb-4">Oude functie{tagsOld.length !== 1 && 's'}</h3>
+                        <h3 className="font-serif mb-4">Oude functie{tagsOld?.length !== 1 && 's'}</h3>
                         <div className="-mt-4">
                             { 
-                                tagsOld.map(({ isLeader, tagInfo, einde, groep }, index) => {
+                                tagsOld?.map(({ isLeader, tagInfo, einde, groep }, index) => {
                                     return (
                                         <div 
                                             key={ index }
                                             className="border-b-2 border-gray-300 py-4 flex justify-between items-center"
                                         >
                                             <div>
-                                                <h3 className="text-base font-normal mb">{ tagInfo['beschrijving'] }</h3>
+                                                <h3 className="text-base font-normal mb">{ tagInfo?.['beschrijving'] }</h3>
                                                 <h4 className="font-medium text-xs uppercase tracking-wider mb-2 text-gray-400">{ scoutingGroups[groep] }</h4>
                                                 <h4 className="font-serif text-lg text-gray-400">tot { dayjs(einde).format('DD MMMM \'YY') }</h4>
                                             </div>
