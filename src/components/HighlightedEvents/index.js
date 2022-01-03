@@ -1,5 +1,5 @@
 import React, { useRef, useState, memo } from 'react';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 import dayjs from 'dayjs';
 // import { render } from 'storyblok-rich-text-react-renderer-ts';

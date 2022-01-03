@@ -33,7 +33,7 @@ const Card = ({ data, group }) => {
             <h4 className="font-bold text-xl">{ summary }</h4>
             {/* <h5 className="text-gray-400 text-xs font-semibold uppercase tracking-widest">{ location }</h5> */}
             { !descrIsEmpty && 
-                <div className="overflow-hidden transition-all font-serif" dangerouslySetInnerHTML={{ __innerHTML: description}} />
+                <div className="overflow-hidden transition-all font-serif" dangerouslySetInnerHTML={{ __html: description}} />
             }
         </div>
     </a>)
