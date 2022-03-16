@@ -5,6 +5,7 @@ import { ApolloProvider } from '@apollo/client'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/nl-be';
+import "babel-polyfill"
 
 import * as serviceWorker from './serviceWorker';
 import client from './graphql'
