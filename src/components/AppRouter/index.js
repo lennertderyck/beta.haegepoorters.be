@@ -19,7 +19,8 @@ import {
     ActivityEditor, 
     DropboxLeaderArchive,
     CoronaUpdatesPage, 
-    ActivityEditorV2
+    ActivityEditorV2,
+    DigitalMemeberCardPage
 } from '../../pages';
 
 /**
@@ -69,6 +70,9 @@ const AppRouter = ({ route }) => {
                 </Route>
                 <Route path={['/ga/leden']} exact>
                     <GroupAdminLogin />
+                </Route>
+                <Route path={['/ga/digitale-lidkaart']} exact>
+                    <DigitalMemeberCardPage />
                 </Route>
                 <Route path={['/betalingen/:code?', '/payments/:code?']} exact>
                     <PaymentsPage />

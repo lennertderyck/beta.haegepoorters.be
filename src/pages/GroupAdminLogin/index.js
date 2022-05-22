@@ -51,7 +51,9 @@ const HighlightedLeaderEvents = () => {
     return <>
         { items
             .sort(({ start: a}, { start: b}) => {
-                return new Date(a.dateTime || a.date) - new Date(b.dateTime || b.date)
+                if (a?.dateTime || a?.date) {
+                    return new Date(a.dateTime || a.date) - new Date(b.dateTime || b.date)
+                } return 0
             })
             .map(( data, index ) => (
                 <Card data={ data } key={ index } />
@@ -144,7 +146,7 @@ const ProfileSummary = () => {
                                 <p className="mb-6">Leidingsactiviteiten</p>
                             </div>
                         </div>
-                        <HighlightedLeaderEvents />
+                        {/* <HighlightedLeaderEvents /> */}
                     </div>
                 </TabPanel>
                 <TabPanel>
