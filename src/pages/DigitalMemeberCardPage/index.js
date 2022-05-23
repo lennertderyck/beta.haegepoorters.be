@@ -22,7 +22,12 @@ const DigitalMemberCardPage = () => {
     const parsedMemberFunct = siteGroups.find(group => group.value === memberFunct);
     
     useEffect(() => {
+        const originalTitle = document.title;
         document.title = 'Digitale lidkaart';
+        
+        return () => {
+            document.title = originalTitle;
+        }
     }, [])
     
     return (

@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <>
       <div className="container mx-auto px-8">
-        <CoronaStatusBanner />
+        {/* <CoronaStatusBanner /> */}
         <div className="grid grid-cols-12 py-12 lg:gap-12">
           <div className="col-span-12 lg:col-span-8 mb-12">
             <Link className="flex items-center mb-6" to="/haegeprekerke">
