@@ -3,6 +3,7 @@ import { PageLayout } from '../../layouts';
 import styled from 'styled-components';
 import { siteGroups } from '../../data/site';
 import { Icon } from '../../components';
+import { useEffect } from 'react';
 
 const Card = styled.a`
     display: block;
@@ -10,6 +11,7 @@ const Card = styled.a`
     aspect-ratio: 9/5.5;
     max-height: 279px;
     box-shadow: 0px 0px 44px 24px #9f000036, 0px 10px 22px -1px #5b000094;
+    /* box-shadow: 0px 0px 124px 22px #00000012, 0px 10px 18px -9px #00000033; */
 `;
 
 const DigitalMemberCardPage = () => {
@@ -19,6 +21,10 @@ const DigitalMemberCardPage = () => {
     const memberFunct = url.searchParams.get('function');
     const parsedMemberFunct = siteGroups.find(group => group.value === memberFunct);
     
+    useEffect(() => {
+        document.title = 'Digitale lidkaart';
+    }, [])
+    
     return (
         <PageLayout>
             <div className="mb-10">
@@ -27,8 +33,10 @@ const DigitalMemberCardPage = () => {
             </div>
             
             <Card
+                title="test"
+                draggable="true"
                 href=""
-                className="rounded-2xl p-8 mx-auto bg-gradient-to-r from-red-500 to-red-800 text-white select-text"
+                className="rounded-2xl p-8 mx-auto bg-gradient-to-r from-red-500 to-red-800 text-white select-none"
             >
                 <div>
                     <h4 className="text-2xl">Haegepoorters Destelbergen</h4>
