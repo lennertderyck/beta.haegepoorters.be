@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import { siteGroups } from '../../data/site';
 import { Icon } from '../../components';
 import { useEffect } from 'react';
+import { Base64 } from 'js-base64';
+import barcode from 'jsbarcode';
 
-const Card = styled.a`
+const Card = styled.div`
     display: block;
     position: relative;
     aspect-ratio: 9/5.5;
@@ -14,16 +16,41 @@ const Card = styled.a`
     /* box-shadow: 0px 0px 124px 22px #00000012, 0px 10px 18px -9px #00000033; */
 `;
 
+const Barcode = styled.img`
+    height: 55px;
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+    background: white;
+`;
+
 const DigitalMemberCardPage = () => {
+    const localStoredMemberCard = JSON.parse(localStorage.getItem('memberCard'));
     const url = new URL(window.location.href);
-    const memberId = url.searchParams.get('memberId');
-    const name = url.searchParams.get('name');
-    const memberFunct = url.searchParams.get('function');
-    const parsedMemberFunct = siteGroups.find(group => group.value === memberFunct);
+    const memberId = url.searchParams.get('memberId') || localStoredMemberCard?.memberId;
+    const name = url.searchParams.get('name') || localStoredMemberCard?.name;
+        
+    const shortCode = Base64.encode(`memberId=${memberId}&name=${name}`, true)
+    const shortUrl = new URL(window.location.href)
+    shortUrl.search = `?${shortCode}`;
+    
+    const shouldStore = name && memberId;
     
     useEffect(() => {
         const originalTitle = document.title;
         document.title = 'Digitale lidkaart';
+        
+        
+        if (memberId) {
+            barcode("#barcodebl", memberId, { format: "code39", displayValue: false, background: 'transparent', lineColor: '#000', marginTop: 30, marginBottom: 30 });
+        }
+        
+        if (shouldStore) {
+            window.localStorage.setItem('memberCard', JSON.stringify({
+                name,
+                memberId,
+            }));
+        }
         
         return () => {
             document.title = originalTitle;
@@ -48,10 +75,7 @@ const DigitalMemberCardPage = () => {
                     <p className="font-serif text-lg">O1302G</p>
                 </div>
                 
-                <hr className="my-6 border" />
-                
-                <h4 className="tracking-widest uppercase text-xs">Lidnummer</h4>
-                <p className="font-serif text-2xl">{ memberId }</p>
+                {( memberId || name ) && <hr className="my-6 border" />}
                 
                 <div className="grid grid-cols-12 gap-8 mt-4">
                     { name && (
@@ -61,24 +85,20 @@ const DigitalMemberCardPage = () => {
                         </div>
                     )}
                     
-                    {( parsedMemberFunct && memberFunct ) && (
+                    {( memberId ) && (
                         <div className="col-span-6">
-                            <h4 className="tracking-widest uppercase text-xs">Functie</h4>
-                            <p className="font-serif text-xl">{ parsedMemberFunct.label }</p>
+                            <h4 className="tracking-widest uppercase text-xs">Lidnummer</h4>
+                            <p className="font-serif text-2xl">{ memberId }</p>
                         </div>
                     )}
                 </div>
+                <Barcode id="barcodebl" className="mt-4 rounded-lg" />
             </Card>
             <div className="mt-8">
-                <div className="hidden md:block mx-auto">
-                    <div className="mx-auto w-fit mb-2"><Icon name="drag-drop" size="1.3rem" /></div>
-                    <p className="text-center font-serif leading-5">Sleep bovenstaande kaart naar je snelkoppelingen<br />en vind je lidnummer altijd makkerlijk terug</p>
-                </div>
-                <div className="block md:hidden mx-auto">
-                    <div className="mx-auto w-fit mb-2"><Icon name="star" size="1.3rem" /></div>
-                    <p className="text-center font-serif leading-5">Sla deze pagina op<br />en vind je lidnummer altijd makkerlijkt terug</p>
-                </div>
+                <div className="mx-auto w-fit mb-2"><Icon name="star" size="1.3rem" /></div>
+                <p className="text-center font-serif leading-5">Sla deze pagina op<br />en vind je lidnummer altijd makkerlijkt terug</p>
             </div>
+            {/* <a className="block text-center text-sm mt-6" href={'#' + shortUrl}>{ shortUrl.href }</a> */}
         </PageLayout>
     )
 }
