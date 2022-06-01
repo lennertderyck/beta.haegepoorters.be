@@ -107,7 +107,7 @@ const MainMenu = () => {
     return (
         <>       
             <Button 
-                className="fixed top-4 right-4 z-40 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden"
+                className="fixed top-4 right-4 z-40 w-12 h-12 bg-red-500 p-3 rounded-full shadow flex items-center justify-center lg:hidden print:hidden"
                 onClick={() => setOpen(p => !p)}
             >
                 <Icon name="menu" size="1.2rem" color="white" />

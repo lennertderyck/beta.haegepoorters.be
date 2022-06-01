@@ -13,7 +13,7 @@ const footerCredits = [
 
 const Footer = () => {
     return (
-        <div className="mt:pt-12">
+        <div className="mt:pt-12 print:hidden">
             <SponsorsBar />
             <div className="bg-gray-300 w-full py-8">
                 <div className="container px-8 2xl:px-0">

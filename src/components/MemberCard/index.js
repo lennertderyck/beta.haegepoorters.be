@@ -10,6 +10,10 @@ const Card = styled.div`
     max-height: 279px;
     box-shadow: 0px 0px 44px 24px #9f000036, 0px 10px 22px -1px #5b000094;
     /* box-shadow: 0px 0px 124px 22px #00000012, 0px 10px 18px -9px #00000033; */
+    
+    @media print {
+        box-shadow: none;
+    }
 `;
 
 const Barcode = styled.img`
@@ -56,7 +60,7 @@ const MemberCard = ( disableStoring = false ) => {
     return (
         <Card
             title="test"
-            className="rounded-2xl p-8 mx-auto bg-gradient-to-r from-red-500 to-red-800 text-white"
+            className="rounded-2xl p-8 mx-auto bg-gradient-to-r from-red-500 to-red-800 text-white print:shadow-none print:border-2 print:text-black"
         >
             <div>
                 <h4 className="text-2xl">Haegepoorters Destelbergen</h4>
