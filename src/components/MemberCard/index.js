@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { PageLayout } from '../../layouts';
 import styled from 'styled-components';
-import { Icon, MemberCard } from '../../components';
 import { Base64 } from 'js-base64';
 import barcode from 'jsbarcode';
 
@@ -22,7 +20,7 @@ const Barcode = styled.img`
     background: white;
 `;
 
-const DigitalMemberCardPage = () => {
+const MemberCard = ( disableStoring = false ) => {
     const localStoredMemberCard = JSON.parse(localStorage.getItem('memberCard'));
     const url = new URL(window.location.href);
     const memberId = url.searchParams.get('memberId') || localStoredMemberCard?.memberId;
@@ -32,7 +30,7 @@ const DigitalMemberCardPage = () => {
     const shortUrl = new URL(window.location.href)
     shortUrl.search = `?${shortCode}`;
     
-    const shouldStore = name && memberId;
+    const shouldStore = (name && memberId) && !disableStoring;
     
     useEffect(() => {
         const originalTitle = document.title;
@@ -56,26 +54,35 @@ const DigitalMemberCardPage = () => {
     }, [])
     
     return (
-        <PageLayout>
-            <div className="mb-10">
-                <h2 className="text-5xl font-serif text-center">Jouw digitale lidkaart</h2>
-                <h3 className="text-base text-center">Gebruik je lidnummer om aan te melden bij de Groepsadministratie</h3>
+        <Card
+            title="test"
+            className="rounded-2xl p-8 mx-auto bg-gradient-to-r from-red-500 to-red-800 text-white"
+        >
+            <div>
+                <h4 className="text-2xl">Haegepoorters Destelbergen</h4>
+                <p className="font-serif text-lg">O1302G</p>
             </div>
-            
-            <MemberCard />
-            <div className="divide-x-2 divide-gray-200 mt-16 flex">
-                <div className="flex-1">
-                    <div className="mx-auto w-fit mb-2"><Icon name="star" size="1.3rem" /></div>
-                    <p className="text-center font-serif leading-5">Sla deze pagina op en<br />vind je lidnummer altijd makkerlijkt terug</p>
-                </div>
-                <div className="flex-1">
-                    <div className="mx-auto w-fit mb-2"><Icon name="store-3" size="1.3rem" /></div>
-                    <p className="text-center font-serif leading-5">Toon de barcode in de Hopper en<br />krijg een mooie korting op je aankopen!</p>
-                </div>
+                    
+            {( memberId || name ) && <hr className="my-6 border" />}
+                    
+            <div className="grid grid-cols-12 gap-8 mt-4">
+                { name && (
+                    <div className="col-span-6">
+                        <h4 className="tracking-widest uppercase text-xs">Naam</h4>
+                        <p className="font-serif text-xl">{ name }</p>
+                    </div>
+                )}
+                        
+                {( memberId ) && (
+                    <div className="col-span-6">
+                        <h4 className="tracking-widest uppercase text-xs">Lidnummer</h4>
+                        <p className="font-serif text-xl">{ memberId }</p>
+                    </div>
+                )}
             </div>
-            {/* <a className="block text-center text-sm mt-6" href={'#' + shortUrl}>{ shortUrl.href }</a> */}
-        </PageLayout>
+            <Barcode id="barcodebl" className="mt-4 rounded-lg" />
+        </Card>
     )
 }
 
-export default DigitalMemberCardPage
+export default MemberCard

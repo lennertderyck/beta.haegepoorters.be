@@ -93,6 +93,7 @@ const MainMenu = () => {
     const { siteGroups, setRole, role, skipSignIn, skippedSignIn } = useVisitor()
     const isHovered = useHover(container)
     const { status } = useNetwork()
+    const localStoredMemberCard = JSON.parse(localStorage.getItem('memberCard'));
         
     useEffect(() => {
         if (isHovered) setOpen(true)
@@ -111,34 +112,35 @@ const MainMenu = () => {
             >
                 <Icon name="menu" size="1.2rem" color="white" />
             </Button>
-                <div 
-                    { ...className(
-                        'bg-white h-screen fixed top-0 z-30 transform lg:translate-x-0 overflow-y-scroll scrollbar-none border-r-2 border-gray-200',
-                        open && 'shadow-xl translate-x-0',
-                        !open && '-translate-x-screen-x'
-                    )}
-                    ref={ container }
-                    onMouseMove={() => setOpen(true)}
-                >
-                    <div className="flex justify-between bg-white sticky top-0">
-                        <Button theme="clear" to="/" className="block p-3 bg-red-500 h-fit" onClick={() => setOpen(false)}>
-                            <Logo width="44.5px" />
-                        </Button>
-                        <div { ...className(
-                            'overflow-hidden flex justify-end py-3',
-                            open && 'max-w-screen',
-                            !open && 'max-w-0'
-                        )}>
-                            <Fade when={ open } duration={ 500 }> 
-                                <Button to="/account" theme="clean" onClick={() => setOpen(false)}>
-                                    <RoleSelector menuOpen={ open } />
-                                </Button>
-                            </Fade>
-                        </div>
+            <div 
+                { ...className(
+                    'bg-white h-screen fixed top-0 z-30 transform lg:translate-x-0 overflow-y-scroll scrollbar-none border-r-2 border-gray-200 flex flex-col',
+                    open && 'shadow-xl translate-x-0',
+                    !open && '-translate-x-screen-x'
+                )}
+                ref={ container }
+                onMouseMove={() => setOpen(true)}
+            >
+                <div className="flex justify-between bg-white sticky top-0">
+                    <Button theme="clear" to="/" className="block p-3 bg-red-500 h-fit" onClick={() => setOpen(false)}>
+                        <Logo width="44.5px" />
+                    </Button>
+                    <div { ...className(
+                        'overflow-hidden flex justify-end py-3',
+                        open && 'max-w-screen',
+                        !open && 'max-w-0'
+                    )}>
+                        <Fade when={ open } duration={ 500 }> 
+                            <Button to="/account" theme="clean" onClick={() => setOpen(false)}>
+                                <RoleSelector menuOpen={ open } />
+                            </Button>
+                        </Fade>
                     </div>
-                    <div>
-                        <Fade right duration={ 700 } cascade mirror>
-                            <div>
+                </div>
+                <div className="flex-1">
+                    <div className="flex flex-col lg:h-full">
+                        <Fade right duration={ 700 } cascade mirror className="lg:flex-1">
+                            <div className="lg:flex-1">
                                 { mainNav.map(({ icon, slug, label, offlineSupport, ignoreActiveClass }, index) => (
                                     <MenuItem
                                         icon={ icon }
@@ -151,6 +153,20 @@ const MainMenu = () => {
                                         ignoreActiveClass={ ignoreActiveClass }
                                     />
                                 ))}
+                            </div>
+                            <div>
+                                { localStoredMemberCard && (
+                                    <div className="mt-auto">
+                                        <MenuItem
+                                            icon="bank-card"
+                                            slug="/ga/digitale-lidkaart"
+                                            label="Jouw lidkaart"
+                                            open={ open || isTabletOrMobile  }
+                                            disabled={ status === 'offline' }
+                                            onClick={() => setOpen(false)}
+                                        />
+                                    </div>
+                                )}
                                 <MenuItem
                                     icon="search-2"
                                     slug="/zoeken"
@@ -161,11 +177,12 @@ const MainMenu = () => {
                                 />
                             </div>
                         </Fade>
-                        
-                        {/* STICKY WHITE OVERFLOW GRADIENT */}
-                        <div className="h-14 w-full sticky bottom-0 bg-gradient-to-t from-white to-transparent" />
                     </div>
+                    
+                    {/* STICKY WHITE OVERFLOW GRADIENT */}
+                    { isTabletOrMobile && <div className="h-14 w-full sticky bottom-0 bg-gradient-to-t from-white to-transparent" />}
                 </div>
+            </div>
             
             {/* BACKDROP */}
             { open && <div
