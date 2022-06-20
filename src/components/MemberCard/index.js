@@ -24,7 +24,7 @@ const Barcode = styled.img`
     background: white;
 `;
 
-const MemberCard = ( disableStoring = false ) => {
+const MemberCard = ({ disableStoring = false, onClick, ...otherProps }) => {
     const localStoredMemberCard = JSON.parse(localStorage.getItem('memberCard'));
     const url = new URL(window.location.href);
     const memberId = url.searchParams.get('memberId') || localStoredMemberCard?.memberId;
@@ -60,7 +60,9 @@ const MemberCard = ( disableStoring = false ) => {
     return (
         <Card
             title="test"
-            className="rounded-2xl p-8 mx-auto bg-gradient-to-r from-red-500 to-red-800 text-white print:shadow-none print:border-2 print:text-black"
+            className="rounded-2xl p-6 lg:p-8 mx-auto bg-gradient-to-r from-red-500 to-red-800 text-white print:shadow-none print:border-2 print:text-black"
+            onClick={ onClick }
+            { ...otherProps }
         >
             <div>
                 <h4 className="text-2xl">Haegepoorters Destelbergen</h4>
@@ -69,16 +71,16 @@ const MemberCard = ( disableStoring = false ) => {
                     
             {( memberId || name ) && <hr className="my-6 border" />}
                     
-            <div className="grid grid-cols-12 gap-8 mt-4">
+            <div className="grid grid-cols-12 gap-4 lg:gap-8 mt-4">
                 { name && (
-                    <div className="col-span-6">
+                    <div className="col-span-12 lg:col-span-6">
                         <h4 className="tracking-widest uppercase text-xs">Naam</h4>
                         <p className="font-serif text-xl">{ name }</p>
                     </div>
                 )}
                         
                 {( memberId ) && (
-                    <div className="col-span-6">
+                    <div className="col-span-12 lg:col-span-6">
                         <h4 className="tracking-widest uppercase text-xs">Lidnummer</h4>
                         <p className="font-serif text-xl">{ memberId }</p>
                     </div>

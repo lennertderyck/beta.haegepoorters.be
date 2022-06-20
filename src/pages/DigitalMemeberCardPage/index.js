@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageLayout } from '../../layouts';
 import styled from 'styled-components';
-import { Icon, MemberCard } from '../../components';
+import { Container, Icon, MemberCard, PageWrapper } from '../../components';
 import { Base64 } from 'js-base64';
 import barcode from 'jsbarcode';
 
@@ -23,6 +23,8 @@ const Barcode = styled.img`
 `;
 
 const DigitalMemberCardPage = () => {
+    const [ focusMode, setFocusMode ] = useState(false);
+    
     const localStoredMemberCard = JSON.parse(localStorage.getItem('memberCard'));
     const url = new URL(window.location.href);
     const memberId = url.searchParams.get('memberId') || localStoredMemberCard?.memberId;
@@ -33,6 +35,11 @@ const DigitalMemberCardPage = () => {
     shortUrl.search = `?${shortCode}`;
     
     const shouldStore = name && memberId;
+    
+    const handleCardClick = () => {
+        console.log('handleCardClick');
+        setFocusMode(p => !p);
+    }
     
     useEffect(() => {
         const originalTitle = document.title;
@@ -56,25 +63,32 @@ const DigitalMemberCardPage = () => {
     }, [])
     
     return (
-        <PageLayout>
-            <div className="mb-10">
-                <h2 className="text-5xl font-serif text-center">Jouw digitale lidkaart</h2>
-                <h3 className="text-base text-center">Gebruik je lidnummer om aan te melden bij de Groepsadministratie</h3>
-            </div>
-            
-            <MemberCard />
-            <div className="divide-x-2 divide-gray-200 mt-16 flex">
-                <div className="flex-1">
-                    <div className="mx-auto w-fit mb-2"><Icon name="star" size="1.3rem" /></div>
-                    <p className="text-center font-serif leading-5">Sla deze pagina op en<br />vind je lidnummer altijd makkerlijkt terug</p>
-                </div>
-                <div className="flex-1">
-                    <div className="mx-auto w-fit mb-2"><Icon name="store-3" size="1.3rem" /></div>
-                    <p className="text-center font-serif leading-5">Toon de barcode in de Hopper en<br />krijg een mooie korting op je aankopen!</p>
-                </div>
+        <Container className="h-full">
+            <div className="flex flex-col min-h-full">
+                { !focusMode && (
+                    <div className="mb-10">
+                        <h2 className="text-5xl font-serif text-center">Jouw digitale lidkaart</h2>
+                        <h3 className="text-base text-center">Gebruik je lidnummer om aan te melden bij de Groepsadministratie</h3>
+                    </div>
+                )}
+                
+                <MemberCard onClick={() => handleCardClick() } />
+                
+                { !focusMode && (
+                    <div className="divide-y-2 lg:divide-y-0 lg:divide-x-2 divide-gray-200 mt-16 flex flex-col lg:flex-row">
+                        <div className="flex-1 pb-4 lg:pb-0">
+                            <div className="mx-auto w-fit mb-2"><Icon name="star" size="1.3rem" /></div>
+                            <p className="text-center font-serif leading-5">Sla deze pagina op en<br />vind je lidnummer altijd makkerlijkt terug</p>
+                        </div>
+                        <div className="flex-1 pt-4 lg:pt-0">
+                            <div className="mx-auto w-fit mb-2"><Icon name="store-3" size="1.3rem" /></div>
+                            <p className="text-center font-serif leading-5">Toon de barcode in de Hopper en<br />krijg een mooie korting op je aankopen!</p>
+                        </div>
+                    </div>
+                )}
             </div>
             {/* <a className="block text-center text-sm mt-6" href={'#' + shortUrl}>{ shortUrl.href }</a> */}
-        </PageLayout>
+        </Container>
     )
 }
 
