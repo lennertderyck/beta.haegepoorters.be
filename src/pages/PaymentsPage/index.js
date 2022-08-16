@@ -16,6 +16,13 @@ const PaymentsPage = () => {
     const currentLocation = new URL(window.location)
     const controlsHidden = currentLocation.searchParams.get('controlsHidden')
     
+    console.log(generatePaymentQR({
+        account: 'B0123',
+        amount: '100',
+        descr: 'test',
+        reciever: 'Haegepoorters'
+    }))
+    
     return (
         <PageLayout 
             title="Betalingen"
@@ -76,11 +83,12 @@ const PaymentsPage = () => {
                                 </Input>
                             </div>
                         </div>}
+                        { console.log({ reciever })}
                         <div {...className([
                             'col-span-12 flex flex-col',
                             !controlsHidden && 'lg:col-span-6'
                         ])}>
-                            { (reciever || decodedPayment) 
+                            {( true || reciever || decodedPayment ) 
                                 ? <img 
                                     src={ generatePaymentQR({
                                         amount: decodedPayment?.amount || amount,
