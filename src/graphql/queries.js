@@ -147,7 +147,7 @@ const QUERIES = {
     `,
     TEAM_FULL: gql`
         {
-            TeammemberItems(sort_by: "content.functions_extra:desc, content.first_name:desc", per_page: 100) {
+            TeammemberItems(sort_by: "content.functions_extra:desc, content.first_name:desc", per_page: 60) {
                 total
                 items {
                     content {
