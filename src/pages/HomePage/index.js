@@ -18,8 +18,9 @@ const MembersStats = () => {
   }
   
   return (
-    <div className="tracking-widest uppercase text-xs mt-5">
-      <span className="font-bold">{ moreStats.members } leden</span> tussen 6 en 17 jaar <span className="mx-2">|</span>
+    <div className="tracking-widest uppercase text-xs">
+      <span className="mx-4 hidden xl:inline">•</span>
+      <span className="font-bold">{ moreStats.members } leden</span> tussen 6 en 17 jaar<span className="mx-2">|</span>
       <span className="font-bold">{ leaders.total } leiding</span> waarvan { grl.total } groepsleiding
     </div>
   )
@@ -51,8 +52,14 @@ export default function Home() {
         <h2 className="text-5xl font-serif mb-6">Wij zijn scouts en gidsen ...</h2>
         <div className="lg:max-w-1/2">
           <p className="font-medium text-lg">Deel uitmaken van onze scouts is meer dan een hobby. De Haegepoorters, ook wel "HP" in de volksmond, zijn een thuis voor meer dan 200 jongeren.</p>
+          
         </div>
-        <MembersStats />
+        <div className="mt-5 flex flex-col xl:flex-row xl:items-center">
+          <Button theme="simple-white" iconAfter="arrow-right" className="inline-flex">
+            <Link to="/geschiedenis">Onze geschiedenis</Link>
+          </Button>
+          <div className="opacity-80 mt-4 xl:mt-0"><MembersStats /></div>
+        </div>
       </HeroBanner>
       <div className="container mx-auto mb-24 px-8 2xl:px-0">
         <h3 className="font-serif mb-6">Komt ook van pas...</h3>

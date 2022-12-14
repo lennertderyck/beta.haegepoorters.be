@@ -1,4 +1,6 @@
-import { functies as userTags } from '../data/fake/tags.fake.json'
+import fakeTags from '../data/fake/tags.fake.json'
+
+const userTags = fakeTags.functies
 
 const activeRoles = (data) => data.filter(({ einde }) => !einde)
 const hasMemberRoles = data => data.filter(({ groep }) => groep === 'O1306G').length > 0;
@@ -15,12 +17,18 @@ const memberCheck = (data, tagsData) => {
     const activeMember = roles.length > 0;
     const isLeader = roles.some(r => {
         const thisTag = tagsData.find(f => f.id === r.functie)
-        return thisTag.groeperingen.find(g => g.naam === 'Leiding')
+        if (!thisTag) return false;
+        else {
+            return thisTag?.groeperingen?.find(g => g.naam === 'Leiding')
+        }
     })
     
     const isWebmaster = roles.some(r => {
         const thisTag = tagsData.find(f => f.id === r.functie)
-        return thisTag.beschrijving !== 'Webmaster'
+        if (!thisTag) return false;
+        else {
+            return thisTag.beschrijving !== 'Webmaster'
+        }
     })
     
     

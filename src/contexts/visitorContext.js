@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { siteGroups } from '../data/site';
 import { cookieHook, GET, memberCheck } from '../utils';
 import * as keycloakServices from '../utils/keycloak.vendors';
-import profileData from '../data/fake/nele-profiel.fake.json'
+import profileData from '../data/fake/profiel.fake.json'
 import fakeUserTags from '../data/fake/tags.fake.json'
 import { Button, Icon, Modal, PwaNotify } from '../components';
 
