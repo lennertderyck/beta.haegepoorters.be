@@ -1,0 +1,55 @@
+{
+  "short_name": "Haegepoorters Destelbergen",
+  "name": "Scouts & Gidsen Haegepoorters Destelbergen",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Haegeprekerke",
+      "short_name": "Haegeprekerke",
+      "description": "Bekijk de activiteiten voor de komende maanden",
+      "url": "/haegeprekerke",
+      "icons": [{ "src": "/icons/haegeprekerke.png", "sizes": "2000x2000" }]
+    },
+    {
+      "name": "Je Groepsadministratie profiel",
+      "short_name": "Groepsadministratie",
+      "description": "Bekijk en bewerk je persoonlijke gegevens",
+      "url": "/account",
+      "icons": [{ "src": "/icons/groepsadmin.png", "sizes": "2000x2000" }]
+    },
+    {
+      "name": "Nieuws & blog",
+      "short_name": "Nieuws",
+      "description": "Blijf op de hoogte van wat er gebeurt op onze scouts",
+      "url": "/blog",
+      "icons": [{ "src": "/icons/blog.png", "sizes": "2000x2000" }]
+    },
+    {
+      "name": "Steun op Trooper",
+      "short_name": "Trooper",
+      "description": "Steun ons gratis en veilig op Trooper",
+      "url": "/trooper",
+      "icons": [{ "src": "/icons/trooper.png", "sizes": "2000x2000" }]
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#6f101d",
+  "background_color": "#ffffff"
+}

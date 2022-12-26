@@ -1,0 +1,12 @@
+* {
+    transition: all ease .25s;
+}
+
+html, body {
+    @apply font-sans text-gray-500;
+    scroll-behavior: smooth;
+}
+
+html, body, #root {
+    height: 100%;
+}
