@@ -1,0 +1,27 @@
+.layout {
+    &--page {
+        max-width: 768px;
+        @apply py-12 lg:py-24 px-6 lg:px-0 mb-12 mx-auto;
+    }
+}
+
+.page {
+    @extend .layout--page;
+    
+    &--wide {
+        max-width: unset;
+    }
+    
+    &__header {
+        max-width: 768px;
+        @apply mb-12 mx-auto;
+    }
+    
+    &__title {
+        @apply font-serif font-bold text-5xl text-gray-600 mb-6;
+    }
+    
+    &__content {
+        @apply container;
+    }
+}

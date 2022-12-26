@@ -7,8 +7,8 @@ interface Props {
     format?: string;
 };
 
-const Date: FC<Props> = ({ date = dayjs(), children: childrenAsFormat, format }) => {
-    const formatted = dayjs(date).format(childrenAsFormat || format);
+const Date: FC<Props> = ({ date = dayjs(), children: childrenAsDate, format }) => {
+    const formatted = dayjs(childrenAsDate || date).format(format);
     
     return (<>{ formatted }</>)
 }

@@ -1,0 +1,1 @@
+export type GroupAbbrev = 'kap' | 'wel' | 'wol' | 'jgv' | 'giv';

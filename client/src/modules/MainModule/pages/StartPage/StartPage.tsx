@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from '../../../../components/basics';
 import HeroBanner from './HeroBanner';
 import RelatedLinks from './RelatedLinks';
+import HighlightedNews from '../../components/HighlightedNews/HighlightedNews';
 
 interface Props {};
 
@@ -27,7 +28,7 @@ const StartPage: FC<Props> = () => {
                             <Icon name="arrow-right" size="1.4rem" />
                         </Link>
                     </h3>
-                    <HighlightedEvents />
+                    <HighlightedNews />
                 </div>
                 <div className="col-span-12">
                     <HeroBanner />

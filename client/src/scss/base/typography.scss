@@ -11,3 +11,50 @@ h3 {
 .section-title {
     @apply text-2xl font-serif;
 }
+
+.content {
+    * {
+        line-height: 1.7rem;
+    }
+    
+    & * + * {
+        margin-top: 1rem;
+    }
+    
+    p {
+        font-size: .9rem;
+    }
+    
+    ul {
+        padding-left: 1.6rem;
+        list-style: disc;
+        
+        // & + ul,
+        // & + p 
+        // { margin-top: 1rem; }
+        
+        li {
+            margin-bottom: 0.3rem;
+            padding-left: .5rem;
+            
+            &::marker {
+                @apply text-red-500;
+            }
+        }
+        
+    }
+    
+    h3, h4, h5 {
+        font-weight: 600;
+        @apply font-serif text-gray-600;
+    }
+    
+    h4 {
+        font-size: 1.2rem;
+    }
+    
+    a {
+        word-break: break-all;
+        @apply text-red-500 underline;
+    }
+}

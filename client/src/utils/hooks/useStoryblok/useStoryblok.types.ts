@@ -48,9 +48,27 @@ export interface StoryBlokResponse<Data = any> extends StoryBlokRecord {
     translated_slugs: TranslatedSlugs[];
 };
 
+export interface StoryBlokFile {
+    id: string | null;
+    alt: string | null;
+    name: string;
+    focus: string | null;
+    title: string | null;
+    width: number | undefined;
+    height: number | undefined;
+    filename: string | null;
+    copyright: string | null;
+    fieldtype: string | undefined;
+    public_id: string | undefined;
+    aspect_ratio: number | undefined;
+}
+
 export type StoryBlokRequest = () => Promise<void>;
 
 export type UseStoryBlok = <Data = any>(path: string, params?: any) => [
-    States<StoryBlokResponse<Data>[]>,
+    States<{
+        stories: StoryBlokResponse<Data>[],
+        story: StoryBlokResponse<Data>
+    }>,
     StoryBlokRequest
 ];

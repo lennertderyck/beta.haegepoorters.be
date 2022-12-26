@@ -1,14 +1,14 @@
-import { StoryBlokContentBlockPlugin } from "../utils/hooks/useStoryblok/useStoryblok.types";
+import { StoryBlokContentBlock, StoryBlokContentBlockPlugin, StoryBlokFile, StoryBlokResponse } from "../utils/hooks/useStoryblok/useStoryblok.types";
 
-interface Activity {
+export interface Activity extends StoryBlokContentBlock<{
     descr: any;
+    title: string;
     period: StoryBlokContentBlockPlugin<{
-        _uid: "e44a450f-f3ce-414d-ab8c-89f43c23353f",
-        start: "2022-10-02",
-        end: null,
-        multiple: false
+        start: string,
+        end: string,
+        multiple: boolean
     }>
-}
+}> {};
 
 export interface HaegeprekerekeContent {
     descr: any;
@@ -20,3 +20,43 @@ export interface HaegeprekerekeContent {
     jgv: Activity[];
     giv: Activity[];
 }
+
+export interface BlogArticle extends StoryBlokContentBlock<{
+    body: any,
+    title: StoryBlokContentBlockPlugin<{
+        example: string
+    }>,
+    banner: StoryBlokFile;
+    shareable: boolean;
+    descr_short: string;
+}> {};
+
+export interface Leader extends StoryBlokContentBlock<{
+    tel: string;
+    image: StoryBlokFile;
+    totem: string;
+    wel_name: string;
+    functions: StoryBlokResponse<{
+        logo: StoryBlokFile;
+        label: string;
+        title: StoryBlokContentBlockPlugin<{
+            example: string;
+        }>;
+        shortcode: string;
+        payments_account_nr: string;
+        activity_editor_code: string;
+    }>;
+    last_name: string;
+    first_name: string;
+    functions_extra: string[];
+}> {};
+
+export interface Page extends StoryBlokContentBlock<{
+    body: any;
+    title: StoryBlokContentBlockPlugin<{
+        example: string;
+    }>;
+    banner: StoryBlokFile;
+    descr_short: string;
+    quick_actions: any[];
+}> {};

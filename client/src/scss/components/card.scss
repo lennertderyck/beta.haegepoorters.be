@@ -1,6 +1,12 @@
 .card {
+    &__img {
+        @apply mb-6;
+    }
+    &__date {
+        
+    }
     &__title {
-        @apply font-bold text-xl mb-2 text-gray-600;
+        @apply font-bold text-xl mb-2;
     }
     &__descriptor {
        @apply font-serif text-base whitespace-normal;
@@ -11,5 +17,11 @@
     }
     &--md &__descriptor {
         @apply mb-4;
+    }
+}
+
+.card-group {
+    .card {
+        @apply py-6 border-b-2;
     }
 }

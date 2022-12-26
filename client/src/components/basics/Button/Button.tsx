@@ -1,7 +1,8 @@
-import { ButtonHTMLAttributes, FC } from 'react';
+import { ButtonHTMLAttributes, FC, useCallback } from 'react';
 import Icon from '../Icon/Icon';
 import { className } from '../../../utils/funcs/dom';
 import ButtonBase from './ButtonBase';
+import { useNavigate } from 'react-router-dom';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
@@ -10,19 +11,28 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     theme?: 'button' | 'simple';
 };
 
-const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = 'end', className: cls, ...otherProps }) => {
+const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = 'end', className: cls, to, onClick, ...otherProps }) => {
+    const navigate = useNavigate();
+    
     const iconClasses = [
         iconPlacement === 'end' ? 'flex-row' : 'flex-row-reverse'
     ];
     
     const themes = {
-        'button': '',
-        'simple': 'w-fit text-xs text-red-500 font-semibold uppercase tracking-widest ',
+        'button': 'w-fit text-xs text-red-500 font-semibold uppercase tracking-widest pl-2 pr-3 py-2 bg-red-100',
+        'simple': 'w-fit text-xs text-red-500 font-semibold uppercase tracking-widest',
     }
     
+    const handleClick = useCallback((event: any) => {
+        if (to) navigate(to);
+        else if (onClick) onClick(event);
+    }, [ to, onClick ])
+    
     return (
-        <ButtonBase 
+        <ButtonBase
+            onClick={ handleClick }
             { ...className(
+                'gap-1.5',
                 cls,
                 iconClasses,
                 themes[theme]
@@ -30,7 +40,7 @@ const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = '
             { ...otherProps }
         >
             <span>{ children }</span>
-            { icon && <Icon name={ icon } size="1rem" className="ml-1" />}
+            { icon && <Icon name={ icon } size="1rem" />}
         </ButtonBase>
     )
 }
