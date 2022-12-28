@@ -8,6 +8,7 @@ import TeamPage from "./pages/TeamPage/TeamPage";
 import RequestBySlugPage from "./pages/RequestBySlugPage/RequestBySlugPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
+import MemberCardPage from "./pages/MemberCardPage/MemberCardPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -26,9 +27,11 @@ const MainModuleRouter: RouteObject[] = [
             ]},
             { path: 'leiding', element: <TeamPage /> },
             { path: '*', element: <RequestBySlugPage /> },
-            { path: 'groepsadmin', children: [
+            { path: 'groepsadmin/*', element: <Navigate to="/ga" replace />},
+            { path: 'ga', children: [
                 { index: true, element: <AccountPage /> },
-                { path: '*', element: <AccountPage /> }
+                { path: '*', element: <AccountPage /> },
+                { path: 'digitale-lidkaart', element: <MemberCardPage /> },
             ]}
         ]
     }
