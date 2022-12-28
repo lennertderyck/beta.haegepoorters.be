@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Icon, Logo } from '../../../../components/basics';
 import { useCollapseState } from '../../../../utils/hooks';
 import classNames from 'classnames';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 interface Props {};
 
@@ -15,15 +15,30 @@ const MainNavigation: FC<Props> = () => {
         { label: 'Nieuws & blog', to: '/blog', icon: 'newspaper' },
         { label: 'Leiding', to: '/leiding', icon: 'team' },
         { label: 'HP Renové', to: '/vzw', icon: 'hammer' },
+        { label: 'Contact', to: '/contact', icon: 'chat-4' },
     ]
     
     return (
         <>
             <div className="w-[68.5px]" />
             <aside className="fixed left-0 top-0 bottom-0 border-r-2 bg-white z-50" onMouseOver={() => open()} >
-                <button className="block p-3 bg-red-500 h-fit">
-                    <Logo width="44.5px" />
-                </button>
+                <div className="flex items-center justify-between">
+                    <button className="block p-3 bg-red-500 h-fit">
+                        <Logo width="44.5px" />
+                    </button>
+                    <div className={classNames(
+                        'overflow-hidden',
+                        active ? 'opacity-100 max-w-[100vw]' : 'opacity-0 max-w-[0vw]'
+                    )}>
+                        <Link to="/groepsadmin" className="flex items-center gap-2 px-5">
+                            <div>
+                                <div className="text-right font-serif text-gray-400 -mb-1 block whitespace-nowrap">Groepsadministratie</div>
+                                <div className="text-right text-xs uppercase tracking-wider font-medium whitespace-nowrap">Aanmelden</div>
+                            </div>
+                            <Icon name="account-circle" />
+                        </Link>
+                    </div>
+                </div>
                 <nav>
                     { menuItems.map((item, index) => (
                         <NavLink 

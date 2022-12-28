@@ -10,7 +10,7 @@ export interface States<Data = any> {
 
 export interface StateControllers<Data = any> {
     initiate: () => void;
-    fulfill: (responseData: Data) => void;
+    fulfill: (responseData?: Data) => void;
     cancel: () => void;
     cancelWithError: (error: Error) => void;
     reset: () => void;

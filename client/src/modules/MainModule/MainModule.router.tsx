@@ -6,6 +6,8 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import BlogArticlePage from "./pages/BlogArticlePage/BlogArticlePage";
 import TeamPage from "./pages/TeamPage/TeamPage";
 import RequestBySlugPage from "./pages/RequestBySlugPage/RequestBySlugPage";
+import AccountPage from "./pages/AccountPage/AccountPage";
+import ContactPage from "./pages/ContactPage/ContactPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -13,6 +15,7 @@ const MainModuleRouter: RouteObject[] = [
         element: <MainModule />,
         children: [
             { path: '/', element: <StartPage />},
+            { path: 'contact', element: <ContactPage /> },
             { path: 'haegeprekerke', children: [
                 { index: true, element: <Navigate to="kap" replace /> },
                 { path: ':group', element: <EventsPage /> },
@@ -22,7 +25,11 @@ const MainModuleRouter: RouteObject[] = [
                 { path: ':slug', element: <BlogArticlePage /> },
             ]},
             { path: 'leiding', element: <TeamPage /> },
-            { path: '*', element: <RequestBySlugPage /> }
+            { path: '*', element: <RequestBySlugPage /> },
+            { path: 'groepsadmin', children: [
+                { index: true, element: <AccountPage /> },
+                { path: '*', element: <AccountPage /> }
+            ]}
         ]
     }
 ];

@@ -51,14 +51,15 @@ const EventsPage: FC<Props> = () => {
                 </div>
             </div>
             
-            { eventsLoading ? <EventItemLoader /> : (
-                <ul className="ml-2">
-                    { activitiesToRender?.map((activity) => (
-                        <EventItem key={ activity._uid } activity={ activity } />
-                    ))}
-                </ul>
-            )}
-            
+            <div className="page__content">
+                { eventsLoading ? <EventItemLoader /> : (
+                    <ul className="ml-2">
+                        { activitiesToRender?.map((activity) => (
+                            <EventItem key={ activity._uid } activity={ activity } />
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     )
 }

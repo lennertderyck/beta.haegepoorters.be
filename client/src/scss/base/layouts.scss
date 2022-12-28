@@ -1,27 +1,38 @@
 .layout {
     &--page {
         max-width: 768px;
-        @apply py-12 lg:py-24 px-6 lg:px-0 mb-12 mx-auto;
+        @apply py-12 lg:py-24 mb-12 mx-auto;
     }
 }
 
-.page {
-    @extend .layout--page;
-    
+.page {   
+    @apply py-12 lg:py-24 mb-12 mx-auto;
+     
     &--wide {
         max-width: unset;
     }
     
     &__header {
         max-width: 768px;
-        @apply mb-12 mx-auto;
+        @apply mb-12 mx-auto px-6 lg:px-0;
     }
     
     &__title {
         @apply font-serif font-bold text-5xl text-gray-600 mb-6;
     }
     
-    &__content {
-        @apply container;
+    &--wide &__content {
+        @apply container px-6 xl:px-0;
+    }
+    
+    &:not(.page--wide) &__content {
+        max-width: 768px;
+        @apply mx-auto px-6 lg:px-0;
+    }
+    
+    &__banner {
+        max-width: 1024px;
+        height: 55vh;
+        @apply max-h-96 mt-12 mb-10 mx-auto object-cover;
     }
 }

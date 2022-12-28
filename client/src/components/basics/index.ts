@@ -5,3 +5,5 @@ export { default as ExpansionPane } from './ExpansionPane/ExpansionPane';
 export { default as Logo } from './Logo/Logo';
 export { default as ContentRender } from './ContentRender/ContentRender';
 export { default as RenderTimes } from './RenderTimes/RenderTimes';
+export { default as Img } from './Img/Img';
+export { default as ShareButton } from './ShareButton/ShareButton';

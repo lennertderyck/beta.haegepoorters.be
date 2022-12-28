@@ -18,7 +18,7 @@ const useAsyncState: UseAsyncState = <Data = any>(statesOnRender?: Partial<State
         setLoading(true);
     }
     
-    const fulfill = (responseData: Data) => {
+    const fulfill = (responseData?: Data) => {
         setLoading(false);
         setData(responseData);
     }

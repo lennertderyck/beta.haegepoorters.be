@@ -1,11 +1,9 @@
 import { FC } from 'react';
 import { useStoryblok } from '../../../../utils/hooks';
 import { BlogArticle } from '../../../../types/content';
-import { StoryBlokResponse } from '../../../../utils/hooks/useStoryblok/useStoryblok.types';
-import { Button, Date, Icon } from '../../../../components/basics';
-import { Link } from 'react-router-dom';
 import BlogPageLoader from './BlogPageLoader';
 import BlogArticleItem from './BlogArticleItem';
+import { ShareButton } from '../../../../components/basics';
 
 interface Props {};
 
@@ -29,6 +27,9 @@ const BlogPage: FC<Props> = () => {
                         ))}
                     </div>
                 )}
+                <div className="mt-12">
+                    <ShareButton />
+                </div>
             </div>
         </div>
     )

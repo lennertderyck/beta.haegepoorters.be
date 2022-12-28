@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
+import 'dayjs/locale/nl-be';
+
+dayjs.extend(calendar);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
