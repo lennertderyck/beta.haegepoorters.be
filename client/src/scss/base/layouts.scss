@@ -18,7 +18,7 @@
     
     &__header {
         max-width: 768px;
-        @apply mb-12 mx-auto px-6 lg:px-0;
+        @apply mb-12 mx-auto px-6;
     }
     
     &__title {
@@ -26,12 +26,12 @@
     }
     
     &--wide &__content {
-        @apply container px-6 xl:px-0;
+        @apply container px-6;
     }
     
     &:not(.page--wide) &__content {
         max-width: 768px;
-        @apply mx-auto px-6 lg:px-0;
+        @apply mx-auto px-6;
     }
     
     &__banner {

@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { useStoryblok } from '../../../../utils/hooks';
 import { Page } from '../../../../types/content';
 import { ContentRender, Img, ShareButton } from '../../../../components/basics';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import LoadingPage from '../LoadingPage/LoadingPage';
 
 interface Props {};
 
@@ -15,8 +17,8 @@ const RequestBySlugPage: FC<Props> = () => {
         request();
     }, [ location.pathname ]);
     
-    if (error) return <>Pagina niet gevonden</>
-    else if (pageLoading || !pageData) return <>Pagina laden</>
+    if (error) return <NotFoundPage />
+    else if (pageLoading || !pageData) return <LoadingPage />
     else return (
         <div className="page">
             <div className="page__header">

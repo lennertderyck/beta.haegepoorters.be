@@ -21,7 +21,7 @@ const MainNavigation: FC<Props> = () => {
     
     const menuBottomItems = [
         { label: 'Digitale lidkaart', to: '/ga/digitale-lidkaart', icon: 'bank-card' },
-        { label: 'Zoeken', to: '/zoeken', icon: 'search' },
+        // { label: 'Zoeken', to: '/zoeken', icon: 'search' },
     ]
     
     return (

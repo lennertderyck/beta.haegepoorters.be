@@ -12,7 +12,7 @@ const StartPage: FC<Props> = () => {
     return (
         <div className="page page--wide page--headless">
             <div className="page__content">
-                <div className="grid grid-cols-12 gap-12">
+                <div className="grid grid-cols-12 gap-y-12 xl:gap-12">
                     <div className="col-span-12 xl:col-span-8">
                         <h3 className="section-title mb-5">
                             <Link to="/haegeprekerke" className="flex items-center gap-4">

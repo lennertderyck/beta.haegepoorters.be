@@ -27,9 +27,6 @@ const BlogPage: FC<Props> = () => {
                         ))}
                     </div>
                 )}
-                <div className="mt-12">
-                    <ShareButton />
-                </div>
             </div>
         </div>
     )

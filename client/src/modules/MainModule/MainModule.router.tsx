@@ -26,13 +26,14 @@ const MainModuleRouter: RouteObject[] = [
                 { path: ':slug', element: <BlogArticlePage /> },
             ]},
             { path: 'leiding', element: <TeamPage /> },
-            { path: '*', element: <RequestBySlugPage /> },
             { path: 'groepsadmin/*', element: <Navigate to="/ga" replace />},
             { path: 'ga', children: [
                 { index: true, element: <AccountPage /> },
                 { path: '*', element: <AccountPage /> },
                 { path: 'digitale-lidkaart', element: <MemberCardPage /> },
-            ]}
+            ]},
+            
+            { path: '*', element: <RequestBySlugPage /> },
         ]
     }
 ];
