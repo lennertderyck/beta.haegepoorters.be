@@ -43,7 +43,7 @@ const ContactPage: FC<Props> = () => {
                     allowFullScreen={ false } 
                     loading="lazy" 
                     referrerPolicy="no-referrer-when-downgrade" 
-                    className="w-full h-full"
+                    className="w-full h-full bg-gray-100"
                 />
             </div>
             <div className="page__content">
@@ -84,7 +84,6 @@ const ContactPage: FC<Props> = () => {
                         </Input>
                     </label>
                     <div className="mb-5"><InteractiveFaqInfo /></div>
-                    
                     <label>
                         <span>Bericht</span>
                         <Input name="message" type="textarea" />

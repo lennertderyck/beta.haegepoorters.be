@@ -15,9 +15,9 @@ const AccountPage: FC<Props> = () => {
                     <div className="content">
                         <h4>Kom later eens terug ...</h4>
                         <p className="!mt-1">We zijn volop bezig met het vernieuwen van onze website. Hierdoor kan je even niet aanmelden.</p>
-                        <p className="!-mt-1">Aanmelden kan ook via de site van Scouts & Gidsen Vlaanderen.</p>
+                        <p className="!-mt-1">Je kan je ook aanmelden via de site van Scouts & Gidsen Vlaanderen.</p>
                     </div>
-                    <Button href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/dashboard" icon="arrow-right" className="mt-4">Naar de Groepsadmin</Button>
+                    <Button href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/dashboard" icon="arrow-right-up" className="mt-4">Naar de Groepsadmin</Button>
                 </div>
             </div>
         </div>

@@ -12,6 +12,10 @@
         max-width: unset;
     }
     
+    &--headless {
+        @apply xl:pt-12;
+    }
+    
     &__header {
         max-width: 768px;
         @apply mb-12 mx-auto px-6 lg:px-0;
