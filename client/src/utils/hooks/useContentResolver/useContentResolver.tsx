@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, createElement, useMemo, useRef } from 'react';
 // @ts-ignore
-import RichTextResolver from 'storyblok-js-client/source/richTextResolver';
+import RichTextResolver from 'storyblok-js-client/richTextResolver';
 
 const useContentResolver = (data: any) => {
     const resolver = useRef(new RichTextResolver());

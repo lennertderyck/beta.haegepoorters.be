@@ -12,6 +12,16 @@ interface Props {
 
 const EventCard: FC<Props> = ({ activity, group }) => {
     const content = useContentResolver(activity?.descr);
+    const parsedText = useMemo(() => {
+        const parsedHTML = new DOMParser().parseFromString(content.raw, 'text/html');
+        if (parsedHTML?.body?.textContent) {
+            return parsedHTML?.body?.textContent.substring(0, 200)
+        }
+    }, [ content.raw ]);
+    const length = useMemo(() => {
+        return parsedText ? parsedText.length : 0;
+    }, [parsedText]);
+    
     const [ open, setOpen ] = useState(false);
     
     const groupName = useMemo(() => {
@@ -37,14 +47,16 @@ const EventCard: FC<Props> = ({ activity, group }) => {
                     <h5 className="text-xs uppercase tracking-wider font-medium whitespace-nowrap">{ groupName }</h5>
                 </div>
                 
-                <div className="-my-2">
-                    <ExpansionPane active={ open }>
-                        <div className="xl:max-w-[75%]" onClick={() => setOpen(s => !s)}>
-                            <p className="mt-2 font-serif leading-5"><content.Parsed /></p>
-                        </div>
-                        <Button to={ '/haegeprekerke/' + group } theme="simple" className="mt-3" icon="arrow-right">Lees meer</Button>
-                    </ExpansionPane>
-                </div>
+                { length !== 0 && (
+                    <div className="-my-2">
+                        <ExpansionPane active={ open }>
+                            <div className="xl:max-w-[75%]" onClick={() => setOpen(s => !s)}>
+                                <p className="mt-2 font-serif leading-5">{ parsedText }{ length >= 200 && '...'}</p>
+                            </div>
+                            <Button to={ '/haegeprekerke/' + group } theme="simple" className="mt-3" icon="arrow-right">Lees meer</Button>
+                        </ExpansionPane>
+                    </div>
+                )}
             </div>
         </div>
     )

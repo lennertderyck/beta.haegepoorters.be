@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { UseCollapseState } from "./useCollapseState.types";
 
-const useCollapseState: UseCollapseState = () => {
-    const [ active, setActive ] = useState(false);
+const useCollapseState: UseCollapseState = (defaultState = false) => {
+    const [ active, setActive ] = useState(defaultState);
 
     const open = () => setActive(true);
     const close = () => setActive(false);

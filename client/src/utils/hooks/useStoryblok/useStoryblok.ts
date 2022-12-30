@@ -11,6 +11,8 @@ const useStoryblok: UseStoryBlok = <Data = any>(path: string, params?: any) => {
         story: StoryBlokResponse<Data>
     }>({ loading: true });
     
+    console.log(states);
+    
     const request = useCallback(async () => {
         try {
             initiate();

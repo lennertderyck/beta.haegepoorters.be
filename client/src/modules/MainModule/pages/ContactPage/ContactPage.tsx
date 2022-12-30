@@ -1,32 +1,5 @@
-import { FC, useMemo } from 'react';
-import ControlledForm from '../../../../components/basics/ControlledForm/ControlledForm';
-import Input from '../../../../components/basics/Input/Input';
-import { Button, ExpansionPane } from '../../../../components/basics';
-import { useFormContext } from 'react-hook-form';
-
-const InteractiveFaqInfo: FC<{}> = () => {
-    const control = useFormContext();
-    const subject = control.watch('subject');
-    
-    const info = {
-        'groepsadmin': 'Een vraag over de Groepsadministratie? Google zeker ook naar de help-pagina van Scouts & Gidsen Vlaanderen!',
-        'inschrijvingen': 'Inschrijvingen vinden jaarlijks plaats tegen eind april / begin mei. Als er nog plaatsen over zijn in een tak kan je mogelijks ook inschrijven tijdens het jaar. Broers/zussen en kinderen van oud-leiding krijgen voorrang tijdens de inschrijvingen.',
-        'evenementen': 'Bij evenementen zoals onze spaghettiavond of BBQ plaatsen we communicatie en een inschrijvingsformulier op onze website. Hou onze website dus in de gaten wanneer het zover is ;).',
-        'verhuur': 'We verhuren onze lokalen niet. Je kan echter wel materiaal huren bij ons.',
-    }
-    
-    const foundSubject = useMemo(() => {
-        return info[subject as keyof typeof info]
-    }, [subject]);
-    
-    return (
-        <ExpansionPane active={ !!foundSubject}>
-            <div className="p-4 bg-stone-100 text-sm">
-                { foundSubject }
-            </div>
-        </ExpansionPane>
-    )
-}
+import { FC } from 'react';
+import ContactForm from './ContactForm';
 
 interface Props {};
 
@@ -47,49 +20,7 @@ const ContactPage: FC<Props> = () => {
                 />
             </div>
             <div className="page__content">
-                <ControlledForm>
-                    <label className="mb-5">
-                        <span>Aanspreekpunt</span>
-                        <Input name="reciever" type="select">
-                            <option value="groepsleiding">groepsleiding</option>
-                            <option value="vzw">VZW</option>
-                            <option value="kapoenen">kapoenen</option>
-                            <option value="welpen">welpen</option>
-                            <option value="woudlopers">woudlopers</option>
-                            <option value="jonggivers">jonggivers</option>
-                            <option value="givers">givers</option>
-                        </Input>
-                    </label>
-                    <label className="mb-5">
-                        <span>Naam</span>
-                        <Input name="name" />
-                    </label>
-                    <label className="mb-5">
-                        <span>E-mail</span>
-                        <Input type="email" name="sender" />
-                    </label>
-                    <label className="mb-5">
-                        <span>Naam kind</span>
-                        <Input name="child" />
-                    </label>
-                    <label className="mb-2">
-                        <span>Onderwerp</span>
-                        <Input name="subject" type="select">
-                            <option selected disabled>Selecteer onderwerp</option>
-                            <option value="groepsadmin">Groepsadministratie</option>
-                            <option value="inschrijvingen">Inschrijvingen</option>
-                            <option value="evenementen">Evenementen</option>
-                            <option value="verhuur">Verhuur</option>
-                            <option value="andere">Andere</option>
-                        </Input>
-                    </label>
-                    <div className="mb-5"><InteractiveFaqInfo /></div>
-                    <label>
-                        <span>Bericht</span>
-                        <Input name="message" type="textarea" />
-                    </label>
-                    <Button type="submit" className="mt-5">Versturen</Button>
-                </ControlledForm>
+                <ContactForm />
             </div>
         </div>
     )

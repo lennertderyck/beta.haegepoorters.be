@@ -4,7 +4,7 @@ export interface Controllers {
     toggle: () => void;
 }
 
-export type UseCollapseState = () => [
+export type UseCollapseState = (defaultState?: boolean) => [
     boolean,
     Controllers
 ]

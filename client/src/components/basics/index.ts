@@ -7,3 +7,4 @@ export { default as ContentRender } from './ContentRender/ContentRender';
 export { default as RenderTimes } from './RenderTimes/RenderTimes';
 export { default as Img } from './Img/Img';
 export { default as ShareButton } from './ShareButton/ShareButton';
+export { default as Loader } from './Loader/Loader';

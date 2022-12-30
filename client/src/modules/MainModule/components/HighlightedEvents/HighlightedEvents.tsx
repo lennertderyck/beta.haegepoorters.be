@@ -25,7 +25,7 @@ const HighlightedEvents: FC<Props> = () => {
             kap, wel, wol, jgv, giv
         }
     }, [data?.stories?.[0].content]);
-    
+        
     if (eventsLoading) return <EventCardLoader />
     else return (
         <div className="card-group">
