@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useStoryblok } from '../../../../utils/hooks';
 import { Leader } from '../../../../types/content';
 // @ts-ignore
@@ -21,10 +21,25 @@ const TeamPage: FC<Props> = () => {
         'per_page': 60,
         'resolve_relations': 'team_member.functions'
     });
+    const [{ data: groupFunctions, loading: functionsLoading }] = useStoryblok<any>('cdn/stories', {
+        'starts_with': 'groups/',
+        'per_page': 60,
+    });
+    
+    useMemo(() => {
+        if (!groupFunctions && !data) return [];
+        else return data?.stories.map((leader) => {
+            const groupFunction = groupFunctions?.stories.find((f) => (leader.content.functions as unknown as string) === f.uuid);
+            if (groupFunction) {
+                leader.content.functions = groupFunction;
+            }
+            return leader;
+        })
+    }, [data, groupFunctions]);
     
     const grouped = array.groupBy(data?.stories, (entry: any) => entry.content.functions.content?.shortcode);
-    const grl = data?.stories?.filter((leader) => leader.content.functions_extra.includes('grl'))
-    
+    const grl = data?.stories?.filter((leader) => leader.content.functions_extra.includes('grl'));
+        
     return (
         <div className="page page--wide">
             <div className="page__header">

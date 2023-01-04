@@ -9,7 +9,9 @@ interface Props {};
 
 const App: FC<Props> = () => {
     return (
-        <RouterProvider router={ router } />
+        <>
+            <RouterProvider router={ router } />
+        </>
     )
 }
 

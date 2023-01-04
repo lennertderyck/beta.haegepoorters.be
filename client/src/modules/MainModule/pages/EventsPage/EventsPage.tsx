@@ -8,6 +8,7 @@ import { HaegeprekerekeContent } from '../../../../types/content';
 import EventItem from './EventItem';
 import EventItemLoader from './EventItemLoader';
 import { StoryBlokResponse } from '../../../../utils/hooks/useStoryblok/useStoryblok.types';
+import dayjs from 'dayjs';
 
 interface Props {};
 
@@ -34,7 +35,8 @@ const EventsPage: FC<Props> = () => {
         }
     }, [data?.stories?.[0].content]);
     
-    const activitiesToRender = activities?.[selectedGroup as keyof typeof activities];
+    const activitiesToRender = useMemo(() => activities?.[selectedGroup as keyof typeof activities], [activities, selectedGroup]);
+    const activitiesAvailable = useMemo(() => !eventsLoading && activitiesToRender?.length !== 0, [eventsLoading, activitiesToRender])
     
     return (
         <div className="page">
@@ -52,11 +54,27 @@ const EventsPage: FC<Props> = () => {
             </div>
             
             <div className="page__content">
+                { !activitiesAvailable && (
+                    <p className="text-gray-400">
+                        Geen activiteiten om weer te geven
+                    </p>
+                )}
                 { eventsLoading ? <EventItemLoader /> : (
                     <ul className="ml-2">
-                        { activitiesToRender?.map((activity) => (
-                            <EventItem key={ activity._uid } activity={ activity } />
-                        ))}
+                        { activitiesToRender?.map((activity) => {
+                            const isPassed = dayjs(dayjs()).isAfter(dayjs(activity.period.start), 'day');
+                            
+                            return (
+                                <li 
+                                    className={classNames(
+                                        'group', 
+                                        isPassed && 'opacity-60',
+                                    )}
+                                >
+                                    <EventItem key={ activity._uid } activity={ activity } />
+                                </li>
+                            )
+                        })}
                     </ul>
                 )}
             </div>

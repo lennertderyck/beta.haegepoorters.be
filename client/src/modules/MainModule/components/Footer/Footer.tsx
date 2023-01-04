@@ -33,11 +33,11 @@ const Footer: FC<Props> = () => {
                                 Bijlokestraat 18<br />
                                 9070 Destelbergen
                             </address>
-                            <Button theme="simple" icon="arrow-right" className="mt-3">Contacteer groepsleiding</Button>
+                            <Button href="/contact/groepsleiding" target="_self" theme="simple" icon="arrow-right" className="mt-3">Contacteer groepsleiding</Button>
                         </div>
                         <div className="col-span-12 lg:col-span-4">
                             <h4 className="font-semibold">HP Rénové vzw</h4>
-                            <Button theme="simple" icon="arrow-right" className="mt-3">Contacteer VZW</Button>
+                            <Button href="/contact/vzw" theme="simple" icon="arrow-right" className="mt-3">Contacteer VZW</Button>
                         </div>
                     </div>
                     

@@ -3,6 +3,9 @@ import { useStoryblok } from '../../../../utils/hooks';
 import { HaegeprekerekeContent } from '../../../../types/content';
 import EventCard from './EventCard';
 import EventCardLoader from './EventCardLoader';
+import { sortGroupActivitiesByDate } from '../../../../utils/funcs/algorithms/sorting';
+import dayjs from 'dayjs';
+import { findFirstActivityToDoByDate } from '../../../../utils/funcs/algorithms/filtering';
 
 interface Props {};
 
@@ -15,11 +18,11 @@ const HighlightedEvents: FC<Props> = () => {
     });
     
     const activities = useMemo(() => {
-        const kap = data?.stories?.[0]?.content.kap;
-        const wel = data?.stories?.[0]?.content.wel;
-        const wol = data?.stories?.[0]?.content.wol;
-        const jgv = data?.stories?.[0]?.content.jgv;
-        const giv = data?.stories?.[0]?.content.giv;
+        const kap = data?.stories?.[0]?.content.kap.sort(sortGroupActivitiesByDate).find(findFirstActivityToDoByDate);
+        const wel = data?.stories?.[0]?.content.wel.sort(sortGroupActivitiesByDate).find(findFirstActivityToDoByDate);
+        const wol = data?.stories?.[0]?.content.wol.sort(sortGroupActivitiesByDate).find(findFirstActivityToDoByDate);
+        const jgv = data?.stories?.[0]?.content.jgv.sort(sortGroupActivitiesByDate).find(findFirstActivityToDoByDate);
+        const giv = data?.stories?.[0]?.content.giv.sort(sortGroupActivitiesByDate).find(findFirstActivityToDoByDate);
         
         return {
             kap, wel, wol, jgv, giv
@@ -29,11 +32,11 @@ const HighlightedEvents: FC<Props> = () => {
     if (eventsLoading) return <EventCardLoader />
     else return (
         <div className="card-group">
-            <EventCard group="kap" activity={ activities?.kap?.[0] } />
-            <EventCard group="wel" activity={ activities?.wel?.[0] } />
-            <EventCard group="wol" activity={ activities?.wol?.[0] } />
-            <EventCard group="jgv" activity={ activities?.jgv?.[0] } />
-            <EventCard group="giv" activity={ activities?.giv?.[0] } />
+            <EventCard group="kap" activity={ activities?.kap } />
+            <EventCard group="wel" activity={ activities?.wel } />
+            <EventCard group="wol" activity={ activities?.wol } />
+            <EventCard group="jgv" activity={ activities?.jgv } />
+            <EventCard group="giv" activity={ activities?.giv } />
         </div>
     )
 }

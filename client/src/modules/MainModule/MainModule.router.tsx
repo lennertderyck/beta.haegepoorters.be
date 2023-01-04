@@ -16,7 +16,10 @@ const MainModuleRouter: RouteObject[] = [
         element: <MainModule />,
         children: [
             { path: '/', element: <StartPage />},
-            { path: 'contact', element: <ContactPage /> },
+            { path: 'contact', children: [
+                { index: true, element: <ContactPage /> },
+                { path: ':group', element: <ContactPage /> },
+            ]},
             { path: 'haegeprekerke', children: [
                 { index: true, element: <Navigate to="kap" replace /> },
                 { path: ':group', element: <EventsPage /> },

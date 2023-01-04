@@ -17,7 +17,7 @@ h3 {
         line-height: 1.7rem;
     }
     
-    & * + * {
+    &:not(&--inline) * + * {
         margin-top: 1rem;
     }
     

@@ -7,12 +7,13 @@ import { useNavigate } from 'react-router-dom';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
     href?: string;
+    target?: string;
     icon?: string;
     iconPlacement?: 'start' | 'end';
     theme?: 'button' | 'simple';
 };
 
-const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = 'end', className: cls, to, onClick, href, ...otherProps }) => {
+const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = 'end', className: cls, to, onClick, href, target, ...otherProps }) => {
     const navigate = useNavigate();
     
     const iconClasses = [
@@ -26,7 +27,7 @@ const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = '
     
     const handleClick = useCallback((event: any) => {
         if (to) navigate(to);
-        else if (href) window.open(href, '_blank');
+        else if (href) window.open(href, target || '_blank');
         else if (onClick) onClick(event);
     }, [ to, href, onClick ])
     

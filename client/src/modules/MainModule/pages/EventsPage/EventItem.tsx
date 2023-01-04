@@ -16,8 +16,8 @@ const EventItem: FC<Props> = ({ activity }) => {
     const isPassed = activityIsPassed(activity.period.start)
     
     return (
-        <li className={classNames(
-            'relative border-l-2 border-red-500 border-opacity-40 pl-8 pb-8 last:pb-0',
+        <div className={classNames(
+            'relative border-l-2 border-red-500 border-opacity-40 pl-8 pb-8 group-last:pb-0',
             isPassed && 'opacity-60'
         )}>
             <span className="absolute left-0 translate-x-[-.45rem] bg-red-500 block w-3 h-3 rounded-full" />
@@ -31,7 +31,7 @@ const EventItem: FC<Props> = ({ activity }) => {
                     <content.Parsed />
                 </div>
             </div>
-        </li>
+        </div>
     )
 }
 

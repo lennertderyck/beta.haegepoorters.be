@@ -5,19 +5,21 @@ import InteractiveFaqInfo from './InteractiveFaqInfo';
 import { Button, ExpansionPane, Icon, Loader } from '../../../../components/basics';
 import { useAsyncState } from '../../../../utils/hooks';
 import useLazyAxios from '../../../../utils/hooks/useAxios/useLazyAxios';
+import { useParams } from 'react-router-dom';
 
 interface Props {};
 
 const ContactForm: FC<Props> = () => {
-    // https://fwd.haegepoorters.be
-    const [ request ] = useLazyAxios('https://fwd.haegepoorters.be', {
+    const params = useParams<any>();
+
+    const [ request ] = useLazyAxios('https://fwd.haegepoorters.be/', {
         method: 'POST',
     })
     const [{ data, loading, error }] = useAsyncState();
     
     const handleFormComplete = (data: any) => {
         if (data.subject === 'x') window.alert('Kies een onderwerp');
-        request<any>(data, 'https://fwd.haegepoorters.be');
+        request<any>(data, 'https://fwd.haegepoorters.be/');
     }
 
     if (error) return (
@@ -48,7 +50,7 @@ const ContactForm: FC<Props> = () => {
     else return (
         <>
             <ExpansionPane active={ true }>
-                <ControlledForm defaultValues={{ subject: 'x' }} onSubmit={ handleFormComplete }>
+                <ControlledForm defaultValues={{ subject: 'x', reciever: params['reciever'] || 'groepsleiding' }} onSubmit={ handleFormComplete }>
                     <label className="mb-5">
                         <span>Aanspreekpunt</span>
                         <Input name="reciever" type="select" required>
