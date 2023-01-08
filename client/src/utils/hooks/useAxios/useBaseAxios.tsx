@@ -25,6 +25,9 @@ const useBaseAxios: UseBaseAxios = <Data,>(initialEndpoint: string, initialConfi
             endpoint?: string, 
             config?: AxiosRequestConfig
         ) => {
+            console.log('useBaseAxios.getData', endpoint, ('(See the collapsed log below for the request config)'));
+            console.groupCollapsed(config);
+            
             dispatch({ type: 'REQUEST_INIT' });
             try {
                 const res = (await axios(
