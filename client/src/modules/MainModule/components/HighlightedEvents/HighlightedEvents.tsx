@@ -17,7 +17,8 @@ const HighlightedEvents: FC<Props> = () => {
         'per_page': '1',
     });
     
-    console.log('HighlightedEvents', error)
+    console.log('HighlightedEvents data', data)
+    console.log('HighlightedEvents error', error)
     
     const activities = useMemo(() => {
         const kap = data?.stories?.[0]?.content.kap.sort(sortGroupActivitiesByDate).find(findFirstActivityToDoByDate);
