@@ -12,14 +12,6 @@ const HighlightedNews: FC<Props> = () => {
         'per_page': 3
     });
     
-    useEffectOnce(() => {
-        const f = async () => {
-            const r = await fetch('https://api.storyblok.com/v2/cdn/stories?starts_with=haegeprekerke%2F&sort_by=first_published_at:desc&page=1&per_page=1&token=swBnDurWPN9tnVgAPXnGNwtt');
-            console.log('TEST REQUEST');
-            console.log(await r.json());
-        }
-    })
-    
     return (
         <div className="card-group -mt-6">
             { data?.stories?.map((article) => (

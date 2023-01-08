@@ -14,14 +14,14 @@ const RelatedLinks: FC<Props> = () => {
     
     return (
         <ul className="grid grid-cols-4 gap-4 card-group">
-            { items.map((_, index) => (
+            { items.map((item, index) => (
                 <li 
                     key={ index } 
                     className="card card--md col-span-4 md:col-span-2 lg:col-span-1"
                 >
-                    <h4 className="card__title">Groepsadministratie</h4>
-                    <p className="card__descriptor mb-4">Beheer de persoonlijke gegevens van je kind(eren)</p>
-                    <Button to="/" theme="simple" icon="arrow-right-up">Meer weten?</Button>
+                    <h4 className="card__title">{ item.title }</h4>
+                    <p className="card__descriptor mb-4">{ item.description }</p>
+                    <Button href={ item.href } theme="simple" icon="arrow-right-up">{ item.actionLabel }</Button>
                 </li>
             ))}
         </ul>

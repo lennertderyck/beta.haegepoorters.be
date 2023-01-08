@@ -19,12 +19,13 @@ const useBaseAxios: UseBaseAxios = <Data,>(initialEndpoint: string, initialConfi
             dispatch({ type: 'REQUEST_ABORT' })
         }
     }, [dispatch]);
-    
+        
     const getData = useCallback(
         async (
             endpoint?: string, 
             config?: AxiosRequestConfig
-        ) => {            
+        ) => {      
+            
             dispatch({ type: 'REQUEST_INIT' });
             try {
                 const res = (await axios(
@@ -32,17 +33,11 @@ const useBaseAxios: UseBaseAxios = <Data,>(initialEndpoint: string, initialConfi
                     { ...axiosConfig, ...config },
                 )) as AxiosResponse<Data>;
                 
-                console.log('Response', res);
-                
-                if (isMounted.current) {
-                    dispatch({ type: 'REQUEST_SUCCESS', payload: res.data });
-                    return res.data;
-                }
+                dispatch({ type: 'REQUEST_SUCCESS', payload: res.data });
+                return res.data;
             } catch (e: ErrorType) {
-                if (isMounted.current) {
-                    dispatch({ type: 'REQUEST_FAILED', payload: e });
-                    throw new Error(e);
-                }
+                dispatch({ type: 'REQUEST_FAILED', payload: e });
+                throw new Error(e);
             }
         }, 
         [initialEndpoint, dispatch, axiosConfig]
