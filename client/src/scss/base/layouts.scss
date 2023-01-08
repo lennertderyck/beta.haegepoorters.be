@@ -22,7 +22,7 @@
     }
     
     &__title {
-        @apply font-serif font-bold text-5xl text-gray-600 mb-6;
+        @apply font-serif font-bold text-4xl lg:text-5xl text-gray-600 mb-6;
     }
     
     &--wide &__content {

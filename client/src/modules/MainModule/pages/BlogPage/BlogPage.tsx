@@ -3,17 +3,17 @@ import { useStoryblok } from '../../../../utils/hooks';
 import { BlogArticle } from '../../../../types/content';
 import BlogPageLoader from './BlogPageLoader';
 import BlogArticleItem from './BlogArticleItem';
-import { ShareButton } from '../../../../components/basics';
 
 interface Props {};
 
 const BlogPage: FC<Props> = () => {
-    const [{ data, loading: articlesLoading }] = useStoryblok<BlogArticle>('cdn/stories', {
+    const [{ data, loading: articlesLoading, error }] = useStoryblok<BlogArticle>('cdn/stories', {
         'starts_with': 'blog/',
         'sort_by': 'published_at:desc',
     });
     
-    return (
+    if (error) return <>Er ging iets fout bij het laden</>;
+    else return (
         <div className="page page--wide">
             <div className="page__header">
                 <h1 className="page__title">Nieuws & blog</h1>

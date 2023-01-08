@@ -1,14 +1,19 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Icon, Logo } from '../../../../components/basics';
 import { useCollapseState } from '../../../../utils/hooks';
 import classNames from 'classnames';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import NavItem from './NavItem';
+import { useDevice } from 'use-ua-parser-js';
 
 interface Props {};
 
 const MainNavigation: FC<Props> = () => {
     const [ active, { open, close, toggle }] = useCollapseState();
+    const device = useDevice();
+    const isTouch = useMemo(() => {
+        return device.type === 'mobile' || device.type === 'tablet';
+    }, [device.type])
     
     const menuItems = [
         { label: 'Startpagina', to: '/', icon: 'home-5' },
@@ -64,12 +69,20 @@ const MainNavigation: FC<Props> = () => {
                 <nav className="flex-1 flex flex-col">
                     <div className="flex-1">
                         { menuItems.map((item, index) => (
-                            <NavItem key={ index } item={ item } active={ active } />
+                            <NavItem onClick={() => isTouch && close()} key={ index } item={ item } active={ active } />
                         ))}
                     </div>
+                    {/* <div className={classNames(
+                        'flex-1',
+                        active ? 'opacity-100 max-w-[100vw]' : 'opacity-0 max-w-[0vw]'
+                    )}>
+                        <div className="h-full p-10 max-w-[400px]">
+                            <TrooperBanner />
+                        </div>
+                    </div> */}
                     <div>
                         { menuBottomItems.map((item, index) => (
-                            <NavItem key={ index } item={ item } active={ active } />
+                            <NavItem onClick={() => isTouch && close()} key={ index } item={ item } active={ active } />
                         ))}
                     </div>
                 </nav>

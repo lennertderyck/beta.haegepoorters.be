@@ -29,10 +29,8 @@ const MemberCardPage: FC<Props> = () => {
                 <h1 className="page__title text-center">Jouw digitale lidkaart</h1>
                 <p className="text-center">Gebruik je lidnummer om aan te melden bij de Groepsadministratie</p>
             </div>
-            <div className="page__content">
-                <div className="mx-auto w-fit">
-                    { memberId && <MemberCard memberId={ memberId } memberName={ memberName } />}
-                </div>
+            <div className="mx-auto px-4 sm:px-0 sm:w-fit">
+                { memberId && <MemberCard memberId={ memberId } memberName={ memberName } />}
             </div>
         </div>
     )

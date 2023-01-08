@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import ContactForm from './ContactForm';
+import ContactMailInfo from './ContactMailInfo';
 
 interface Props {};
 
@@ -20,7 +21,8 @@ const ContactPage: FC<Props> = () => {
                 />
             </div>
             <div className="page__content">
-                <ContactForm />
+                <ContactMailInfo />
+                {/* <ContactForm /> */}
             </div>
         </div>
     )

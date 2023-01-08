@@ -6,11 +6,13 @@ import { Icon } from '../../../../components/basics';
 interface Props {
     active: boolean;
     item: any;
+    onClick?: () => void;
 };
 
-const NavItem: FC<Props> = ({ active, item }) => {
+const NavItem: FC<Props> = ({ active, item, onClick }) => {
     return (
         <NavLink 
+            onClick={() => onClick?.()}
             to={ item.to }
             className={({ isActive }) => classNames(
                 'flex items-center p-5 border-b-2 border-gray-200',

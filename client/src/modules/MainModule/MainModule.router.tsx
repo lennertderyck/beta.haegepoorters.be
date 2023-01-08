@@ -9,6 +9,7 @@ import RequestBySlugPage from "./pages/RequestBySlugPage/RequestBySlugPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import MemberCardPage from "./pages/MemberCardPage/MemberCardPage";
+import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -33,6 +34,7 @@ const MainModuleRouter: RouteObject[] = [
             { path: 'ga', children: [
                 { index: true, element: <AccountPage /> },
                 { path: '*', element: <AccountPage /> },
+                { path: 'onboarding', element: <OnboardingPage /> },
                 { path: 'digitale-lidkaart', element: <MemberCardPage /> },
             ]},
             

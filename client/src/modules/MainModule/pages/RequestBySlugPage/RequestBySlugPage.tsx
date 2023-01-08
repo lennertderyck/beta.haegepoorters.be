@@ -1,8 +1,8 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useStoryblok } from '../../../../utils/hooks';
 import { Page } from '../../../../types/content';
-import { ContentRender, Img, ShareButton } from '../../../../components/basics';
+import { ContentRender, DateFrom, Img, ShareButton } from '../../../../components/basics';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import LoadingPage from '../LoadingPage/LoadingPage';
 
@@ -10,7 +10,11 @@ interface Props {};
 
 const RequestBySlugPage: FC<Props> = () => {
     const location = useLocation();
-    const [{ data, loading: pageLoading, error }, request] = useStoryblok<Page>('cdn/stories/pagina' + location.pathname);
+    const correctedPath = useMemo(() => {
+        if (location.pathname.startsWith('/pagina')) return location.pathname.replace('/pagina', '');
+        else return location.pathname;
+    }, [location.pathname]);
+    const [{ data, loading: pageLoading, error }, request] = useStoryblok<Page>('cdn/stories/pagina' + correctedPath);
     const pageData = data?.story;
     
     useEffect(() => {
@@ -23,7 +27,7 @@ const RequestBySlugPage: FC<Props> = () => {
         <div className="page">
             <div className="page__header">
                 <h1 className="page__title">{ pageData.name }</h1>
-                <p className="-mt-4">Laatst aangepast, { pageData.published_at }</p>
+                <p className="-mt-4">Laatst aangepast, <DateFrom>{ pageData.published_at }</DateFrom> geleden</p>
             </div>
             { pageData.content?.banner?.filename && (
                 <Img src={ pageData.content?.banner?.filename } height="55vh" className="page__banner" />

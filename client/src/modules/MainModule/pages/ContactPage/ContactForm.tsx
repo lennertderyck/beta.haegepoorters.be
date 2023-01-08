@@ -6,20 +6,36 @@ import { Button, ExpansionPane, Icon, Loader } from '../../../../components/basi
 import { useAsyncState } from '../../../../utils/hooks';
 import useLazyAxios from '../../../../utils/hooks/useAxios/useLazyAxios';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 interface Props {};
 
 const ContactForm: FC<Props> = () => {
     const params = useParams<any>();
 
-    const [ request ] = useLazyAxios('https://fwd.haegepoorters.be/', {
-        method: 'POST',
-    })
-    const [{ data, loading, error }] = useAsyncState();
+    // const [ request, { data, loading, error }] = useLazyAxios('https://fwd.haegepoorters.be/', {
+    //     method: 'POST',
+    // })
     
+    const [{ data, loading, error }, { initiate, fulfill, cancelWithError }] = useAsyncState();    
     const handleFormComplete = (data: any) => {
         if (data.subject === 'x') window.alert('Kies een onderwerp');
-        request<any>(data, 'https://fwd.haegepoorters.be/');
+        // request<any>(data, 'https://fwd.haegepoorters.be/');
+        sendFormData(data);
+    }
+    
+    const sendFormData = async (formData: any) => {
+        initiate();
+        try {
+            const response = await fetch('https://fwd.haegepoorters.be/', {
+                method: 'POST',
+                body: formData,
+            })
+            const data = await response.json();
+            fulfill(data);
+        } catch (error) {
+            cancelWithError(error);
+        }
     }
 
     if (error) return (

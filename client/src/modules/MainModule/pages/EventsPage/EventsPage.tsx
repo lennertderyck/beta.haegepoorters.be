@@ -44,7 +44,7 @@ const EventsPage: FC<Props> = () => {
                 <h1 className="page__title">Haegeprekerke</h1>
                 {/* <p>Onze weekelijkse activiteiten</p> */}
                 
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                     { Object.entries(groups).map(([ abbr, group ]) => (
                         <Button key={ abbr } theme="simple" to={ '../' + abbr }>
                             <span className={classNames(selectedGroup === abbr && 'border-b-2 border-red-500 pb-1')}>{ group.name }</span>

@@ -5,9 +5,11 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/nl-be';
 
 dayjs.extend(calendar);
+dayjs.extend(relativeTime)
 dayjs.locale('nl-be')
 
 const root = ReactDOM.createRoot(

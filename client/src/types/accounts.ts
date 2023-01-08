@@ -1,0 +1,1 @@
+export type OnboardingProcedures = 'platform_external' | 'site_config';
