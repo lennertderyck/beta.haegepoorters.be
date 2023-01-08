@@ -33,7 +33,8 @@ const useBaseAxios: UseBaseAxios = <Data,>(initialEndpoint: string, initialConfi
                 )) as AxiosResponse<Data>;
                                 
                 console.log('useBaseAxios.getData', endpoint, ('(See the collapsed log below for the request config)'));
-                console.groupCollapsed('config', e);
+                console.groupCollapsed('config', config);
+                console.groupCollapsed('response', res);
                 
                 if (isMounted.current) {
                     dispatch({ type: 'REQUEST_SUCCESS', payload: res.data });
