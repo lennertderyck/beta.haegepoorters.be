@@ -24,10 +24,7 @@ const useBaseAxios: UseBaseAxios = <Data,>(initialEndpoint: string, initialConfi
         async (
             endpoint?: string, 
             config?: AxiosRequestConfig
-        ) => {
-            console.log('useBaseAxios.getData', endpoint, ('(See the collapsed log below for the request config)'));
-            console.groupCollapsed(config);
-            
+        ) => {            
             dispatch({ type: 'REQUEST_INIT' });
             try {
                 const res = (await axios(
@@ -35,11 +32,17 @@ const useBaseAxios: UseBaseAxios = <Data,>(initialEndpoint: string, initialConfi
                     { ...axiosConfig, ...config },
                 )) as AxiosResponse<Data>;
                                 
+                console.log('useBaseAxios.getData', endpoint, ('(See the collapsed log below for the request config)'));
+                console.groupCollapsed('config', e);
+                
                 if (isMounted.current) {
                     dispatch({ type: 'REQUEST_SUCCESS', payload: res.data });
                     return res.data;
                 }
             } catch (e: ErrorType) {
+                console.log('useBaseAxios.getData', endpoint, ('(See the collapsed log below for the error)'));
+                console.groupCollapsed('error', e);
+                
                 if (isMounted.current) {
                     dispatch({ type: 'REQUEST_FAILED', payload: e });
                     throw new Error(e);
