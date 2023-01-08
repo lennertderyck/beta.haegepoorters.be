@@ -11,6 +11,10 @@ const useStoryblok: UseStoryBlok = <Data = any>(path: string, params?: any) => {
             params: {
                 ...params,
                 token: process.env['REACT_APP_STORYBLOK_API_KEY']
+            },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
         });
     }, [ path, params ]);

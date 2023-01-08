@@ -10,12 +10,14 @@ import { findFirstActivityToDoByDate } from '../../../../utils/funcs/algorithms/
 interface Props {};
 
 const HighlightedEvents: FC<Props> = () => {
-    const [{ data, loading: eventsLoading }] = useStoryblok<HaegeprekerekeContent>('cdn/stories', {
+    const [{ data, loading: eventsLoading, error }] = useStoryblok<HaegeprekerekeContent>('cdn/stories', {
         'starts_with': 'haegeprekerke/',
         'sort_by': 'first_published_at:desc',
         'page': '1',
         'per_page': '1',
     });
+    
+    console.log('HighlightedEvents', error)
     
     const activities = useMemo(() => {
         const kap = data?.stories?.[0]?.content.kap.sort(sortGroupActivitiesByDate).find(findFirstActivityToDoByDate);
