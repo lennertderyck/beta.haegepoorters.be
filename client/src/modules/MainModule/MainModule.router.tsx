@@ -28,7 +28,6 @@ const MainModuleRouter: RouteObject[] = [
                 { path: ':group', element: <EventsPage /> },
                 { path: 'edit', children: [
                     { index: true, element: <EventsEditPage /> },
-                    { path: ':group', element: <EventsEditDetailPage /> },
                 ]}
             ]},
             { path: 'blog', children: [
@@ -43,9 +42,12 @@ const MainModuleRouter: RouteObject[] = [
                 { path: 'onboarding', element: <OnboardingPage /> },
                 { path: 'digitale-lidkaart', element: <MemberCardPage /> },
             ]},
-            
             { path: '*', element: <RequestBySlugPage /> },
         ]
+    },
+    {
+        path: 'haegeprekerke/edit/:group',
+        element: <EventsEditDetailPage />
     }
 ];
 

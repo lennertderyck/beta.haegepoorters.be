@@ -7,6 +7,8 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/nl-be';
+import { RouterProvider } from 'react-router-dom';
+import router from './App.router';
 
 dayjs.extend(calendar);
 dayjs.extend(relativeTime)
@@ -17,7 +19,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={ router } />
   </React.StrictMode>
 );
 

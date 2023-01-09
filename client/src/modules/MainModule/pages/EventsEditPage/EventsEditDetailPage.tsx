@@ -23,7 +23,7 @@ const EventsEditDetailPage: FC<Props> = () => {
             <iframe
                 src={`https://docs.google.com/document/d/${ group?.activityEditorCode }/edit?rm=demo`}
                 width="100%" 
-                className="flex-1 min-h-screen"
+                className="flex-1"
             />
         </div>
     )
