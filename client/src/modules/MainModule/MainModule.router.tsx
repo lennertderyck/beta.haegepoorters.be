@@ -10,6 +10,8 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import MemberCardPage from "./pages/MemberCardPage/MemberCardPage";
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
+import EventsEditPage from "./pages/EventsEditPage/EventsEditPage";
+import EventsEditDetailPage from "./pages/EventsEditPage/EventsEditDetailPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -24,6 +26,10 @@ const MainModuleRouter: RouteObject[] = [
             { path: 'haegeprekerke', children: [
                 { index: true, element: <Navigate to="kap" replace /> },
                 { path: ':group', element: <EventsPage /> },
+                { path: 'edit', children: [
+                    { index: true, element: <EventsEditPage /> },
+                    { path: ':group', element: <EventsEditDetailPage /> },
+                ]}
             ]},
             { path: 'blog', children: [
                 { index: true, element: <BlogPage /> },
