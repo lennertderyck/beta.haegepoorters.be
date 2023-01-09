@@ -20,7 +20,6 @@ const App: FC<Props> = () => {
                     <div className="flex-1">
                         <Outlet />
                     </div>
-                    
                 </div>
             </div>
         </>

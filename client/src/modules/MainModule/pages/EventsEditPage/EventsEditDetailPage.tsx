@@ -14,7 +14,7 @@ const EventsEditDetailPage: FC<Props> = () => {
     return (
         <div className="page page--blank page--hide-footer h-full flex flex-col">
             <div className="sticky top-0 bg-white flex items-center gap-4 border-b-2 border-gray-200">
-                <Link to=".." className="p-4 flex items-center gap-4 bg-red-100 text-red-500">
+                <Link to=".." relative="path" className="p-4 flex items-center gap-4 bg-red-100 text-red-500">
                     <Icon name="arrow-left" />
                     <span className="uppercase text-sm tracking-widest font-semibold">Terug naar overzicht</span>
                 </Link>
