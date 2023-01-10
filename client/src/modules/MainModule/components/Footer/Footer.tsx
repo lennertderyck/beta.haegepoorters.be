@@ -7,7 +7,7 @@ interface Props {};
 const Footer: FC<Props> = () => {
     return (
         <footer>
-            <div className="bg-stone-50 px-8 2xl:px-0">
+            {/* <div className="bg-stone-50 px-8 2xl:px-0">
                 <div className="container py-4">
                     <div className="flex items-center justify-between gap-6">
                         <div className="flex items-center gap-4">
@@ -23,7 +23,7 @@ const Footer: FC<Props> = () => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="bg-gray-200 px-8 2xl:px-0">
                 <div className="container py-8">
                     <div className="grid grid-cols-12 gap-6 lg:gap-0">
