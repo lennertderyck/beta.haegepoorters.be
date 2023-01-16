@@ -1,6 +1,6 @@
-import { FC, useMemo } from 'react';
-import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
-import { useAxios } from '../../../../utils/hooks';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useLoaderData, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useAxios, useEffectOnce } from '../../../../utils/hooks';
 import { EditionActivity } from '../../../../types/content';
 import ControlledForm from '../../../../components/basics/ControlledForm/ControlledForm';
 import Input from '../../../../components/basics/Input/Input';
@@ -15,12 +15,14 @@ import useLazyAxios from '../../../../utils/hooks/useAxios/useLazyAxios';
 import classNames from 'classnames';
 import { Group } from '../../../../types/general';
 import groups from '../../../../utils/data/groups';
+import FormContent from './FormContent';
 
 interface Props {
     createNew?: boolean;
 };
 
 const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
+    const formRef = useRef<HTMLFormElement | null>(null);
     const navigate = useNavigate();
     const params = useParams<any>();
     const group = groups[params.group as keyof typeof groups];
@@ -36,14 +38,8 @@ const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
         }
     });
     
-    const handleResetAndCancel = () => {
-        navigate('..', {
-            relative: 'path'
-        });
-    }
-        
-    const handleEventSaving = async (data: any) => {
-        console.log(data);
+    const handleEventSaving = async ({ saveAndCreate, ...data }: any) => {
+        let createdOrUpdated = null;
         const transformedData = {
             ...data,
             start: dayjs(data.start).format('YYYY-MM-DD'),
@@ -51,24 +47,31 @@ const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
         };
                 
         if (createNew) {
-            await createEvent(transformedData);
+            createdOrUpdated = await createEvent(transformedData);
         } else {
-            await updateEvent(transformedData);
+            createdOrUpdated = await updateEvent(transformedData);
         }
-        
-        navigate('..', {
+                
+        navigate(saveAndCreate ? '../new?fromCreated=true&refferer=' + createdOrUpdated.id : '..', {
             relative: 'path'
         });
-    }
+    };
     
     const defaultValues = useMemo<Partial<EditionActivity> | undefined>(() => {
         if (createNew) return {
             start: dayjs().format('YYYY-MM-DD'),
             multiple: false,
         }
-        else return event;
-    }, [createNew, event])
-    
+        else if (event) return {
+            title: event.title,
+            multiple: event.multiple,
+            start: event.start,
+            end: event.end,
+            description: event.description,
+        }
+        else return {}
+    }, [createNew, event]);
+        
     if (loading && !createNew) return <>Loading</>
     return (
         <div className="page page--wide">
@@ -78,6 +81,7 @@ const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
             </div>
             <div className="page__content">
                 <ControlledForm 
+                    ref={ formRef }
                     onSubmit={ handleEventSaving } 
                     className={classNames(
                         'flyover', 
@@ -86,49 +90,7 @@ const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
                     }
                     defaultValues={defaultValues}
                 >
-                    <div className="flyover__bridge">
-                        <div className="mx-auto w-fit"><Loader /></div>
-                        <p className="text-center mt-3">Content inladen</p>
-                    </div>
-                    <div className="flyover__main grid grid-cols-12 lg:gap-24">
-                        <div className="col-span-12 lg:col-span-7">
-                            <label className="mb-4">
-                                <span>Titel</span>
-                                <Input name="title" required />
-                            </label>
-                            <label className="mb-4 !flex gap-2 items-center">
-                                <Input type="checkbox" name="multiple" />
-                                <span>Meerdere dagen?</span>
-                            </label>
-                            <div className="grid grid-cols-2 gap-4 mb-4">
-                                <DateEditor />
-                            </div>
-                            <DescriptionEditor defaultValue={ event?.description } /> 
-                            <div className="mt-4 flex flex-col lg:flex-row items-center justify-between gap-6">    
-                                <div className="flex items-center gap-3">
-                                    <div>
-                                        <Button type="submit" icon="check" iconPlacement="start">Opslaan</Button>
-                                    </div>
-                                    <div>
-                                        <Button type="submit" theme="simple" name="new" disabled>Opslaan & nieuw</Button>
-                                    </div>
-                                </div>
-                                <div className="flex items-center divide-x-2 divide-gray-300">
-                                    <div className="pr-3">
-                                        <Button type="reset" theme="simple" onClick={ handleResetAndCancel }>Annuleren</Button>
-                                    </div>
-                                    <div className="pl-3">
-                                        <Button theme="simple" icon="delete-bin-6" disabled onClick={ handleResetAndCancel }>Verwijderen</Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-span-12 lg:col-span-5 hidden lg:block">
-                            <div className="mb-6">
-                                <PreviewCard defaultValues={event || {}} />
-                            </div>
-                        </div>
-                    </div>
+                    <FormContent event={ event } createNew={ createNew } />
                 </ControlledForm>
             </div>
         </div>

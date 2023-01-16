@@ -39,7 +39,7 @@ const EventsEditorGroupPage: FC<Props> = () => {
             <div className="page__content">
                 { editionsLoading ? (
                     <div className="flex items-center gap-3 w-fit">
-                        <div className="label text-sm">Activiteiten ophalen</div>
+                        <div className="label text-sm">Haegeprekerkes ophalen</div>
                         <div className="w-fit"><Loader size="1.3rem" /></div>
                     </div>
                 ) : (
