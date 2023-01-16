@@ -12,7 +12,7 @@ const EventsEditorGroupPage: FC<Props> = () => {
     const loaderGroupData = useLoaderData() as Group;
     const navigate = useNavigate();
     const params = useParams<any>();
-    const { data: editions, loading: editionsLoading } = useAxios<Edition[]>('http://localhost:4000/editions');
+    const { data: editions, loading: editionsLoading } = useAxios<Edition[]>(process.env['REACT_APP_BACKEND_URL'] + '/editions');
     
     useEffect(() => {
         if (!!!params.edition && editions) {

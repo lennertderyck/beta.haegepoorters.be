@@ -8,7 +8,7 @@ interface Props {};
 
 const EventsEditorEditonPage: FC<Props> = () => {
     const params = useParams<any>();
-    const { data: activities, refetch, loading } = useAxios<EditionActivity[]>('http://localhost:4000/activities', {
+    const { data: activities, refetch, loading } = useAxios<EditionActivity[]>(process.env['REACT_APP_BACKEND_URL'] + '/activities', {
         params: {
             edition: params.edition,
             group: params.group

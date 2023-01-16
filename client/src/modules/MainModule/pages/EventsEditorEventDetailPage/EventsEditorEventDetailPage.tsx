@@ -24,11 +24,11 @@ const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
     const navigate = useNavigate();
     const params = useParams<any>();
     const group = groups[params.group as keyof typeof groups];
-    const { data: event, loading } = useAxios<EditionActivity>('http://localhost:4000/activities/' + params.event);
-    const [ updateEvent, { loading: updatingEvent }] = useLazyAxios('http://localhost:4000/activities/' + params.event, {
+    const { data: event, loading } = useAxios<EditionActivity>(process.env['REACT_APP_BACKEND_URL'] + '/activities/' + params.event);
+    const [ updateEvent, { loading: updatingEvent }] = useLazyAxios(process.env['REACT_APP_BACKEND_URL'] + '/activities/' + params.event, {
         method: 'PATCH'
     });
-    const [ createEvent, { loading: creatingEvent }] = useLazyAxios('http://localhost:4000/activities/', {
+    const [ createEvent, { loading: creatingEvent }] = useLazyAxios(process.env['REACT_APP_BACKEND_URL'] + '/activities/', {
         method: 'POST',
         params: {
             group: group.airtableId,
