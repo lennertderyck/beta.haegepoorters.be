@@ -21,9 +21,6 @@ const EventsEditorEditonPage: FC<Props> = () => {
         
     return (
         <>
-            <div className="flex items-center justify-end">
-                <Button icon="add" to="new">Activiteit toevoegen</Button>
-            </div>
             { activities?.length === 0 && <p className="text-stone-400">Geen activiteiten gevonden</p>}
             { loading ? (
                 <div className="flex items-center gap-3 w-fit">

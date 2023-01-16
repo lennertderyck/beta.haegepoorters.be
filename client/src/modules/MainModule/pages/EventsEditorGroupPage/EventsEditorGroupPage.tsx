@@ -4,7 +4,7 @@ import { Edition } from '../../../../types/content';
 import { Outlet, useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import EditionNavButton from './EditionNavButton';
 import { Group } from '../../../../types/general';
-import { Button, Loader } from '../../../../components/basics';
+import { Button, Date, Loader } from '../../../../components/basics';
 
 interface Props {};
 
@@ -14,12 +14,13 @@ const EventsEditorGroupPage: FC<Props> = () => {
     const params = useParams<any>();
     const { data: editions, loading: editionsLoading } = useAxios<Edition[]>(process.env['REACT_APP_BACKEND_URL'] + '/editions');
     
+    const firstEditon = editions?.[0];
+    
     useEffect(() => {
-        if (!!!params.edition && editions) {
-            const firstEditon = editions[0];
+        if (!!!params.edition && firstEditon) {
             navigate(firstEditon.id);
         }
-    }, [editions, params.edition]);
+    }, [firstEditon, params.edition]);
         
     return (
         <div className="page">
@@ -45,6 +46,19 @@ const EventsEditorGroupPage: FC<Props> = () => {
                 ) : (
                     <>
                         {!!!params.edition && <p className="text-gray-400">Selecteer een editie om te beginnen</p>}
+                        <div className="flex items-start justify-between mb-6">
+                            <div>
+                                { editions?.length === 1 && (
+                                    <>
+                                        <h3 className="text-red-500 font-serif">
+                                            <span className="capitalize"><Date format="MMMM">{ firstEditon?.start }</Date></span> tot <span className="capitalize"><Date format="MMMM">{ firstEditon?.end }</Date></span>
+                                        </h3>
+                                        <p><Date format="DD/MM">{ firstEditon?.start }</Date> - <Date format="DD/MM">{ firstEditon?.end }</Date></p>
+                                    </>
+                                )}
+                            </div>
+                            <Button icon="add" to="new" relative="path">Activiteit toevoegen</Button>
+                        </div>
                         <Outlet />
                     </>
                 )}
