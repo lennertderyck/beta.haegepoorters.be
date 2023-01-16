@@ -12,6 +12,10 @@ h3 {
     @apply text-2xl font-serif;
 }
 
+.label {
+    @apply uppercase text-xs tracking-wider font-medium;
+}
+
 .content {
     * {
         line-height: 1.7rem;

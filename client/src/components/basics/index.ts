@@ -10,3 +10,4 @@ export { default as Img } from './Img/Img';
 export { default as ShareButton } from './ShareButton/ShareButton';
 export { default as Loader } from './Loader/Loader';
 export { default as AccountOnBoardingCard } from './AccountOnBoardingCard/AccountOnBoardingCard';
+export { default as MarkdownEditor } from './MarkdownEditor/MarkdownEditor';

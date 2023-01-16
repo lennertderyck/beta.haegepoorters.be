@@ -12,6 +12,11 @@ import MemberCardPage from "./pages/MemberCardPage/MemberCardPage";
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
 import EventsEditPage from "./pages/EventsEditPage/EventsEditPage";
 import EventsEditDetailPage from "./pages/EventsEditPage/EventsEditDetailPage";
+import EventsEditorGroupPage from "./pages/EventsEditorGroupPage/EventsEditorGroupPage";
+import EventsEditorEditonPage from "./pages/EventsEditorEditonPage/EventsEditorEditonPage";
+import EventsEditorEventDetailPage from "./pages/EventsEditorEventDetailPage/EventsEditorEventDetailPage";
+import EventEditorPage from "./pages/EventEditorPage/EventEditorPage";
+import groupDataLoader from "../../utils/funcs/routingLoaders/groupData";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -28,6 +33,18 @@ const MainModuleRouter: RouteObject[] = [
                 { path: ':group', element: <EventsPage /> },
                 { path: 'edit', children: [
                     { index: true, element: <EventsEditPage /> },
+                ]},
+                { path: 'editor', children: [
+                    { index: true, element: <EventEditorPage />},
+                    { path: ':group', loader: groupDataLoader, element: <EventsEditorGroupPage />, children: [
+                        { path: ':edition', children: [
+                            { index: true, element: <EventsEditorEditonPage />},
+                        ]}
+                    ]},
+                    { path: ':group/:edition', children: [
+                        { path: ':event', element: <EventsEditorEventDetailPage /> },
+                        { path: 'new', element: <EventsEditorEventDetailPage createNew />},
+                    ]}
                 ]}
             ]},
             { path: 'blog', children: [

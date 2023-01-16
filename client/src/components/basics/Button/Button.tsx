@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC, useCallback } from 'react';
 import Icon from '../Icon/Icon';
 import { className } from '../../../utils/funcs/dom';
 import ButtonBase from './ButtonBase';
-import { useNavigate } from 'react-router-dom';
+import { RelativeRoutingType, useNavigate } from 'react-router-dom';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
@@ -11,9 +11,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     icon?: string;
     iconPlacement?: 'start' | 'end';
     theme?: 'button' | 'simple';
+    relative?: RelativeRoutingType;
 };
 
-const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = 'end', className: cls, to, onClick, href, target, ...otherProps }) => {
+const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = 'end', className: cls, to, onClick, href, target, relative, ...otherProps }) => {
     const navigate = useNavigate();
     
     const iconClasses = [
@@ -26,7 +27,7 @@ const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = '
     }
     
     const handleClick = useCallback((event: any) => {
-        if (to) navigate(to);
+        if (to) navigate(to, { relative });
         else if (href) window.open(href, target || '_blank');
         else if (onClick) onClick(event);
     }, [ to, href, onClick ])
@@ -38,7 +39,8 @@ const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = '
                 'gap-1.5',
                 cls,
                 iconClasses,
-                themes[theme]
+                themes[theme],
+                otherProps.disabled && 'opacity-50'
             )} 
             { ...otherProps }
         >

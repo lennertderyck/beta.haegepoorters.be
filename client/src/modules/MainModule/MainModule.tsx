@@ -6,12 +6,16 @@ import MainNavigation from './components/MainNavigation/MainNavigation';
 interface Props {};
 
 const MainModule: FC<Props> = () => {
-    return (<>
-        <Outlet />
-        <div className="mt-12 lg:mt-24">
-            <Footer />
-        </div>
-    </>)
+    return (
+        <>
+            <div className="flex-1">
+                <Outlet />
+            </div>
+            <div className="mt-12 lg:mt-24">
+                <Footer />
+            </div>
+        </>
+    )
 }
 
 export default MainModule;

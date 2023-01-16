@@ -10,7 +10,7 @@ interface Props extends PropsWithChildren, FormHTMLAttributes<HTMLFormElement> {
 
 const ControlledForm: FC<Props> = ({children, onSubmit, className, defaultValues, ...otherProps}) => {
   const methods = useForm({ 
-    defaultValues
+    defaultValues,
   });
 
   return (

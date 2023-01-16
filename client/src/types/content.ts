@@ -60,3 +60,23 @@ export interface Page extends StoryBlokContentBlock<{
     descr_short: string;
     quick_actions: any[];
 }> {};
+
+export interface Edition {
+    id: string;
+    title: string;
+    start: string;
+    end: string;
+    due: string;
+};
+
+export interface EditionActivity {
+    id: string,
+    start: string,
+    title: string,
+    editions: [string],
+    group: [string],
+    edition_id: [string]
+    multiple: boolean;
+    end: string;
+    description: string;
+}

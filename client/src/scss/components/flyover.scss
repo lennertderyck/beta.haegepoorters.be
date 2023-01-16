@@ -1,4 +1,40 @@
 .flyover {
-    &__main {}
-    &__bridge {}
+    --visible: hidden;
+    position: relative;
+    
+    &--active {
+        --visible: visible;
+    }
+    
+    &--active &__main {
+        @apply blur-sm;
+    }
+    
+    &__main {
+        @apply blur-none;
+        
+        &::after {
+            visibility: var(--visible);
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: white;
+            opacity: .7;
+            @apply z-20;
+        }
+    }
+    
+    &__bridge {
+        visibility: var(--visible);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        box-shadow: 
+            0px 0px 37px 7px #00000012,
+            0px 0px 9px 2px #00000005
+        ;
+        @apply p-8 rounded-lg z-30;
+    }
 }
