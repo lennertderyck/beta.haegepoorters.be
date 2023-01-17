@@ -57,7 +57,7 @@ const EventsEditorGroupPage: FC<Props> = () => {
                                     </>
                                 )}
                             </div>
-                            <Button icon="add" to={`/haegeprekerke/editor/wel/${ params.edition }/new`} relative="path">Activiteit toevoegen</Button>
+                            <Button icon="add" to={`/haegeprekerke/editor/${ params.group }/${ params.edition }/new`} relative="path">Activiteit toevoegen</Button>
                         </div>
                         <Outlet />
                     </>
