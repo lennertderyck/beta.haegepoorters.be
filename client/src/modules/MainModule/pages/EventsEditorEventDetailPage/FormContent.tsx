@@ -3,14 +3,14 @@ import { Button, Loader } from '../../../../components/basics';
 import Input from '../../../../components/basics/Input/Input';
 import DescriptionEditor from './DescriptionEditor';
 import DateEditor from './DateEditor';
-import { EditionActivity } from '../../../../types/content';
+import { Event } from '../../../../types/content';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import PreviewCard from './PreviewCard';
 import { useEffectOnce } from '../../../../utils/hooks';
 import { useFormContext } from 'react-hook-form';
 
 interface Props {
-    event: EditionActivity | undefined;
+    event: Event | undefined;
     createNew: boolean;
 };
 

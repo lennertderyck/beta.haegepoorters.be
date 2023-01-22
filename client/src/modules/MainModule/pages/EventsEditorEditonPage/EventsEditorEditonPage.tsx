@@ -1,14 +1,15 @@
 import { FC, useEffect } from 'react';
 import { useAxios } from '../../../../utils/hooks';
 import { useParams } from 'react-router-dom';
-import { EditionActivity } from '../../../../types/content';
+import { Event } from '../../../../types/content';
 import { Button, Date, Loader } from '../../../../components/basics';
+import { sortGroupEventsByDate } from '../../../../utils/funcs/algorithms/sorting';
 
 interface Props {};
 
 const EventsEditorEditonPage: FC<Props> = () => {
     const params = useParams<any>();
-    const { data: activities, refetch, loading } = useAxios<EditionActivity[]>(process.env['REACT_APP_BACKEND_URL'] + '/activities', {
+    const { data: activities, refetch, loading } = useAxios<Event[]>(process.env['REACT_APP_BACKEND_URL'] + '/activities', {
         params: {
             edition: params.edition,
             group: params.group
@@ -29,7 +30,7 @@ const EventsEditorEditonPage: FC<Props> = () => {
                 </div>
             ): (
                 <ul className="list mt-6">
-                    { activities?.map((activity) => (
+                    { activities?.sort(sortGroupEventsByDate).map((activity) => (
                         <li
                             key={ activity.id }
                             className="list__item flex items-center justify-between"

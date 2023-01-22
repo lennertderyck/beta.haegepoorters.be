@@ -47,7 +47,7 @@ const StartPage: FC<Props> = () => {
                     <HeroBanner />
                 </div>
                 <div className="page__content mt-12">
-                    <h3 className="section-title mb-5">Komt ook van pas ...</h3>
+                    <h3 className="section-title">Komt ook van pas ...</h3>
                     <RelatedLinks />
                 </div>
             </div>

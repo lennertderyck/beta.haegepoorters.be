@@ -3,46 +3,39 @@ import { Button, Date } from '../../../../components/basics';
 import groups from '../../../../utils/data/groups';
 import classNames from 'classnames';
 import { useParams } from 'react-router-dom';
-import { useStoryblok } from '../../../../utils/hooks';
-import { HaegeprekerekeContent } from '../../../../types/content';
+import { useAxios } from '../../../../utils/hooks';
+import { Event } from '../../../../types/content';
 import EventItem from './EventItem';
 import EventItemLoader from './EventItemLoader';
-import { StoryBlokResponse } from '../../../../utils/hooks/useStoryblok/useStoryblok.types';
 import dayjs from 'dayjs';
+import { sortGroupEventsByDate } from '../../../../utils/funcs/algorithms/sorting';
 
 interface Props {};
 
 const EventsPage: FC<Props> = () => {
     const params = useParams<any>();
     const selectedGroup = useMemo(() => params.group || 'kap', [ params.group ])
-    const [{ data, loading: eventsLoading }] = useStoryblok<HaegeprekerekeContent>('cdn/stories', {
-        'starts_with': 'haegeprekerke/',
-        'sort_by': 'first_published_at:desc',
-        'page': '1',
-        'per_page': '1',
-    });
+    const { data: events, loading: eventsLoading, error: eventsLoadingError, refetch: refetchEvents } = useAxios<Event[]>(process.env['REACT_APP_BACKEND_URL'] + '/timeline?edition=rectXxRJDT3524FYe');
     
-    
-    const activities = useMemo(() => {
-        const kap = data?.stories?.[0]?.content.kap;
-        const wel = data?.stories?.[0]?.content.wel;
-        const wol = data?.stories?.[0]?.content.wol;
-        const jgv = data?.stories?.[0]?.content.jgv;
-        const giv = data?.stories?.[0]?.content.giv;
+    const groupedEvents = useMemo(() => {
+        const kap = events?.filter((event) => event.group_shortcodes.includes('kap')).sort(sortGroupEventsByDate);
+        const wel = events?.filter((event) => event.group_shortcodes.includes('wel')).sort(sortGroupEventsByDate);
+        const wol = events?.filter((event) => event.group_shortcodes.includes('wol')).sort(sortGroupEventsByDate);
+        const jgv = events?.filter((event) => event.group_shortcodes.includes('jgv')).sort(sortGroupEventsByDate);
+        const giv = events?.filter((event) => event.group_shortcodes.includes('giv')).sort(sortGroupEventsByDate);
         
         return {
             kap, wel, wol, jgv, giv
-        }
-    }, [data?.stories?.[0].content]);
-    
-    const activitiesToRender = useMemo(() => activities?.[selectedGroup as keyof typeof activities], [activities, selectedGroup]);
-    const activitiesAvailable = useMemo(() => !eventsLoading && activitiesToRender?.length !== 0, [eventsLoading, activitiesToRender])
-    
+        };
+    }, [events]);
+        
+    const eventsToRender = useMemo(() => groupedEvents?.[selectedGroup as keyof typeof groupedEvents], [groupedEvents, selectedGroup]);
+    const eventsAvailable = useMemo(() => eventsToRender?.length !== 0, [eventsToRender]);
+        
     return (
         <div className="page">
             <div className="page__header">
                 <h1 className="page__title">Haegeprekerke</h1>
-                {/* <p>Onze weekelijkse activiteiten</p> */}
                 
                 <div className="flex flex-wrap gap-4">
                     { Object.entries(groups).map(([ abbr, group ]) => (
@@ -54,24 +47,33 @@ const EventsPage: FC<Props> = () => {
             </div>
             
             <div className="page__content">
-                { !activitiesAvailable && (
+                { !eventsLoading && !eventsAvailable && (
                     <p className="text-gray-400">
                         Geen activiteiten om weer te geven
                     </p>
                 )}
+                { eventsLoadingError && (
+                    <div className="flex items-center justify-between p-6 rounded-lg bg-gray-50">
+                        <p>
+                            Er ging iets mis bij het laden
+                        </p>
+                        <Button theme="simple" icon="restart" onClick={() => refetchEvents()}>Opnieuw proberen</Button>
+                    </div>
+                )}
                 { eventsLoading ? <EventItemLoader /> : (
                     <ul className="ml-2">
-                        { activitiesToRender?.map((activity) => {
-                            const isPassed = dayjs(dayjs()).isAfter(dayjs(activity.period.start), 'day');
+                        { eventsToRender?.map((event) => {
+                            const isPassed = dayjs(dayjs()).isAfter(dayjs(event.start), 'day');
                             
                             return (
                                 <li 
+                                    key={ event.id }
                                     className={classNames(
                                         'group', 
                                         isPassed && 'opacity-60',
                                     )}
                                 >
-                                    <EventItem key={ activity._uid } activity={ activity } />
+                                    <EventItem key={ event.id } event={ event }/>
                                 </li>
                             )
                         })}

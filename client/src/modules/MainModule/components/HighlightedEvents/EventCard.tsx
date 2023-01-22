@@ -1,57 +1,52 @@
 import { FC, useMemo, useState } from 'react';
-import { Activity } from '../../../../types/content';
-import { Button, ExpansionPane, Icon } from '../../../../components/basics';
-import useContentResolver from '../../../../utils/hooks/useContentResolver/useContentResolver';
+import { Event } from '../../../../types/content';
+import { Button, Date, ExpansionPane, Icon } from '../../../../components/basics';
 import { GroupAbbrev } from '../../../../types/general';
 import groups from '../../../../utils/data/groups';
 
 interface Props {
     group: GroupAbbrev;
-    activity: Activity | undefined;
+    event: Event | undefined;
 };
 
-const EventCard: FC<Props> = ({ activity, group }) => {
-    const content = useContentResolver(activity?.descr);
-    const parsedText = useMemo(() => {
-        const parsedHTML = new DOMParser().parseFromString(content.raw, 'text/html');
-        if (parsedHTML?.body?.textContent) {
-            return parsedHTML?.body?.textContent.substring(0, 200)
-        }
-    }, [ content.raw ]);
-    const length = useMemo(() => {
-        return parsedText ? parsedText.length : 0;
-    }, [parsedText]);
-    
+const EventCard: FC<Props> = ({ event, group }) => {        
     const [ open, setOpen ] = useState(false);
     
-    const groupName = useMemo(() => {
-        return groups[group].name
-    }, [ group ])
+    const maxContentLength = 150;
     
-    if (!activity) return null;
-            
+    const contentLength = useMemo(() => {
+        return event?.description ? event.description.length : 0;
+    }, [event?.description]); 
+    const eventDescription = useMemo(() => {
+        return event?.description.substring(0, maxContentLength)
+    }, [event?.description])
+    const groupName = useMemo(() => {
+        return groups[group].name;
+    }, [group])
+        
+    if (!event) return null;
     return (
         <div 
             className="flex bg-gray-100 px-6 py-4 border-b-2 gap-6 cursor-pointer"
         >
             <div onClick={() => setOpen(s => !s)}>
                 <div className="-mb-2 text-center text-gray-400 relative">
-                    <span className="font-bold text-3xl">14</span>
-                    { activity.period.multiple && <span className="font-semibold absolute -right-2 top-1/2 -translate-y-1/2">+</span>}
+                    <span className="font-bold text-3xl"><Date format="DD">{ event.start }</Date></span>
+                    { event.multiple && <span className="font-semibold absolute -right-2 top-1/2 -translate-y-1/2">+</span>}
                 </div>
-                <div className="text-center font-serif uppercase text-gray-400">Jan</div>
+                <div className="text-center font-serif uppercase text-gray-400"><Date format="MMM">{ event.start }</Date></div>
             </div>
             <div className="flex-1">
                 <div onClick={() => setOpen(s => !s)}>
-                    <h4 className="font-semibold text-xl">{ activity.title }</h4>
+                    <h4 className="font-semibold text-xl">{ event.title }</h4>
                     <h5 className="text-xs uppercase tracking-wider font-medium whitespace-nowrap">{ groupName }</h5>
                 </div>
                 
-                { length !== 0 && (
+                { contentLength !== 0 && (
                     <div className="-my-2">
                         <ExpansionPane active={ open }>
                             <div className="xl:max-w-[75%]" onClick={() => setOpen(s => !s)}>
-                                <p className="mt-2 font-serif leading-5">{ parsedText }{ length >= 200 && '...'}</p>
+                                <p className="mt-2 font-serif leading-5">{ eventDescription }{ contentLength >= maxContentLength && '...'}</p>
                             </div>
                             <Button to={ '/haegeprekerke/' + group } theme="simple" className="mt-3" icon="arrow-right">Lees meer</Button>
                         </ExpansionPane>

@@ -61,4 +61,13 @@ api.patch('/activities/:id', async (req, res) => {
     })
 })
 
+api.get('/timeline', async (req, res) => {
+    const data = await getActivitiesByEdition(req.query.edition);
+    const f = await data.map((d) => ({
+        id: d.id,
+        ...d.fields,
+    }));
+    res.send(f);
+})
+
 export default api;

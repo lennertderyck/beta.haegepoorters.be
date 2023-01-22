@@ -10,6 +10,19 @@ export interface Activity extends StoryBlokContentBlock<{
     }>
 }> {};
 
+export interface Event {
+    id: string;
+    start: string;
+    end: string | undefined;
+    description: string;
+    title: string;
+    multiple: boolean;
+    editions: [string],
+    group: [string],
+    edition_id: [string],
+    group_shortcodes: [string]
+}
+
 export interface HaegeprekerekeContent {
     descr: any;
     

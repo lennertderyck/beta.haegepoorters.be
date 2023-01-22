@@ -24,7 +24,7 @@ export const getActivitiesByEdition = async (editionId: string) => {
 }
 export const getActivitiesByEditionAndGroup = async (editionId: string, groupShortcode: string) => {
     return await base('activities').select({
-        filterByFormula: `AND({edition_id} = "${ editionId }", {group_shortcode} = "${ groupShortcode }")`,
+        filterByFormula: `AND({edition_id} = "${ editionId }", {group_shortcodes} = "${ groupShortcode }")`,
     }).all();
 }
 export const getActivityById = async (activityId: string) => {

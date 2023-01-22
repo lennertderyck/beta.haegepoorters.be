@@ -1,19 +1,11 @@
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useLoaderData, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useAxios, useEffectOnce } from '../../../../utils/hooks';
-import { EditionActivity } from '../../../../types/content';
+import { FC, useMemo, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAxios } from '../../../../utils/hooks';
+import { Event } from '../../../../types/content';
 import ControlledForm from '../../../../components/basics/ControlledForm/ControlledForm';
-import Input from '../../../../components/basics/Input/Input';
-import { useFormContext } from 'react-hook-form';
-import { Button, ExpansionPane, Loader, MarkdownEditor } from '../../../../components/basics';
-import TextArea from '../../../../components/basics/TextArea/TextArea';
-import DateEditor from './DateEditor';
-import DescriptionEditor from './DescriptionEditor';
-import PreviewCard from './PreviewCard';
 import dayjs from 'dayjs';
 import useLazyAxios from '../../../../utils/hooks/useAxios/useLazyAxios';
 import classNames from 'classnames';
-import { Group } from '../../../../types/general';
 import groups from '../../../../utils/data/groups';
 import FormContent from './FormContent';
 
@@ -26,7 +18,7 @@ const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
     const navigate = useNavigate();
     const params = useParams<any>();
     const group = groups[params.group as keyof typeof groups];
-    const { data: event, loading } = useAxios<EditionActivity>(process.env['REACT_APP_BACKEND_URL'] + '/activities/' + params.event);
+    const { data: event, loading } = useAxios<Event>(process.env['REACT_APP_BACKEND_URL'] + '/activities/' + params.event);
     const [ updateEvent, { loading: updatingEvent }] = useLazyAxios(process.env['REACT_APP_BACKEND_URL'] + '/activities/' + params.event, {
         method: 'PATCH'
     });
@@ -57,7 +49,7 @@ const EventsEditorEventDetailPage: FC<Props> = ({ createNew = false }) => {
         });
     };
     
-    const defaultValues = useMemo<Partial<EditionActivity> | undefined>(() => {
+    const defaultValues = useMemo<Partial<Event> | undefined>(() => {
         if (createNew) return {
             start: dayjs().format('YYYY-MM-DD'),
             multiple: false,

@@ -3,12 +3,12 @@ import EventItem from '../EventsPage/EventItem';
 import classNames from 'classnames';
 import { useFormContext } from 'react-hook-form';
 import { Date, ExpansionPane } from '../../../../components/basics';
-import { EditionActivity } from '../../../../types/content';
+import { EditionActivity, Event } from '../../../../types/content';
 import EventItemLoader, { EventItemSkeleton } from '../EventsPage/EventItemLoader';
 import dayjs from 'dayjs';
 
 interface Props {
-    defaultValues: Partial<EditionActivity>;
+    defaultValues: Partial<Event>;
 };
 
 const PreviewCard: FC<Props> = ({ defaultValues }) => {
