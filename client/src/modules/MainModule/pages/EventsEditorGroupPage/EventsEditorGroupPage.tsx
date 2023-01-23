@@ -15,7 +15,7 @@ const EventsEditorGroupPage: FC<Props> = () => {
     const params = useParams<any>();
     const { data: editions, loading: editionsLoading } = useAxios<Edition[]>(process.env['REACT_APP_BACKEND_URL'] + '/editions');
     
-    const firstEditon = editions?.[0];
+    const firstEditon = editions?.sort(sortEventEditionsByStartDate)?.[0];
     
     useEffect(() => {
         if (!!!params.edition && firstEditon) {
