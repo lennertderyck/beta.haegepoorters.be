@@ -5,6 +5,7 @@ import { Outlet, useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import EditionNavButton from './EditionNavButton';
 import { Group } from '../../../../types/general';
 import { Button, Date, Loader } from '../../../../components/basics';
+import { sortEventEditionsByStartDate } from '../../../../utils/funcs/algorithms/sorting';
 
 interface Props {};
 
@@ -21,6 +22,8 @@ const EventsEditorGroupPage: FC<Props> = () => {
             navigate(firstEditon.id);
         }
     }, [firstEditon, params.edition]);
+    
+    const selectedEditon = editions?.find((edition) => edition?.id === params.edition);
         
     return (
         <div className="page">
@@ -29,7 +32,7 @@ const EventsEditorGroupPage: FC<Props> = () => {
                 <h1 className="page__title mt-12">{ loaderGroupData.name }</h1>
                 { editions && editions?.length > 1 && (
                     <ul className="flex flex-wrap gap-4">
-                        { editions?.map((edition) => (
+                        { editions?.sort(sortEventEditionsByStartDate).map((edition) => (
                             <li key={ edition.id }>
                                 <EditionNavButton edition={ edition } />
                             </li>
@@ -57,8 +60,17 @@ const EventsEditorGroupPage: FC<Props> = () => {
                                     </>
                                 )}
                             </div>
-                            <Button icon="add" to={`/haegeprekerke/editor/${ params.group }/${ params.edition }/new`} relative="path">Activiteit toevoegen</Button>
+                            {
+                                selectedEditon && selectedEditon?.editable && (
+                                    <Button icon="add" to={`/haegeprekerke/editor/${ params.group }/${ params.edition }/new`} relative="path">Activiteit toevoegen</Button>
+                                )
+                            }
                         </div>
+                        { selectedEditon && !selectedEditon?.editable && (
+                            <div className="p-6 rounded-lg bg-gray-100 text-sm">
+                                Je kan deze editie (nog) niet bewerken
+                            </div>
+                        )}
                         <Outlet />
                     </>
                 )}

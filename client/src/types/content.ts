@@ -80,6 +80,7 @@ export interface Edition {
     start: string;
     end: string;
     due: string;
+    editable: boolean | undefined;
 };
 
 export interface EditionActivity {
