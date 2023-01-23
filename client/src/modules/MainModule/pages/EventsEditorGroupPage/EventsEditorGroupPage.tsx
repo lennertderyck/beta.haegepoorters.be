@@ -29,7 +29,7 @@ const EventsEditorGroupPage: FC<Props> = () => {
         <div className="page">
             <div className="page__header">
                 <Button to="/haegeprekerke/editor" icon="arrow-left" iconPlacement="start">Overzicht groepen</Button>
-                <h1 className="page__title mt-12">{ loaderGroupData.name }</h1>
+                <h1 className="page__title mt-12">{ loaderGroupData.name } bewerken</h1>
                 { editions && editions?.length > 1 && (
                     <ul className="flex flex-wrap gap-4">
                         { editions?.sort(sortEventEditionsByStartDate).map((edition) => (

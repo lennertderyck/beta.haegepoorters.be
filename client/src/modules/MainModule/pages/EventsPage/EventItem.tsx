@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Date } from '../../../../components/basics';
+import { Button, Date } from '../../../../components/basics';
 import { Activity, Event } from '../../../../types/content';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
@@ -7,17 +7,24 @@ import useContentResolver from '../../../../utils/hooks/useContentResolver/useCo
 
 interface Props {
     event: Event;
+    mode?: 'preview' | 'editor';
 };
 
 export const activityIsPassed = (date: string) => dayjs(dayjs()).isAfter(dayjs(date), 'day');
 
-const EventItem: FC<Props> = ({ event }) => {
+const EventItem: FC<Props> = ({ mode = 'preview', event }) => {
     const isPassed = activityIsPassed(event.start);
+    
+    const isEditorMode = mode === 'editor';
+    
+    const descriptionLength = event.description.length;
+    const maxLength = 75;
+    const description = isEditorMode ? descriptionLength > maxLength ? event.description.substring(0, maxLength) + '...' : event.description : event.description;
     
     return (
         <div className={classNames(
             'relative border-l-2 border-red-500 border-opacity-40 pl-8 pb-8 group-last:pb-0',
-            isPassed && 'opacity-60'
+            !isEditorMode  && isPassed && 'opacity-60'
         )}>
             <span className="absolute left-0 translate-x-[-.45rem] bg-red-500 block w-3 h-3 rounded-full" />
             <div className="-translate-y-1.5">
@@ -27,8 +34,9 @@ const EventItem: FC<Props> = ({ event }) => {
                 </h5>
                 <h4 className="mb-3 font-medium text-lg">{ event.title }</h4>
                 <div className="content">
-                    <p>{ event.description }</p>
+                    <p>{ description }</p>
                 </div>
+                <Button theme="button" icon="edit" to={ event.id } className="mt-4">Bewerken</Button>
             </div>
         </div>
     )
