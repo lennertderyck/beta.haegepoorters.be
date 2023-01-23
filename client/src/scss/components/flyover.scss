@@ -7,7 +7,7 @@
     }
     
     &--active &__main {
-        @apply blur-sm;
+        @apply blur-[2px];
     }
     
     &__main {
@@ -35,6 +35,6 @@
             0px 0px 37px 7px #00000012,
             0px 0px 9px 2px #00000005
         ;
-        @apply p-8 rounded-lg z-30;
+        @apply px-6 py-8 rounded-lg z-30 min-w-fit;
     }
 }

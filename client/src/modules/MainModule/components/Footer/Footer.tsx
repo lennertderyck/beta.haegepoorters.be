@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Date, Icon } from '../../../../components/basics';
+import { socialMediaPlatforms } from '../../../../utils/data/contact';
+import SocialMediaBadge from './SocialMediaBadge';
 
 interface Props {};
 
@@ -26,6 +28,9 @@ const Footer: FC<Props> = () => {
             </div> */}
             <div className="bg-gray-200 px-8 2xl:px-0">
                 <div className="container py-8">
+                    <div className="mb-6">
+                        <SocialMediaBadge />
+                    </div>
                     <div className="grid grid-cols-12 gap-6 lg:gap-0">
                         <div className="col-span-12 lg:col-span-4">
                             <h4 className="font-semibold">Scouts & Gidsen Haegepoorters</h4>

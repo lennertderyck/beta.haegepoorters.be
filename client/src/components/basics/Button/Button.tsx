@@ -22,8 +22,8 @@ const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = '
     ];
     
     const themes = {
-        'button': 'w-fit text-xs text-red-500 font-semibold uppercase tracking-widest pl-2 pr-3 py-2 bg-red-100',
-        'simple': 'w-fit text-xs text-red-500 font-semibold uppercase tracking-widest',
+        'button': 'whitespace-nowrap w-fit text-xs text-red-500 font-semibold uppercase tracking-widest pl-2 pr-3 py-2 bg-red-100',
+        'simple': 'whitespace-nowrap w-fit text-xs text-red-500 font-semibold uppercase tracking-widest',
     }
     
     const handleClick = useCallback((event: any) => {
