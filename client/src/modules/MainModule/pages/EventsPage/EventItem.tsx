@@ -7,7 +7,7 @@ import useContentResolver from '../../../../utils/hooks/useContentResolver/useCo
 
 interface Props {
     event: Event;
-    mode?: 'preview' | 'editor';
+    mode?: 'preview' | 'editor' | 'editorPreview';
 };
 
 export const activityIsPassed = (date: string) => dayjs(dayjs()).isAfter(dayjs(date), 'day');
@@ -15,7 +15,8 @@ export const activityIsPassed = (date: string) => dayjs(dayjs()).isAfter(dayjs(d
 const EventItem: FC<Props> = ({ mode = 'preview', event }) => {
     const isPassed = activityIsPassed(event.start);
     
-    const isEditorMode = mode === 'editor';
+    const isEditorMode = mode === 'editor' || mode === 'editorPreview';
+    const isEditorPreviewMode = mode === 'editorPreview'
     
     const descriptionLength = event.description.length;
     const maxLength = 75;
@@ -36,7 +37,7 @@ const EventItem: FC<Props> = ({ mode = 'preview', event }) => {
                 <div className="content">
                     <p>{ description }</p>
                 </div>
-                <Button theme="button" icon="edit" to={ event.id } className="mt-4">Bewerken</Button>
+                { isEditorMode && !isEditorPreviewMode && <Button theme="button" icon="edit" to={ event.id } className="mt-4">Bewerken</Button>}
             </div>
         </div>
     )
