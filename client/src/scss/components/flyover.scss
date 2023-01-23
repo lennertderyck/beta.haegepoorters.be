@@ -7,7 +7,7 @@
     }
     
     &--active &__main {
-        @apply blur-[2px];
+        @apply blur-sm;
     }
     
     &__main {
