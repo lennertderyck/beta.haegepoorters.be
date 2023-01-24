@@ -41,7 +41,7 @@ const MemberCard: FC<Props> = ({ memberId, memberName }) => {
                             { memberName && (
                                 <div className="col-span-1">
                                     <p className="uppercase text-xs tracking-widest -mb-1">Naam</p>
-                                    <p className="font-serif text-base sm:text-xl">Lennert De Ryck</p>
+                                    <p className="font-serif text-base sm:text-xl">{ memberName }</p>
                                 </div>
                             )}
                             <div className="col-span-1">
