@@ -1,0 +1,4 @@
+.chip {
+    @extend .label;
+    @apply py-1.5 px-2.5 bg-gray-200 text-xs rounded-full w-fit;
+}

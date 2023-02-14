@@ -1,0 +1,726 @@
+{
+    "links": [
+        {
+            "rel": "self",
+            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep",
+            "method": "GET",
+            "secties": []
+        }
+    ],
+    "groepen": [
+        {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1300D",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "bovenliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000P",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1312M",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1328G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1309M",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1303G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1304G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1301G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1302G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1310G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1311G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1307G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1308G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1313S",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "nieuwe groepseigen functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie",
+                    "method": "POST",
+                    "secties": []
+                },
+                {
+                    "rel": "statistieken",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1300D/statistieken",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "id": "O1300D",
+            "groepsnummer": "O1300D",
+            "naam": "District Gent-Oost",
+            "adressen": [
+                {
+                    "id": "3ccf895b-5290-498e-a327-89e8cb67f1ad",
+                    "land": "BE",
+                    "postcode": "9040",
+                    "gemeente": "Sint-Amandsberg",
+                    "straat": "Antwerpsesteenweg",
+                    "nummer": "242",
+                    "telefoon": "",
+                    "postadres": true,
+                    "status": "normaal",
+                    "positie": {
+                        "latitude": 51.05909104793238,
+                        "longitude": 3.7453703657910267
+                    },
+                    "omschrijving": ""
+                }
+            ],
+            "opgericht": "1900-01-01T00:00:00.000Z",
+            "facturatieLeden": "2022-09-22T13:59:11.215+02:00",
+            "facturatieLeiding": "2022-09-22T13:59:11.215+02:00",
+            "enkelLeiding": true,
+            "ledenVerbeterdTonen": false,
+            "rekeningnummer": "BE37 9730 1173 6428",
+            "email": "",
+            "website": "www.gouwgent.be",
+            "vrijeInfo": "",
+            "bovenliggendeGroep": "O1000P",
+            "onderliggendeGroepen": [
+                "O1312M",
+                "O1306G",
+                "O1328G",
+                "O1309M",
+                "O1303G",
+                "O1304G",
+                "O1301G",
+                "O1302G",
+                "O1310G",
+                "O1311G",
+                "O1307G",
+                "O1308G",
+                "O1313S"
+            ],
+            "groepseigenFuncties": [],
+            "groepseigenGegevens": [
+                {
+                    "id": "d5f75e233235578401323aea66593a48",
+                    "type": "tekst",
+                    "label": "Totem",
+                    "beschrijving": "",
+                    "verplicht": false,
+                    "kanLeidingWijzigen": false,
+                    "kanLidWijzigen": false,
+                    "sort": 0
+                }
+            ],
+            "contacten": [
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812553d5032e",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320db2ee17010db32066214e57",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b812553d5032e",
+                    "oidLid": "d5f75b320db2ee17010db32066214e57",
+                    "naam": "Sacha Vanhegen",
+                    "tel": "0478 70 62 44",
+                    "email": "vanhegen.sacha@gmail.com"
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320db2ee17010db32066214e57",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b812555970393",
+                    "oidLid": "d5f75b320db2ee17010db32066214e57",
+                    "naam": "Sacha Vanhegen",
+                    "tel": "0478 70 62 44",
+                    "email": "vanhegen.sacha@gmail.com"
+                }
+            ],
+            "soort": "District",
+            "evenementSchrijfRecht": true,
+            "publiek-inschrijven": false
+        },
+        {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000P",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1300D",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000K",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1500D",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1400D",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1200D",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "onderliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1100D",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "nieuwe groepseigen functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie",
+                    "method": "POST",
+                    "secties": []
+                },
+                {
+                    "rel": "statistieken",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000P/statistieken",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "id": "O1000P",
+            "groepsnummer": "O1000P",
+            "naam": "Gouw Gent",
+            "adressen": [
+                {
+                    "id": "d7b29ff5-7a26-442e-ac03-3651a93d6518",
+                    "land": "BE",
+                    "postcode": "9040",
+                    "gemeente": "Sint-Amandsberg",
+                    "straat": "Antwerpsesteenweg",
+                    "nummer": "242",
+                    "telefoon": "09 223 84 42",
+                    "postadres": true,
+                    "status": "normaal",
+                    "positie": {
+                        "latitude": 51.05909104793238,
+                        "longitude": 3.7453703657910267
+                    },
+                    "omschrijving": ""
+                }
+            ],
+            "opgericht": "1900-01-01T00:00:00.000Z",
+            "facturatieLeden": "2022-09-17T12:26:30.829+02:00",
+            "facturatieLeiding": "2022-09-17T12:26:30.829+02:00",
+            "enkelLeiding": true,
+            "ledenVerbeterdTonen": false,
+            "rekeningnummer": "BE18 8900 1510 6365",
+            "email": "info@gouwgent.be",
+            "website": "www.gouwgent.be",
+            "vrijeInfo": "Gouw Gent is de koepel van 37 scoutsgroepen in en rond Gent, van Maldegem over Zelzate en Gent tot Deinze.\r\nOnze leuze is \"100 % Gent!\"",
+            "onderliggendeGroepen": [
+                "O1300D",
+                "O1000K",
+                "O1500D",
+                "O1400D",
+                "O1200D",
+                "O1100D"
+            ],
+            "groepseigenFuncties": [
+                {
+                    "links": [
+                        {
+                            "rel": "self",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b33235892570123d7872f421298",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "id": "d5f75b33235892570123d7872f421298",
+                    "beschrijving": "Materiaalmeester",
+                    "type": "groep",
+                    "groeperingen": [
+                        {
+                            "naam": "O1000P",
+                            "volgorde": 10
+                        }
+                    ],
+                    "groepen": [
+                        "O1000P"
+                    ]
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "self",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/3843e1bf-0ed8-4836-8aa5-8dc89b2788a1",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "id": "3843e1bf-0ed8-4836-8aa5-8dc89b2788a1",
+                    "beschrijving": "Hofnar",
+                    "type": "groep",
+                    "groeperingen": [
+                        {
+                            "naam": "O1000P",
+                            "volgorde": 10
+                        }
+                    ],
+                    "groepen": [
+                        "O1000P"
+                    ]
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "self",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b33235892570123d78709f01296",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "id": "d5f75b33235892570123d78709f01296",
+                    "beschrijving": "Stadsondersteuner",
+                    "type": "groep",
+                    "groeperingen": [
+                        {
+                            "naam": "O1000P",
+                            "volgorde": 10
+                        }
+                    ],
+                    "groepen": [
+                        "O1000P"
+                    ]
+                }
+            ],
+            "groepseigenGegevens": [
+                {
+                    "id": "d5f75e23483848c701485bc00e982951",
+                    "type": "groep",
+                    "label": "Totem",
+                    "beschrijving": "",
+                    "verplicht": false,
+                    "kanLeidingWijzigen": false,
+                    "kanLidWijzigen": false,
+                    "sort": 0
+                }
+            ],
+            "contacten": [
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812553d5032e",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320db2ee17010db32066214e57",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b812553d5032e",
+                    "oidLid": "d5f75b320db2ee17010db32066214e57",
+                    "naam": "Sacha Vanhegen",
+                    "tel": "0478 70 62 44",
+                    "email": "vanhegen.sacha@gmail.com"
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320db2ee17010db32066214e57",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b812555970393",
+                    "oidLid": "d5f75b320db2ee17010db32066214e57",
+                    "naam": "Sacha Vanhegen",
+                    "tel": "0478 70 62 44",
+                    "email": "vanhegen.sacha@gmail.com"
+                }
+            ],
+            "soort": "Gouw",
+            "evenementSchrijfRecht": true,
+            "publiek-inschrijven": false
+        },
+        {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "inschrijven",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/formulier.html#%2Flidworden%3Fgroep=O1306G",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "inschrijvingen",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G/inschrijvingen",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "bovenliggende groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1300D",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "nieuwe groepseigen functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie",
+                    "method": "POST",
+                    "secties": []
+                },
+                {
+                    "rel": "statistieken",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G/statistieken",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "id": "O1306G",
+            "groepsnummer": "O1306G",
+            "naam": "Haegepoorters",
+            "adressen": [
+                {
+                    "id": "e1c1545a-52f6-4765-a58d-801546b9887d",
+                    "land": "BE",
+                    "postcode": "9070",
+                    "gemeente": "Destelbergen",
+                    "straat": "Bredenakkerstraat",
+                    "nummer": "31",
+                    "bus": "A",
+                    "telefoon": "",
+                    "postadres": true,
+                    "status": "normaal",
+                    "positie": {
+                        "latitude": 51.056130275849384,
+                        "longitude": 3.765899661221067
+                    },
+                    "omschrijving": "1"
+                }
+            ],
+            "opgericht": "1944-01-01T00:00:00.000+01:00",
+            "facturatieLeden": "2022-12-02T00:00:00.000+01:00",
+            "facturatieLeiding": "2022-12-02T00:00:00.000+01:00",
+            "enkelLeiding": false,
+            "ledenVerbeterdTonen": true,
+            "rekeningnummer": "BE18 7360 3138 9365",
+            "email": "groepsleiding@haegepoorters.be",
+            "website": "haegepoorters.be",
+            "vrijeInfo": "Vergadering op zondag\r\nKapoenen en welpen van 14u tot 17u.\r\nWoudlopers, Jonggivers en Givers van 14u tot 18u.",
+            "bovenliggendeGroep": "O1300D",
+            "onderliggendeGroepen": [],
+            "groepseigenFuncties": [
+                {
+                    "links": [
+                        {
+                            "rel": "self",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e2356ab1a450156b308a6e810d0",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "id": "d5f75e2356ab1a450156b308a6e810d0",
+                    "beschrijving": "Woudloperleiding",
+                    "type": "groep",
+                    "groeperingen": [
+                        {
+                            "naam": "O1306G",
+                            "volgorde": 10
+                        }
+                    ],
+                    "groepen": [
+                        "O1306G"
+                    ]
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "self",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e2356ab1a450156b30323a21093",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "id": "d5f75e2356ab1a450156b30323a21093",
+                    "beschrijving": "Woudloper",
+                    "type": "groep",
+                    "groeperingen": [
+                        {
+                            "naam": "O1306G",
+                            "volgorde": 10
+                        }
+                    ],
+                    "groepen": [
+                        "O1306G"
+                    ]
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "self",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e232d1339cd012dadd48b2328ec",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "id": "d5f75e232d1339cd012dadd48b2328ec",
+                    "beschrijving": "Jinner in districtsjin",
+                    "type": "groep",
+                    "groeperingen": [
+                        {
+                            "naam": "O1306G",
+                            "volgorde": 10
+                        }
+                    ],
+                    "groepen": [
+                        "O1306G"
+                    ]
+                }
+            ],
+            "groepseigenGegevens": [
+                {
+                    "id": "28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1",
+                    "type": "tekst",
+                    "label": "UiTPas-nummer",
+                    "verplicht": false,
+                    "kanLeidingWijzigen": false,
+                    "kanLidWijzigen": true,
+                    "sort": 0
+                },
+                {
+                    "id": "c6a4fcc2-b1ff-4504-a58b-df291b223f7d",
+                    "type": "tekst",
+                    "label": "Profielfoto (url)",
+                    "beschrijving": "Plak hier een url (link) naar een foto van jezelf. Zo weet de leiding altijd wie je bent. Niet verplicht uiteraard ;)\nBinnenkort kan je eenvoudig zelf een profielfoto opladen via onze website (haegepoorters.be/account, tabje \"Profiel\").",
+                    "verplicht": false,
+                    "kanLeidingWijzigen": true,
+                    "kanLidWijzigen": true,
+                    "sort": 1
+                },
+                {
+                    "id": "d5f75b3315ed83760115f18156790a21",
+                    "type": "tekst",
+                    "label": "Totemnaam",
+                    "beschrijving": "",
+                    "verplicht": false,
+                    "kanLeidingWijzigen": false,
+                    "kanLidWijzigen": true,
+                    "sort": 2
+                },
+                {
+                    "id": "692cde76-6a2a-4596-938f-00a543736ddf",
+                    "type": "vinkje",
+                    "label": "Lidgeld betaald 20-21?",
+                    "verplicht": false,
+                    "kanLeidingWijzigen": false,
+                    "kanLidWijzigen": false,
+                    "sort": 3
+                },
+                {
+                    "id": "8a00808d6ca90476016caecac1dc0159",
+                    "type": "vinkje",
+                    "label": "Lidgeld betaald 19-20?",
+                    "verplicht": false,
+                    "kanLeidingWijzigen": false,
+                    "kanLidWijzigen": false,
+                    "sort": 4
+                }
+            ],
+            "contacten": [
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125558e0391",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320db2ee17010db31f5797187b",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b8125558e0391",
+                    "oidLid": "d5f75b320db2ee17010db31f5797187b",
+                    "naam": "Nele Willems",
+                    "tel": "0491873179",
+                    "email": "willemsnele@hotmail.com"
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812553d5032e",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b3315ed83760115f16ad0a909b7",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b812553d5032e",
+                    "oidLid": "d5f75b3315ed83760115f16ad0a909b7",
+                    "naam": "pieter willems",
+                    "tel": "0496 03 38 25",
+                    "email": "willems_pieter@hotmail.be"
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75b320db2ee17010db31f5797187b",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b812555970393",
+                    "oidLid": "d5f75b320db2ee17010db31f5797187b",
+                    "naam": "Nele Willems",
+                    "tel": "0491873179",
+                    "email": "willemsnele@hotmail.com"
+                },
+                {
+                    "links": [
+                        {
+                            "rel": "functie",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125558e0391",
+                            "method": "GET",
+                            "secties": []
+                        },
+                        {
+                            "rel": "lid",
+                            "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/d5f75e232b5d088e012b770ad5f462a1",
+                            "method": "GET",
+                            "secties": []
+                        }
+                    ],
+                    "oidFunctie": "d5f75b320b812440010b8125558e0391",
+                    "oidLid": "d5f75e232b5d088e012b770ad5f462a1",
+                    "naam": "Arend Gadeyne",
+                    "tel": "0476523063",
+                    "email": "g.arend3007@gmail.com"
+                }
+            ],
+            "soort": "Groep",
+            "evenementSchrijfRecht": true,
+            "publiek-inschrijven": true
+        }
+    ]
+}

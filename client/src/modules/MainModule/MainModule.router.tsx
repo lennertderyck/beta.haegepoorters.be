@@ -6,7 +6,7 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import BlogArticlePage from "./pages/BlogArticlePage/BlogArticlePage";
 import TeamPage from "./pages/TeamPage/TeamPage";
 import RequestBySlugPage from "./pages/RequestBySlugPage/RequestBySlugPage";
-import AccountPage from "./pages/AccountPage/AccountPage";
+import AccountLaunchPage from "./pages/AccountLaunchPage/AccountLaunchPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import MemberCardPage from "./pages/MemberCardPage/MemberCardPage";
 import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
@@ -17,6 +17,7 @@ import EventsEditorEditonPage from "./pages/EventsEditorEditonPage/EventsEditorE
 import EventsEditorEventDetailPage from "./pages/EventsEditorEventDetailPage/EventsEditorEventDetailPage";
 import EventEditorPage from "./pages/EventEditorPage/EventEditorPage";
 import groupDataLoader from "../../utils/funcs/routingLoaders/groupData";
+import AccountOverviewPage from "./pages/AccountOverviewPage/AccountOverviewPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -54,8 +55,8 @@ const MainModuleRouter: RouteObject[] = [
             { path: 'leiding', element: <TeamPage /> },
             { path: 'groepsadmin/*', element: <Navigate to="/ga" replace />},
             { path: 'ga', children: [
-                { index: true, element: <AccountPage /> },
-                { path: '*', element: <AccountPage /> },
+                { index: true, element: <Navigate to="onboarding" /> },
+                { path: '*', element: <AccountOverviewPage /> },
                 { path: 'onboarding', element: <OnboardingPage /> },
                 { path: 'digitale-lidkaart', element: <MemberCardPage /> },
             ]},

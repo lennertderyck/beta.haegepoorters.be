@@ -7,17 +7,19 @@ import { useEffectOnce } from '../../../../utils/hooks';
 
 interface Props {};
 
-const AccountPage: FC<Props> = () => {
+const AccountLaunchPage: FC<Props> = () => {
     const navigate = useNavigate();
     const setOnboardingOption = usePreferencesStore((state) => state.setAccountOnboarding);
     const onboardingPref = usePreferencesStore((state) => state.accountOnboarding);
     
     const confirmOption = (option: OnboardingProcedures) => {
+        console.log(option)
         setOnboardingOption(option);
         redirectOnboarding(option);
     }
     
     const redirectOnboarding = (option: OnboardingProcedures) => {
+        // console.log(option)
         if (option === 'platform_external') window.open('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/', '_blank');
         else if (option === 'site_config') navigate('/ga/voorkeuren');
     }
@@ -42,4 +44,4 @@ const AccountPage: FC<Props> = () => {
     )
 }
 
-export default AccountPage;
+export default AccountLaunchPage;

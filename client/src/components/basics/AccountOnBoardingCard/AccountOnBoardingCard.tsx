@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import Button from '../Button/Button';
-import Input from '../Input/Input';
 import Icon from '../Icon/Icon';
-import logoGroepsadministratie from '../../../assets/images/logo_groepsadministratie.png';
 import { OnboardingProcedures } from '../../../types/accounts';
+import AdminPlatformSignInCard from '../AdminPlatformSignInCard/AdminPlatformSignInCard';
 
 interface Props {
     onConfirm?: (selectedOption: OnboardingProcedures) => void;
@@ -18,19 +17,8 @@ const AccountOnBoardingCard: FC<Props> = ({ onConfirm, selectedOption }) => {
     return (
         <div className="w-fit mx-auto">
             <div className="border-2 border-gray-100 shadow-lg rounded-xl w-fit mx-auto">
-                <button onClick={() => confirmOption('platform_external')} className="p-8 lg:p-12 text-left w-full flex items-center justify-between gap-12">
-                    <div className="flex flex-col lg:flex-row items-center gap-6">
-                        <img src={ logoGroepsadministratie } alt="" className="w-24 mb-3 lg:mb-0" />
-                        <div className="content">
-                            <h3>Aanmelden bij Groepsadministratie</h3>
-                            <p className="!mt-0">Beheer je persoonlijke gegevens via onze site</p>
-                        </div>
-                    </div>
-                    <div className="hidden lg:block">
-                        <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full">
-                            <Icon name="arrow-right-s"/>
-                        </div>
-                    </div>
+                <button onClick={() => confirmOption('platform_external')} className="p-8 lg:p-12">
+                    <AdminPlatformSignInCard />
                 </button>
                 { selectedOption !== 'platform_external' && (
                     <>

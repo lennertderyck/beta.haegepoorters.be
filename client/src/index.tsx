@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import dayjs from 'dayjs';
@@ -13,6 +12,12 @@ import router from './App.router';
 dayjs.extend(calendar);
 dayjs.extend(relativeTime)
 dayjs.locale('nl-be')
+
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser')
+  worker.start()
+}
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

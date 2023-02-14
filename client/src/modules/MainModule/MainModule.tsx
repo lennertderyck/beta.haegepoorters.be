@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Footer from './components/Footer/Footer';
-import { Outlet, ScrollRestoration } from 'react-router-dom';
-import MainNavigation from './components/MainNavigation/MainNavigation';
+import { Outlet } from 'react-router-dom';
 
 interface Props {};
 

@@ -5,3 +5,4 @@ export { default as useAsyncState } from './useAsyncState/useAsyncState';
 export { default as useCollapseState } from './useCollapseState/useCollapseState';
 export { default as useShare } from './useShare/useShare';
 export { default as useAxios } from './useAxios/useAxios';
+export { default as usePlatformAccount } from './usePlatformAccount/usePlatformAccount';
