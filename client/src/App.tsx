@@ -6,15 +6,19 @@ import {
 import './scss/index.scss';
 import MainNavigation from './modules/MainModule/components/MainNavigation/MainNavigation';
 import { ReactKeycloakProvider } from '@react-keycloak/web'
-import { config, instance as keycloakInstance } from './utils/hooks/useKeycloak/instance';
+import { instance as keycloakInstance } from './utils/hooks/useKeycloak/instance';
 import useCredentialStore from './utils/hooks/useKeycloak/useCredentialStore';
+import { KeycloakInitOptions } from 'keycloak-js';
 
 interface Props {};
 
 const App: FC<Props> = () => {
     const storeTokens = useCredentialStore((state) => state.storeTokens);
-    const keycloakInitOptions = { 
-        onLoad: undefined
+    const storedTokens = useCredentialStore((state) => state.tokens);
+    const keycloakInitOptions: KeycloakInitOptions = { 
+        onLoad: undefined,
+        token: storedTokens?.token,
+        refreshToken: storedTokens?.refreshToken,
     };
     
     return (

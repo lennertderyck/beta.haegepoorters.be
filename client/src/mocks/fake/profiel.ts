@@ -1,4 +1,4 @@
-{
+export default {
     "links": [
         {
             "rel": "self",
@@ -25,7 +25,7 @@
         }
     ],
     "id": "d5f75b320ef19609010ef2d4016001a6",
-    "aangepast": "2022-10-04T15:25:15.038+02:00",
+    "aangepast": "2023-02-16T22:38:50.155+01:00",
     "persoonsgegevens": {
         "geslacht": "man",
         "gsm": "0497 75 37 62"
@@ -166,6 +166,7 @@
                 }
             ],
             "waarden": {
+                "28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1": "09000 04943 412",
                 "d5f75b3315ed83760115f18156790a21": "Vindingrijke Patrijs",
                 "8a00808d6ca90476016caecac1dc0159": "true"
             }
@@ -196,27 +197,6 @@
             "links": [
                 {
                     "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e234ac0816d014ac9dd200a0000",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000P",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1000P",
-            "functie": "d5f75e234ac0816d014ac9dd200a0000",
-            "begin": "2022-09-17T12:16:06.213+02:00",
-            "code": "WEB",
-            "omschrijving": "Webmaster"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
                     "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125565203c1",
                     "method": "GET",
                     "secties": []
@@ -234,49 +214,6 @@
             "einde": "2016-09-01T00:00:00.000+02:00",
             "code": "GVE",
             "omschrijving": "Gids/Verkenner"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812554f20372",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1300D",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1300D",
-            "functie": "d5f75b320b812440010b812554f20372",
-            "begin": "2022-09-17T12:07:54.140+02:00",
-            "code": "DC",
-            "omschrijving": "Districtscommissaris"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125567703cb",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1306G",
-            "functie": "d5f75b320b812440010b8125567703cb",
-            "begin": "2007-10-16T00:00:00.000+02:00",
-            "einde": "2010-09-01T00:00:00.000+02:00",
-            "code": "KW",
-            "omschrijving": "Kabouter/Welp"
         },
         {
             "links": [
@@ -304,23 +241,22 @@
             "links": [
                 {
                     "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555b50398",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812554f20372",
                     "method": "GET",
                     "secties": []
                 },
                 {
                     "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1300D",
                     "method": "GET",
                     "secties": []
                 }
             ],
-            "groep": "O1306G",
-            "functie": "d5f75b320b812440010b812555b50398",
-            "begin": "2020-08-19T14:30:06.532+02:00",
-            "einde": "2021-09-16T18:13:36.472+02:00",
-            "code": "GVL",
-            "omschrijving": "Gidsen-Verkennerleiding"
+            "groep": "O1300D",
+            "functie": "d5f75b320b812440010b812554f20372",
+            "begin": "2022-09-17T12:07:54.140+02:00",
+            "code": "DC",
+            "omschrijving": "Districtscommissaris"
         },
         {
             "links": [
@@ -332,16 +268,37 @@
                 },
                 {
                     "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000P",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1000P",
+            "functie": "d5f75e234ac0816d014ac9dd200a0000",
+            "begin": "2022-09-17T12:16:06.213+02:00",
+            "code": "WEB",
+            "omschrijving": "Webmaster"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e232d1339cd012dadd48b2328ec",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
                     "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
                     "method": "GET",
                     "secties": []
                 }
             ],
             "groep": "O1306G",
-            "functie": "d5f75e234ac0816d014ac9dd200a0000",
-            "begin": "2020-08-19T14:30:06.541+02:00",
-            "code": "WEB",
-            "omschrijving": "Webmaster"
+            "functie": "d5f75e232d1339cd012dadd48b2328ec",
+            "begin": "2016-08-25T17:27:23.875+02:00",
+            "einde": "2017-08-29T15:45:20.986+02:00",
+            "omschrijving": "Jinner in districtsjin"
         },
         {
             "links": [
@@ -369,6 +326,28 @@
             "links": [
                 {
                     "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555d2039f",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1302G",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1302G",
+            "functie": "d5f75b320b812440010b812555d2039f",
+            "begin": "2021-09-29T12:59:19.253+02:00",
+            "einde": "2022-09-17T19:55:36.238+02:00",
+            "code": "JL",
+            "omschrijving": "Jinleiding"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
                     "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5",
                     "method": "GET",
                     "secties": []
@@ -386,6 +365,115 @@
             "einde": "2020-08-19T14:56:27.406+02:00",
             "code": "KWL",
             "omschrijving": "Kabouter-Welpenleiding"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125557c038d",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000P",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1000P",
+            "functie": "d5f75b320b812440010b8125557c038d",
+            "begin": "2022-09-17T12:07:44.512+02:00",
+            "code": "GPL",
+            "omschrijving": "Gouwploeg"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b81255456034c",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1306G",
+            "functie": "d5f75b320b812440010b81255456034c",
+            "begin": "2020-08-25T10:20:44.197+02:00",
+            "einde": "2022-09-26T17:17:02.941+02:00",
+            "code": "AGRL",
+            "omschrijving": "Adjunct Groepsleiding"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555cc039e",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1306G",
+            "functie": "d5f75b320b812440010b812555cc039e",
+            "begin": "2017-08-29T15:45:16.937+02:00",
+            "einde": "2019-08-21T11:50:48.649+02:00",
+            "code": "JGVL",
+            "omschrijving": "Jonggidsen-Jongverkennerleiding"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1306G",
+            "functie": "d5f75b320b812440010b812555ec03a5",
+            "begin": "2017-08-29T15:45:14.136+02:00",
+            "einde": "2017-11-02T10:20:21.406+01:00",
+            "code": "KWL",
+            "omschrijving": "Kabouter-Welpenleiding"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1302G",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1302G",
+            "functie": "d5f75b320b812440010b812555970393",
+            "begin": "2021-10-06T18:24:22.617+02:00",
+            "einde": "2022-09-18T19:29:39.600+02:00",
+            "code": "VGA",
+            "omschrijving": "Verantwoordelijke Groepsadministratie"
         },
         {
             "links": [
@@ -435,50 +523,7 @@
             "links": [
                 {
                     "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1306G",
-            "functie": "d5f75b320b812440010b812555ec03a5",
-            "begin": "2022-09-26T17:16:54.117+02:00",
-            "code": "KWL",
-            "omschrijving": "Kabouter-Welpenleiding"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555cc039e",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1306G",
-            "functie": "d5f75b320b812440010b812555cc039e",
-            "begin": "2017-08-29T15:45:16.937+02:00",
-            "einde": "2019-08-21T11:50:48.649+02:00",
-            "code": "JGVL",
-            "omschrijving": "Jonggidsen-Jongverkennerleiding"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125558e0391",
                     "method": "GET",
                     "secties": []
                 },
@@ -490,11 +535,11 @@
                 }
             ],
             "groep": "O1302G",
-            "functie": "d5f75b320b812440010b812555970393",
-            "begin": "2021-10-06T18:24:22.617+02:00",
-            "einde": "2022-09-18T19:29:39.600+02:00",
-            "code": "VGA",
-            "omschrijving": "Verantwoordelijke Groepsadministratie"
+            "functie": "d5f75b320b812440010b8125558e0391",
+            "begin": "2021-09-27T21:32:55.742+02:00",
+            "einde": "2022-09-18T19:28:52.524+02:00",
+            "code": "GRL",
+            "omschrijving": "Groepsleiding"
         },
         {
             "links": [
@@ -522,50 +567,7 @@
             "links": [
                 {
                     "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125557c038d",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1000P",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1000P",
-            "functie": "d5f75b320b812440010b8125557c038d",
-            "begin": "2022-09-17T12:07:44.512+02:00",
-            "code": "GPL",
-            "omschrijving": "Gouwploeg"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555d2039f",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1302G",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1302G",
-            "functie": "d5f75b320b812440010b812555d2039f",
-            "begin": "2021-09-29T12:59:19.253+02:00",
-            "einde": "2022-09-17T19:55:36.238+02:00",
-            "code": "JL",
-            "omschrijving": "Jinleiding"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b81255456034c",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5",
                     "method": "GET",
                     "secties": []
                 },
@@ -577,39 +579,16 @@
                 }
             ],
             "groep": "O1306G",
-            "functie": "d5f75b320b812440010b81255456034c",
-            "begin": "2020-08-25T10:20:44.197+02:00",
-            "einde": "2022-09-26T17:17:02.941+02:00",
-            "code": "AGRL",
-            "omschrijving": "Adjunct Groepsleiding"
+            "functie": "d5f75b320b812440010b812555ec03a5",
+            "begin": "2022-09-26T17:16:54.117+02:00",
+            "code": "KWL",
+            "omschrijving": "Kabouter-Welpenleiding"
         },
         {
             "links": [
                 {
                     "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
-                    "method": "GET",
-                    "secties": []
-                },
-                {
-                    "rel": "groep",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1302G",
-                    "method": "GET",
-                    "secties": []
-                }
-            ],
-            "groep": "O1302G",
-            "functie": "d5f75b320b812440010b812555970393",
-            "begin": "2021-09-28T15:38:47.076+02:00",
-            "einde": "2021-09-30T14:09:49.995+02:00",
-            "code": "VGA",
-            "omschrijving": "Verantwoordelijke Groepsadministratie"
-        },
-        {
-            "links": [
-                {
-                    "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e232d1339cd012dadd48b2328ec",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75e234ac0816d014ac9dd200a0000",
                     "method": "GET",
                     "secties": []
                 },
@@ -621,10 +600,10 @@
                 }
             ],
             "groep": "O1306G",
-            "functie": "d5f75e232d1339cd012dadd48b2328ec",
-            "begin": "2016-08-25T17:27:23.875+02:00",
-            "einde": "2017-08-29T15:45:20.986+02:00",
-            "omschrijving": "Jinner in districtsjin"
+            "functie": "d5f75e234ac0816d014ac9dd200a0000",
+            "begin": "2020-08-19T14:30:06.541+02:00",
+            "code": "WEB",
+            "omschrijving": "Webmaster"
         },
         {
             "links": [
@@ -652,7 +631,7 @@
             "links": [
                 {
                     "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125558e0391",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555970393",
                     "method": "GET",
                     "secties": []
                 },
@@ -664,17 +643,17 @@
                 }
             ],
             "groep": "O1302G",
-            "functie": "d5f75b320b812440010b8125558e0391",
-            "begin": "2021-09-27T21:32:55.742+02:00",
-            "einde": "2022-09-18T19:28:52.524+02:00",
-            "code": "GRL",
-            "omschrijving": "Groepsleiding"
+            "functie": "d5f75b320b812440010b812555970393",
+            "begin": "2021-09-28T15:38:47.076+02:00",
+            "einde": "2021-09-30T14:09:49.995+02:00",
+            "code": "VGA",
+            "omschrijving": "Verantwoordelijke Groepsadministratie"
         },
         {
             "links": [
                 {
                     "rel": "functie",
-                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555ec03a5",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b8125567703cb",
                     "method": "GET",
                     "secties": []
                 },
@@ -686,11 +665,33 @@
                 }
             ],
             "groep": "O1306G",
-            "functie": "d5f75b320b812440010b812555ec03a5",
-            "begin": "2017-08-29T15:45:14.136+02:00",
-            "einde": "2017-11-02T10:20:21.406+01:00",
-            "code": "KWL",
-            "omschrijving": "Kabouter-Welpenleiding"
+            "functie": "d5f75b320b812440010b8125567703cb",
+            "begin": "2007-10-16T00:00:00.000+02:00",
+            "einde": "2010-09-01T00:00:00.000+02:00",
+            "code": "KW",
+            "omschrijving": "Kabouter/Welp"
+        },
+        {
+            "links": [
+                {
+                    "rel": "functie",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/functie/d5f75b320b812440010b812555b50398",
+                    "method": "GET",
+                    "secties": []
+                },
+                {
+                    "rel": "groep",
+                    "href": "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/O1306G",
+                    "method": "GET",
+                    "secties": []
+                }
+            ],
+            "groep": "O1306G",
+            "functie": "d5f75b320b812440010b812555b50398",
+            "begin": "2020-08-19T14:30:06.532+02:00",
+            "einde": "2021-09-16T18:13:36.472+02:00",
+            "code": "GVL",
+            "omschrijving": "Gidsen-Verkennerleiding"
         }
     ]
 }

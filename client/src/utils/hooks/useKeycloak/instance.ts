@@ -1,5 +1,4 @@
 import Keycloak from 'keycloak-js';
-import { FC, PropsWithChildren, createContext } from 'react';
 
 export const config = {
     url: 'https://login.scoutsengidsenvlaanderen.be/auth',
