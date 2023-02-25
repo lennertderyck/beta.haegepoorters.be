@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import NavItem from './NavItem';
 import { useDevice } from 'use-ua-parser-js';
 import { useMediaQuery } from 'react-responsive'
+import Toggle from './Toggle';
 
 interface Props {};
 
@@ -35,9 +36,10 @@ const MainNavigation: FC<Props> = () => {
     
     return (
         <>
-            <button onClick={ toggle } className="flex items-center whitespace-nowrap fixed top-4 right-4 z-50 w-12 h-12 bg-red-500 p-3 rounded-full shadow justify-center lg:hidden cursor-pointer">
+            <Toggle onClick={ toggle } />
+            {/* <button  className="flex items-center whitespace-nowrap fixed top-4 right-4 z-50 w-12 h-12 bg-red-500 p-3 rounded-full shadow justify-center lg:hidden cursor-pointer">
                 <Icon name="menu" className="text-white" />
-            </button>
+            </button> */}
             <div className="lg:w-[68.5px]" />
             <aside 
                 className={classNames(
@@ -61,10 +63,10 @@ const MainNavigation: FC<Props> = () => {
                                 'flex-1 flex items-center justify-end gap-2 px-5',
                                 isActive ? 'text-red-500' : 'text-gray-500'
                             )}>
-                                <div>
+                                <button onClick={ close }>
                                     <div className="text-right font-serif opacity-70 -mb-1 block whitespace-nowrap">Groepsadministratie</div>
                                     <div className="text-right text-xs uppercase tracking-wider font-medium whitespace-nowrap">Aanmelden</div>
-                                </div>
+                                </button>
                                 <Icon name="account-circle" />
                             </div>
                         )}
@@ -76,17 +78,9 @@ const MainNavigation: FC<Props> = () => {
                             <NavItem onClick={() => (isTouch || !isLargeScreen) && close()} key={ index } item={ item } active={ active } />
                         ))}
                     </div>
-                    {/* <div className={classNames(
-                        'flex-1',
-                        active ? 'opacity-100 max-w-[100vw]' : 'opacity-0 max-w-[0vw]'
-                    )}>
-                        <div className="h-full p-10 max-w-[400px]">
-                            <TrooperBanner />
-                        </div>
-                    </div> */}
                     <div>
                         { menuBottomItems.map((item, index) => (
-                            <NavItem onClick={() => (isTouch || !isLargeScreen) && console.log('close()')} key={ index } item={ item } active={ active } />
+                            <NavItem onClick={() => (isTouch || !isLargeScreen) && close()} key={ index } item={ item } active={ active } />
                         ))}
                     </div>
                 </nav>

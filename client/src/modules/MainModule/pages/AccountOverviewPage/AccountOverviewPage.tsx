@@ -5,14 +5,15 @@ import profielFakeData from '../../../../mocks/fake/profiel';
 import AddressCard from './AddressCard';
 import classNames from 'classnames';
 import { usePlatformAccount } from '../../../../utils/hooks';
-import useFetch from "react-fetch-hook";
 import uitPasIllustration from '../../../../assets/images/uitpas-illustration.png';
+import usePlatformRequest from '../../../../utils/hooks/usePlatformRequest/usePlatformRequest';
 
 interface Props {};
 
 const AccountOverviewPage: FC<Props> = () => {
     const { keycloak } = usePlatformAccount();
-    const { data } = useFetch<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel');
+    const { data } = usePlatformRequest<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel')
+    // const { data } = useFetch<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel');
     
     const flyoverActive = !keycloak.authenticated;
         

@@ -31,15 +31,15 @@ const App: FC<Props> = () => {
                 token: tokens.token as string,
             })}
         >
-            <ScrollRestoration />
-            <div className="flex h-full">
-                <MainNavigation />
-                <div className="flex-1 flex flex-col">
+                <ScrollRestoration />
+                <div className="flex h-full">
+                    <MainNavigation />
                     <div className="flex-1 flex flex-col">
-                        <Outlet />
+                        <div className="flex-1 flex flex-col">
+                            <Outlet />
+                        </div>
                     </div>
                 </div>
-            </div>
         </ReactKeycloakProvider>
     )
 }
