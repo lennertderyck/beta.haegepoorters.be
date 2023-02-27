@@ -1,9 +1,10 @@
 export const generatePaymentQR = ({ reciever = 'Groepskas', account = 'BE', amount = 0, descr = 'betaling'}) => {
-    const urlBase = 'https://qrcode.tec-it.com/API/QRCode';
+    // const urlBase = 'https://qrcode.tec-it.com/API/QRCode';
+    const urlBase = 'https://barcode.tec-it.com/barcode.ashx';
     const separator = '%0a';
-    const rec = reciever + '+HAEGEPOORTERS';
+    // const rec = reciever + '+HAEGEPOORTERS';
     const bic = 'KREDBEBB';
-    
+        
     const dataParts = [
         'BCD',
         '001',
@@ -18,6 +19,7 @@ export const generatePaymentQR = ({ reciever = 'Groepskas', account = 'BE', amou
     ]
     
     const params = {
+        'code': 'EPCQRCode',
         'data': dataParts.join(separator),
         'backcolor': '%23ffffff',
         'method': 'image'

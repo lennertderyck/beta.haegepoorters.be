@@ -74,7 +74,7 @@ const PaymentPage: FC<Props> = () => {
                             <div>
                                 <h3 className="font-serif">Scan met je bank app</h3>
                                 <p className="text-sm">Je kan deze qr-code scannen met de app<br/>van onderstaande banken</p>
-                                <Button theme="simple" className="mt-4" icon="download" href={ qrImageUrl + '&download=true&quiet=3' } download target="_blank">Download QR code</Button>
+                                <Button theme="simple" className="mt-4" icon="download" href={ qrImageUrl + '&download=true&qunit=Mm&quiet=3&eclevel=M' } download target="_self">Download QR code</Button>
                             </div>
                         </div>
                     )}
