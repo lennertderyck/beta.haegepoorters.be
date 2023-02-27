@@ -10,11 +10,11 @@ export const generatePaymentQR = ({ reciever = 'Groepskas', account = 'BE', amou
         '1',
         'SCT',
         bic,
-        reciever,
-        account,
-        amount,
+        reciever || '',
+        account || '',
+        amount || 0,
         '', // keep spacer for correct parsing by service
-        descr
+        descr || ''
     ]
     
     const params = {

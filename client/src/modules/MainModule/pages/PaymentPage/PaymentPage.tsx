@@ -6,20 +6,28 @@ import { Button } from '../../../../components/basics';
 import { paymentRecievers } from '../../../../utils/data/payments';
 import AmountField from './AmountField';
 import SupportedBanks from './SupportedBanks';
+import CustomAccountField from './CustomAccountField';
 
 interface Props {};
 
 const PaymentPage: FC<Props> = () => {
     const [ paymentDetails, setPaymentDetails ] = useState<any>(null);
     
+    const reset = () => {
+        setPaymentDetails(null);
+    }
+    
     const selectedReciever = paymentRecievers.find((reciever) => reciever.id === paymentDetails?.reciever);
     const qrImageUrl = useMemo(() => {
-        if (paymentDetails && selectedReciever) {
-            const amount =  paymentDetails.blank ? 0 : paymentDetails.amount;
+        if (paymentDetails && (selectedReciever || paymentDetails.reciever === 'other')) {
+            const amount = paymentDetails.blank ? 0 : paymentDetails.amount;
+            const reciever = paymentDetails.reciever === 'other' ? paymentDetails.customReciever : selectedReciever?.name + ' Haegepoorters';
+            const account = paymentDetails.reciever === 'other' ? paymentDetails.customAccount : selectedReciever?.account;
+            
             return generatePaymentQR({
-                account: selectedReciever.account,
                 descr: paymentDetails.description,
-                reciever: selectedReciever.name + ' Haegepoorters',
+                reciever,
+                account,
                 amount,
             })
         } else return null;
@@ -28,20 +36,22 @@ const PaymentPage: FC<Props> = () => {
     return (
         <div className="page page--wide">
             <div className="page__header">
-                <h1 className="page__title">Betaling genereren</h1>
+                <h1 className="page__title">Betaling aanmaken</h1>
             </div>
             <div className="page__content">
                 <ControlledForm onSubmit={ setPaymentDetails } defaultValues={{}}>
                     <label className="mb-5">
-                        <span>Ontvanger</span>
+                        <span>Ontvanger *</span>
                         <Input type="select" name="reciever">
                             { paymentRecievers.map((reciever) => (
                                 <option value={ reciever.id } key={ reciever.id }>{ reciever.name }</option>
                             ))}
+                            <option value="other">Andere rekening</option>
                         </Input>
                     </label>
+                    <CustomAccountField />
                     <label className="mb-5">
-                        <span>Omschrijving</span>
+                        <span>Mededeling</span>
                         <Input name="description" />
                     </label>
                     <label className="mb-5 !flex items-baseline gap-2">
@@ -52,7 +62,10 @@ const PaymentPage: FC<Props> = () => {
                         </div>
                     </label>
                     <AmountField />
-                    <Button icon="refresh" type="submit">{ paymentDetails ? 'Opnieuw genereren' : 'Genereer betaling' }</Button>
+                    <div className="flex gap-4">
+                        <Button icon={ paymentDetails ? 'arrow-right-down' : 'check' } type="submit">{ paymentDetails ? 'Opnieuw genereren' : 'Genereer betaling' }</Button>
+                        {/* <Button icon="refresh" type="reset" theme="simple" onClick={ reset }>Opnieuw beginnen</Button> */}
+                    </div>
                     { qrImageUrl && (
                         <div className="mt-12 flex items-center gap-8">
                             <div> 
