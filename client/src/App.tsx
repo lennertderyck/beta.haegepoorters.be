@@ -9,6 +9,12 @@ import { ReactKeycloakProvider } from '@react-keycloak/web'
 import { instance as keycloakInstance } from './utils/hooks/useKeycloak/instance';
 import useCredentialStore from './utils/hooks/useKeycloak/useCredentialStore';
 import { KeycloakInitOptions } from 'keycloak-js';
+import {
+    QueryClient,
+    QueryClientProvider,
+} from 'react-query';
+  
+const queryClient = new QueryClient();
 
 interface Props {};
 
@@ -22,25 +28,27 @@ const App: FC<Props> = () => {
     };
     
     return (
-        <ReactKeycloakProvider 
-            authClient={ keycloakInstance } 
-            autoRefreshToken={ false } 
-            initOptions={ keycloakInitOptions }
-            onTokens={(tokens) => storeTokens({ 
-                refreshToken: tokens.refreshToken as string,
-                token: tokens.token as string,
-            })}
-        >
-                <ScrollRestoration />
-                <div className="flex h-full">
-                    <MainNavigation />
-                    <div className="flex-1 flex flex-col">
+        <QueryClientProvider client={queryClient}>
+            <ReactKeycloakProvider 
+                authClient={ keycloakInstance } 
+                autoRefreshToken={ false } 
+                initOptions={ keycloakInitOptions }
+                onTokens={(tokens) => storeTokens({ 
+                    refreshToken: tokens.refreshToken as string,
+                    token: tokens.token as string,
+                })}
+            >
+                    <ScrollRestoration />
+                    <div className="flex h-full">
+                        <MainNavigation />
                         <div className="flex-1 flex flex-col">
-                            <Outlet />
+                            <div className="flex-1 flex flex-col">
+                                <Outlet />
+                            </div>
                         </div>
                     </div>
-                </div>
-        </ReactKeycloakProvider>
+            </ReactKeycloakProvider>
+        </QueryClientProvider>
     )
 }
 

@@ -7,6 +7,7 @@ import { RelativeRoutingType, useNavigate } from 'react-router-dom';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
     href?: string;
+    download?: boolean;
     target?: string;
     icon?: string;
     iconPlacement?: 'start' | 'end';

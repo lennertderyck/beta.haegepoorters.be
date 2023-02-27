@@ -6,6 +6,8 @@ import EditionNavButton from './EditionNavButton';
 import { Group } from '../../../../types/general';
 import { Button, Date, Loader } from '../../../../components/basics';
 import { sortEventEditionsByStartDate } from '../../../../utils/funcs/algorithms/sorting';
+import { useQuery } from 'react-query';
+import queries from '../../../../utils/queries';
 
 interface Props {};
 
@@ -13,7 +15,8 @@ const EventsEditorGroupPage: FC<Props> = () => {
     const loaderGroupData = useLoaderData() as Group;
     const navigate = useNavigate();
     const params = useParams<any>();
-    const { data: editions, loading: editionsLoading } = useAxios<Edition[]>(process.env['REACT_APP_BACKEND_URL'] + '/editions');
+    const editionsData = useAxios<Edition[]>(process.env['REACT_APP_BACKEND_URL'] + '/editions');
+    const { data: editions, loading: editionsLoading } = editionsData;
     
     const firstEditon = editions?.sort(sortEventEditionsByStartDate)?.[0];
     
@@ -24,6 +27,9 @@ const EventsEditorGroupPage: FC<Props> = () => {
     }, [firstEditon, params.edition]);
     
     const selectedEditon = editions?.find((edition) => edition?.id === params.edition);
+    const outletContext = {
+        selectedEditon,
+    }
         
     return (
         <div className="page">
@@ -66,12 +72,7 @@ const EventsEditorGroupPage: FC<Props> = () => {
                                 )
                             }
                         </div>
-                        { selectedEditon && !selectedEditon?.editable && (
-                            <div className="p-6 rounded-lg bg-gray-100 text-sm">
-                                Je kan deze editie (nog) niet bewerken
-                            </div>
-                        )}
-                        <Outlet />
+                        <Outlet context={ outletContext } />
                     </>
                 )}
             </div>

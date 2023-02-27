@@ -17,7 +17,10 @@ const ControlledForm = forwardRef<Ref, Props>(({children, onSubmit, className, d
 
   return (
     <FormProvider {...methods} {...otherProps}>
-      <form ref={ ref } className={classNames(styles.form, className)} onSubmit={methods.handleSubmit(onSubmit)}>
+      <form 
+        className={classNames(styles.form, className)} 
+        onSubmit={methods.handleSubmit(onSubmit)}
+      >
         {children}
       </form>
     </FormProvider>

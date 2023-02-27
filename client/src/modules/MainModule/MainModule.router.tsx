@@ -18,6 +18,7 @@ import EventsEditorEventDetailPage from "./pages/EventsEditorEventDetailPage/Eve
 import EventEditorPage from "./pages/EventEditorPage/EventEditorPage";
 import groupDataLoader from "../../utils/funcs/routingLoaders/groupData";
 import AccountOverviewPage from "./pages/AccountOverviewPage/AccountOverviewPage";
+import PaymentPage from "./pages/PaymentPage/PaymentPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -66,6 +67,10 @@ const MainModuleRouter: RouteObject[] = [
     {
         path: 'haegeprekerke/edit/:group',
         element: <EventsEditDetailPage />
+    },
+    {
+        path: 'betalen',
+        element: <PaymentPage />
     }
 ];
 
