@@ -9,15 +9,23 @@ import SupportedBanks from './SupportedBanks';
 import CustomAccountField from './CustomAccountField';
 import QRCodePreview from './QRCodePreview';
 import { useDebouncedCallback } from 'use-debounce';
+import classNames from 'classnames';
+import { useDevice } from 'use-ua-parser-js';
 
 interface Props {};
 
 const PaymentPage: FC<Props> = () => {
+    const [ showPopover, setShowPopover ] = useState(false);
     const [ isBouncing, setIsBouncing ] = useState(false);
     const [ paymentDetails, setPaymentDetails ] = useState<any>(null);
+    const device = useDevice();
+    const isTouch = useMemo(() => {
+        return device.type === 'mobile' || device.type === 'tablet';
+    }, [device.type])
 
     const handleOnSubmit = (data: any) => {
         setPaymentDetails(data);
+        setShowPopover(true);
     }
     
     const selectedReciever = paymentRecievers.find((reciever) => reciever.id === paymentDetails?.reciever);
@@ -83,14 +91,19 @@ const PaymentPage: FC<Props> = () => {
                         <Button icon={ paymentDetails ? 'arrow-right-down' : 'check' } type="submit">{ paymentDetails ? 'Opnieuw genereren' : 'Genereer betaling' }</Button>
                         {/* <Button icon="refresh" type="reset" theme="simple" onClick={ reset }>Opnieuw beginnen</Button> */}
                     </div>
-                    { qrImageUrl && (
-                        <div className="mt-12">
-                            <QRCodePreview imageUrl={ qrImageUrl } bouncing={ isBouncing } />
+                    <div className={classNames(
+                        (showPopover && isTouch) && 'fixed top-0 bottom-0 bg-white flex flex-col justify-center p-6',
+                    )}>
+                        { qrImageUrl && (
+                            <div className={classNames('mt-12', (!showPopover && isTouch) && 'hidden')}>
+                                <QRCodePreview imageUrl={ qrImageUrl } bouncing={ isBouncing } />
+                            </div>
+                        )}
+                        <div className="mt-12 select-none bg-stone-50 rounded-lg p-6">
+                            <h4 className="label !tracking-widest mb-4">Ondersteunde bank-apps</h4>
+                            <SupportedBanks />
                         </div>
-                    )}
-                    <div className="mt-12 select-none bg-stone-50 rounded-lg p-6">
-                        <h4 className="label !tracking-widest mb-4">Ondersteunde bank-apps</h4>
-                        <SupportedBanks />
+                        { isTouch && <Button onClick={() => setShowPopover(false)} className="mt-6 mx-auto" icon="edit" type="button">Betaling bewerken</Button>}
                     </div>
                 </ControlledForm>
             </div>
