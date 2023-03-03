@@ -39,6 +39,7 @@
     "storyblok-js-client": "^5.0.1",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.4",
+    "use-debounce": "^9.0.3",
     "use-ua-parser-js": "^1.1.3",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.5.4",

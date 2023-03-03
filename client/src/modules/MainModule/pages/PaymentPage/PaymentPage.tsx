@@ -7,14 +7,17 @@ import { paymentRecievers } from '../../../../utils/data/payments';
 import AmountField from './AmountField';
 import SupportedBanks from './SupportedBanks';
 import CustomAccountField from './CustomAccountField';
+import QRCodePreview from './QRCodePreview';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface Props {};
 
 const PaymentPage: FC<Props> = () => {
+    const [ isBouncing, setIsBouncing ] = useState(false);
     const [ paymentDetails, setPaymentDetails ] = useState<any>(null);
-    
-    const reset = () => {
-        setPaymentDetails(null);
+
+    const handleOnSubmit = (data: any) => {
+        setPaymentDetails(data);
     }
     
     const selectedReciever = paymentRecievers.find((reciever) => reciever.id === paymentDetails?.reciever);
@@ -33,19 +36,31 @@ const PaymentPage: FC<Props> = () => {
         } else return null;
     }, [paymentDetails, selectedReciever]);
     
+    const debouncedCallback = useDebouncedCallback((data: any) => {
+        if (paymentDetails) {
+            setPaymentDetails(data);
+            setIsBouncing(false);
+        }
+    }, 1500);
+    
     return (
         <div className="page page--wide">
             <div className="page__header">
                 <h1 className="page__title">Betaling aanmaken</h1>
             </div>
             <div className="page__content">
-                <ControlledForm onSubmit={ setPaymentDetails } defaultValues={{}}>
+                <ControlledForm onSubmit={ handleOnSubmit } onChange={(data: any) => {
+                    debouncedCallback(data);
+                    paymentDetails && setIsBouncing(true);
+                }}>
                     <label className="mb-5">
                         <span>Ontvanger *</span>
                         <Input type="select" name="reciever">
-                            { paymentRecievers.map((reciever) => (
-                                <option value={ reciever.id } key={ reciever.id }>{ reciever.name }</option>
-                            ))}
+                            {/* <optgroup label="Takken"> */}
+                                { paymentRecievers.map((reciever) => (
+                                    <option value={ reciever.id } key={ reciever.id }>{ reciever.name }</option>
+                                ))}
+                            {/* </optgroup> */}
                             <option value="other">Andere rekening</option>
                         </Input>
                     </label>
@@ -55,10 +70,12 @@ const PaymentPage: FC<Props> = () => {
                         <Input name="description" />
                     </label>
                     <label className="mb-5 !flex items-baseline gap-2">
-                        <Input type="checkbox" name="blank" />
+                        <div className="flex-1">
+                            <Input type="checkbox" name="blank" />
+                        </div>
                         <div>
                             <p>Betaler vult bedrag zelf in</p>
-                            <p className="text-sm text-gray-400 mt-2">Het bedrag van de betaling wordt op €0 ingesteld.<br />De betaler past het bedrag na het scannen zelf aan in de app.</p>
+                            <p className="text-sm text-gray-400 mt-2">Het bedrag van de betaling wordt op €0 ingesteld. <br className="hidden md:inline" />De betaler past het bedrag na het scannen zelf aan in de app.</p>
                         </div>
                     </label>
                     <AmountField />
@@ -67,15 +84,8 @@ const PaymentPage: FC<Props> = () => {
                         {/* <Button icon="refresh" type="reset" theme="simple" onClick={ reset }>Opnieuw beginnen</Button> */}
                     </div>
                     { qrImageUrl && (
-                        <div className="mt-12 flex items-center gap-8">
-                            <div> 
-                                <img src={ qrImageUrl } width={ 110 } />
-                            </div>
-                            <div>
-                                <h3 className="font-serif">Scan met je bank app</h3>
-                                <p className="text-sm">Je kan deze qr-code scannen met de app<br/>van onderstaande banken</p>
-                                <Button theme="simple" className="mt-4" icon="download" href={ qrImageUrl + '&download=true&qunit=Mm&quiet=3&eclevel=M' } download target="_self">Download QR code</Button>
-                            </div>
+                        <div className="mt-12">
+                            <QRCodePreview imageUrl={ qrImageUrl } bouncing={ isBouncing } />
                         </div>
                     )}
                     <div className="mt-12 select-none bg-stone-50 rounded-lg p-6">
