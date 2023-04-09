@@ -70,8 +70,11 @@ const MainModuleRouter: RouteObject[] = [
     },
     {
         path: 'betalen',
-        element: <PaymentPage />
-    }
+        children: [
+            { index: true, element: <PaymentPage /> },
+            { path: 'g/:paymentId', element: <PaymentPage /> }
+        ]
+    },
 ];
 
 export default MainModuleRouter;

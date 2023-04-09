@@ -5,7 +5,6 @@ import EventCard from './EventCard';
 import EventCardLoader from './EventCardLoader';
 import { sortGroupEventsByDate } from '../../../../utils/funcs/algorithms/sorting';
 import { findFirstEventToDoByDate } from '../../../../utils/funcs/algorithms/filtering';
-import dayjs from 'dayjs';
 import { Button, Icon } from '../../../../components/basics';
 
 interface Props {};

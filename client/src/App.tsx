@@ -47,6 +47,7 @@ const App: FC<Props> = () => {
                             </div>
                         </div>
                     </div>
+                    {/* <CookieClicker /> */}
             </ReactKeycloakProvider>
         </QueryClientProvider>
     )
