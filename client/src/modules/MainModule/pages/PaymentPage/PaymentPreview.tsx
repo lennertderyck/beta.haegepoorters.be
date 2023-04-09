@@ -69,7 +69,7 @@ const PaymentPreview: FC<Props> = ({ payment, showPopover, onClose }) => {
                 )}
                 <div className="select-none bg-stone-50 rounded-lg p-6">
                     <h4 className="label !tracking-widest mb-4 text-center lg:text-left">Ondersteunde bank-apps</h4>
-                    <SupportedBanks />
+                    <SupportedBanks align="start" />
                 </div>
             </div>
             { isTouch && (
