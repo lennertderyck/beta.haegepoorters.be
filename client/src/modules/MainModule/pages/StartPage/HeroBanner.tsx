@@ -2,9 +2,7 @@ import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { className } from '../../../../utils/funcs/dom';
 import { Icon } from '../../../../components/basics';
 
-interface Props extends PropsWithChildren, HTMLAttributes<HTMLDivElement> {
-    
-}
+interface Props extends PropsWithChildren, HTMLAttributes<HTMLDivElement> {}
 
 const HeroBanner: FC<Props> = ({ children, className: cls, ...otherProps }) => {
     return (
@@ -35,7 +33,7 @@ const HeroBanner: FC<Props> = ({ children, className: cls, ...otherProps }) => {
                             <span className="mx-4 hidden xl:inline">|</span>
                             <span className="font-bold">235 leden</span> tussen 6 en 17 jaar
                             <span className="mx-2">•</span>
-                            <span className="font-bold">52 leiding</span> waarvan 3 groepsleiding
+                            <span className="font-bold">37 leiding</span> waarvan 3 groepsleiding
                         </div>
                     </div>
                 </div>

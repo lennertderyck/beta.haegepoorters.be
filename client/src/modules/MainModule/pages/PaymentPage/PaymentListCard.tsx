@@ -5,7 +5,6 @@ import classNames from 'classnames';
 
 interface Props {
     payment: Payment;
-    isCurrent?: boolean;
 };
 
 const PaymentListCard: FC<Props> = ({ payment }) => {
@@ -26,7 +25,7 @@ const PaymentListCard: FC<Props> = ({ payment }) => {
         >
             <div className="flex-1">
                 <h4 className="label">Betaling aan <strong>{ recieverName }</strong></h4>
-                { !!payment.description && <p className="text-lg mb-1"><strong className="font-medium">{ payment.description }</strong></p>}
+                { !!payment.description && <p className="text-lg"><strong className="font-medium">{ payment.description }</strong></p>}
             </div>
             <div>
                 { !payment.blank && <h4><span className="text-3xl"></span><span className="font-medium text-2xl">{ absolute }</span><span className="font-medium text-lg">,{ comma } <span className="text-gray-400">EUR</span></span></h4>}

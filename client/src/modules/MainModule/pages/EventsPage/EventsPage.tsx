@@ -15,7 +15,7 @@ interface Props {};
 const EventsPage: FC<Props> = () => {
     const params = useParams<any>();
     const selectedGroup = useMemo(() => params.group || 'kap', [ params.group ])
-    const { data: events, loading: eventsLoading, error: eventsLoadingError, refetch: refetchEvents } = useAxios<Event[]>(process.env['REACT_APP_BACKEND_URL'] + '/timeline?edition=recBztxlqFkUxMyzh');
+    const { data: events, loading: eventsLoading, error: eventsLoadingError, refetch: refetchEvents } = useAxios<Event[]>(process.env['REACT_APP_BACKEND_URL'] + '/timeline');
     
     const groupedEvents = useMemo(() => {
         const kap = events?.filter((event) => event.group_shortcodes.includes('kap')).sort(sortGroupEventsByDate);

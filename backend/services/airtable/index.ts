@@ -14,6 +14,11 @@ export default base;
 export const getAllEditions = async () => {
     return await base('editions').select().all()
 }
+export const getActiveEditions = async () => {
+    return await base('editions').select({
+        filterByFormula: `{status} = "Published"`
+    }).all()
+}
 export const getAllActivities = async () => {
     return await base('activities').select().all()
 }

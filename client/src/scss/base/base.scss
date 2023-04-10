@@ -10,3 +10,7 @@ html, body {
 html, body, #root {
     height: 100%;
 }
+
+hr {
+    @apply border-t-2 border-gray-200;
+}

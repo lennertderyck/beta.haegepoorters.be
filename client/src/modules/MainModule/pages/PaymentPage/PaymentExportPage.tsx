@@ -1,22 +1,46 @@
-import { FC } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import usePaymentsStore from '../../../../state/stores/usePaymentsStore/usePaymentsStore';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import usePaymentQrGenerator from '../../../../utils/hooks/usePaymentQrGenerator/usePaymentQrGenerator';
 import { paymentRecievers } from '../../../../utils/data/payments';
 import SupportedBanks from './SupportedBanks';
-import { Button } from '../../../../components/basics';
-import PaymentListCard from './PaymentListCard';
+import { useDocumentTitle } from '../../../../utils/hooks';
+import ExportControlPanel from './ExportControlPanel';
 
 interface Props {};
 
 const PaymentExportPage: FC<Props> = () => {
     const params = useParams<any>();
+    const [searchParams] = useSearchParams();
     const payment = usePaymentsStore((store) => params['paymentId'] ? store.findById(params['paymentId']) : undefined);
+    const autoPrintEnabled = searchParams.get('print') === 'auto';
     
-    console.log(payment);
+    const [, setTitle] = useDocumentTitle();
+    const setSuffixedDocumentTitle = (title: string) => setTitle(title + '.pdf');
     
     const selectedReciever = paymentRecievers.find((reciever) => reciever.id === payment?.reciever);
     const _qrImageUrl = usePaymentQrGenerator({ payment, selectedReciever });
+    
+    const proposedTitle = useMemo<string>(() => {
+        if (!!payment) return (`betaling_${ payment.amount }eur_${ selectedReciever?.name }`).replaceAll(' ', '_').toLowerCase();
+        else return `betaling`;
+    }, [payment, selectedReciever])
+    
+    useEffect(() => {
+        if (!!payment) {
+            setSuffixedDocumentTitle(proposedTitle + '.pdf');
+        }
+    }, [payment])
+    
+    useEffect(() => {
+        if (autoPrintEnabled) {
+            window.print();
+        }
+    }, [autoPrintEnabled])
+    
+    const isIframe = window.self !== window.top;
+    
+    console.log('isIframe', isIframe)
     
     return (
         <>
@@ -61,33 +85,7 @@ const PaymentExportPage: FC<Props> = () => {
                     </div>
                 </div>
             </div>
-            <div className="print:hidden paper p-6 fixed bottom-12 right-12 min-w-[400px]">
-                <div className="mb-6 list">
-                    <div className="list__item">
-                        { payment && (
-                            <PaymentListCard 
-                                payment={ payment }
-                            />
-                        )}
-                    </div>
-                    {/* <h3>{ payment?.description }</h3>
-                    <p className="text-lg">
-                        <span className="font-semibold">{ selectedReciever?.name }</span> 
-                        { !payment?.blank && <>
-                            &nbsp;&nbsp;–&nbsp;&nbsp;
-                            <span className="font-semibold">{ payment?.amount } euro</span>
-                        </>}
-                    </p> */}
-                </div>
-                <div className="flex items-center divide-x-2 divide-gray-300">
-                    <div className="pr-3">
-                        <Button icon="printer" onClick={ window.print }>Afdrukken</Button>
-                    </div>
-                    <div className="pl-3">
-                        <Button theme="simple" icon="pencil" to={`/betalen/g/${ payment?.id }`}>aanpassen</Button>
-                    </div>
-                </div>
-            </div>
+            { !isIframe && <ExportControlPanel payment={ payment } selectedReciever={ selectedReciever } />}
         </>
     )
 }

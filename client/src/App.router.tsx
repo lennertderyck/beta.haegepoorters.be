@@ -4,6 +4,7 @@ import {
 import MainModuleRouter from "./modules/MainModule/MainModule.router";
 import App from "./App";
 import PaymentExportPage from "./modules/MainModule/pages/PaymentPage/PaymentExportPage";
+import PaymentExportPreviewPage from "./modules/MainModule/pages/PaymentPage/PaymentExportPreviewPage";
 
 const router = createBrowserRouter([
     {
@@ -13,7 +14,9 @@ const router = createBrowserRouter([
     },
     {
         path: 'betalen/g/:paymentId/export',
-        element: <PaymentExportPage />
+        children: [
+            { index: true, element: <PaymentExportPage /> },
+        ]
     }
 ]);
 

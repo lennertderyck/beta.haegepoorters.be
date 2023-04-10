@@ -27,7 +27,7 @@ const EventCard: FC<Props> = ({ event, group }) => {
     if (!event) return null;
     return (
         <div 
-            className="flex bg-gray-100 px-6 py-4 border-b-2 gap-6 cursor-pointer"
+            className="flex bg-gray-50 px-6 py-4 border-b-2 gap-6 cursor-pointer"
         >
             <div onClick={() => setOpen(s => !s)}>
                 <div className="-mb-2 text-center text-gray-400 relative">

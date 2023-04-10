@@ -6,7 +6,8 @@
   "scripts": {
     "dev:client": "cd client && npm start",
     "dev:api": "vercel dev --listen 4000",
-    "dev": "npm-run-all --print-label --parallel dev:client dev:api"
+    "dev": "npm-run-all --print-label --parallel dev:client dev:api",
+    "deploy:api": "vercel deploy"
   },
   "repository": {
     "type": "git",

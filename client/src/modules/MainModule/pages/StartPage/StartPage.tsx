@@ -26,7 +26,7 @@ const StartPage: FC<Props> = () => {
                         <div className="col-span-12 lg:col-span-8">
                             <h3 className="section-title mb-5">
                                 <Link to="/haegeprekerke" className="flex items-center gap-4">
-                                    <span>Activiteiten in de kijker</span>
+                                    <span>Aankomende activiteiten</span>
                                     <Icon name="arrow-right" size="1.4rem" />
                                 </Link>
                             </h3>
