@@ -20,7 +20,7 @@ const AccountOnBoardingCard: FC<Props> = ({ onConfirm, selectedOption }) => {
                 <button onClick={() => confirmOption('platform_external')} className="p-8 lg:p-12">
                     <AdminPlatformSignInCard />
                 </button>
-                { selectedOption !== 'platform_external' && (
+                {/* { selectedOption !== 'platform_external' && (
                     <>
                         <div className="flex items-center gap-4 px-12 -my-2">
                             <hr className="flex-1 border-t-2 border-gray-200" />
@@ -39,7 +39,7 @@ const AccountOnBoardingCard: FC<Props> = ({ onConfirm, selectedOption }) => {
                             </div>
                         </button>
                     </>
-                )}
+                )} */}
             </div>
             {/* <div className="mt-6">
                 <div className="">

@@ -14,13 +14,23 @@ const OnboardingPage: FC<Props> = () => {
     
     const confirmOption = (option: OnboardingProcedures) => {
         setOnboardingOption(option);
+        handleOptionSelect(option);
     }
+    
+    const handleOptionSelect = (option: OnboardingProcedures) => {
+        if (option === 'platform_external') window.open('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/', '_blank')
+        else if (option === 'site_config') {}
+    }
+    
+    useEffect(() => {
+        if (onboardingPref !== null) handleOptionSelect(onboardingPref)
+    }, [onboardingPref])
     
     return (
         <div className="page">
             <div className="page__header">
-                <h1 className="page__title text-center xl:mb-2">Welkom terug, Lennert</h1>
-                <p className="text-center">Je gegevens bij Scouts en Gidsen Vlaanderen</p>
+                <h1 className="page__title text-center xl:mb-2">Welkom terug</h1>
+                <p className="text-center">Beheer je gegevens bij Scouts en Gidsen Vlaanderen</p>
             </div>
             <div className="page__content">
                 <AccountOnBoardingCard onConfirm={(option) => confirmOption(option)} />
