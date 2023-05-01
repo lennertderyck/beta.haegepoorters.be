@@ -7,11 +7,13 @@ import classNames from 'classnames';
 import { usePlatformAccount } from '../../../../utils/hooks';
 import uitPasIllustration from '../../../../assets/images/uitpas-illustration.png';
 import usePlatformRequest from '../../../../utils/hooks/usePlatformRequest/usePlatformRequest';
+import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
 
 interface Props {};
 
 const AccountOverviewPage: FC<Props> = () => {
-    const { keycloak } = usePlatformAccount();
+    // const { keycloak } = usePlatformAccount();
+    const keycloak = useKeycloakStore(store => store.instance);
     const { data } = usePlatformRequest<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel')
     // const { data } = useFetch<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel');
     
