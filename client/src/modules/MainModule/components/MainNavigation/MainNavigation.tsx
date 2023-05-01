@@ -7,10 +7,12 @@ import NavItem from './NavItem';
 import { useDevice } from 'use-ua-parser-js';
 import { useMediaQuery } from 'react-responsive'
 import Toggle from './Toggle';
+import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
 
 interface Props {};
 
 const MainNavigation: FC<Props> = () => {
+    const platformIdentity = useKeycloakStore(store => store.instance.userInfo);
     const [ active, { open, close, toggle }] = useCollapseState();
     const device = useDevice();
     const isTouch = useMemo(() => {
@@ -18,7 +20,9 @@ const MainNavigation: FC<Props> = () => {
     }, [device.type])
     const isLargeScreen = useMediaQuery({
         query: '(min-width: 1024px)'
-    })
+    });
+    
+    console.log('platformIdentity', platformIdentity)
     
     const menuItems = [
         { label: 'Startpagina', to: '/', icon: 'home-5' },

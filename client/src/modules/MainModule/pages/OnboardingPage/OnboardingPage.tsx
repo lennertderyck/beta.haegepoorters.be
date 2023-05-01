@@ -20,13 +20,13 @@ const OnboardingPage: FC<Props> = () => {
     }
     
     const handleOptionSelect = (option: OnboardingProcedures) => {
-        if (option === 'platform_external') window.open('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/', '_blank')
+        if (option === 'platform_external') identityProviderLogin();
         else if (option === 'site_config') {}
     }
     
-    useEffect(() => {
-        if (onboardingPref !== null) handleOptionSelect(onboardingPref)
-    }, [onboardingPref])
+    // useEffect(() => {
+    //     if (onboardingPref !== null) handleOptionSelect(onboardingPref)
+    // }, [onboardingPref])
     
     return (
         <div className="page">
@@ -36,7 +36,6 @@ const OnboardingPage: FC<Props> = () => {
             </div>
             <div className="page__content">
                 <AccountOnBoardingCard onConfirm={(option) => confirmOption(option)} />
-                <button onClick={() => identityProviderLogin()}>test login</button>
             </div>
         </div>
     )
