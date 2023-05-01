@@ -55,6 +55,7 @@ const useKeycloakStore = create(
                     .then(async (auth) => {
                         if (auth) {
                             await instance.updateToken(KEYCL_TOKEN_LIFESPAN);
+                            console.log('TEST USERINFO', instance.userInfo)
                             set({
                                 token: instance.token,
                                 refreshToken: instance?.refreshToken,
