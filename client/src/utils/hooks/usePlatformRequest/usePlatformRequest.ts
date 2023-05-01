@@ -2,22 +2,23 @@ import { useEffect } from "react";
 import useAxios from "../useAxios/useAxios";
 import useBaseAxios from "../useAxios/useBaseAxios";
 import usePlatformAccount from "../usePlatformAccount/usePlatformAccount";
+import useKeycloakStore from "../../../state/stores/useKeycloakStore/useKeycloakStore";
 
 const usePlatformRequest = <T = any>(endpoint: any, lazy: boolean = false) => {
-    const { keycloak } = usePlatformAccount();
+    const authenticated = useKeycloakStore(store => store.authenticated);
+    const token = useKeycloakStore(store => store.token);
     const [ request, requestState ] = useBaseAxios<T>(endpoint, {
         headers: {
-            'Authorization': 'Bearer ' + keycloak.token
+            'Authorization': 'Bearer ' + token
         }
     });
     
-    console.log(keycloak);
     
     useEffect(() => {
-        if (keycloak.authenticated) {
+        if (authenticated) {
             request();
         }
-    }, [keycloak.authenticated])
+    }, [authenticated])
     
     return {
         ...requestState
