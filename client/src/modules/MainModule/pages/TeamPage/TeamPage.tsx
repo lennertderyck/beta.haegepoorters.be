@@ -61,14 +61,14 @@ const TeamPage: FC<Props> = () => {
                         </div>
                     </div>
                     { Object.entries(groups)?.map(([shortcode, group]) => (
-                        <div className="mb-12">
+                        <div className="mb-12" key={ shortcode }>
                             <div className="mb-6">
                                 <h3 className="font-serif capitalize font-bold text-3xl mb-3">{ group.name }</h3>
                                 <Button theme="simple" icon="arrow-right" to={ '/contact?r=' + shortcode }>Contacteer de { group.name }</Button>
                             </div>
                             <div className="card-group -mt-6 grid grid-cols-4 gap-6">
                                 { grouped[shortcode]?.map((leader: StoryBlokResponse<Leader>) => (
-                                    <TeamMemberCard showPhonenumber={ showPhonenumbers } leader={ leader } />
+                                    <TeamMemberCard key={ leader.id } showPhonenumber={ showPhonenumbers } leader={ leader } />
                                 ))}
                             </div>
                         </div>

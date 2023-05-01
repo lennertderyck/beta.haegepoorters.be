@@ -23,6 +23,8 @@ const Img: FC<Props> = ({ height = 'auto', width = '100%', className: cls, ...ot
         !states.loading && !states.error
     ), [ states ])
     
+    console.log('LOADING', states.loading)
+    
     return (
         <Wrapper
             width={ width }

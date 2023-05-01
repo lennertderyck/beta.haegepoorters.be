@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 import { StoryBlokResponse } from '../../../../utils/hooks/useStoryblok/useStoryblok.types';
 import { Leader } from '../../../../types/content';
-import { Icon } from '../../../../components/basics';
+import { Icon, Img } from '../../../../components/basics';
 import classNames from 'classnames';
 
 interface Props {
@@ -17,7 +17,12 @@ const TeamMemberCard: FC<Props> = ({ leader, showPhonenumber }) => {
     return (
         <div className="card col-span-4 md:col-span-2 lg:col-span-1">
             <div className="h-60 mb-4">
-                { leader.content.image.filename && <img src={ leader.content.image.filename } className="h-full w-full object-cover" alt="" />}
+                { leader.content.image.filename && (
+                    <>
+                        {/* <img src={ leader.content.image.filename } className="h-full w-full object-cover" alt="" /> */}
+                        <Img src={ leader.content.image.filename } width="100%" height="100%" className="h-full w-full object-cover" />
+                    </>
+                )}
             </div>
             <h4 className="card__title !-mb-1">
                 { leader.content.first_name }

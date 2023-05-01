@@ -4,6 +4,7 @@ import { OnboardingProcedures } from '../../../../types/accounts';
 import usePreferencesStore from '../../../../state/stores/usePreferencesStore/usePreferencesStore';
 import { useNavigate } from 'react-router-dom';
 import { useEffectOnce } from '../../../../utils/hooks';
+import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
 
 interface Props {};
 
@@ -11,6 +12,7 @@ const OnboardingPage: FC<Props> = () => {
     const navigate = useNavigate();
     const setOnboardingOption = usePreferencesStore((state) => state.setAccountOnboarding);
     const onboardingPref = usePreferencesStore((state) => state.accountOnboarding);
+    const identityProviderLogin = useKeycloakStore(store => store.instance.login);
     
     const confirmOption = (option: OnboardingProcedures) => {
         setOnboardingOption(option);
@@ -34,6 +36,7 @@ const OnboardingPage: FC<Props> = () => {
             </div>
             <div className="page__content">
                 <AccountOnBoardingCard onConfirm={(option) => confirmOption(option)} />
+                <button onClick={() => identityProviderLogin()}>test login</button>
             </div>
         </div>
     )

@@ -13,6 +13,8 @@ import {
     QueryClient,
     QueryClientProvider,
 } from 'react-query';
+import useKeycloakStore from './state/stores/useKeycloakStore/useKeycloakStore';
+import { useEffectOnce } from './utils/hooks';
   
 const queryClient = new QueryClient();
 
@@ -27,28 +29,22 @@ const App: FC<Props> = () => {
         refreshToken: storedTokens?.refreshToken,
     };
     
+    const initIdentityProvider = useKeycloakStore(store => store.init);
+    
+    useEffectOnce(() => initIdentityProvider());
+    
     return (
         <QueryClientProvider client={queryClient}>
-            <ReactKeycloakProvider 
-                authClient={ keycloakInstance } 
-                autoRefreshToken={ false } 
-                initOptions={ keycloakInitOptions }
-                onTokens={(tokens) => storeTokens({ 
-                    refreshToken: tokens.refreshToken as string,
-                    token: tokens.token as string,
-                })}
-            >
-                    <ScrollRestoration />
-                    <div className="flex h-full">
-                        <MainNavigation />
-                        <div className="flex-1 flex flex-col">
-                            <div className="flex-1 flex flex-col">
-                                <Outlet />
-                            </div>
-                        </div>
+            <ScrollRestoration />
+            <div className="flex h-full">
+                <MainNavigation />
+                <div className="flex-1 flex flex-col">
+                    <div className="flex-1 flex flex-col">
+                        <Outlet />
                     </div>
-                    {/* <CookieClicker /> */}
-            </ReactKeycloakProvider>
+                </div>
+            </div>
+            {/* <CookieClicker /> */}
         </QueryClientProvider>
     )
 }
