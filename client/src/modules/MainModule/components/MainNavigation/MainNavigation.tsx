@@ -12,7 +12,7 @@ import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycl
 interface Props {};
 
 const MainNavigation: FC<Props> = () => {
-    const platformIdentity = useKeycloakStore(store => store.instance.userInfo);
+    const platformIdentity = useKeycloakStore(store => store.user);
     const [ active, { open, close, toggle }] = useCollapseState();
     const device = useDevice();
     const isTouch = useMemo(() => {
@@ -22,7 +22,7 @@ const MainNavigation: FC<Props> = () => {
         query: '(min-width: 1024px)'
     });
     
-    console.log('platformIdentity', platformIdentity)
+    console.log('platformIdentity user', platformIdentity)
     
     const menuItems = [
         { label: 'Startpagina', to: '/', icon: 'home-5' },

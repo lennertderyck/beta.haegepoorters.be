@@ -23,6 +23,8 @@ interface KeycloakStore {
     token?: string;
     refreshToken?: string;
     
+    user?: any;
+    
     init: () => void;
 }
 
@@ -38,6 +40,8 @@ const useKeycloakStore = create(
         
             token: undefined,
             refreshToken: undefined,
+            
+            user: undefined,
         
             init: () => {
                 const instance = get().instance;
@@ -49,6 +53,7 @@ const useKeycloakStore = create(
                                 token: instance.token,
                                 refreshToken: instance?.refreshToken,
                                 authenticated: true,
+                                user: instance.userInfo
                             })
                         }
                     })
