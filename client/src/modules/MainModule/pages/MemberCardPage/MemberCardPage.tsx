@@ -30,7 +30,10 @@ const MemberCardPage: FC<Props> = () => {
                 <p className="text-center">Gebruik je lidnummer om aan te melden bij de Groepsadministratie</p>
             </div>
             <div className="mx-auto px-4 sm:px-0 sm:w-fit">
-                { memberId && <MemberCard memberId={ memberId } memberName={ memberName } />}
+                { memberId ? 
+                    <MemberCard memberId={ memberId } memberName={ memberName } /> :
+                    <p className="p-6 bg-gray-100 rounded-xl">Geen lidkaart gevonden, mail naar de groepsleiding om je lidkaart op te vragen</p>
+                }
             </div>
         </div>
     )
