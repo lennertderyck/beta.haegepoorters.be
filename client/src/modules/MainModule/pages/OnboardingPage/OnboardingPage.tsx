@@ -13,6 +13,7 @@ const OnboardingPage: FC<Props> = () => {
     const setOnboardingOption = usePreferencesStore((state) => state.setAccountOnboarding);
     const onboardingPref = usePreferencesStore((state) => state.accountOnboarding);
     const identityProviderLogin = useKeycloakStore(store => store.instance.login);
+    const platformProfile = useKeycloakStore(store => store.user);
     
     const confirmOption = (option: OnboardingProcedures) => {
         setOnboardingOption(option);
@@ -31,7 +32,7 @@ const OnboardingPage: FC<Props> = () => {
     return (
         <div className="page">
             <div className="page__header">
-                <h1 className="page__title text-center xl:mb-2">Welkom terug</h1>
+                <h1 className="page__title text-center xl:mb-2">Welkom terug { platformProfile && <>, { platformProfile.vgagegevens.voornaam }</>}</h1>
                 <p className="text-center">Beheer je gegevens bij Scouts en Gidsen Vlaanderen</p>
             </div>
             <div className="page__content">
