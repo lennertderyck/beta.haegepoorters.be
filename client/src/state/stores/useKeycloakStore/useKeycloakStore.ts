@@ -28,9 +28,15 @@ interface KeycloakStore {
     init: () => void;
 }
 
-const partializePicker = (state: KeycloakStore, allowedKeys: string[]) => {
-    return Object.fromEntries(Object.entries(state).filter(([key]) => allowedKeys.includes(key))) as any;
-  };
+type StringKeys<T> = {
+    [K in keyof T]: T[K] extends Function ? never : K;
+}[keyof T];
+type StringProps<T> = Pick<T, StringKeys<T>>; 
+type AllowedKeys = keyof StringProps<KeycloakStore>;
+
+const partializePicker = (state: KeycloakStore, allowedKeys: AllowedKeys[]) => {
+    return Object.fromEntries(Object.entries(state).filter(([key]) => (allowedKeys as string[]).includes(key))) as any;
+};
 
 const useKeycloakStore = create(
     persist<KeycloakStore>(
@@ -62,7 +68,7 @@ const useKeycloakStore = create(
         {
             name: 'keycloakStore',
             getStorage: () => window.localStorage,
-            partialize: state => partializePicker(state, ['token', 'refreshToken']),
+            partialize: state => partializePicker(state, ['token', 'refreshToken', 'user']),
         },
     )
 )
