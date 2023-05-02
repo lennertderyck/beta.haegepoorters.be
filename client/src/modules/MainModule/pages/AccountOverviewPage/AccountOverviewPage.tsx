@@ -14,10 +14,11 @@ interface Props {};
 const AccountOverviewPage: FC<Props> = () => {
     // const { keycloak } = usePlatformAccount();
     const keycloak = useKeycloakStore(store => store.instance);
+    const authenticated = useKeycloakStore(store => store.authenticated);
     const { data } = usePlatformRequest<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel')
     // const { data } = useFetch<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel');
     
-    const flyoverActive = !keycloak.authenticated;
+    const flyoverActive = !authenticated;
     
     if (!data) return <>catch other state</>;
     

@@ -20,6 +20,7 @@ const initOptions = {
 interface KeycloakStore {
     instance: Keycloak;
     authenticated: boolean;
+    authenticating: boolean;
     
     token?: string;
     refreshToken?: string;
@@ -44,6 +45,7 @@ const useKeycloakStore = create(
         ((set, get) => ({
             instance: new Keycloak(config),
             authenticated: false,
+            authenticating: true,
         
             token: undefined,
             refreshToken: undefined,
@@ -66,8 +68,13 @@ const useKeycloakStore = create(
                                 refreshToken: instance?.refreshToken,
                                 authenticated: true,
                                 user: userInfoResponse.data,
+                                authenticating: false
                             })
                         }
+                    }).catch(() => {
+                        set({
+                            authenticating: true,
+                        })
                     })
             }
         })),
