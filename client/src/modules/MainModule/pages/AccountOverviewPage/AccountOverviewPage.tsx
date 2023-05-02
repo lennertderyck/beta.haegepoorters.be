@@ -18,7 +18,7 @@ const AccountOverviewPage: FC<Props> = () => {
     // const { data } = useFetch<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel');
     
     const flyoverActive = !keycloak.authenticated;
-        
+    
     if (!data) return <>catch other state</>;
     
     const scheme = data.groepseigenVelden['O1306G'].schema;
@@ -26,9 +26,7 @@ const AccountOverviewPage: FC<Props> = () => {
     const field = scheme.find((veld) => veld.label === 'UiTPas-nummer');
     const pointsCardNumber = field && values ? (values as any)[field.id] : null;
     const currentFunctions = data.functies.filter((funct) => !funct.einde);
-    
-    console.log(currentFunctions);
-    
+        
     return (
         <div 
             className={classNames(

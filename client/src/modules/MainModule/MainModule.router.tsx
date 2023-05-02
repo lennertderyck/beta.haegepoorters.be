@@ -19,6 +19,7 @@ import EventEditorPage from "./pages/EventEditorPage/EventEditorPage";
 import groupDataLoader from "../../utils/funcs/routingLoaders/groupData";
 import AccountOverviewPage from "./pages/AccountOverviewPage/AccountOverviewPage";
 import PaymentPage from "./pages/PaymentPage/PaymentPage";
+import AccountIndexPage from "./pages/AccountIndexPage/AccountIndexPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -56,8 +57,8 @@ const MainModuleRouter: RouteObject[] = [
             { path: 'leiding', element: <TeamPage /> },
             { path: 'groepsadmin/*', element: <Navigate to="/ga" replace />},
             { path: 'ga', children: [
-                { index: true, element: <Navigate to="onboarding" /> },
-                { path: '*', element: <AccountOverviewPage /> },
+                { index: true, element: <AccountIndexPage /> },
+                { path: 'account', element: <AccountOverviewPage /> },
                 { path: 'onboarding', element: <OnboardingPage /> },
                 { path: 'digitale-lidkaart', element: <MemberCardPage /> },
             ]},
