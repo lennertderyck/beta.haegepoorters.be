@@ -20,6 +20,8 @@ const AccountOverviewPage: FC<Props> = () => {
     
     const flyoverActive = !authenticated;
     
+    console.log(keycloak, {authenticated})
+    
     if (!data) return <>catch other state</>;
     
     const scheme = data.groepseigenVelden['O1306G'].schema;
