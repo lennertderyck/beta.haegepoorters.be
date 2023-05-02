@@ -10,7 +10,7 @@ const Dialog: FC<Props> = ({ children, className, overlay, ...otherProps }) => {
         <div 
             className={classNames(
                 'fixed inset-0 z-40 xl:p-12 flex items-end justify-end',
-                overlay && 'bg-black bg-opacity-30 xl:bg-transparent',
+                overlay && 'bg-black bg-opacity-30',
                 className
             )}
             { ...otherProps }
