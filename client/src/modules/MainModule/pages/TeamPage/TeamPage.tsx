@@ -9,6 +9,7 @@ import { Button, Icon } from '../../../../components/basics';
 import TeamMemberCard from './TeamMemberCard';
 import usePreferencesStore from '../../../../state/stores/usePreferencesStore/usePreferencesStore';
 import TeamPageLoader from './TeamPageLoader';
+import Dialog from '../../../../components/basics/Dialog/Dialog';
 
 interface Props {};
 
@@ -74,15 +75,26 @@ const TeamPage: FC<Props> = () => {
                         </div>
                     ))}
                     { !showPhonenumbers && (
-                        <div className="sticky left-0 right-0 bottom-0 w-full px-8">
-                            <button 
-                                className="flex items-center gap-3 w-full bg-red-100 py-4 px-4 uppercase tracking-wider text-xs text-red-500 font-semibold text-right" 
-                                onClick={() => enablePhonenumbers()}
-                            >
-                                <Icon name="eye-close" />
-                                <span>Gsm-nummers weergeven</span>
-                            </button>
-                        </div>
+                        <>
+                            <Dialog>
+                                <div className="p-6">
+                                    <div className="content content--inline content--compact">
+                                        <h4>Gsm-nummers</h4>
+                                        <p>Nummers van de leiding worden standaard verborgen vanwege hun privacy.</p>
+                                    </div>
+                                    <Button className="mt-4" onClick={() => enablePhonenumbers()}>Gsm-nummers weergeven</Button>
+                                </div>
+                            </Dialog>
+                            {/* <div className="sticky left-0 right-0 bottom-0 w-full px-8">
+                                <button 
+                                    className="flex items-center gap-3 w-full bg-red-100 py-4 px-4 uppercase tracking-wider text-xs text-red-500 font-semibold text-right" 
+                                    onClick={() => enablePhonenumbers()}
+                                >
+                                    <Icon name="eye-close" />
+                                    <span>Gsm-nummers weergeven</span>
+                                </button>
+                            </div> */}
+                        </>
                     )}
                 </div>
             )}

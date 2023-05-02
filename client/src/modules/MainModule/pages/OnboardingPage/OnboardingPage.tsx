@@ -1,18 +1,17 @@
 import { FC, useEffect } from 'react';
-import { AccountOnBoardingCard, Button, Icon } from '../../../../components/basics';
+import { AccountOnBoardingCard } from '../../../../components/basics';
 import { OnboardingProcedures } from '../../../../types/accounts';
 import usePreferencesStore from '../../../../state/stores/usePreferencesStore/usePreferencesStore';
-import { useNavigate } from 'react-router-dom';
-import { useEffectOnce } from '../../../../utils/hooks';
 import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {};
 
 const OnboardingPage: FC<Props> = () => {
     const navigate = useNavigate();
     const setOnboardingOption = usePreferencesStore((state) => state.setAccountOnboarding);
-    const onboardingPref = usePreferencesStore((state) => state.accountOnboarding);
     const identityProviderLogin = useKeycloakStore(store => store.instance.login);
+    const identityProviderAuthenticated = useKeycloakStore(store => store.authenticated);
     const platformProfile = useKeycloakStore(store => store.user);
     
     const confirmOption = (option: OnboardingProcedures) => {
@@ -22,12 +21,14 @@ const OnboardingPage: FC<Props> = () => {
     
     const handleOptionSelect = (option: OnboardingProcedures) => {
         if (option === 'platform_external') identityProviderLogin();
-        else if (option === 'site_config') {}
+        else if (option === 'site_config') {};
     }
     
-    // useEffect(() => {
-    //     if (onboardingPref !== null) handleOptionSelect(onboardingPref)
-    // }, [onboardingPref])
+    useEffect(() => {
+        if (identityProviderAuthenticated) {
+            navigate('/ga/account');
+        }
+    }, [identityProviderAuthenticated])
     
     return (
         <div className="page">

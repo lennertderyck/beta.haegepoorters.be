@@ -28,6 +28,7 @@ interface KeycloakStore {
     user?: any;
     
     init: () => void;
+    login: () => void;
 }
 
 type StringKeys<T> = {
@@ -45,7 +46,7 @@ const useKeycloakStore = create(
         ((set, get) => ({
             instance: new Keycloak(config),
             authenticated: false,
-            authenticating: true,
+            authenticating: false,
         
             token: undefined,
             refreshToken: undefined,
@@ -68,14 +69,26 @@ const useKeycloakStore = create(
                                 refreshToken: instance?.refreshToken,
                                 authenticated: true,
                                 user: userInfoResponse.data,
-                                authenticating: false
                             })
                         }
-                    }).catch(() => {
-                        set({
-                            authenticating: true,
-                        })
                     })
+                    
+                instance.onReady = () => {}
+                instance.onAuthSuccess = () => set({
+                    authenticating: false,
+                })
+                instance.onAuthError = () => set({
+                    authenticating: false,
+                })
+            },
+            
+            login: () => {
+                set({
+                    authenticating: true,
+                })
+                const instance = get().instance;
+                instance.login();
+                /** When the login procedure is finished, keycloak events will catch and provide the end of the process */
             }
         })),
         {

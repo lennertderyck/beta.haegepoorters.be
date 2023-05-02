@@ -2,6 +2,7 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware'
 import produce from 'immer'
 import { OnboardingProcedures } from '../../../types/accounts';
+import { CookiePolicy } from '../../../types/general';
 
 interface Properties {
     allowShowPhonenumbers: boolean;
@@ -15,6 +16,9 @@ interface Properties {
     
     accountOnboarding: OnboardingProcedures | null;
     setAccountOnboarding: (option: string) => void;
+    
+    cookiePolicy: CookiePolicy | undefined;
+    setCookiePolicy: (policy: CookiePolicy) => void;
     
     [key: string]: any;
 }
@@ -41,7 +45,12 @@ const usePreferencesStore = create(
             accountOnboarding: null,
             setAccountOnboarding: (option: string) => set(
                 produce((state) => { state.accountOnboarding = option })
-            )
+            ),
+            
+            cookiePolicy: undefined,
+            setCookiePolicy: (policy) => set({
+                cookiePolicy: policy,
+            })
         }),
         {
             name: 'sitePrefs',

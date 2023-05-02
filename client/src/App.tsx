@@ -11,6 +11,8 @@ import {
 } from 'react-query';
 import useKeycloakStore from './state/stores/useKeycloakStore/useKeycloakStore';
 import { useEffectOnce } from './utils/hooks';
+import CookieClicker from './components/elements/CookieClicker/CookieClicker';
+import usePreferencesStore from './state/stores/usePreferencesStore/usePreferencesStore';
   
 const queryClient = new QueryClient();
 
@@ -18,6 +20,7 @@ interface Props {};
 
 const App: FC<Props> = () => {  
     const initIdentityProvider = useKeycloakStore(store => store.init);
+    const showCookieClicker = usePreferencesStore(store => store.cookiePolicy === undefined);
     
     useEffectOnce(() => initIdentityProvider());
     
@@ -32,7 +35,7 @@ const App: FC<Props> = () => {
                     </div>
                 </div>
             </div>
-            {/* <CookieClicker /> */}
+            { showCookieClicker && <CookieClicker />}
         </QueryClientProvider>
     )
 }

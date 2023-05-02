@@ -1,11 +1,15 @@
 import { FC } from 'react';
 import Footer from './components/Footer/Footer';
 import { Outlet } from 'react-router-dom';
+import useConnectionState from '../../utils/hooks/useConnectionState/useConnectionState';
+import OfflineStatusPage from './pages/OfflineStatusPage/OfflineStatusPage';
 
 interface Props {};
 
 const MainModule: FC<Props> = () => {
-    return (
+    const online = useConnectionState();
+    
+    if (online) return (
         <>
             <div className="flex-1">
                 <Outlet />
@@ -14,7 +18,8 @@ const MainModule: FC<Props> = () => {
                 <Footer />
             </div>
         </>
-    )
+    ) 
+    else return <OfflineStatusPage />
 }
 
 export default MainModule;

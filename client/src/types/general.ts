@@ -5,3 +5,5 @@ export interface Group {
     activityEditorCode: string;
     airtableId: string;
 }
+
+export type CookiePolicy = 'all' | 'restricted';
