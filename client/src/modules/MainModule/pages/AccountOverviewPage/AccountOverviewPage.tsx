@@ -125,7 +125,7 @@ const AccountOverviewPage: FC<Props> = () => {
                                     { data.adressen.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen adressen toegevoegd.</p>
                                     </>)}
-                                    { profielFakeData.adressen.map((contact, index) => (
+                                    { data.adressen.map((contact, index) => (
                                         <div 
                                             key={ index }
                                             className="col-span-6"
@@ -144,7 +144,7 @@ const AccountOverviewPage: FC<Props> = () => {
                                     { data.contacten.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen ouders/voogd toegevoegd. <span className="font-medium">Je ontvangt mogelijks ook geen e-mails.</span></p>
                                     </>)}
-                                    { profielFakeData.contacten.map((contact, index) => (
+                                    { data.contacten.map((contact, index) => (
                                         <div 
                                             key={ index }
                                             className="col-span-6"
