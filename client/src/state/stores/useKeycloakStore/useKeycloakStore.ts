@@ -12,11 +12,6 @@ const config = {
     redirectUri: window.location.href
 }
 
-const initOptions = {
-    token: localStorage.getItem('gaToken') || undefined,
-    refreshToken: localStorage.getItem('gaRefreshToken') || undefined
-}
-
 interface KeycloakStore {
     instance: Keycloak;
     authenticated: boolean;
@@ -55,7 +50,13 @@ const useKeycloakStore = create(
         
             init: () => {
                 const instance = get().instance;
-                instance.init(initOptions)
+                const cachedTokens = {
+                    token: get().token,
+                    refreshToken: get().refreshToken,
+                }
+                instance.init({
+                    ...cachedTokens
+                })
                     .then(async (auth) => {
                         if (auth) {
                             await instance.updateToken(KEYCL_TOKEN_LIFESPAN);
