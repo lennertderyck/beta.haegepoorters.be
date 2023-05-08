@@ -15,20 +15,31 @@ const AccountOverviewPage: FC<Props> = () => {
     // const { keycloak } = usePlatformAccount();
     const keycloak = useKeycloakStore(store => store.instance);
     const authenticated = useKeycloakStore(store => store.authenticated);
-    const { data } = usePlatformRequest<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel')
-    // const { data } = useFetch<typeof profielFakeData>('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel');
+    const loading = useKeycloakStore(store => store.authenticating);
+    const cachedUser = useKeycloakStore(store => store.user);
     
-    const flyoverActive = !authenticated;
+    const data = cachedUser;
+    const error = !data && authenticated;
+    const flyoverActive = !authenticated || loading;
     
     console.log(keycloak, {authenticated})
     
-    if (!data) return <>catch other state</>;
+    if (error) return (
+        <div className="page page--wide h-full flex items-center">
+            <div className="page__content">
+                <Icon name="cloud-off" className="block mx-auto mb-4" size="1.8rem" />
+                <h2 className="font-serif text-2xl text-center">We konden je gegevens niet ophalen</h2>
+                <p className="text-center">Kijk je internetverbinding na en probeer opnieuw</p>
+                <Button icon="restart" className="mt-4 mx-auto">Probeer opnieuw</Button>
+            </div>
+        </div>
+    );
     
     const scheme = data.groepseigenVelden['O1306G'].schema;
     const values = data.groepseigenVelden['O1306G'].waarden;
-    const field = scheme.find((veld) => veld.label === 'UiTPas-nummer');
+    const field = scheme.find((veld: any) => veld.label === 'UiTPas-nummer');
     const pointsCardNumber = field && values ? (values as any)[field.id] : null;
-    const currentFunctions = data.functies.filter((funct) => !funct.einde);
+    const currentFunctions = data.functies.filter((funct: any) => !funct.einde);
         
     return (
         <div 
@@ -42,15 +53,15 @@ const AccountOverviewPage: FC<Props> = () => {
             </Modal> */}
             <div className="flyover__main">
                 <div className="page">
-                    <div className="page__header flex items-baseline justify-between">
+                    <div className="page__header flex flex-col xl:flex-row items-baseline justify-between">
                         <h1 className="page__title">Jouw gegevens</h1>
                         <Button icon="refresh">
                             <span>Gegevens venieuwen</span>
                         </Button>
                     </div>
                     <div className="page__content">
-                        <div className="bg-gray-100 p-6 rounded-lg flex items-center justify-between">
-                            <div className="flex items-center gap-8">
+                        <div className="bg-gray-100 p-6 rounded-lg flex flex-col xl:flex-row items-center justify-between">
+                            <div className="flex flex-col xl:flex-row items-center gap-4 xl:gap-8">
                                 <div className="bg-gray-200 rounded-full">
                                     <div className="p-4">
                                         <Icon name="account-circle" size="2.3rem" />
@@ -61,13 +72,13 @@ const AccountOverviewPage: FC<Props> = () => {
                                     <p className="label tracking-widest">{ data.email }</p>
                                 </div>
                             </div>
-                            <div>
+                            <div className="mt-4 xl:mt-0">
                                 <Button to={`/ga/digitale-lidkaart?memberId=${data.verbondsgegevens.lidnummer}&name=${ data.vgagegevens.voornaam } ${ data.vgagegevens.achternaam }`} icon="bank-card" iconPlacement="start">Digitale lidkaart</Button>
                             </div>
                         </div>
                         <div className="grid grid-cols-12 mt-12 gap-y-10">
                             <div className="col-span-12 content content--inline">
-                                <div className="flex items-center justify-between">
+                                <div className="flex flex-col-reverse xl:flex-row items-center justify-between">
                                     <div>
                                         <h4>UitPas</h4>
                                         <p>Spaar punten en ontvang leuke voordelen en gadgets</p>
@@ -125,12 +136,14 @@ const AccountOverviewPage: FC<Props> = () => {
                                     { data.adressen.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen adressen toegevoegd.</p>
                                     </>)}
-                                    { data.adressen.map((contact, index) => (
+                                    { data.adressen.map((address: any, index: number) => (
                                         <div 
                                             key={ index }
-                                            className="col-span-6"
+                                            className="col-span-12 xl:col-span-6"
                                         >
-                                            <AddressCard address={ contact } />
+                                            <div className={classNames(!address.postadres && 'opacity-60')}>
+                                                <AddressCard address={ address } />
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -139,15 +152,15 @@ const AccountOverviewPage: FC<Props> = () => {
                         <div className="grid grid-cols-12 mt-12 gap-y-10">
                             <div className="col-span-12 content content--inline">
                                 <h4>Contacten</h4>
-                                <p>Hoe we emails versturen of je ouders/voogd contacteren</p>
+                                <p>Ook deze contacten ontvangen onze communicatie</p>
                                 <div className="grid grid-cols-12 gap-6 mt-4">
                                     { data.contacten.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen ouders/voogd toegevoegd. <span className="font-medium">Je ontvangt mogelijks ook geen e-mails.</span></p>
                                     </>)}
-                                    { data.contacten.map((contact, index) => (
+                                    { data.contacten.map((contact: any, index: number) => (
                                         <div 
                                             key={ index }
-                                            className="col-span-6"
+                                            className="col-span-12 xl:col-span-6"
                                         >
                                             <ContactCard contact={ contact } />
                                         </div>
@@ -159,9 +172,17 @@ const AccountOverviewPage: FC<Props> = () => {
                 </div>
             </div>
             <div className="flyover__bridge">
-                <button onClick={() => keycloak.login({ })}>
-                    <AdminPlatformSignInCard />
-                </button>
+                {
+                    !loading ? (
+                        <button onClick={() => keycloak.login({ })}>
+                            <AdminPlatformSignInCard />
+                        </button>
+                    ) : (
+                        <>
+                            <AdminPlatformSignInCard loading />
+                        </>
+                    )
+                }
                 {/* <UnAuthNotify error={ keycloak.error } onLogin={ keycloak.login } /> */}
             </div>
         </div>
