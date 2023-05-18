@@ -79,7 +79,7 @@ const AccountOverviewPage: FC<Props> = () => {
                                 <h4>Individuele steekkaart</h4>
                                 <p>Medische gegevens en andere persoonlijke informatie</p>
                                 <div className="px-4 py-3 rounded-lg bg-gray-100 mt-4 flex flex-col lg:flex-row justify-between gap-4">
-                                    <p>Laatst bijgewerkt, <DateFrom>{ medicalDataUpdated }</DateFrom></p>
+                                    <p>Laatst bijgewerkt, <DateFrom ignoreSuffix>{ medicalDataUpdated }</DateFrom> geleden</p>
                                     <Button 
                                         icon="arrow-right" 
                                         theme="simple"
