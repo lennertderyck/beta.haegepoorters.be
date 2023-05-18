@@ -20,7 +20,7 @@ const BlogArticlePage: FC<Props> = () => {
             <div className="page__header">
                 <Button to=".." icon="arrow-left" iconPlacement="start">Meer berichten</Button>
                 <h1 className="page__title mt-12">{ article?.name }</h1>
-                <p className="-mt-4">Laatst aangepast, <DateFrom>{ article?.published_at }</DateFrom> geleden</p>
+                <p className="-mt-4">Laatst aangepast, <DateFrom ignoreSuffix>{ article?.published_at }</DateFrom> geleden</p>
             </div>
             { article?.content?.banner?.filename && (
                 <Img src={ article.content?.banner?.filename } height="55vh" className="page__banner" />

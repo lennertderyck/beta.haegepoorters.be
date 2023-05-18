@@ -3,11 +3,12 @@ import { FC } from 'react';
 
 interface Props {
     children?: string;
+    ignoreSuffix?: boolean;
 };
 
-const Component: FC<Props> = ({ children: childrenAsDate}) => {
+const Component: FC<Props> = ({ children: childrenAsDate, ignoreSuffix }) => {
     // @ts-ignore
-    const formatted = dayjs(dayjs()).from(childrenAsDate, true)
+    const formatted = dayjs(dayjs()).from(childrenAsDate, ignoreSuffix)
     
     return (<>{ formatted }</>)
 }

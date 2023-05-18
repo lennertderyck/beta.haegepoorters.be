@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {FC, PropsWithChildren, FormHTMLAttributes, forwardRef, useCallback, ForwardRefRenderFunction} from "react";
+import {PropsWithChildren, FormHTMLAttributes, forwardRef, useCallback, ForwardRefRenderFunction} from "react";
 import {FormProvider, UseFormReturn, useForm} from "react-hook-form";
 import styles from './ControlledForm.module.scss';
 

@@ -27,7 +27,7 @@ const RequestBySlugPage: FC<Props> = () => {
         <div className="page">
             <div className="page__header">
                 <h1 className="page__title">{ pageData.name }</h1>
-                <p className="-mt-4">Laatst aangepast, <DateFrom>{ pageData.published_at }</DateFrom> geleden</p>
+                <p className="-mt-4">Laatst aangepast, <DateFrom ignoreSuffix>{ pageData.published_at }</DateFrom> geleden</p>
             </div>
             { pageData.content?.banner?.filename && (
                 <Img src={ pageData.content?.banner?.filename } height="55vh" className="page__banner" />

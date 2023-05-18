@@ -12,7 +12,7 @@ import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycl
 interface Props {};
 
 const MainNavigation: FC<Props> = () => {
-    const platformIdentity = useKeycloakStore(store => store.user);
+    const cachedUser = useKeycloakStore(store => store.user);
     const [ active, { open, close, toggle }] = useCollapseState();
     const device = useDevice();
     const isTouch = useMemo(() => {
@@ -22,7 +22,7 @@ const MainNavigation: FC<Props> = () => {
         query: '(min-width: 1024px)'
     });
     
-    console.log('platformIdentity user', platformIdentity)
+    console.log('cachedUser user', cachedUser)
     
     const menuItems = [
         { label: 'Startpagina', to: '/', icon: 'home-5' },
@@ -69,7 +69,7 @@ const MainNavigation: FC<Props> = () => {
                             )}>
                                 <button onClick={ close }>
                                     <div className="text-right font-serif opacity-70 -mb-1 block whitespace-nowrap">Groepsadministratie</div>
-                                    <div className="text-right text-xs uppercase tracking-wider font-medium whitespace-nowrap">Aanmelden</div>
+                                    <div className="text-right text-xs uppercase tracking-wider font-medium whitespace-nowrap">{ cachedUser ? cachedUser?.vgagegevens?.voornaam : 'Aanmelden' }</div>
                                 </button>
                                 <Icon name="account-circle" />
                             </div>

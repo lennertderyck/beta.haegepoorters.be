@@ -1,18 +1,15 @@
 import { FC } from 'react';
-import { AdminPlatformSignInCard, Button, Icon } from '../../../../components/basics';
+import { AdminPlatformSignInCard, Button, DateFrom, Icon } from '../../../../components/basics';
 import ContactCard from './ContactCard';
-import profielFakeData from '../../../../mocks/fake/profiel';
 import AddressCard from './AddressCard';
 import classNames from 'classnames';
-import { usePlatformAccount } from '../../../../utils/hooks';
 import uitPasIllustration from '../../../../assets/images/uitpas-illustration.png';
-import usePlatformRequest from '../../../../utils/hooks/usePlatformRequest/usePlatformRequest';
 import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
+import dayjs from 'dayjs';
 
 interface Props {};
 
 const AccountOverviewPage: FC<Props> = () => {
-    // const { keycloak } = usePlatformAccount();
     const keycloak = useKeycloakStore(store => store.instance);
     const authenticated = useKeycloakStore(store => store.authenticated);
     const loading = useKeycloakStore(store => store.authenticating);
@@ -21,8 +18,9 @@ const AccountOverviewPage: FC<Props> = () => {
     const data = cachedUser;
     const error = !data && authenticated;
     const flyoverActive = !authenticated || loading;
+    // const flyoverActive = false;
     
-    console.log(keycloak, {authenticated})
+    const medicalDataUpdated = cachedUser?.vgagegevens?.individueleSteekkaartdatumaangepast;
     
     if (error) return (
         <div className="page page--wide h-full flex items-center">
@@ -35,11 +33,11 @@ const AccountOverviewPage: FC<Props> = () => {
         </div>
     );
     
-    const scheme = data.groepseigenVelden['O1306G'].schema;
-    const values = data.groepseigenVelden['O1306G'].waarden;
-    const field = scheme.find((veld: any) => veld.label === 'UiTPas-nummer');
+    const scheme = data?.groepseigenVelden?.['O1306G'].schema;
+    const values = data?.groepseigenVelden?.['O1306G'].waarden;
+    const field = scheme?.find((veld: any) => veld.label === 'UiTPas-nummer');
     const pointsCardNumber = field && values ? (values as any)[field.id] : null;
-    const currentFunctions = data.functies.filter((funct: any) => !funct.einde);
+    // const currentFunctions = data.functies.filter((funct: any) => !funct.einde);
         
     return (
         <div 
@@ -68,15 +66,31 @@ const AccountOverviewPage: FC<Props> = () => {
                                     </div>
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="font-serif text-gray-600">{ data.vgagegevens.voornaam } { data.vgagegevens.achternaam }</h3>
-                                    <p className="label tracking-widest">{ data.email }</p>
+                                    <h3 className="font-serif text-gray-600">{ data?.vgagegevens.voornaam } { data?.vgagegevens.achternaam }</h3>
+                                    <p className="label tracking-widest">{ data?.email }</p>
                                 </div>
                             </div>
                             <div className="mt-4 xl:mt-0">
-                                <Button to={`/ga/digitale-lidkaart?memberId=${data.verbondsgegevens.lidnummer}&name=${ data.vgagegevens.voornaam } ${ data.vgagegevens.achternaam }`} icon="bank-card" iconPlacement="start">Digitale lidkaart</Button>
+                                <Button to={`/ga/digitale-lidkaart?memberId=${data?.verbondsgegevens.lidnummer}&name=${ data?.vgagegevens.voornaam } ${ data?.vgagegevens.achternaam }`} icon="bank-card" iconPlacement="start">Digitale lidkaart</Button>
                             </div>
                         </div>
-                        <div className="grid grid-cols-12 mt-12 gap-y-10">
+                        { !!medicalDataUpdated && <div className="mt-12">
+                            <div className="content content--inline">
+                                <h4>Individuele steekkaart</h4>
+                                <p>Medische gegevens en andere persoonlijke informatie</p>
+                                <div className="px-4 py-3 rounded-lg bg-gray-100 mt-4 flex flex-col lg:flex-row justify-between gap-4">
+                                    <p>Laatst bijgewerkt, <DateFrom>{ medicalDataUpdated }</DateFrom></p>
+                                    <Button 
+                                        icon="arrow-right" 
+                                        theme="simple"
+                                        href={`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/individuelesteekkaart/${cachedUser.id}`}
+                                        target="_blank"
+                                    >Nakijken & bewerken</Button>
+                                </div>
+                            </div>
+                        </div> }
+                        <hr className="my-10"/>
+                        <div className="grid grid-cols-12 mt-10 gap-y-10">
                             <div className="col-span-12 content content--inline">
                                 <div className="flex flex-col-reverse xl:flex-row items-center justify-between">
                                     <div>
@@ -133,10 +147,10 @@ const AccountOverviewPage: FC<Props> = () => {
                                 <h4>Adressen</h4>
                                 <p>Hier sturen we post naar toe</p>
                                 <div className="grid grid-cols-12 gap-6 mt-4">
-                                    { data.adressen.length === 0 && (<>
+                                    { data?.adressen.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen adressen toegevoegd.</p>
                                     </>)}
-                                    { data.adressen.map((address: any, index: number) => (
+                                    { data?.adressen.map((address: any, index: number) => (
                                         <div 
                                             key={ index }
                                             className="col-span-12 xl:col-span-6"
@@ -154,10 +168,10 @@ const AccountOverviewPage: FC<Props> = () => {
                                 <h4>Contacten</h4>
                                 <p>Ook deze contacten ontvangen onze communicatie</p>
                                 <div className="grid grid-cols-12 gap-6 mt-4">
-                                    { data.contacten.length === 0 && (<>
+                                    { data?.contacten.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen ouders/voogd toegevoegd. <span className="font-medium">Je ontvangt mogelijks ook geen e-mails.</span></p>
                                     </>)}
-                                    { data.contacten.map((contact: any, index: number) => (
+                                    { data?.contacten.map((contact: any, index: number) => (
                                         <div 
                                             key={ index }
                                             className="col-span-12 xl:col-span-6"
