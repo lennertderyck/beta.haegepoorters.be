@@ -12,6 +12,10 @@ h3 {
     @apply text-2xl font-serif;
 }
 
+.section-subtitle {
+    @apply text-sm;
+}
+
 .label {
     @apply uppercase text-xs tracking-wider font-medium;
 }

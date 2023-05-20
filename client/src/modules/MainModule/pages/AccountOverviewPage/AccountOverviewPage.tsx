@@ -17,8 +17,8 @@ const AccountOverviewPage: FC<Props> = () => {
     
     const data = cachedUser;
     const error = !data && authenticated;
-    const flyoverActive = !authenticated || loading;
-    // const flyoverActive = false;
+    // const flyoverActive = !authenticated || loading;
+    const flyoverActive = false;
     
     const medicalDataUpdated = cachedUser?.vgagegevens?.individueleSteekkaartdatumaangepast;
     
@@ -75,38 +75,45 @@ const AccountOverviewPage: FC<Props> = () => {
                             </div>
                         </div>
                         { !!medicalDataUpdated && <div className="mt-12">
-                            <div className="content content--inline">
-                                <h4>Individuele steekkaart</h4>
-                                <p>Medische gegevens en andere persoonlijke informatie</p>
-                                <div className="px-4 py-3 rounded-lg bg-gray-100 mt-4 flex flex-col lg:flex-row justify-between gap-4">
-                                    <p>Laatst bijgewerkt, <DateFrom ignoreSuffix>{ medicalDataUpdated }</DateFrom> geleden</p>
+                            <div>
+                                <div className="flex justify-between items-center flex-wrap gap-4">
+                                    <div>
+                                        <h3 className="section-title">Individuele steekkaart</h3>
+                                        <p className="section-subtitle">Medische gegevens en andere persoonlijke informatie</p>
+                                    </div>
                                     <Button 
-                                        icon="arrow-right" 
+                                        icon="arrow-right-up" 
                                         theme="simple"
                                         href={`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/individuelesteekkaart/${cachedUser.id}`}
                                         target="_blank"
                                     >Nakijken & bewerken</Button>
                                 </div>
+                                <div className="content content--inline">
+                                    <div className="px-4 py-3 rounded-lg bg-gray-100 mt-4 flex flex-col lg:flex-row justify-between gap-4">
+                                        <p>Laatst bijgewerkt, <DateFrom ignoreSuffix>{ medicalDataUpdated }</DateFrom> geleden</p>
+                                    </div>
+                                </div>
                             </div>
                         </div> }
                         <hr className="my-10"/>
                         <div className="grid grid-cols-12 mt-10 gap-y-10">
-                            <div className="col-span-12 content content--inline">
+                            <div className="col-span-12">
                                 <div className="flex flex-col-reverse xl:flex-row items-center justify-between">
                                     <div>
-                                        <h4>UitPas</h4>
-                                        <p>Spaar punten en ontvang leuke voordelen en gadgets</p>
-                                        { pointsCardNumber ? 
-                                            (<>
-                                                <p className="font-medium">Jouw UitPas-nummer is <span className="underline underline-offset-4">{ pointsCardNumber }</span></p>
-                                                <Button theme="simple" icon="arrow-right" className="mt-2" href="https://stad.gent/nl/uit-in-gent/uitpas" target="_blank">Meer weten?</Button>
-                                            </>) :
-                                            (<>
-                                                <p className="text-gray-400">Je hebt nog geen UitPas toegevoegd.</p>
-                                                <Button theme="simple" icon="arrow-right" className="mt-2">UitPas toevoegen</Button>
-                                            </>)
-                                        }
-                                        
+                                        <h3 className="section-title">UitPas</h3>
+                                        <p className="section-subtitle">Spaar punten en ontvang leuke voordelen en gadgets</p>
+                                        <div className="mt-4 content content--inline">
+                                            { pointsCardNumber ? 
+                                                (<>
+                                                    <p className="font-medium">Jouw UitPas-nummer is <span className="underline underline-offset-4">{ pointsCardNumber }</span></p>
+                                                    <Button theme="simple" icon="arrow-right" className="mt-1" href="https://stad.gent/nl/uit-in-gent/uitpas" target="_blank">Meer weten?</Button>
+                                                </>) :
+                                                (<>
+                                                    <p className="text-gray-400">Je hebt nog geen UitPas toegevoegd.</p>
+                                                    <Button theme="simple" icon="arrow-right" className="mt-2" href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank">UitPas toevoegen</Button>
+                                                </>)
+                                            }
+                                        </div>
                                     </div>
                                     <img className="max-h-40" src={ uitPasIllustration } />
                                 </div>
@@ -143,10 +150,15 @@ const AccountOverviewPage: FC<Props> = () => {
                         </div>
                         <hr className="my-10"/>
                         <div className="grid grid-cols-12 mt-12 gap-y-10">
-                            <div className="col-span-12 content content--inline">
-                                <h4>Adressen</h4>
-                                <p>Hier sturen we post naar toe</p>
-                                <div className="grid grid-cols-12 gap-6 mt-4">
+                            <div className="col-span-12">
+                                <div className="flex justify-between items-center flex-wrap gap-4">
+                                    <div>
+                                        <h3 className="section-title">Adressen</h3>
+                                        <p className="section-subtitle">Hier sturen we post naar toe</p>
+                                    </div>
+                                    <Button href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank" icon="arrow-right-up" theme="simple">Addressen bewerken</Button>
+                                </div>
+                                <div className="grid grid-cols-12 gap-6 mt-4 content content--inline">
                                     { data?.adressen.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen adressen toegevoegd.</p>
                                     </>)}
@@ -164,10 +176,15 @@ const AccountOverviewPage: FC<Props> = () => {
                             </div>
                         </div>
                         <div className="grid grid-cols-12 mt-12 gap-y-10">
-                            <div className="col-span-12 content content--inline">
-                                <h4>Contacten</h4>
-                                <p>Ook deze contacten ontvangen onze communicatie</p>
-                                <div className="grid grid-cols-12 gap-6 mt-4">
+                            <div className="col-span-12">
+                                <div className="flex justify-between items-center flex-wrap gap-4">
+                                    <div>
+                                        <h3 className="section-title">Contacten</h3>
+                                        <p className="section-subtitle">Ook deze contacten ontvangen onze communicatie</p>
+                                    </div>
+                                    <Button href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank" icon="arrow-right-up" theme="simple">Contacten bewerken</Button>
+                                </div>
+                                <div className="grid grid-cols-12 gap-6 mt-4 content content--inline">
                                     { data?.contacten.length === 0 && (<>
                                         <p className="text-gray-400">Je hebt nog geen ouders/voogd toegevoegd. <span className="font-medium">Je ontvangt mogelijks ook geen e-mails.</span></p>
                                     </>)}
