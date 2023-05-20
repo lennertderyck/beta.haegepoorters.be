@@ -24,6 +24,8 @@ interface KeycloakStore {
     
     init: () => void;
     login: () => void;
+    
+    getCustomFieldValue: (fieldId: string, group?: string) => any;
 }
 
 type StringKeys<T> = {
@@ -90,6 +92,12 @@ const useKeycloakStore = create(
                 const instance = get().instance;
                 instance.login();
                 /** When the login procedure is finished, keycloak events will catch and provide the end of the process */
+            },
+            
+            getCustomFieldValue: (fieldId, group = 'O1306G') => {
+                const customFields = get().user?.groepseigenVelden?.[group];
+                const values = customFields?.waarden;
+                return values?.[fieldId];
             }
         })),
         {

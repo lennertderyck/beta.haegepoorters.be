@@ -14,7 +14,8 @@ const AccountOverviewPage: FC<Props> = () => {
     const authenticated = useKeycloakStore(store => store.authenticated);
     const loading = useKeycloakStore(store => store.authenticating);
     const cachedUser = useKeycloakStore(store => store.user);
-    
+    const avatar = useKeycloakStore(store => store.getCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d'));
+        
     const data = cachedUser;
     const error = !data && authenticated;
     // const flyoverActive = !authenticated || loading;
@@ -59,11 +60,14 @@ const AccountOverviewPage: FC<Props> = () => {
                     </div>
                     <div className="page__content">
                         <div className="bg-gray-100 p-6 rounded-lg flex flex-col xl:flex-row items-center justify-between">
-                            <div className="flex flex-col xl:flex-row items-center gap-4 xl:gap-8">
-                                <div className="bg-gray-200 rounded-full">
-                                    <div className="p-4">
+                            <div className="flex flex-col xl:flex-row items-center gap-4 xl:gap-6">
+                                <div className="flex-1 bg-gray-200 rounded-full overflow-hidden">
+                                    { !!avatar ?
+                                        <div className="w-14 h-w-14">
+                                            <img src={ avatar } />
+                                        </div>:
                                         <Icon name="account-circle" size="2.3rem" />
-                                    </div>
+                                    }
                                 </div>
                                 <div className="flex-1">
                                     <h3 className="font-serif text-gray-600">{ data?.vgagegevens.voornaam } { data?.vgagegevens.achternaam }</h3>
