@@ -73,7 +73,7 @@ const useKeycloakStore = create(
                             await instance.updateToken(KEYCL_TOKEN_LIFESPAN);
                             const userInfoResponse = await axios('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel', {
                                 headers: {
-                                    'Authorization': 'Bearer ' + token
+                                    'Authorization': 'Bearer ' + instance.token
                                 }
                             });
                             set({
