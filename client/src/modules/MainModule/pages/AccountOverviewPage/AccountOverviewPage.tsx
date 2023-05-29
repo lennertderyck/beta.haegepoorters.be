@@ -109,7 +109,7 @@ const AccountOverviewPage: FC<Props> = () => {
                                         <p className="section-subtitle">Spaar punten en ontvang leuke voordelen en gadgets</p>
                                         <Button theme="simple" icon="arrow-right" className="mt-2" href="https://stad.gent/nl/uit-in-gent/uitpas" target="_blank">Meer weten?</Button>
                                         <div className="mt-6">
-                                            { pointsCardNumber ? 
+                                            { !pointsCardNumber ? 
                                                 (<div className="content content--inline">
                                                     <p className="font-medium bg-gray-100 px-4 py-3 rounded-lg w-fit">Jouw UitPas-nummer is <span className="underline underline-offset-4">{ pointsCardNumber }</span></p>
                                                 </div>) :

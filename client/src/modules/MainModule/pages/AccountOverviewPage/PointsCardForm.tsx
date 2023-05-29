@@ -22,6 +22,7 @@ const PointsCardForm: FC<Props> = () => {
     })
     
     const handleSubmit = (data: any) => {
+        console.log('mutate')
         mutation.mutate(data.pointsCardNumber);
     }
     
@@ -30,9 +31,10 @@ const PointsCardForm: FC<Props> = () => {
             <ExpansionPane active={ showForm }>
                 <ControlledForm onSubmit={ handleSubmit }>
                     <Input name="pointsCardNumber" placeholder="UitPas-nummer" />
+                    {/* <Button icon="arrow-right" className="mt-2">UitPas toevoegen</Button> */}
+                    <Button icon="check" className="mt-2">UitPas-nummer registreren</Button>
                 </ControlledForm>
             </ExpansionPane>
-            <Button icon="arrow-right" className="mt-2">UitPas toevoegen</Button>
         </>
     )
 }
