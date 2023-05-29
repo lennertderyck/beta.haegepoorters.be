@@ -19,6 +19,7 @@ const AccountOverviewPage: FC<Props> = () => {
     const loading = useKeycloakStore(store => store.authenticating);
     const cachedUser = useKeycloakStore(store => store.user);
     const avatar = useKeycloakStore(store => store.getCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d'));
+    const pointsCardNumber = useKeycloakStore(store => store.getCustomFieldValue('28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1'));
         
     const data = cachedUser;
     const error = !data && authenticated;
@@ -38,10 +39,10 @@ const AccountOverviewPage: FC<Props> = () => {
         </div>
     );
     
-    const scheme = data?.groepseigenVelden?.['O1306G'].schema;
-    const values = data?.groepseigenVelden?.['O1306G'].waarden;
-    const field = scheme?.find((veld: any) => veld.label === 'UiTPas-nummer');
-    const pointsCardNumber = field && values ? (values as any)[field.id] : null;
+    // const scheme = data?.groepseigenVelden?.['O1306G'].schema;
+    // const values = data?.groepseigenVelden?.['O1306G'].waarden;
+    // const field = scheme?.find((veld: any) => veld.label === 'UiTPas-nummer');
+    // const pointsCardNumber = field && values ? (values as any)?.[field.id] : null;
     // const currentFunctions = data.functies.filter((funct: any) => !funct.einde);
     
     const digitalMemberCardLink = `/ga/digitale-lidkaart?memberId=${data?.verbondsgegevens.lidnummer}&name=${ data?.vgagegevens.voornaam } ${ data?.vgagegevens.achternaam }`;
@@ -108,7 +109,7 @@ const AccountOverviewPage: FC<Props> = () => {
                                         <p className="section-subtitle">Spaar punten en ontvang leuke voordelen en gadgets</p>
                                         <Button theme="simple" icon="arrow-right" className="mt-2" href="https://stad.gent/nl/uit-in-gent/uitpas" target="_blank">Meer weten?</Button>
                                         <div className="mt-6">
-                                            { !pointsCardNumber ? 
+                                            { pointsCardNumber ? 
                                                 (<div className="content content--inline">
                                                     <p className="font-medium bg-gray-100 px-4 py-3 rounded-lg w-fit">Jouw UitPas-nummer is <span className="underline underline-offset-4">{ pointsCardNumber }</span></p>
                                                 </div>) :
