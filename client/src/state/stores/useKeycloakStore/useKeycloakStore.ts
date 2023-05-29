@@ -12,6 +12,10 @@ const config = {
     redirectUri: window.location.href
 }
 
+interface UpdateCustomFieldValueOptions {
+    refreshUserData?: boolean;
+}
+
 interface KeycloakStore {
     instance: Keycloak;
     authenticated: boolean;
@@ -26,9 +30,10 @@ interface KeycloakStore {
     login: () => void;
     
     refreshUser: () => void;
+    getProfileData: () => Promise<any>;
     
     getCustomFieldValue: (fieldId: string, group?: string) => any;
-    updateCustomFieldValue: (fieldId: string, value: string) => Promise<any>;
+    updateCustomFieldValue: (fieldId: string, value: string, options?: UpdateCustomFieldValueOptions) => Promise<any>;
 }
 
 type StringKeys<T> = {
@@ -55,8 +60,9 @@ const useKeycloakStore = create(
         
             init: () => {
                 const instance = get().instance;
+                const token = get().token;
                 const cachedTokens = {
-                    token: get().token,
+                    token: token,
                     refreshToken: get().refreshToken,
                 }
                 instance.init({
@@ -67,7 +73,7 @@ const useKeycloakStore = create(
                             await instance.updateToken(KEYCL_TOKEN_LIFESPAN);
                             const userInfoResponse = await axios('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel', {
                                 headers: {
-                                    'Authorization': 'Bearer ' + instance.token
+                                    'Authorization': 'Bearer ' + token
                                 }
                             });
                             set({
@@ -103,17 +109,27 @@ const useKeycloakStore = create(
                 else get().init();
             },
             
+            getProfileData: () => {
+                const token = get().token;
+                return axios('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+            },
+            
             getCustomFieldValue: (fieldId, group = 'O1306G') => {
                 const customFields = get().user?.groepseigenVelden?.[group];
                 const values = customFields?.waarden;
                 return values?.[fieldId];
             },
             
-            updateCustomFieldValue: (fieldId, value) => {
+            updateCustomFieldValue: async (fieldId, value, options) => {
                 // 28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1
                 const userId = get().user.id;
                 const token = get().token;
-                return axios.patch('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/' + userId, {
+                
+                const fieldObject = {
                     "groepseigenVelden": {
                         "O1306G": {
                             "waarden": {
@@ -121,11 +137,25 @@ const useKeycloakStore = create(
                             }
                         }
                     }
-                }, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
+                }
+                
+                try {
+                    const response = await axios.patch(
+                        'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/' + userId, 
+                        fieldObject, {
+                        headers: {
+                            'Authorization': 'Bearer ' + token,
+                        }
+                    });
+                    
+                    if(options?.refreshUserData) {
+                        get().refreshUser();
                     }
-                });
+                    
+                    return response;
+                } catch (error) {
+                    console.log('Field could not be updated', fieldObject)
+                }
             }
         })),
         {

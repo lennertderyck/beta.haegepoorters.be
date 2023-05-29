@@ -1,7 +1,6 @@
 import { FC, useEffect, useMemo } from 'react';
 import MemberCard from './MemberCard';
 import { useSearchParams } from 'react-router-dom';
-import { useEffectOnce } from '../../../../utils/hooks';
 import usePreferencesStore from '../../../../state/stores/usePreferencesStore/usePreferencesStore';
 
 interface Props {};
