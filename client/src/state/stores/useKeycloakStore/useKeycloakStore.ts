@@ -25,7 +25,10 @@ interface KeycloakStore {
     init: () => void;
     login: () => void;
     
+    refreshUser: () => void;
+    
     getCustomFieldValue: (fieldId: string, group?: string) => any;
+    updateCustomFieldValue: (fieldId: string, value: string) => Promise<any>;
 }
 
 type StringKeys<T> = {
@@ -94,10 +97,30 @@ const useKeycloakStore = create(
                 /** When the login procedure is finished, keycloak events will catch and provide the end of the process */
             },
             
+            refreshUser: () => {
+                const authenticated = get().authenticated;
+                if (authenticated) console.log('Already authenticated');
+                else get().init();
+            },
+            
             getCustomFieldValue: (fieldId, group = 'O1306G') => {
                 const customFields = get().user?.groepseigenVelden?.[group];
                 const values = customFields?.waarden;
                 return values?.[fieldId];
+            },
+            
+            updateCustomFieldValue: (fieldId, value) => {
+                // 28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1
+                const userId = get().user.id;
+                return axios.patch('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/' + userId, {
+                    "groepseigenVelden": {
+                        "O1306G": {
+                            "waarden": {
+                                [fieldId]: value
+                            }
+                        }
+                    }
+                });
             }
         })),
         {

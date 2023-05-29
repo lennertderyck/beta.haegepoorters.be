@@ -13,9 +13,8 @@ import useKeycloakStore from './state/stores/useKeycloakStore/useKeycloakStore';
 import { useEffectOnce } from './utils/hooks';
 import CookieClicker from './components/elements/CookieClicker/CookieClicker';
 import usePreferencesStore from './state/stores/usePreferencesStore/usePreferencesStore';
+import { queryClient } from './utils/queries';
   
-const queryClient = new QueryClient();
-
 interface Props {};
 
 const App: FC<Props> = () => {  

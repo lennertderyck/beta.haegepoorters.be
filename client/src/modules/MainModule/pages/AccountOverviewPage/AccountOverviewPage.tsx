@@ -5,7 +5,11 @@ import AddressCard from './AddressCard';
 import classNames from 'classnames';
 import uitPasIllustration from '../../../../assets/images/uitpas-illustration.png';
 import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
-import dayjs from 'dayjs';
+import logoGroepsadministratie from '../../../../assets/images/logo_groepsadministratie.png';
+import Grid from '../../../../components/basics/Grid/Grid';
+import ControlledForm from '../../../../components/basics/ControlledForm/ControlledForm';
+import Input from '../../../../components/basics/Input/Input';
+import PointsCardForm from './PointsCardForm';
 
 interface Props {};
 
@@ -39,7 +43,14 @@ const AccountOverviewPage: FC<Props> = () => {
     const field = scheme?.find((veld: any) => veld.label === 'UiTPas-nummer');
     const pointsCardNumber = field && values ? (values as any)[field.id] : null;
     // const currentFunctions = data.functies.filter((funct: any) => !funct.einde);
+    
+    const digitalMemberCardLink = `/ga/digitale-lidkaart?memberId=${data?.verbondsgegevens.lidnummer}&name=${ data?.vgagegevens.voornaam } ${ data?.vgagegevens.achternaam }`;
         
+    const gridColumSpan = {
+        left: { default: 12, lg: 4 },
+        right: { default: 12, lg: 8 }
+    }
+    
     return (
         <div 
             className={classNames(
@@ -51,158 +62,115 @@ const AccountOverviewPage: FC<Props> = () => {
                 <MemberCard memberId="1999072002651" memberName="Lennert De Ryck" />
             </Modal> */}
             <div className="flyover__main">
-                <div className="page">
-                    <div className="page__header flex flex-col xl:flex-row items-baseline justify-between">
-                        <h1 className="page__title">Jouw gegevens</h1>
+                <div className="page page--wide">
+                    <div className="page__header flex flex-col xl:flex-row items-center justify-between">
+                        <h1 className="page__title !mb-0">Jouw gegevens</h1>
                         <Button icon="refresh">
-                            <span>Gegevens venieuwen</span>
+                            Opnieuw aanmelden
                         </Button>
                     </div>
                     <div className="page__content">
-                        <div className="bg-gray-100 p-6 rounded-lg flex flex-col xl:flex-row items-center justify-between">
-                            <div className="flex flex-col xl:flex-row items-center gap-4 xl:gap-6">
-                                <div className="flex-1 bg-gray-200 rounded-full overflow-hidden">
-                                    { !!avatar ?
-                                        <div className="w-14 h-w-14">
-                                            <img src={ avatar } />
-                                        </div>:
-                                        <Icon name="account-circle" size="2.3rem" />
-                                    }
-                                </div>
-                                <div className="flex-1">
-                                    <h3 className="font-serif text-gray-600">{ data?.vgagegevens.voornaam } { data?.vgagegevens.achternaam }</h3>
-                                    <p className="label tracking-widest">{ data?.email }</p>
-                                </div>
-                            </div>
-                            <div className="mt-4 xl:mt-0">
-                                <Button to={`/ga/digitale-lidkaart?memberId=${data?.verbondsgegevens.lidnummer}&name=${ data?.vgagegevens.voornaam } ${ data?.vgagegevens.achternaam }`} icon="bank-card" iconPlacement="start">Digitale lidkaart</Button>
-                            </div>
-                        </div>
-                        { !!medicalDataUpdated && <div className="mt-12">
-                            <div>
-                                <div className="flex justify-between items-center flex-wrap gap-4">
-                                    <div>
-                                        <h3 className="section-title">Individuele steekkaart</h3>
-                                        <p className="section-subtitle">Medische gegevens en andere persoonlijke informatie</p>
+                        <Grid gap={12}>
+                            <Grid span={{ default: 12, lg: 4 }}>
+                                <div className="sticky top-6 bg-gray-100 p-6 rounded-lg flex gap-6">
+                                    <div className="">
+                                        { !!avatar ?
+                                            <div className="w-14 h-w-14 rounded-full overflow-hidden">
+                                                <img src={ avatar } />
+                                            </div>:
+                                            <Icon name="account-circle" size="2.3rem" />
+                                        }
                                     </div>
-                                    <Button 
-                                        icon="arrow-right-up" 
-                                        theme="simple"
-                                        href={`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/individuelesteekkaart/${cachedUser.id}`}
-                                        target="_blank"
-                                    >Nakijken & bewerken</Button>
-                                </div>
-                                <div className="content content--inline">
-                                    <div className="px-4 py-3 rounded-lg bg-gray-100 mt-4 flex flex-col lg:flex-row justify-between gap-4">
-                                        <p>Laatst bijgewerkt, <DateFrom ignoreSuffix>{ medicalDataUpdated }</DateFrom> geleden</p>
+                                    <div>
+                                        <h3 className="font-serif text-gray-600">{ data?.vgagegevens.voornaam } { data?.vgagegevens.achternaam }</h3>
+                                        <p className="label tracking-widest">{ data?.email }</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div> }
-                        <hr className="my-10"/>
-                        <div className="grid grid-cols-12 mt-10 gap-y-10">
-                            <div className="col-span-12">
-                                <div className="flex flex-col-reverse xl:flex-row items-center justify-between">
-                                    <div>
+                            </Grid>
+                            <Grid span={{ default: 12, lg: 8 }}>
+                                <div>
+                                    <h3 className="section-title">Individuele steekkaart</h3>
+                                    <p className="section-subtitle">Medische gegevens en andere persoonlijke informatie</p>
+                                    <div className="flex items-baseline gap-3">
+                                        <Button 
+                                            icon="arrow-right-up" 
+                                            className="mt-4"
+                                            href={`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/individuelesteekkaart/${cachedUser.id}`}
+                                            target="_blank"
+                                        >Nakijken & bewerken</Button>
+                                        <p className="label text-gray-400"><DateFrom ignoreSuffix>{ medicalDataUpdated }</DateFrom> geleden bijgewerkt</p>
+                                    </div>
+                                </div>
+                                <hr className="my-10" />
+                                <div className="flex">
+                                    <div className="flex-1">
                                         <h3 className="section-title">UitPas</h3>
                                         <p className="section-subtitle">Spaar punten en ontvang leuke voordelen en gadgets</p>
-                                        <div className="mt-4 content content--inline">
-                                            { pointsCardNumber ? 
+                                        <Button theme="simple" icon="arrow-right" className="mt-2" href="https://stad.gent/nl/uit-in-gent/uitpas" target="_blank">Meer weten?</Button>
+                                        <div className="mt-6">
+                                            { !pointsCardNumber ? 
+                                                (<div className="content content--inline">
+                                                    <p className="font-medium bg-gray-100 px-4 py-3 rounded-lg w-fit">Jouw UitPas-nummer is <span className="underline underline-offset-4">{ pointsCardNumber }</span></p>
+                                                </div>) :
                                                 (<>
-                                                    <p className="font-medium">Jouw UitPas-nummer is <span className="underline underline-offset-4">{ pointsCardNumber }</span></p>
-                                                    <Button theme="simple" icon="arrow-right" className="mt-1" href="https://stad.gent/nl/uit-in-gent/uitpas" target="_blank">Meer weten?</Button>
-                                                </>) :
-                                                (<>
-                                                    <p className="text-gray-400">Je hebt nog geen UitPas toegevoegd.</p>
-                                                    <Button theme="simple" icon="arrow-right" className="mt-2" href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank">UitPas toevoegen</Button>
+                                                    <div className="content content--inline">
+                                                        <p className="text-gray-400">Je hebt nog geen UitPas toegevoegd.</p>
+                                                    </div>
+                                                    <PointsCardForm />
+                                                    {/* <Button icon="arrow-right" className="mt-2" href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank">UitPas toevoegen</Button> */}
                                                 </>)
                                             }
                                         </div>
                                     </div>
-                                    <img className="max-h-40" src={ uitPasIllustration } />
+                                    <img className="max-h-40 hidden lg:block" src={ uitPasIllustration } />
                                 </div>
-                            </div>
-                            {/* <div className="col-span-12 lg:col-span-6">
-                                <div className="content content--inline">
-                                    <h4>Functies</h4>
-                                </div>
-                                <div className="content content--inline">
-                                    <ul className="list-disc">
-                                        { currentFunctions.map((func) => (
-                                            <li className="!mb-2 text-stone-400">
-                                                <h4 className="!text-stone-500 !-mb-1">{ func.omschrijving }</h4>
-                                                <p>{ func.groep }</p>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <Button theme="simple" icon="arrow-right" className="mt-4">Bekijk geschiedenis</Button>
-                            </div> */}
-                            {/* <div className="col-span-12 lg:col-span-6 content content--inline">
-                                <h4>Je huidige tak</h4>
-                                <p>Leiding bij jonggivers</p>
-                                <Button theme="simple" icon="arrow-right" className="mt-2">Bekijk geschiedenis</Button>
-                            </div>
-                            <div className="col-span-12 lg:col-span-6 content content--inline">
-                                <h4>Andere functies</h4>
-                                <ul>
-                                    <li>Verantwoordelijke Groepsadministratie</li>
-                                    <li>Webmaster</li>
-                                </ul>
-                                <Button theme="simple" icon="arrow-down-s" className="mt-2">nog 3 andere functies</Button>
-                            </div> */}
-                        </div>
-                        <hr className="my-10"/>
-                        <div className="grid grid-cols-12 mt-12 gap-y-10">
-                            <div className="col-span-12">
-                                <div className="flex justify-between items-center flex-wrap gap-4">
-                                    <div>
-                                        <h3 className="section-title">Adressen</h3>
-                                        <p className="section-subtitle">Hier sturen we post naar toe</p>
-                                    </div>
-                                    <Button href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank" icon="arrow-right-up" theme="simple">Addressen bewerken</Button>
-                                </div>
-                                <div className="grid grid-cols-12 gap-6 mt-4 content content--inline">
-                                    { data?.adressen.length === 0 && (<>
-                                        <p className="text-gray-400">Je hebt nog geen adressen toegevoegd.</p>
-                                    </>)}
-                                    { data?.adressen.map((address: any, index: number) => (
-                                        <div 
-                                            key={ index }
-                                            className="col-span-12 xl:col-span-6"
-                                        >
-                                            <div className={classNames(!address.postadres && 'opacity-60')}>
-                                                <AddressCard address={ address } />
+                                <hr className="my-10"/>
+                                <div>
+                                    <h3 className="section-title">Adressen</h3>
+                                    <p className="section-subtitle">Hier sturen we post naar toe</p>
+                                    <Button href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank" icon="arrow-right-up" className="mt-4">Addressen bewerken</Button>
+                                    <div className="grid grid-cols-12 gap-6 mt-6 content content--inline">
+                                        { data?.adressen.length === 0 && (<>
+                                            <p className="text-gray-400">Je hebt nog geen adressen toegevoegd.</p>
+                                        </>)}
+                                        { data?.adressen.map((address: any, index: number) => (
+                                            <div 
+                                                key={ index }
+                                                className="col-span-12 xl:col-span-6"
+                                            >
+                                                <div className={classNames(!address.postadres && 'opacity-60')}>
+                                                    <AddressCard address={ address } />
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-12 mt-12 gap-y-10">
-                            <div className="col-span-12">
-                                <div className="flex justify-between items-center flex-wrap gap-4">
-                                    <div>
-                                        <h3 className="section-title">Contacten</h3>
-                                        <p className="section-subtitle">Ook deze contacten ontvangen onze communicatie</p>
+                                        ))}
                                     </div>
-                                    <Button href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank" icon="arrow-right-up" theme="simple">Contacten bewerken</Button>
                                 </div>
-                                <div className="grid grid-cols-12 gap-6 mt-4 content content--inline">
-                                    { data?.contacten.length === 0 && (<>
-                                        <p className="text-gray-400">Je hebt nog geen ouders/voogd toegevoegd. <span className="font-medium">Je ontvangt mogelijks ook geen e-mails.</span></p>
-                                    </>)}
-                                    { data?.contacten.map((contact: any, index: number) => (
-                                        <div 
-                                            key={ index }
-                                            className="col-span-12 xl:col-span-6"
-                                        >
-                                            <ContactCard contact={ contact } />
-                                        </div>
-                                    ))}
+                                <hr className="my-10" />
+                                <div>
+                                    <h3 className="section-title">Contacten</h3>
+                                    <p className="section-subtitle">Ook deze contacten ontvangen onze communicatie</p>
+                                    <Button 
+                                        href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" 
+                                        target="_blank" 
+                                        icon="arrow-right-up" 
+                                        className="mt-4"
+                                    >Contacten bewerken</Button>
+                                    <div className="grid grid-cols-12 gap-6 mt-6 content content--inline">
+                                        { data?.contacten.length === 0 && (<>
+                                            <p className="text-gray-400">Je hebt nog geen ouders/voogd toegevoegd. <span className="font-medium">Je ontvangt mogelijks ook geen e-mails.</span></p>
+                                        </>)}
+                                        { data?.contacten.map((contact: any, index: number) => (
+                                            <div 
+                                                key={ index }
+                                                className="col-span-12 xl:col-span-6"
+                                            >
+                                                <ContactCard contact={ contact } />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </Grid>
+                        </Grid>
                     </div>
                 </div>
             </div>
