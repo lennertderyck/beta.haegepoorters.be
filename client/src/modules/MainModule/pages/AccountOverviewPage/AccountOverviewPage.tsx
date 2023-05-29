@@ -39,11 +39,7 @@ const AccountOverviewPage: FC<Props> = () => {
             </div>
         </div>
     );
-    
-    // const scheme = data?.groepseigenVelden?.['O1306G'].schema;
-    // const values = data?.groepseigenVelden?.['O1306G'].waarden;
-    // const field = scheme?.find((veld: any) => veld.label === 'UiTPas-nummer');
-    // const pointsCardNumber = field && values ? (values as any)?.[field.id] : null;
+
     // const currentFunctions = data.functies.filter((funct: any) => !funct.einde);
     
     const digitalMemberCardLink = `/ga/digitale-lidkaart?memberId=${data?.verbondsgegevens.lidnummer}&name=${ data?.vgagegevens.voornaam } ${ data?.vgagegevens.achternaam }`;

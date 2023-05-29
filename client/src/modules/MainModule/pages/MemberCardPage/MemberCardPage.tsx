@@ -20,7 +20,7 @@ const MemberCardPage: FC<Props> = () => {
         if (memberId) {
             storeDigitalMemberCard(memberId, memberName);
         }
-    }, [ memberId, memberName ])
+    }, [ memberId, memberName ]);
     
     return (
         <div className="page page--wide">

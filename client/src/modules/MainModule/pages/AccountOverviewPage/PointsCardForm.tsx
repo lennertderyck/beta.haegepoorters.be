@@ -10,11 +10,11 @@ interface Props {};
 
 const PointsCardForm: FC<Props> = () => {
     const [ showForm, setShowForm ] = useState(true);
-    const updatePointsCardNumber = useKeycloakStore((store) => (cardNumber: string) => store.updateCustomFieldValue('28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1', cardNumber))
+    const updatePointsCardNumber = useKeycloakStore((store) => (cardNumber: string) => store.updateCustomFieldValue('28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1', cardNumber, { refreshUserData: true }))
     const mutation = useMutation({
         mutationFn: updatePointsCardNumber,
         onSuccess: () => {
-            console.log('SUCCESS')
+            console.log('SUCCESS');
             setShowForm(false);
             // Invalidate and refetch
             // queryClient.invalidateQueries({ queryKey: ['todos'] })
