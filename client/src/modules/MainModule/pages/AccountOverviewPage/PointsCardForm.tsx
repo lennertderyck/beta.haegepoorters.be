@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import ControlledForm from '../../../../components/basics/ControlledForm/ControlledForm';
-import { Button, ExpansionPane } from '../../../../components/basics';
+import { Button, ExpansionPane, Icon } from '../../../../components/basics';
 import Input from '../../../../components/basics/Input/Input';
 import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
 import { useMutation } from 'react-query';
@@ -26,16 +26,23 @@ const PointsCardForm: FC<Props> = () => {
         mutation.mutate(data.pointsCardNumber);
     }
     
-    return (
+    if (showForm) return (
         <>
-            <ExpansionPane active={ showForm }>
-                <ControlledForm onSubmit={ handleSubmit }>
-                    <Input name="pointsCardNumber" placeholder="UitPas-nummer" />
-                    {/* <Button icon="arrow-right" className="mt-2">UitPas toevoegen</Button> */}
-                    <Button icon="check" className="mt-2">UitPas-nummer registreren</Button>
-                </ControlledForm>
-            </ExpansionPane>
+            <div className="content content--inline">
+                <p className="text-gray-400">Je hebt nog geen UitPas toegevoegd.</p>
+            </div>
+            <ControlledForm onSubmit={ handleSubmit }>
+                <Input name="pointsCardNumber" placeholder="UitPas-nummer" />
+                {/* <Button icon="arrow-right" className="mt-2">UitPas toevoegen</Button> */}
+                <Button icon="check" className="mt-2">UitPas-nummer registreren</Button>
+            </ControlledForm>
         </>
+    );
+    else return (
+        <div className="content content--inline flex items-center gap-2 text-green-600">
+            <p>Uitpas geregistreerd</p>
+            <Icon name="check" />
+        </div>
     )
 }
 

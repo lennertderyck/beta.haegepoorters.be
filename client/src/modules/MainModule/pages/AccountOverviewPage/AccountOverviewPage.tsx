@@ -112,14 +112,8 @@ const AccountOverviewPage: FC<Props> = () => {
                                             { pointsCardNumber ? 
                                                 (<div className="content content--inline">
                                                     <p className="font-medium bg-gray-100 px-4 py-3 rounded-lg w-fit">Jouw UitPas-nummer is <span className="underline underline-offset-4">{ pointsCardNumber }</span></p>
-                                                </div>) :
-                                                (<>
-                                                    <div className="content content--inline">
-                                                        <p className="text-gray-400">Je hebt nog geen UitPas toegevoegd.</p>
-                                                    </div>
-                                                    <PointsCardForm />
-                                                    {/* <Button icon="arrow-right" className="mt-2" href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/profiel" target="_blank">UitPas toevoegen</Button> */}
-                                                </>)
+                                                </div>) : 
+                                                <PointsCardForm />
                                             }
                                         </div>
                                     </div>
