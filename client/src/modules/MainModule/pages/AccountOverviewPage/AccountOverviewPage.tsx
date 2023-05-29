@@ -10,6 +10,7 @@ import Grid from '../../../../components/basics/Grid/Grid';
 import ControlledForm from '../../../../components/basics/ControlledForm/ControlledForm';
 import Input from '../../../../components/basics/Input/Input';
 import PointsCardForm from './PointsCardForm';
+import MemberCard from '../MemberCardPage/MemberCard';
 
 interface Props {};
 
@@ -73,19 +74,22 @@ const AccountOverviewPage: FC<Props> = () => {
                     <div className="page__content">
                         <Grid gap={12}>
                             <Grid span={{ default: 12, lg: 4 }}>
-                                <div className="sticky top-6 bg-gray-100 p-6 rounded-lg flex gap-6">
-                                    <div className="">
-                                        { !!avatar ?
-                                            <div className="w-14 h-w-14 rounded-full overflow-hidden">
-                                                <img src={ avatar } />
-                                            </div>:
-                                            <Icon name="account-circle" size="2.3rem" />
-                                        }
+                                <div className="sticky top-6">
+                                    <div className="bg-gray-100 p-6 rounded-lg flex gap-6">
+                                        <div className="">
+                                            { !!avatar ?
+                                                <div className="w-14 h-w-14 rounded-full overflow-hidden">
+                                                    <img src={ avatar } />
+                                                </div>:
+                                                <Icon name="account-circle" size="2.3rem" />
+                                            }
+                                        </div>
+                                        <div>
+                                            <h3 className="font-serif text-gray-600">{ data?.vgagegevens.voornaam } { data?.vgagegevens.achternaam }</h3>
+                                            <p className="label tracking-widest">{ data?.email }</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h3 className="font-serif text-gray-600">{ data?.vgagegevens.voornaam } { data?.vgagegevens.achternaam }</h3>
-                                        <p className="label tracking-widest">{ data?.email }</p>
-                                    </div>
+                                    <Button to={ digitalMemberCardLink } icon="bank-card" className="mt-4 mx-auto">Digitale lidkaart</Button>
                                 </div>
                             </Grid>
                             <Grid span={{ default: 12, lg: 8 }}>

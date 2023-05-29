@@ -112,6 +112,7 @@ const useKeycloakStore = create(
             updateCustomFieldValue: (fieldId, value) => {
                 // 28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1
                 const userId = get().user.id;
+                const token = get().token;
                 return axios.patch('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/' + userId, {
                     "groepseigenVelden": {
                         "O1306G": {
@@ -119,6 +120,10 @@ const useKeycloakStore = create(
                                 [fieldId]: value
                             }
                         }
+                    }
+                }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
                     }
                 });
             }
