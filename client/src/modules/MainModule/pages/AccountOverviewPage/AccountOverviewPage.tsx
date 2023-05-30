@@ -24,8 +24,7 @@ const AccountOverviewPage: FC<Props> = () => {
         
     const data = cachedUser;
     const error = !data && authenticated;
-    // const flyoverActive = !authenticated || loading;
-    const flyoverActive = false;
+    const flyoverActive = !authenticated || loading;
     
     const medicalDataUpdated = cachedUser?.vgagegevens?.individueleSteekkaartdatumaangepast;
     
