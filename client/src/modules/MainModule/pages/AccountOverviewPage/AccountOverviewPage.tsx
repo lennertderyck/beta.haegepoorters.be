@@ -102,7 +102,7 @@ const AccountOverviewPage: FC<Props> = () => {
                                 <div>
                                     <h3 className="section-title">Profielfoto</h3>
                                     <p className="section-subtitle">Een duidelijke afbeelding van jou</p>
-                                    <Button onClick={() => cloudinaryWidget?.open() } className="mt-4">Profielfoto instellen</Button>
+                                    <Button onClick={() => cloudinaryWidget?.open()} className="mt-4">Profielfoto instellen</Button>
                                 </div>
                                 <hr className="my-10" />
                                 <div>
