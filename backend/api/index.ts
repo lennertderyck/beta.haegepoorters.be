@@ -31,7 +31,7 @@ api.get('/activities/all', async (_, res) => {
 api.get('/activities', async (req, res) => {
     const edition = req.query.edition;
     const group = req.query.group;
-    const data = await getActivitiesByEditionAndGroup(edition, group);
+    const data = await getActivitiesByEditionAndGroup(String(edition), String(group));
     const f = await data.map((d) => ({
         id: d.id,
         ...d.fields,
@@ -40,7 +40,7 @@ api.get('/activities', async (req, res) => {
 })
 
 api.post('/activities', async (req, res) => {
-    const data = await createActivity(req.query.group, req.query.edition, req.body);
+    const data = await createActivity(String(req.query.group), String(req.query.edition), req.body);
     const record = data[0];
     
     res.send({
@@ -81,6 +81,11 @@ api.get('/timeline', async (req, res) => {
         ...d.fields,
     }));
     res.send(f);
+})
+
+api.post('/profile/avatar', async (req, res) => {
+    console.log(req.body)
+    res.send(req.body)
 })
 
 export default api;

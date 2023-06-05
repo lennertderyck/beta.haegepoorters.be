@@ -7,10 +7,8 @@ import uitPasIllustration from '../../../../assets/images/uitpas-illustration.pn
 import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
 import logoGroepsadministratie from '../../../../assets/images/logo_groepsadministratie.png';
 import Grid from '../../../../components/basics/Grid/Grid';
-import ControlledForm from '../../../../components/basics/ControlledForm/ControlledForm';
-import Input from '../../../../components/basics/Input/Input';
 import PointsCardForm from './PointsCardForm';
-import MemberCard from '../MemberCardPage/MemberCard';
+import useCloudinaryWidget from '../../../../utils/hooks/useCloudinaryWidget/useCloudinaryWidget';
 
 interface Props {};
 
@@ -20,11 +18,18 @@ const AccountOverviewPage: FC<Props> = () => {
     const loading = useKeycloakStore(store => store.authenticating);
     const cachedUser = useKeycloakStore(store => store.user);
     const avatar = useKeycloakStore(store => store.getCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d'));
+    const storeAvatar = useKeycloakStore(store => (imageUrl: string) => store.updateCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d', imageUrl));
     const pointsCardNumber = useKeycloakStore(store => store.getCustomFieldValue('28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1'));
+    const [cloudinaryWidget, cloudinaryWidgetState] = useCloudinaryWidget((event) => {
+        console.log('Cloudinary event', event);
+        if (event.event === 'success') {
+            storeAvatar(event.info.url);
+        }
+    });
         
     const data = cachedUser;
     const error = !data && authenticated;
-    const flyoverActive = !authenticated || loading;
+    const flyoverActive = (!authenticated || loading) && process.env.NODE_ENV !== 'development' ;
     
     const medicalDataUpdated = cachedUser?.vgagegevens?.individueleSteekkaartdatumaangepast;
     
@@ -46,6 +51,12 @@ const AccountOverviewPage: FC<Props> = () => {
     const gridColumSpan = {
         left: { default: 12, lg: 4 },
         right: { default: 12, lg: 8 }
+    }
+    
+    const handleFileUpload = async (data: any) => {
+        const avatarFile = data.avatar[0] as File;
+        const buffer = URL.createObjectURL(avatarFile);
+        console.log(buffer)
     }
     
     return (
@@ -88,6 +99,12 @@ const AccountOverviewPage: FC<Props> = () => {
                                 </div>
                             </Grid>
                             <Grid span={{ default: 12, lg: 8 }}>
+                                <div>
+                                    <h3 className="section-title">Profielfoto</h3>
+                                    <p className="section-subtitle">Een duidelijke afbeelding van jou</p>
+                                    <Button onClick={() => cloudinaryWidget?.open() } className="mt-4">Profielfoto instellen</Button>
+                                </div>
+                                <hr className="my-10" />
                                 <div>
                                     <h3 className="section-title">Individuele steekkaart</h3>
                                     <p className="section-subtitle">Medische gegevens en andere persoonlijke informatie</p>

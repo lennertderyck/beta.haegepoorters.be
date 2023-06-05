@@ -152,6 +152,18 @@ const useKeycloakStore = create(
                         get().refreshUser();
                     }
                     
+                    set(() => ({
+                        user: {
+                            groepseigenVelden: {
+                                ['O1306G']: {
+                                    waarden: {
+                                        [fieldId]: value
+                                    }
+                                }
+                            }
+                        }
+                    }))
+                    
                     return response;
                 } catch (error) {
                     console.log('Field could not be updated', fieldObject)
