@@ -1,5 +1,6 @@
 import create from "zustand";
 import {persist} from 'zustand/middleware';
+import {immer} from 'zustand/middleware/immer';
 import Keycloak from 'keycloak-js';
 import axios from "axios";
 
@@ -47,17 +48,17 @@ const partializePicker = (state: KeycloakStore, allowedKeys: AllowedKeys[]) => {
 };
 
 const useKeycloakStore = create(
-    persist<KeycloakStore>(
+    immer(persist<KeycloakStore>(
         ((set, get) => ({
             instance: new Keycloak(config),
             authenticated: false,
             authenticating: false,
-        
+            
             token: undefined,
             refreshToken: undefined,
-            
+                
             user: undefined,
-        
+            
             init: () => {
                 const instance = get().instance;
                 const token = get().token;
@@ -84,7 +85,7 @@ const useKeycloakStore = create(
                             })
                         }
                     })
-                    
+                        
                 instance.onReady = () => {}
                 instance.onAuthSuccess = () => set({
                     authenticating: false,
@@ -93,7 +94,7 @@ const useKeycloakStore = create(
                     authenticating: false,
                 })
             },
-            
+                
             login: () => {
                 set({
                     authenticating: true,
@@ -102,13 +103,13 @@ const useKeycloakStore = create(
                 instance.login();
                 /** When the login procedure is finished, keycloak events will catch and provide the end of the process */
             },
-            
+                
             refreshUser: () => {
                 const authenticated = get().authenticated;
                 if (authenticated) console.log('Already authenticated');
                 else get().init();
             },
-            
+                
             getProfileData: () => {
                 const token = get().token;
                 return axios('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel', {
@@ -117,18 +118,18 @@ const useKeycloakStore = create(
                     }
                 });
             },
-            
+                
             getCustomFieldValue: (fieldId, group = 'O1306G') => {
                 const customFields = get().user?.groepseigenVelden?.[group];
                 const values = customFields?.waarden;
                 return values?.[fieldId];
             },
-            
+                
             updateCustomFieldValue: async (fieldId, value, options) => {
                 // 28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1
                 const userId = get().user.id;
                 const token = get().token;
-                
+                    
                 const fieldObject = {
                     "groepseigenVelden": {
                         "O1306G": {
@@ -138,7 +139,7 @@ const useKeycloakStore = create(
                         }
                     }
                 }
-                
+                    
                 try {
                     const response = await axios.patch(
                         'https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/' + userId, 
@@ -147,11 +148,11 @@ const useKeycloakStore = create(
                             'Authorization': 'Bearer ' + token,
                         }
                     });
-                    
+                        
                     if(options?.refreshUserData) {
                         get().refreshUser();
                     }
-                    
+                        
                     set(() => ({
                         user: {
                             groepseigenVelden: {
@@ -163,7 +164,7 @@ const useKeycloakStore = create(
                             }
                         }
                     }))
-                    
+                        
                     return response;
                 } catch (error) {
                     console.log('Field could not be updated', fieldObject)
@@ -175,7 +176,7 @@ const useKeycloakStore = create(
             getStorage: () => window.localStorage,
             partialize: state => partializePicker(state, ['token', 'refreshToken', 'user']),
         },
-    )
+    ))
 )
 
 export default useKeycloakStore;
