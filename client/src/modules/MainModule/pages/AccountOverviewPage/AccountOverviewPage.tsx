@@ -18,7 +18,9 @@ const AccountOverviewPage: FC<Props> = () => {
     const loading = useKeycloakStore(store => store.authenticating);
     const cachedUser = useKeycloakStore(store => store.user);
     const avatar = useKeycloakStore(store => store.getCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d'));
-    const storeAvatar = useKeycloakStore(store => (imageUrl: string) => store.updateCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d', imageUrl));
+    const storeAvatar = useKeycloakStore(store => (imageUrl: string) => store.updateCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d', imageUrl,{
+        refreshUserData: true
+    }));
     const pointsCardNumber = useKeycloakStore(store => store.getCustomFieldValue('28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1'));
     const [cloudinaryWidget, cloudinaryWidgetState] = useCloudinaryWidget((event) => {
         console.log('Cloudinary event', event);

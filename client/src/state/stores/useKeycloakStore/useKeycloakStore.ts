@@ -153,12 +153,6 @@ const useKeycloakStore = create(
                         get().refreshUser();
                     }
                         
-                    set(produce((store) => {
-                        if (store.usergroepseigenVelden?.['O1306G'].waarden?.[fieldId]) {
-                            store.usergroepseigenVelden['O1306G'].waarden[fieldId] = value
-                        }
-                    }))
-                        
                     return response;
                 } catch (error) {
                     console.log('Field could not be updated', fieldObject)
