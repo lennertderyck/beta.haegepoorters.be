@@ -1,6 +1,6 @@
 import create from "zustand";
 import {persist} from 'zustand/middleware';
-import {immer} from 'zustand/middleware/immer';
+import {produce} from "immer"
 import Keycloak from 'keycloak-js';
 import axios from "axios";
 
@@ -48,7 +48,7 @@ const partializePicker = (state: KeycloakStore, allowedKeys: AllowedKeys[]) => {
 };
 
 const useKeycloakStore = create(
-    immer(persist<KeycloakStore>(
+    persist<KeycloakStore>(
         ((set, get) => ({
             instance: new Keycloak(config),
             authenticated: false,
@@ -153,15 +153,9 @@ const useKeycloakStore = create(
                         get().refreshUser();
                     }
                         
-                    set(() => ({
-                        user: {
-                            groepseigenVelden: {
-                                ['O1306G']: {
-                                    waarden: {
-                                        [fieldId]: value
-                                    }
-                                }
-                            }
+                    set(produce((store) => {
+                        if (store.usergroepseigenVelden?.['O1306G'].waarden?.[fieldId]) {
+                            store.usergroepseigenVelden['O1306G'].waarden[fieldId] = value
                         }
                     }))
                         
@@ -176,7 +170,7 @@ const useKeycloakStore = create(
             getStorage: () => window.localStorage,
             partialize: state => partializePicker(state, ['token', 'refreshToken', 'user']),
         },
-    ))
+    )
 )
 
 export default useKeycloakStore;
