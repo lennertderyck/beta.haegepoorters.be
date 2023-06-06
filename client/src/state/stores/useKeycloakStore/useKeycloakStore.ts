@@ -72,11 +72,7 @@ const useKeycloakStore = create(
                     .then(async (auth) => {
                         if (auth) {
                             await instance.updateToken(KEYCL_TOKEN_LIFESPAN);
-                            const userInfoResponse = await axios('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel', {
-                                headers: {
-                                    'Authorization': 'Bearer ' + instance.token
-                                }
-                            });
+                            const userInfoResponse = await get().getProfileData();
                             set({
                                 token: instance.token,
                                 refreshToken: instance?.refreshToken,
@@ -105,9 +101,10 @@ const useKeycloakStore = create(
             },
                 
             refreshUser: () => {
-                const authenticated = get().authenticated;
-                if (authenticated) console.log('Already authenticated');
-                else get().init();
+                const user = get().getProfileData();
+                set({
+                    user,
+                })
             },
                 
             getProfileData: () => {

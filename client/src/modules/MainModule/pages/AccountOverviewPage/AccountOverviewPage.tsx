@@ -49,17 +49,6 @@ const AccountOverviewPage: FC<Props> = () => {
     // const currentFunctions = data.functies.filter((funct: any) => !funct.einde);
     
     const digitalMemberCardLink = `/ga/digitale-lidkaart?memberId=${data?.verbondsgegevens.lidnummer}&name=${ data?.vgagegevens.voornaam } ${ data?.vgagegevens.achternaam }`;
-        
-    const gridColumSpan = {
-        left: { default: 12, lg: 4 },
-        right: { default: 12, lg: 8 }
-    }
-    
-    const handleFileUpload = async (data: any) => {
-        const avatarFile = data.avatar[0] as File;
-        const buffer = URL.createObjectURL(avatarFile);
-        console.log(buffer)
-    }
     
     return (
         <div 
@@ -101,12 +90,14 @@ const AccountOverviewPage: FC<Props> = () => {
                                 </div>
                             </Grid>
                             <Grid span={{ default: 12, lg: 8 }}>
-                                <div>
-                                    <h3 className="section-title">Profielfoto</h3>
-                                    <p className="section-subtitle">Een duidelijke afbeelding van jou</p>
-                                    <Button onClick={() => cloudinaryWidget?.open()} className="mt-4">Profielfoto instellen</Button>
-                                </div>
-                                <hr className="my-10" />
+                                { !avatar && <>
+                                    <div>
+                                        <h3 className="section-title">Profielfoto</h3>
+                                        <p className="section-subtitle">Een duidelijke afbeelding van jou</p>
+                                        <Button onClick={() => cloudinaryWidget?.open()} className="mt-4">Profielfoto instellen</Button>
+                                    </div>
+                                    <hr className="my-10" />
+                                </>}
                                 <div>
                                     <h3 className="section-title">Individuele steekkaart</h3>
                                     <p className="section-subtitle">Medische gegevens en andere persoonlijke informatie</p>
