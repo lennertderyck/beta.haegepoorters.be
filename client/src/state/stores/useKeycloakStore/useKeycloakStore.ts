@@ -102,9 +102,10 @@ const useKeycloakStore = create(
                 
             refreshUser: () => {
                 const user = get().getProfileData();
-                set({
+                set((store) => ({
+                    ...store,
                     user,
-                })
+                }))
             },
                 
             getProfileData: (token?: string) => {
