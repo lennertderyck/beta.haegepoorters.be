@@ -107,11 +107,11 @@ const useKeycloakStore = create(
                 })
             },
                 
-            getProfileData: () => {
-                const token = get().token;
+            getProfileData: (token?: string) => {
+                const storedToken = get().token;
                 return axios('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel', {
                     headers: {
-                        'Authorization': 'Bearer ' + token
+                        'Authorization': 'Bearer ' + token || storedToken
                     }
                 });
             },
