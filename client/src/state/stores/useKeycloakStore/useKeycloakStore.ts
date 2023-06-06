@@ -31,7 +31,7 @@ interface KeycloakStore {
     login: () => void;
     
     refreshUser: () => void;
-    getProfileData: () => Promise<any>;
+    getProfileData: (toke?: string) => Promise<any>;
     
     getCustomFieldValue: (fieldId: string, group?: string) => any;
     updateCustomFieldValue: (fieldId: string, value: string, options?: UpdateCustomFieldValueOptions) => Promise<any>;
@@ -72,7 +72,7 @@ const useKeycloakStore = create(
                     .then(async (auth) => {
                         if (auth) {
                             await instance.updateToken(KEYCL_TOKEN_LIFESPAN);
-                            const userInfoResponse = await get().getProfileData();
+                            const userInfoResponse = await get().getProfileData(instance.token);
                             set({
                                 token: instance.token,
                                 refreshToken: instance?.refreshToken,
