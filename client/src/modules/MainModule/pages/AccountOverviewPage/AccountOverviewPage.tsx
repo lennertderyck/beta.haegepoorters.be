@@ -18,20 +18,19 @@ const AccountOverviewPage: FC<Props> = () => {
     const loading = useKeycloakStore(store => store.authenticating);
     const cachedUser = useKeycloakStore(store => store.user);
     const avatar = useKeycloakStore(store => store.getCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d'));
-    const storeAvatar = useKeycloakStore(store => (imageUrl: string) => store.updateCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d', imageUrl,{
-        refreshUserData: true
-    }));
+    const storeAvatar = useKeycloakStore(store => (imageUrl: string) => store.updateCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d', imageUrl));
     const pointsCardNumber = useKeycloakStore(store => store.getCustomFieldValue('28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1'));
-    const [cloudinaryWidget, cloudinaryWidgetState] = useCloudinaryWidget((event) => {
+    const [cloudinaryWidget, cloudinaryWidgetState] = useCloudinaryWidget(async (event) => {
         console.log('Cloudinary event', event);
         if (event.event === 'success') {
-            storeAvatar(event.info.url);
+            await storeAvatar(event.info.url);
+            window.location.reload();
         }
     });
         
     const data = cachedUser;
     const error = !data && authenticated;
-    const flyoverActive = (!authenticated || loading) && process.env.NODE_ENV !== 'development' ;
+    const flyoverActive = (!authenticated || loading) && process.env.NODE_ENV !== 'development';
     
     const medicalDataUpdated = cachedUser?.vgagegevens?.individueleSteekkaartdatumaangepast;
     
@@ -181,9 +180,7 @@ const AccountOverviewPage: FC<Props> = () => {
             <div className="flyover__bridge">
                 {
                     !loading ? (
-                        <button onClick={() => keycloak.login({ })}>
-                            <AdminPlatformSignInCard />
-                        </button>
+                        <AdminPlatformSignInCard />
                     ) : (
                         <>
                             <AdminPlatformSignInCard loading />

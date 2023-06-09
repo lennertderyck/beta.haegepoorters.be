@@ -14,6 +14,7 @@ import { useEffectOnce } from './utils/hooks';
 import CookieClicker from './components/elements/CookieClicker/CookieClicker';
 import usePreferencesStore from './state/stores/usePreferencesStore/usePreferencesStore';
 import { queryClient } from './utils/queries';
+import IdentityAccessRightsProvider from './state/contexts/IdentityAccessRightsContext/IdentityAccessRightsContext';
   
 interface Props {};
 
@@ -25,16 +26,18 @@ const App: FC<Props> = () => {
     
     return (
         <QueryClientProvider client={queryClient}>
-            <ScrollRestoration />
-            <div className="flex h-full">
-                <MainNavigation />
-                <div className="flex-1 flex flex-col">
+            <IdentityAccessRightsProvider>
+                <ScrollRestoration />
+                <div className="flex h-full">
+                    <MainNavigation />
                     <div className="flex-1 flex flex-col">
-                        <Outlet />
+                        <div className="flex-1 flex flex-col">
+                            <Outlet />
+                        </div>
                     </div>
                 </div>
-            </div>
-            { showCookieClicker && <CookieClicker />}
+                { showCookieClicker && <CookieClicker />}
+            </IdentityAccessRightsProvider>
         </QueryClientProvider>
     )
 }

@@ -16,7 +16,7 @@ export interface UserFunction extends AdminPlatformBase {
     functie: string;
     begin: string;
     einde?: string;
-    code: string;
+    code: string | undefined;
     omschrijving: string;
 };
 
