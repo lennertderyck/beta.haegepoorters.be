@@ -69,8 +69,8 @@ const ProtectedRoute: FC<Props> = ({ children, view, staffOnly }) => {
             </div>
             <div className="flyover__bridge">
                 { authenticated ? 
-                    <AdminPlatformSignInCard loading={ loading } /> : 
-                    <NoAccessCard />
+                    <NoAccessCard /> :
+                    <AdminPlatformSignInCard loading={ loading } />
                 }
             </div>
         </div>
