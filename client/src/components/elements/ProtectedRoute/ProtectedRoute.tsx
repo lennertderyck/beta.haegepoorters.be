@@ -49,7 +49,7 @@ const ProtectedRoute: FC<Props> = ({ children, view, staffOnly }) => {
         (!authenticated || loading) && 
         process.env.NODE_ENV !== 'development' ||
         (
-            staffOnly && accessRights.staff
+            staffOnly && !accessRights.staff
         )
     ;
     
