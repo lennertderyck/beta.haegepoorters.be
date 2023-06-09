@@ -45,15 +45,17 @@ const ProtectedRoute: FC<Props> = ({ children, view, staffOnly }) => {
     const loading = useKeycloakStore((store) => store.authenticating);
     const accessRights = useAccessRights();
     
+    const access = staffOnly && accessRights.staff
+    
     const flyoverActive = 
         (!authenticated || loading) && 
         process.env.NODE_ENV !== 'development' ||
         (
-            staffOnly && !accessRights.staff
+            !access
         )
     ;
     
-    if (view === 'blocked') return <div className="paper w-fit p-6 rounded-lg mx-auto">
+    if (view === 'blocked' && !access) return <div className="paper w-fit p-6 rounded-lg mx-auto">
         <NoAccessCard />
     </div>
     
