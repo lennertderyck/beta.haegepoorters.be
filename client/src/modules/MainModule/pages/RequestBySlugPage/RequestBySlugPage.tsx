@@ -33,6 +33,7 @@ const RequestBySlugPage: FC<Props> = () => {
                 <Img src={ pageData.content?.banner?.filename } height="55vh" className="page__banner" />
             )}
             <div className="page__content">
+            <h2 className="text-lg font-medium text-gray-600 mt-12 mb-6">{ pageData?.content.descr_short }</h2>
                 <ContentRender>{ pageData?.content.body }</ContentRender>
                 <div className="mt-12">
                     <ShareButton />
