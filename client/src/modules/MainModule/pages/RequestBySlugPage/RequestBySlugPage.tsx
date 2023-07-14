@@ -19,7 +19,7 @@ const RequestBySlugPage: FC<Props> = () => {
     
     useEffect(() => {
         request();
-    }, [ location.pathname ]);
+    }, [ request, location.pathname ]);
     
     if (error) return <NotFoundPage />
     else if (pageLoading || !pageData) return <LoadingPage />

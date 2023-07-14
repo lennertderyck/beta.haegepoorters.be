@@ -9,6 +9,7 @@ import logoGroepsadministratie from '../../../../assets/images/logo_groepsadmini
 import Grid from '../../../../components/basics/Grid/Grid';
 import PointsCardForm from './PointsCardForm';
 import useCloudinaryWidget from '../../../../utils/hooks/useCloudinaryWidget/useCloudinaryWidget';
+import Input from '../../../../components/basics/Input/Input';
 
 interface Props {};
 
@@ -20,8 +21,7 @@ const AccountOverviewPage: FC<Props> = () => {
     const avatar = useKeycloakStore(store => store.getCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d'));
     const storeAvatar = useKeycloakStore(store => (imageUrl: string) => store.updateCustomFieldValue('c6a4fcc2-b1ff-4504-a58b-df291b223f7d', imageUrl));
     const pointsCardNumber = useKeycloakStore(store => store.getCustomFieldValue('28f54ef9-d7c8-4d2d-8051-ba6e8d16f2e1'));
-    const [cloudinaryWidget, cloudinaryWidgetState] = useCloudinaryWidget(async (event) => {
-        console.log('Cloudinary event', event);
+    const [cloudinaryWidget] = useCloudinaryWidget(async (event) => {
         if (event.event === 'success') {
             await storeAvatar(event.info.url);
             window.location.reload();
@@ -33,7 +33,8 @@ const AccountOverviewPage: FC<Props> = () => {
     const flyoverActive = (!authenticated || loading) && process.env.NODE_ENV !== 'development';
     
     const medicalDataUpdated = cachedUser?.vgagegevens?.individueleSteekkaartdatumaangepast;
-    
+    const isWebmaster = cachedUser?.['functies'].some((funct: any) => funct.code === 'WEB');
+        
     if (error) return (
         <div className="page page--wide h-full flex items-center">
             <div className="page__content">
@@ -89,6 +90,15 @@ const AccountOverviewPage: FC<Props> = () => {
                                 </div>
                             </Grid>
                             <Grid span={{ default: 12, lg: 8 }}>
+                                { isWebmaster && <>
+                                    <div>
+                                        <h3 className="section-title">Access token <span className="text-stone-400">(Development)</span></h3>
+                                        <p className="section-subtitle">Toegang tot de Groepsadmin API</p>
+                                        <Input name="token" className="mt-4" disabled value={ cachedUser.token } />
+                                        {/* <Button onClick={() => cloudinaryWidget?.open()} className="mt-4">Profielfoto instellen</Button> */}
+                                    </div>
+                                    <hr className="my-10" />
+                                </>}
                                 { !avatar && <>
                                     <div>
                                         <h3 className="section-title">Profielfoto</h3>
