@@ -11,7 +11,7 @@ interface Props {};
 const StartPage: FC<Props> = () => {
     return (
         <>
-            <div className="container px-6">
+            {/* <div className="container px-6">
                 <Link to="/blog/kampdata-2023" className="border-b-2 hidden lg:flex items-center justify-between py-3 overflow-hidden group">
                     <div className="flex items-center gap-3 text-gray-600">
                         <Icon name="notification-3" />
@@ -19,7 +19,7 @@ const StartPage: FC<Props> = () => {
                     </div>
                     <Button theme="simple" icon="arrow-right" className="opacity-100 lg:opacity-0 lg:group-hover:opacity-100 translate-y-[0%] lg:translate-y-[100%] lg:group-hover:translate-y-[0%]">Kampdata bekijken</Button>
                 </Link>
-            </div>
+            </div> */}
             <div className="page !pt-12 page--wide page--headless">
                 <div className="page__content">
                     <div className="grid grid-cols-12 gap-y-12 lg:gap-12">

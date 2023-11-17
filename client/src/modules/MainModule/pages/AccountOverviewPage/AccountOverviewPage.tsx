@@ -5,7 +5,6 @@ import AddressCard from './AddressCard';
 import classNames from 'classnames';
 import uitPasIllustration from '../../../../assets/images/uitpas-illustration.png';
 import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
-import logoGroepsadministratie from '../../../../assets/images/logo_groepsadministratie.png';
 import Grid from '../../../../components/basics/Grid/Grid';
 import PointsCardForm from './PointsCardForm';
 import useCloudinaryWidget from '../../../../utils/hooks/useCloudinaryWidget/useCloudinaryWidget';
@@ -110,11 +109,11 @@ const AccountOverviewPage: FC<Props> = () => {
                                 <div>
                                     <h3 className="section-title">Individuele steekkaart</h3>
                                     <p className="section-subtitle">Medische gegevens en andere persoonlijke informatie</p>
-                                    <div className="flex items-baseline gap-3">
+                                    <div className="flex flex-col lg:flex-row items-baseline gap-3">
                                         <Button 
                                             icon="arrow-right-up" 
                                             className="mt-4"
-                                            href={`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/individuelesteekkaart/${cachedUser.id}`}
+                                            href={`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/client/#/lid/individuelesteekkaart/${cachedUser?.id}`}
                                             target="_blank"
                                         >Nakijken & bewerken</Button>
                                         <p className="label text-gray-400"><DateFrom ignoreSuffix>{ medicalDataUpdated }</DateFrom> geleden bijgewerkt</p>
