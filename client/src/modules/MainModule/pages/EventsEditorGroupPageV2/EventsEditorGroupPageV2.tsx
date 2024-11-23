@@ -46,7 +46,7 @@ const EventsEditorGroupPageV2: FC<Props> = () => {
                 
                 return (
                   <Button key={ monthIndex } theme="simple" to={ `?month=${dayjs(month).format('YYYY-MM-DD')}` }>
-                    <span className={classNames(isSelected && 'border-b-2 border-red-500 pb-1')}>{ dayjs(month).format('MMMM YY') }</span>
+                    <span className={classNames(isSelected && 'border-b-2 border-red-500 pb-1')}>{ dayjs(month).format(`MMMM 'YY`) }</span>
                   </Button>
                 )
               })}

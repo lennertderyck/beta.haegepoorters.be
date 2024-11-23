@@ -30,8 +30,6 @@ const MainModuleRouter: RouteObject[] = [
             ]},
             { path: 'haegeprekerke', children: [
                 { index: true, element: <Navigate to="kap" replace /> },
-                // { path: ':group', element: <EventsPage /> },
-                // { path: ':group/activiteiten/:activityId', element: <EventsPage /> },
                 { path: ':group', element: <EventsTimelineRootPage />, children: [
                     {index: true, element: <EventsTimelineGroupPage /> },
                     {path: 'activities/', element: <Navigate to=".." replace /> },
