@@ -23,6 +23,7 @@ h3 {
 .content {
     * {
         line-height: 1.7rem;
+        hyphens: auto;
     }
     
     &:not(&--inline) > * {

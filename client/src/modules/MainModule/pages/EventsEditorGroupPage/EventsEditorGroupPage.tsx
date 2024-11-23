@@ -1,13 +1,11 @@
 import { FC, useEffect } from 'react';
-import { useAxios } from '../../../../utils/hooks';
-import { Edition } from '../../../../types/content';
 import { Outlet, useLoaderData, useNavigate, useParams } from 'react-router-dom';
-import EditionNavButton from './EditionNavButton';
-import { Group } from '../../../../types/general';
 import { Button, Date, Loader } from '../../../../components/basics';
+import { Edition } from '../../../../types/content';
+import { Group } from '../../../../types/general';
 import { sortEventEditionsByStartDate } from '../../../../utils/funcs/algorithms/sorting';
-import { useQuery } from 'react-query';
-import queries from '../../../../utils/queries';
+import { useAxios } from '../../../../utils/hooks';
+import EditionNavButton from './EditionNavButton';
 
 interface Props {};
 
@@ -17,20 +15,20 @@ const EventsEditorGroupPage: FC<Props> = () => {
     const params = useParams<any>();
     const editionsData = useAxios<Edition[]>(process.env['REACT_APP_BACKEND_URL'] + '/editions');
     const { data: editions, loading: editionsLoading } = editionsData;
-    
+
     const firstEditon = editions?.sort(sortEventEditionsByStartDate)?.[0];
-    
+
     useEffect(() => {
         if (!!!params.edition && firstEditon) {
             navigate(firstEditon.id);
         }
     }, [firstEditon, params.edition]);
-    
+
     const selectedEditon = editions?.find((edition) => edition?.id === params.edition);
     const outletContext = {
         selectedEditon,
     }
-        
+
     return (
         <div className="page">
             <div className="page__header">

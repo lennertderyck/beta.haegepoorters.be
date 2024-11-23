@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import HighlightedEvents from '../../components/HighlightedEvents/HighlightedEvents';
 import { Link } from 'react-router-dom';
-import { Button, Icon } from '../../../../components/basics';
+import { Icon } from '../../../../components/basics';
+import UpcomingActivitiesPreview from '../../../../components/elements/UpcomingActivitiesPreview/UpcomingActivitiesPreview';
+import HighlightedNews from '../../components/HighlightedNews/HighlightedNews';
 import HeroBanner from './HeroBanner';
 import RelatedLinks from './RelatedLinks';
-import HighlightedNews from '../../components/HighlightedNews/HighlightedNews';
 
 interface Props {};
 
@@ -30,7 +30,8 @@ const StartPage: FC<Props> = () => {
                                     <Icon name="arrow-right" size="1.4rem" />
                                 </Link>
                             </h3>
-                            <HighlightedEvents />
+                            {/* <HighlightedEvents /> */}
+                            <UpcomingActivitiesPreview />
                         </div>
                         <div className="col-span-12 lg:col-span-4">
                             <h3 className="section-title mb-5">

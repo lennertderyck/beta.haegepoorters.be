@@ -1,19 +1,20 @@
-import { FC, useMemo } from 'react';
-import { Button, Date } from '../../../../components/basics';
-import groups from '../../../../utils/data/groups';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
+import { FC, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAxios } from '../../../../utils/hooks';
+import { Button } from '../../../../components/basics';
 import { Event } from '../../../../types/content';
+import groups from '../../../../utils/data/groups';
+import { sortGroupEventsByDate } from '../../../../utils/funcs/algorithms/sorting';
+import { useAxios } from '../../../../utils/hooks';
 import EventItem from './EventItem';
 import EventItemLoader from './EventItemLoader';
-import dayjs from 'dayjs';
-import { sortGroupEventsByDate } from '../../../../utils/funcs/algorithms/sorting';
 
 interface Props {};
 
 const EventsPage: FC<Props> = () => {
     const params = useParams<any>();
+    const selectedActivity = useMemo(() => params.activityId || null, [ params.activityId ]);
     const selectedGroup = useMemo(() => params.group || 'kap', [ params.group ])
     const { data: events, loading: eventsLoading, error: eventsLoadingError, refetch: refetchEvents } = useAxios<Event[]>(process.env['REACT_APP_BACKEND_URL'] + '/timeline');
     
@@ -68,6 +69,12 @@ const EventsPage: FC<Props> = () => {
                             return (
                                 <li 
                                     key={ event.id }
+                                    ref={ref => {
+                                        const isSelected = selectedActivity === event.id;
+                                        if (isSelected && ref) {
+                                            ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        }
+                                    }}
                                     className={classNames(
                                         'group', 
                                         isPassed && 'opacity-60',

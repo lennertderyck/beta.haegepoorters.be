@@ -1,11 +1,11 @@
-import {FC, HTMLInputTypeAttribute, useMemo} from "react";
 import classNames from "classnames";
-import {ListSuggestion} from "./Input.types";
-import BaseInput from "./BaseInput";
-import styles from './Input.module.scss';
+import { FC, HTMLInputTypeAttribute, useMemo } from "react";
 import { FormControlField } from "../../../types/forms";
 import DatalistInput from "../DatalistInput/DatalistInput";
 import TextArea from "../TextArea/TextArea";
+import BaseInput from "./BaseInput";
+import styles from './Input.module.scss';
+import { ListSuggestion } from "./Input.types";
 
 interface Props extends Omit<FormControlField, 'list' | 'type'> {
   /**
@@ -37,7 +37,7 @@ const Input: FC<Props> = ({name, className, list, ...otherProps}) => {
   ), [className, bootstrapFormControlClass])
   
   if (otherProps.type === "range") throw new Error('Use the RangeInput component to render and control range inputs');
-  else if (otherProps.type === 'textarea') return <TextArea name={ name } className={ componentClassName } />
+  else if (otherProps.type === 'textarea') return <TextArea name={ name } className={ componentClassName } rows={5} />
   else if (list !== undefined) return <DatalistInput name={name} className={ componentClassName } list={list || []} {...otherProps} />
   else return <BaseInput name={name} className={ componentClassName } {...otherProps} />;
 };

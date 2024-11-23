@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import {PropsWithChildren, FormHTMLAttributes, forwardRef, useCallback, ForwardRefRenderFunction} from "react";
-import {FormProvider, UseFormReturn, useForm} from "react-hook-form";
+import { FormHTMLAttributes, PropsWithChildren, forwardRef, useCallback } from "react";
+import { FormProvider, UseFormReturn, useForm } from "react-hook-form";
 import styles from './ControlledForm.module.scss';
 
 interface BaseProps extends PropsWithChildren, FormHTMLAttributes<HTMLFormElement> {
@@ -15,7 +15,7 @@ export interface ControlledFormProps extends BaseProps {
 
 type Ref = HTMLFormElement;
 
-const ControlledForm = forwardRef<Ref, ControlledFormProps>(({ children, onSubmit, className, defaultValues, onChange, remote, ...otherProps}, ref) => {
+const ControlledForm = forwardRef<Ref, ControlledFormProps>(({ children, onSubmit, className, defaultValues, onChange, remote, onReset, ...otherProps}, ref) => {
   const controlsInstance = useForm({ 
     defaultValues,
   });
@@ -35,6 +35,7 @@ const ControlledForm = forwardRef<Ref, ControlledFormProps>(({ children, onSubmi
         className={classNames(styles.form, className)} 
         onSubmit={methods.handleSubmit(onSubmit)}
         onChange={handleOnChange}
+        onReset={onReset}
       >
         {children}
       </form>

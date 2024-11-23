@@ -11,8 +11,8 @@ const EventCardSkeleton: FC<Props> = () => {
             </div>
             <div className="w-full">
                 <div className="max-w-96">
-                    <Skeleton height="1.5rem" width="15rem" />
                     <Skeleton width="60%" />
+                    <Skeleton height="1.5rem" width="15rem" />
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@ interface Props {};
 
 const EventCardLoader: FC<Props> = () => {
     return (
-        <RenderTimes>
+        <RenderTimes amount={5}>
             <EventCardSkeleton />
         </RenderTimes>
     )

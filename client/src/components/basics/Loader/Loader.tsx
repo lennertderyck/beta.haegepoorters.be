@@ -7,7 +7,7 @@ interface Props {
 
 const Loader: FC<Props> = ({ size = '2rem' }) => {
     return (
-        <div className="animate-spin">
+        <div className="animate-spin w-fit h-fit">
             <Icon name="loader-5" size={ size } />
         </div>
     )

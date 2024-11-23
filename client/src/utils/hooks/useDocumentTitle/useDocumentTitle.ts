@@ -13,7 +13,7 @@ const useDocumentTitle: DocumentTitleHook = (newTitle) => {
         if (newTitle) {
             setTitle(newTitle);
         }
-    }, [])
+    }, [newTitle])
     
     return [ title, setTitle ]
 }

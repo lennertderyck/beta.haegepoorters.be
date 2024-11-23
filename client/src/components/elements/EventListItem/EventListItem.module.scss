@@ -1,0 +1,44 @@
+.container {
+  position: relative;
+  @apply pl-8 pb-8 border-l-2 border-red-500 border-opacity-40;
+  
+  .dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #f56565;
+    border-radius: 50%;
+    
+    @apply bg-red-500 rounded-full w-3 h-3 -translate-x-1/2;
+  }
+}
+
+.header {
+  @apply flex justify-between;
+  
+  .title {
+    @apply flex flex-row align-baseline text-red-500 font-serif text-xl;
+  }
+  
+  .subtitle {
+    @apply font-medium text-lg;
+  }
+} 
+
+.body {
+  @apply mt-3;
+}
+
+.inner {
+  @apply -translate-y-1.5
+}
+
+.editButton {
+  @apply opacity-0 translate-y-5;
+}
+
+.container:hover {
+  .editButton {
+    @apply opacity-100 translate-y-0;
+  }
+}

@@ -1,20 +1,19 @@
+import {
+    QueryClientProvider
+} from '@tanstack/react-query';
 import { FC } from 'react';
 import {
     Outlet,
     ScrollRestoration,
 } from "react-router-dom";
-import './scss/index.scss';
-import MainNavigation from './modules/MainModule/components/MainNavigation/MainNavigation';
-import {
-    QueryClient,
-    QueryClientProvider,
-} from 'react-query';
-import useKeycloakStore from './state/stores/useKeycloakStore/useKeycloakStore';
-import { useEffectOnce } from './utils/hooks';
 import CookieClicker from './components/elements/CookieClicker/CookieClicker';
-import usePreferencesStore from './state/stores/usePreferencesStore/usePreferencesStore';
-import { queryClient } from './utils/queries';
+import MainNavigation from './modules/MainModule/components/MainNavigation/MainNavigation';
+import './scss/index.scss';
 import IdentityAccessRightsProvider from './state/contexts/IdentityAccessRightsContext/IdentityAccessRightsContext';
+import useKeycloakStore from './state/stores/useKeycloakStore/useKeycloakStore';
+import usePreferencesStore from './state/stores/usePreferencesStore/usePreferencesStore';
+import { useEffectOnce } from './utils/hooks';
+import QUERY_CLIENT from './utils/vendors/TanStack/ReactQuery/queryClient';
   
 interface Props {};
 
@@ -25,7 +24,7 @@ const App: FC<Props> = () => {
     useEffectOnce(() => initIdentityProvider());
     
     return (
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={QUERY_CLIENT}>
             <IdentityAccessRightsProvider>
                 <ScrollRestoration />
                 <div className="flex h-full">

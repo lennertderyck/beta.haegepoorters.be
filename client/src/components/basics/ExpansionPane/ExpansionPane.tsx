@@ -10,7 +10,7 @@ const ExpansionPane: FC<Props> = ({ className: cls, active, ...otherProps }) => 
         <div 
             { ...className(
                 'overflow-hidden',
-                active ? 'opacity-100 max-h-screen py-2' : 'opacity-0 max-h-[0vh] py-0',
+                active ? 'opacity-100 max-h-screen translate-y-0' : 'opacity-0 max-h-[0vh] translate-y-2',
                 cls
             )} 
             { ...otherProps }

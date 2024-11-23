@@ -8,8 +8,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sanity/client": "^6.22.4",
     "airtable": "^0.11.6",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "storyblok": "^3.10.1"

@@ -1,13 +1,13 @@
-import { FC, useMemo } from 'react';
-import { Icon, Logo } from '../../../../components/basics';
-import { useCollapseState } from '../../../../utils/hooks';
 import classNames from 'classnames';
+import { FC, useMemo } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { NavLink } from 'react-router-dom';
-import NavItem from './NavItem';
 import { useDevice } from 'use-ua-parser-js';
-import { useMediaQuery } from 'react-responsive'
-import Toggle from './Toggle';
+import { Icon, Logo } from '../../../../components/basics';
 import useKeycloakStore from '../../../../state/stores/useKeycloakStore/useKeycloakStore';
+import { useCollapseState } from '../../../../utils/hooks';
+import NavItem from './NavItem';
+import Toggle from './Toggle';
 
 interface Props {};
 
@@ -21,9 +21,7 @@ const MainNavigation: FC<Props> = () => {
     const isLargeScreen = useMediaQuery({
         query: '(min-width: 1024px)'
     });
-    
-    console.log('cachedUser user', cachedUser)
-    
+        
     const menuItems = [
         { label: 'Startpagina', to: '/', icon: 'home-5' },
         { label: 'Haegeprekerke', to: '/haegeprekerke', icon: 'book-3' },

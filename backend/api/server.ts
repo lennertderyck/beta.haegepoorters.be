@@ -1,7 +1,5 @@
-
-
-import express from 'express';
 import cors, { CorsOptions } from 'cors';
+import express from 'express';
 
 const api = express();
 
@@ -11,9 +9,9 @@ const corsOpts: CorsOptions = {
     methods: [
         'GET',
         'POST',
-        // 'DELETE',
+        'PATCH',
+        'DELETE',
         // 'PUT',
-        // 'PATCH'
     ],
 
     allowedHeaders: [
@@ -24,11 +22,11 @@ const corsOpts: CorsOptions = {
 const allowedContentTypes = ['application/json', 'image/png', 'image/jpg', 'image/jpeg', 'multipart/form-data']
 
 api.use((req, res, next) => {
-    console.log(req)
+    // console.log(req)
     next();
 })
 
-// api.use(express.json()); // Gives error in body-parser package
+api.use(express.json()); // Gives error in body-parser package
 // api.use((req, res, next) => {
 //     const contentType = req.headers['content-type'] || 'text/plain';
 //     const contentTypeIsAllowed = allowedContentTypes.includes(contentType);

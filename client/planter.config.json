@@ -3,17 +3,40 @@
   "library": "react",
   "installer": "npm",
   "hasTs": true,
-  "layout": "SASS",
+  "layout": "sass",
   "packages": [
     "Error-boundary",
     "Zustand",
     "Axios"
   ],
   "components": {
-    "basics": "folder",
-    "elements": "folder",
-    "pages": "folder"
+    "basics": {
+      "component": "src/components/basics/@pascalCase/@pascalCase.@ext",
+      "style": "src/components/basics/@pascalCase/@pascalCase.@ext",
+      "test": "src/components/basics/@pascalCase/tests/@pascalCase.@ext"
+    },
+    "elements": {
+      "component": "src/components/elements/@pascalCase/@pascalCase.@ext",
+      "style": "src/components/elements/@pascalCase/@pascalCase.@ext",
+      "test": "src/components/elements/@pascalCase/tests/@pascalCase.@ext"
+    },
+    "pages": {
+      "component": "src/components/pages/@pascalCase/@pascalCase.@ext",
+      "style": "src/components/pages/@pascalCase/@pascalCase.@ext",
+      "test": "src/components/pages/@pascalCase/tests/@pascalCase.@ext"
+    }
   },
   "structure": "BEP (recommended)",
-  "usePropTypes": false
+  "usePropTypes": false,
+  "version": 6,
+  "hookPath": "src/utils/hooks",
+  "dataPath": "src/utils/data",
+  "funcsPath": "src/utils/funcs",
+  "assetImagesPath": "src/assets/images",
+  "assetFontsPath": "src/assets/fonts",
+  "assetMiscPath": "src/assets/misc",
+  "contextPath": "src/state/contexts",
+  "zustandStoresPath": "src/state/stores",
+  "typesPath": "src/types",
+  "prettier": false
 }

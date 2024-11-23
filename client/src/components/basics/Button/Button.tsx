@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes, FC, useCallback } from 'react';
-import Icon from '../Icon/Icon';
-import { className } from '../../../utils/funcs/dom';
-import ButtonBase from './ButtonBase';
 import { RelativeRoutingType, useNavigate } from 'react-router-dom';
+import { className } from '../../../utils/funcs/dom';
+import Icon from '../Icon/Icon';
+import ButtonBase from './ButtonBase';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     to?: string;
@@ -37,7 +37,7 @@ const Button: FC<Props> = ({ children, theme = 'button', icon, iconPlacement = '
         <ButtonBase
             onClick={ handleClick }
             { ...className(
-                'gap-1.5',
+                'gap-1.5 h-fit',
                 cls,
                 iconClasses,
                 themes[theme],

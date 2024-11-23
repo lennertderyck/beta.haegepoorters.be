@@ -1,6 +1,6 @@
 /* istanbul ignore file */
-import {useMemo} from "react";
-import {useForm, useFormContext} from "react-hook-form";
+import { useMemo } from "react";
+import { useForm, useFormContext } from "react-hook-form";
 import UseControlledInputs from "./useControlledInputs.types";
 
 /**
@@ -12,7 +12,7 @@ const useControlledInputs: UseControlledInputs = (name, registerOptions) => {
   const hasNameAssigned = useMemo(() => name !== undefined, [name]);
   const isControlled = useMemo(() => inContext && hasNameAssigned, [inContext, hasNameAssigned]);
   const uncontrolledContext = useForm();
-
+  
   const conditionalContextRegister = useMemo(() => {
     if (isControlled) {
       return formContext?.register(name as string, {

@@ -1,25 +1,27 @@
 import { Navigate, RouteObject } from "react-router-dom";
+import CreateNewEventPage from "../../components/pages/CreateNewEventPage/CreateNewEventPage";
+import EventsTimelineGroupPage from "../../components/pages/EventsTimelineGroupPage/EventsTimelineGroupPage";
+import EventsTimelineRootPage from "../../components/pages/EventsTimelineRootPage/EventsTimelineRootPage";
+import groupDataLoader from "../../utils/funcs/routingLoaders/groupData";
 import MainModule from "./MainModule";
-import StartPage from "./pages/StartPage/StartPage";
-import EventsPage from "./pages/EventsPage/EventsPage";
-import BlogPage from "./pages/BlogPage/BlogPage";
+import AccountIndexPage from "./pages/AccountIndexPage/AccountIndexPage";
+import AccountOverviewPage from "./pages/AccountOverviewPage/AccountOverviewPage";
 import BlogArticlePage from "./pages/BlogArticlePage/BlogArticlePage";
-import TeamPage from "./pages/TeamPage/TeamPage";
-import RequestBySlugPage from "./pages/RequestBySlugPage/RequestBySlugPage";
-import AccountLaunchPage from "./pages/AccountLaunchPage/AccountLaunchPage";
+import BlogPage from "./pages/BlogPage/BlogPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
-import MemberCardPage from "./pages/MemberCardPage/MemberCardPage";
-import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
-import EventsEditPage from "./pages/EventsEditPage/EventsEditPage";
-import EventsEditDetailPage from "./pages/EventsEditPage/EventsEditDetailPage";
-import EventsEditorGroupPage from "./pages/EventsEditorGroupPage/EventsEditorGroupPage";
+import EventEditorOverviewPage from "./pages/EditorV2/EventEditorOverviewPage/EventEditorOverviewPage";
+import EventEditPage from "./pages/EventEditPage/EventEditPage";
+import EventEditorPage from "./pages/EventEditorPage/EventEditorPage";
 import EventsEditorEditonPage from "./pages/EventsEditorEditonPage/EventsEditorEditonPage";
 import EventsEditorEventDetailPage from "./pages/EventsEditorEventDetailPage/EventsEditorEventDetailPage";
-import EventEditorPage from "./pages/EventEditorPage/EventEditorPage";
-import groupDataLoader from "../../utils/funcs/routingLoaders/groupData";
-import AccountOverviewPage from "./pages/AccountOverviewPage/AccountOverviewPage";
+import EventsEditorGroupPage from "./pages/EventsEditorGroupPage/EventsEditorGroupPage";
+import EventsEditorGroupPageV2 from "./pages/EventsEditorGroupPageV2/EventsEditorGroupPageV2";
+import MemberCardPage from "./pages/MemberCardPage/MemberCardPage";
+import OnboardingPage from "./pages/OnboardingPage/OnboardingPage";
 import PaymentPage from "./pages/PaymentPage/PaymentPage";
-import AccountIndexPage from "./pages/AccountIndexPage/AccountIndexPage";
+import RequestBySlugPage from "./pages/RequestBySlugPage/RequestBySlugPage";
+import StartPage from "./pages/StartPage/StartPage";
+import TeamPage from "./pages/TeamPage/TeamPage";
 
 const MainModuleRouter: RouteObject[] = [
     {
@@ -33,9 +35,12 @@ const MainModuleRouter: RouteObject[] = [
             ]},
             { path: 'haegeprekerke', children: [
                 { index: true, element: <Navigate to="kap" replace /> },
-                { path: ':group', element: <EventsPage /> },
-                { path: 'edit', children: [
-                    { index: true, element: <EventsEditPage /> },
+                // { path: ':group', element: <EventsPage /> },
+                // { path: ':group/activiteiten/:activityId', element: <EventsPage /> },
+                { path: ':group', element: <EventsTimelineRootPage />, children: [
+                    {index: true, element: <EventsTimelineGroupPage /> },
+                    {path: 'activities/', element: <Navigate to=".." replace /> },
+                    {path: 'activities/:activityId', element: <EventsTimelineGroupPage /> },
                 ]},
                 { path: 'editor', children: [
                     { index: true, element: <EventEditorPage />},
@@ -48,6 +53,12 @@ const MainModuleRouter: RouteObject[] = [
                         { path: ':event', element: <EventsEditorEventDetailPage /> },
                         { path: 'new', element: <EventsEditorEventDetailPage createNew />},
                     ]}
+                ]},
+                { path: 'editor/v2', children: [
+                    { index: true, element: <EventEditorOverviewPage /> },
+                    { path: ':groupId', element: <EventsEditorGroupPageV2 />},
+                    { path: ':groupId/new', element: <CreateNewEventPage /> },
+                    { path: ':groupId/:activityId/edit', element: <EventEditPage /> },
                 ]}
             ]},
             { path: 'blog', children: [
@@ -64,10 +75,6 @@ const MainModuleRouter: RouteObject[] = [
             ]},
             { path: '*', element: <RequestBySlugPage /> },
         ]
-    },
-    {
-        path: 'haegeprekerke/edit/:group',
-        element: <EventsEditDetailPage />
     },
     {
         path: 'betalen',
