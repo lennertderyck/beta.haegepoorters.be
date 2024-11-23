@@ -35,7 +35,7 @@ const MainModuleRouter: RouteObject[] = [
                     {path: 'activities/', element: <Navigate to=".." replace /> },
                     {path: 'activities/:activityId', element: <EventsTimelineGroupPage /> },
                 ]},
-                { path: 'editor/v2', children: [
+                { path: 'editor', children: [
                     { index: true, element: <EventEditorOverviewPage /> },
                     { path: ':groupId', element: <EventsEditorGroupPageV2 />},
                     { path: ':groupId/new', element: <CreateNewEventPage /> },
