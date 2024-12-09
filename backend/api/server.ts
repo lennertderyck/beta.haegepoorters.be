@@ -4,7 +4,7 @@ import express from 'express';
 const api = express();
 
 const corsOpts: CorsOptions = {
-    origin: '*',
+    origin: [/\.haegepoorters\.be$/],
 
     methods: [
         'GET',
