@@ -48,7 +48,9 @@ api.get('/v2/groups/:groupId/activities', async (req, res) => {
   return res.json(response);
 });
 
-api.get('/v2/activities/timeline', async (_req, res) => {
+api.get('/v2/activities/timeline', async (req, res) => {
+  const startDate = String(req.query.startDate) ?? undefined;
+  const endDate = String(req.query.endDate) ?? undefined;
   const activitiesForNextWeek = await client.fetch(`
     {
       "timelineForGroups": *[_type == "group"] | order(order asc){
@@ -61,8 +63,8 @@ api.get('/v2/activities/timeline', async (_req, res) => {
       }
     }
   `, {
-    startDate: dayjs().startOf('month'),
-    endDate: dayjs().add(1, 'month').endOf('month'),
+    startDate: dayjs(startDate).startOf('month'),
+    endDate: dayjs(endDate).endOf('month'),
   });
   
   return res.json(activitiesForNextWeek);
