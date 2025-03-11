@@ -10,21 +10,24 @@ import RecentPaymentsList from './RecentPaymentsList';
 interface Props {};
 
 const PaymentPage: FC<Props> = () => {
-    const [ showPopover, setShowPopover ] = useState(false);
     const params = useParams<any>();
     const navigate = useNavigate();
-    const updateOrCreate = usePaymentsStore((store) => (details: GeneratedPayment) => params['paymentId'] ? store.update(params['paymentId'], details) : store.create(details));
+    
+    const [ showPopover, setShowPopover ] = useState(false);
     
     const createPayment = usePaymentsStore((store) => store.create);
     const updatePayment = usePaymentsStore((store) => store.update);
     
     const payments = usePaymentsStore((store) => store.payments);
-    
     const payment = payments.find((p) => p.id === params.paymentId);
     const recentPayments = usePaymentsStore((store) => store.payments.slice(0, 3));
     
     const formControls = useForm({ defaultValues: payment as any});
     
+    const updateOrCreate = (data: GeneratedPayment) => {
+        if (params.paymentId) return updatePayment(params.paymentId, data);
+        else return createPayment(data);
+    }
         
     const handleOnSubmit = (data: GeneratedPayment) => {
         setShowPopover(true);
@@ -32,17 +35,13 @@ const PaymentPage: FC<Props> = () => {
         if (generatedPayment && !payment) {
             navigate('g/' + generatedPayment?.id);
         } else if (payment) {
-            handleChange(data);
+            updateOrCreate(data);
         }
-    }
-    
-    const handleChange = (data: GeneratedPayment) => {
-        if (params.paymentId) updatePayment(params.paymentId, data);
-        else createPayment(data);
     }
     
     const handleCreateNew = () => {
         navigate('/betalen');
+        setShowPopover(false);
         formControls.reset({}, { keepDefaultValues: false });
     }
     

@@ -8,8 +8,7 @@ interface Props {
 };
 
 const PaymentListCard: FC<Props> = ({ payment }) => {
-    const absolute = Math.trunc(payment.amount);
-    const comma = payment.amount.toPrecision(3).split('.')[1];
+    const [integer, decimal] = payment.amount.toPrecision(4).split('.');
     
     const recieverName = useMemo(() => {
         return payment.reciever === 'other' ? 
@@ -17,6 +16,8 @@ const PaymentListCard: FC<Props> = ({ payment }) => {
             paymentRecievers.find((reciever) => reciever.id === payment.reciever)?.name;
     }, [payment.reciever, paymentRecievers])
     
+    const showDecimal = decimal != '0';
+
     return (
         <div
             className={classNames(
@@ -30,9 +31,11 @@ const PaymentListCard: FC<Props> = ({ payment }) => {
             <div>
                 { !payment.blank && <h4>
                     <span className="text-3xl"></span>
-                        <span className="font-medium text-2xl">{ absolute }</span>
-                        <span className="font-medium text-lg">,{ comma } <span className="text-gray-400">EUR</span>
-                    </span>
+                        <span className="font-medium text-2xl">{integer}</span>
+                        <span className="font-medium text-lg">
+                            {showDecimal ? <>,{ decimal } </> : ' ' }
+                            <span className="text-gray-400">EUR</span>
+                        </span>
                 </h4>}
             </div>
         </div>
