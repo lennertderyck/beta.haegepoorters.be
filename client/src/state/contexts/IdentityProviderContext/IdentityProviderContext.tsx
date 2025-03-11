@@ -1,7 +1,5 @@
-import { create } from "lodash";
-import { FC, PropsWithChildren, createContext, useContext, useSyncExternalStore } from "react";
 import Keycloak from 'keycloak-js';
-import useKeycloakStore from "../../stores/useKeycloakStore/useKeycloakStore";
+import { FC, PropsWithChildren, createContext, useSyncExternalStore } from "react";
 
 const KEYCL_TOKEN_LIFESPAN = 300;
 
@@ -30,7 +28,7 @@ const initialState = {
 }
 
 const context = createContext(initialState);
-
+ 
 const IdentityProviderContext: FC<PropsWithChildren> = ({ children }) => {    
     const subscribe = (callback: any) => {
         keycloakInstance.onReady

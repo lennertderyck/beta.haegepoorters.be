@@ -1,14 +1,15 @@
+import classNames from 'classnames';
 import { FC, useEffect, useMemo, useState } from 'react';
+import { useDebounce } from 'use-debounce';
+import { Button } from '../../../../components/basics';
 import { Payment } from '../../../../types/payments';
 import { paymentRecievers } from '../../../../utils/data/payments';
 import { generatePaymentQR } from '../../../../utils/funcs/payments';
-import QRCodePreview from './QRCodePreview';
-import classNames from 'classnames';
-import { useDebounce } from 'use-debounce';
-import SupportedBanks from './SupportedBanks';
 import useDeviceProperties from '../../../../utils/hooks/useDeviceProperties/useDeviceProperties';
-import { Button } from '../../../../components/basics';
-import usePaymentQrGenerator from '../../../../utils/hooks/usePaymentQrGenerator/usePaymentQrGenerator';
+import QRCodePreview from './QRCodePreview';
+import SupportedBanks from './SupportedBanks';
+
+const QR_RENDER_TIMEOUT = 1500 // ms
 
 interface Props {
     payment: Payment | undefined;
@@ -37,14 +38,12 @@ const PaymentPreview: FC<Props> = ({ payment, showPopover, onClose }) => {
             })
         } else return null;
     }, [payment, selectedReciever]);
-    
-    const renderTimeout = 1500 // ms
-    
-    const [debouncedQrImageUrl] = useDebounce(qrImageUrl, renderTimeout);
+        
+    const [debouncedQrImageUrl] = useDebounce(qrImageUrl, QR_RENDER_TIMEOUT);
     
     useEffect(() => {
         setIsBouncing(true);
-        const timeout = setTimeout(() => setIsBouncing(false), renderTimeout);
+        const timeout = setTimeout(() => setIsBouncing(false), QR_RENDER_TIMEOUT);
         
         return () => clearTimeout(timeout);
     }, [payment])
