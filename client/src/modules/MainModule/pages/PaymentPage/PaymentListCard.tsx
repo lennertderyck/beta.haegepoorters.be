@@ -8,7 +8,8 @@ interface Props {
 };
 
 const PaymentListCard: FC<Props> = ({ payment }) => {
-    const [integer, decimal] = payment.amount.toPrecision(4).split('.');
+    const integer = Math.floor(payment.amount);
+    const decimal = Math.round((payment.amount - integer) * 100)
     
     const recieverName = useMemo(() => {
         return payment.reciever === 'other' ? 
@@ -16,7 +17,7 @@ const PaymentListCard: FC<Props> = ({ payment }) => {
             paymentRecievers.find((reciever) => reciever.id === payment.reciever)?.name;
     }, [payment.reciever, paymentRecievers])
     
-    const showDecimal = decimal != '0';
+    const showDecimal = decimal > 0;
 
     return (
         <div
