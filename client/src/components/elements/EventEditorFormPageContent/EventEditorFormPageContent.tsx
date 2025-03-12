@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { EventItemSkeleton } from '../../../modules/MainModule/pages/EventsPage/EventItemLoader';
+import { MULTI_DAY_EVENT_TYPES } from '../../../utils/data/events';
 import { Button, ExpansionPane, Icon, Loader } from '../../basics';
 import ControlledForm from '../../basics/ControlledForm/ControlledForm';
 import Input from '../../basics/Input/Input';
@@ -37,7 +38,7 @@ const FormContent: FC<{loading: boolean, onDelete?: () => void, mode: 'create' |
   const formContext = useFormContext();
     
   const selectedType = formContext.watch('type');
-  const multiple = ['weekend', 'camp'].includes(selectedType);
+  const multiple = MULTI_DAY_EVENT_TYPES.includes(selectedType);
       
   return (
     <div className={classNames('flyover', loading && 'flyover--active')}>
@@ -53,6 +54,7 @@ const FormContent: FC<{loading: boolean, onDelete?: () => void, mode: 'create' |
               <option value="default">Vergadering</option>
               <option value="weekend">Weekend</option>
               <option value="camp">Kamp</option>
+              <option value="multi">Meerdaagse</option>
               <option value="none">Geen vergadering</option>
             </Input>
           </label>

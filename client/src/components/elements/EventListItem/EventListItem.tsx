@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { FC, useMemo } from 'react';
+import { MULTI_DAY_EVENT_TYPES } from '../../../utils/data/events';
 import { Button, ExpansionPane } from '../../basics';
 import styles from './EventListItem.module.scss';
 
@@ -18,7 +19,7 @@ interface Props {
 const EventListItem: FC<Props> = ({ event, editable }) => {
   const startDate = dayjs(event.startDate);
   const endDate = dayjs(event.endDate);
-  
+    
   const title = useMemo(() => {
     switch (event.type) {
       case 'none':
@@ -27,12 +28,14 @@ const EventListItem: FC<Props> = ({ event, editable }) => {
         return 'Kamp: ' + event.title;
       case 'weekend':
         return 'Weekend: ' + event.title;
+      case 'multi':
+        return 'Meerdaagse: ' + event.title;
       default:
         return event.title;
     }
   }, [event.type, event.title]);
   
-  const multiple = ['weekend', 'camp'].includes(event.type);
+  const multiple = MULTI_DAY_EVENT_TYPES.includes(event.type);
     
   return (
     <div className={styles.container}>
