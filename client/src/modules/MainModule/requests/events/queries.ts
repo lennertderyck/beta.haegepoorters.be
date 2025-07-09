@@ -16,9 +16,10 @@ type GroupsResponse = GroupReponse[];
 
 export const getGroupsQuery = QueryFactory<GroupsResponse>(['groups'], '/v2/groups');
 
+export type ActivityTypes = 'none' | 'camp' | 'weekend' | 'multi'
 export type ActivityReponse = GroqResponse<{
   title: string,
-  type: 'default',
+  type: ActivityTypes,
   startDate: string,
   endDate: string,
   body: any,

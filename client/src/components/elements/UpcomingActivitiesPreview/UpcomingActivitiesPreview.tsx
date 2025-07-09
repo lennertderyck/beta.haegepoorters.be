@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EventCardLoader from '../../../modules/MainModule/components/HighlightedEvents/EventCardLoader';
 import { getUpcomingActivitiesQuery } from '../../../modules/MainModule/requests/events/queries';
+import { activityTitleParser } from '../../../utils/funcs/parsers/events';
 import { Button, Date, ExpansionPane } from '../../basics';
 
 interface Props {};
@@ -26,6 +27,7 @@ const UpcomingActivitiesPreview: FC<Props> = () => {
       {timelines?.map((timeline) => {
         const group = timeline.group;
         const event = timeline.upcomingActivity;
+        const title = activityTitleParser(event.type, event.title);
         
         return (
           <div 
@@ -39,7 +41,7 @@ const UpcomingActivitiesPreview: FC<Props> = () => {
             </div>
             <div>
               <h5 className="label">{ group.name }</h5>
-              <h4 className="font-semibold text-xl">{ event.title }</h4>
+              <h4 className="font-semibold text-xl">{ title }</h4>
               {!!event.body && (
                 <ExpansionPane active={focusedActivity === group.abbr}>
                   <p className="mt-2">{ event.body }</p>

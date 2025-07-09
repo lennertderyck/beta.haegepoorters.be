@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
+import { ActivityTypes } from '../../../modules/MainModule/requests/events/queries';
 import { MULTI_DAY_EVENT_TYPES } from '../../../utils/data/events';
+import { activityTitleParser } from '../../../utils/funcs/parsers/events';
 import { Button, ExpansionPane } from '../../basics';
 import styles from './EventListItem.module.scss';
 
@@ -10,7 +12,7 @@ interface Props {
     startDate: string;
     endDate: string;
     title: string;
-    type: string;
+    type: ActivityTypes;
     body: any;
   },
   editable?: boolean;
@@ -20,20 +22,7 @@ const EventListItem: FC<Props> = ({ event, editable }) => {
   const startDate = dayjs(event.startDate);
   const endDate = dayjs(event.endDate);
     
-  const title = useMemo(() => {
-    switch (event.type) {
-      case 'none':
-        return 'Geen vergadering';
-      case 'camp':
-        return 'Kamp: ' + event.title;
-      case 'weekend':
-        return 'Weekend: ' + event.title;
-      case 'multi':
-        return 'Meerdaagse: ' + event.title;
-      default:
-        return event.title;
-    }
-  }, [event.type, event.title]);
+  const title = activityTitleParser(event.type, event.title);
   
   const multiple = MULTI_DAY_EVENT_TYPES.includes(event.type);
     
