@@ -1,8 +1,6 @@
-import { FC } from 'react';
-import ContactForm from './ContactForm';
-import ContactMailInfo from './ContactMailInfo';
+import { FC } from "react";
 
-interface Props {};
+interface Props {}
 
 const ContactPage: FC<Props> = () => {
     return (
@@ -12,20 +10,31 @@ const ContactPage: FC<Props> = () => {
                 <p>Vraag? Suggestie? Laat het ons weten!</p>
             </div>
             <div className="page__banner">
-                <iframe 
+                <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2507.772191531905!2d3.7631204157534572!3d51.05729407956365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c376c02393bccb%3A0x1e72273a2eee6c6a!2sScouts%20en%20Gidsen%20Haegepoorters%20Destelbergen!5e0!3m2!1snl!2sbe!4v1672183356043!5m2!1snl!2sbe"
-                    allowFullScreen={ false } 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade" 
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                     className="w-full h-full bg-gray-100"
                 />
             </div>
             <div className="page__content">
-                <ContactMailInfo />
-                {/* <ContactForm /> */}
+                <h3 className="text-lg font-medium text-gray-600 mb-2">
+                    Groepsleiding contacteren?
+                </h3>
+                <p>
+                    Je kan contact opnemen met onze groepsleiding via{""}
+                    <a
+                        href={"mailto:groepsleiding@haegepoorters.be"}
+                        className="text-red-500 underline underline-offset-8"
+                    >
+                        groepsleiding@haegepoorters.be
+                    </a>
+                    .
+                </p>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default ContactPage;
