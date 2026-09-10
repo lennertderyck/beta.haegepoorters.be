@@ -24,7 +24,7 @@ const EventEditorOverviewPage: FC<Props> = () => {
                         </div>
                     )}
                     <div>
-                        {groupsQuery.data?.map((group, index) => (
+                        {groupsQuery.data?.map((group: any, index: number) => (
                             <div key={index}>
                                 <Link
                                     to={group.abbr}
