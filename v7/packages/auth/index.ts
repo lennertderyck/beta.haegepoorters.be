@@ -1,53 +1,31 @@
 import COOKIES from "@/lib/constants/cookies";
-import { betterAuth, BetterAuthOptions } from "better-auth";
-import { createAuthMiddleware } from "better-auth/api";
-import { createAuthClient } from "better-auth/client";
-import { nextCookies } from "better-auth/next-js";
+import { keycloakServerAuth } from "@/lib/vendors/better-auth/keycloak/server";
+import { localServerAuth } from "@/lib/vendors/better-auth/local/server";
+import { cookies, headers as nextHeaders } from "next/headers";
 
-const BASE_URL = "/api/auth";
-const SIGNIN_CONTEXT_FIELDNAME = "signinContext";
+export const getSigninContextServer = async () => {
+  const signInMethodCookie = (await cookies()).get(COOKIES.SESSIN_METHOD);
 
-export const createBetterAuthServerInstance = (
-  /**
-   * @param signInContext The context for which this authentication instance is created.
-   * @description Database-driven authentication and other forms of authentication cannot be combined. Therefore you can create separate instances for each sign-in context.
-   */
-  signInContext: string,
-  { plugins, ...otherOptions }: Omit<BetterAuthOptions, "baseURL" | "secret">
-) => {
-  return betterAuth({
-    baseURL: "http://localhost:3000" + BASE_URL + "/" + signInContext,
-    secret: process.env.AUTH_SECRET!,
-    ...otherOptions,
-    plugins: [nextCookies(), ...(plugins ?? [])],
-    session: {
-      additionalFields: {
-        [SIGNIN_CONTEXT_FIELDNAME]: {
-          type: "string",
-          description: "The method used for the session.",
-          required: true
-        }
-      }
-    },
-    hooks: {
-      after: createAuthMiddleware(async (ctx) => {
-        if (ctx.context.newSession)
-          ctx.setCookie(COOKIES.SESSIN_METHOD, signInContext, {
-            path: "/",
-            httpOnly: true,
-            sameSite: "Strict",
-            expires:
-              ctx.context.newSession?.session.expiresAt ||
-              ctx.context.session?.session.expiresAt
-          });
-      })
-    }
-  });
+  if (!signInMethodCookie) return undefined;
+  else if (!signInMethodCookie.value) return null;
+  return signInMethodCookie.value;
 };
 
-export const createBetterAuthClientInstance = (url: string) => {
-  return createAuthClient({
-    /** The base URL of the server (optional if you're using the same domain) */
-    baseURL: "http://localhost:3000" + BASE_URL + "/" + url
-  });
+export const getSessionForSigninContextServer = async (
+  signinContext: string | null
+) => {
+  const headers = await nextHeaders();
+
+  switch (signinContext) {
+    case "keycloak":
+      return await keycloakServerAuth.api.getSession({
+        headers
+      });
+    case "local":
+      return await localServerAuth.api.getSession({
+        headers
+      });
+    default:
+      return null;
+  }
 };

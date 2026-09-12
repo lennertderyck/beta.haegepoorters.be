@@ -1,33 +1,37 @@
 interface CreateQueryFactoryOptions {
-  enable: boolean;
+  enable: boolean | (() => boolean | Promise<boolean>);
 }
 
+type RequestInput = Request | (() => Request | Promise<Request>);
+
+const resolveValue = async <T>(value: T | (() => T | Promise<T>)) => {
+  if (typeof value === "function")
+    return await (value as () => T | Promise<T>)();
+  return value;
+};
+
 const CreateQueryFactory = (
-  baseRequest: Request,
+  baseRequest: RequestInput,
   options: CreateQueryFactoryOptions
 ) => {
   return (
     queryInput: string,
     parameters: URLSearchParams = new URLSearchParams()
   ) => {
-    console.log(
-      "CreateQueryFactory called with queryInput:",
-      queryInput,
-      "and parameters:",
-      parameters.toString()
-    );
-    if (!options.enable) {
-      return () => Promise.reject(new Error("Query factory is disabled"));
-    } else {
-      return () => {
-        const endpoint = new URL(queryInput, baseRequest.url);
-        endpoint.search = parameters.toString();
+    return async () => {
+      const enabled = await resolveValue(options.enable);
 
-        const request = new Request(endpoint.toString(), baseRequest);
+      if (!enabled)
+        return Promise.reject(new Error("Query factory is disabled"));
 
-        return fetch(request);
-      };
-    }
+      const requestBase = await resolveValue(baseRequest);
+      const endpoint = new URL(queryInput, requestBase.url);
+      endpoint.search = parameters.toString();
+
+      const request = new Request(endpoint.toString(), requestBase);
+
+      return fetch(request);
+    };
   };
 };
 

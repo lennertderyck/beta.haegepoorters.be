@@ -15,13 +15,12 @@ import Timeline, {
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
 import { getGroups } from "@/lib/actions/queries/groups";
+import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
 import dayjs from "dayjs";
 import { FC } from "react";
 
-const DEFAULT_SELECTED_GROUP = "kap";
+const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
 const DEFAULT_MONTHS_RANGE = 3;
-
-interface Props {}
 
 const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
   params,

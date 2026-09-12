@@ -3,7 +3,7 @@ import glyph from "remixicon/fonts/remixicon.glyph.json";
 import remix from "remixicon/fonts/remixicon.symbol.svg";
 import Svg, { SvgProps } from "./Svg";
 
-type IconName = keyof typeof glyph;
+export type IconName = keyof typeof glyph;
 
 interface IconProps extends SvgProps {
   color?: string;

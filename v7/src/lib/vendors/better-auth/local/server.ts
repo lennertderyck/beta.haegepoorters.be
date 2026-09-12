@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { createBetterAuthServerInstance } from "../../../../../packages/auth";
+import { createBetterAuthServerInstance } from "../../../../../packages/auth/better-auth";
 
 export const localServerAuth = createBetterAuthServerInstance("local", {
   database: new Pool({

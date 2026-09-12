@@ -1,11 +1,22 @@
 import RootNavigation from "@/components/ui/RootNavigation/RootNavigation";
 import { RootNavigationItemProps } from "@/components/ui/RootNavigation/RootNavigation.types";
+import {
+  SUPPPORTED_GROUP_IDS,
+  WEBMASTER_FUNCTION_CODE,
+  WEBMASTER_USER_ID
+} from "@/lib/constants/admin";
 import { podkova, sora } from "@/lib/fonts";
+import { authMemory } from "@/lib/initializer";
+import { cn } from "@/lib/utils/composers";
+import { keycloakServerAuth } from "@/lib/vendors/better-auth/keycloak/server";
 import dayjs from "dayjs";
 import "dayjs/locale/nl";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 import type { Metadata } from "next";
+import { headers as nextHeaders } from "next/headers";
 import { FC, PropsWithChildren } from "react";
 import "./globals.css";
 
@@ -13,6 +24,7 @@ dayjs.locale("nl");
 
 dayjs.extend(customParseFormat);
 dayjs.extend(isBetween);
+dayjs.extend(relativeTime);
 
 export const metadata: Metadata = {
   title: "Haegepoorters",
@@ -34,10 +46,84 @@ const MENU_END = [
 ] satisfies RootNavigationItemProps[];
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
+  authMemory.initalize({
+    getAccessToken: async (signinContext) => {
+      if (signinContext === "keycloak") {
+        return (
+          await keycloakServerAuth.api.getAccessToken({
+            body: { useAccountCookie: true },
+            headers: await nextHeaders()
+          })
+        ).accessToken;
+      } else return null;
+    },
+    getCapabilities: async (signinContext, accessToken) => {
+      try {
+        if (signinContext === "local") return ["member", "leader", "webmaster"];
+        else if (signinContext === "keycloak") {
+          const bearerToken = `Bearer ${accessToken}`;
+          const personResponse = await fetch(
+            "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel",
+            {
+              headers: {
+                accept: "application/json",
+                Authorization: bearerToken
+              }
+            }
+          );
+
+          const groupLeaderresponse = await fetch(
+            "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/leiding",
+            {
+              headers: {
+                accept: "application/json",
+                Authorization: bearerToken
+              }
+            }
+          );
+
+          const personData = await personResponse.json();
+          const groupLeaderData = await groupLeaderresponse.json();
+
+          const activeFunctions = personData.functies.filter(
+            (functie: any) => functie.einde === undefined
+          );
+          const isMemberOfSupportedGroup = activeFunctions.some(
+            (functie: any) => SUPPPORTED_GROUP_IDS.includes(functie.groepId)
+          );
+          const isLeader = groupLeaderData.groepen.some((groep: any) =>
+            SUPPPORTED_GROUP_IDS.includes(groep.id)
+          );
+          const isWebmaster =
+            WEBMASTER_USER_ID.includes(personData.id) ||
+            activeFunctions.some((functie: any) =>
+              WEBMASTER_FUNCTION_CODE.includes(functie.functieCode)
+            );
+
+          return [
+            isMemberOfSupportedGroup && "member",
+            isLeader && "leader",
+            isWebmaster && "webmaster"
+          ].filter(Boolean);
+        } else return [];
+      } catch (error) {
+        return [];
+      }
+    }
+  });
+
+  const isAuthenticated = authMemory.isAuthenticated;
+  const signinContext = authMemory.signinContext;
+  const session = authMemory.session;
+
   return (
     <html
       lang="nl"
-      className={`${sora.variable} ${podkova.variable} h-full antialiased [interpolate-size:allow-keywords]`}
+      className={cn(
+        sora.variable,
+        podkova.variable,
+        "h-full antialiased [interpolate-size:allow-keywords]"
+      )}
     >
       <body className="min-h-full flex flex-col h-full pl-(--rootnavigation-size-min)">
         <RootNavigation
@@ -45,6 +131,20 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           itemsEnd={MENU_END}
           className=" "
         />
+        <ul>
+          <li>{`isAuthenticated: ${isAuthenticated ? "Yes" : "No"}`}</li>
+          <li>{`signinContext: ${signinContext}`}</li>
+          <li>{`session: ${session ? "Has session" : "no session"}`}</li>
+          <li>{`capabilities: ${authMemory.capabilities.length > 0 ? authMemory.capabilities.join(", ") : "N/A"}`}</li>
+          <li>
+            Expires at:{" "}
+            {authMemory.session?.session.expiresAt
+              ? dayjs(authMemory.session?.session.expiresAt).format() +
+                " of " +
+                dayjs(authMemory.session?.session.expiresAt).fromNow()
+              : "N/A"}
+          </li>
+        </ul>
         {children}
       </body>
     </html>

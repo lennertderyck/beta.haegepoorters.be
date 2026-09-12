@@ -1,5 +1,5 @@
 import { genericOAuth } from "better-auth/plugins";
-import { createBetterAuthServerInstance } from "../../../../../packages/auth";
+import { createBetterAuthServerInstance } from "../../../../../packages/auth/better-auth";
 
 export const keycloakServerAuth = createBetterAuthServerInstance("keycloak", {
   plugins: [
@@ -11,13 +11,8 @@ export const keycloakServerAuth = createBetterAuthServerInstance("keycloak", {
           discoveryUrl:
             "https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/.well-known/openid-configuration",
           scopes: ["openid", "email", "profile"]
-        },
-        
+        }
       ]
     })
   ]
 });
-
-/**
- * webmaster@haegepoorters.be
- */

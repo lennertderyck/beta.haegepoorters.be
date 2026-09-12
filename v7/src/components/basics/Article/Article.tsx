@@ -52,7 +52,7 @@ const ArticleTitle: FC<ComponentProps<"h2">> = ({
     <h2
       data-slot="title"
       className={cn(
-        "font-serif text-4xl lg:text-5xl font-bold mb-6 text-gray-600",
+        "font-serif text-4xl lg:text-5xl font-bold text-gray-600",
         className
       )}
       {...otherProps}
@@ -67,7 +67,7 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
   return (
     <p
       data-slot="description"
-      className={cn("text-gray-600", className)}
+      className={cn("text-gray-600 mt-6", className)}
       {...otherProps}
     />
   );

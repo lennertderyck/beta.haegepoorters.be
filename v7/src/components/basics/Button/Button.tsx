@@ -1,13 +1,17 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps, FC } from "react";
+import { labelVariants } from "../Label/Label";
 
 const buttonVariants = cva(
-  "whitespace-nowrap w-fit text-xs text-primary-500 font-semibold uppercase tracking-widest flex items-center ",
+  [
+    labelVariants(),
+    "whitespace-nowrap w-fit text-primary-500 flex gap-2 items-center"
+  ],
   {
     variants: {
       variant: {
-        primary: "pl-2 pr-3 py-2 bg-primary-100",
+        primary: "pl-2 pr-3 py-2 bg-primary-200",
         secondary: "border-b-2 border-primary-500 pb-1",
         tertiary: ""
       }

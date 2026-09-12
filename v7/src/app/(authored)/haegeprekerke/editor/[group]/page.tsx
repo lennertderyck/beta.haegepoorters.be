@@ -1,15 +1,27 @@
 import Article, {
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
+import Icon from "@/components/basics/Icon/Icon";
+import Timeline, {
+  TimelineItem,
+  TimelineItemContent,
+  TimelineItemDescription,
+  TimelineItemTime,
+  TimelineItemTitle
+} from "@/components/elements/Timeline/ActivityTimeline";
+import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
 import { getGroupByAbbr } from "@/lib/actions/queries/groups";
+import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FC } from "react";
 
 const MAX_PERIOD_MONTHS = 5;
+const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
 
 const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
   params,
@@ -67,14 +79,38 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
   );
 
   const groupResponse = await getGroupByAbbr(group);
+  const activitiesResponse = await getActivitiesForDateRangeAndGroupByAbbr(
+    {
+      start: selectedMonth.startOf("month").toDate(),
+      end: selectedMonth.endOf("month").toDate()
+    },
+    group
+  );
+
+  const activitiesForGroup = activitiesResponse?.activities ?? null;
 
   return (
     <Article>
       <ArticleHeader>
         <ArticleHeaderContainer>
-          <ArticleTitle>{groupResponse.name}</ArticleTitle>
-
-          <ul className="flex gap-4">
+          <div className="flex flex-row flex-wrap justify-between items-center gap-4">
+            <ArticleTitle>{groupResponse.name}</ArticleTitle>
+            <Button variant="primary" asChild>
+              <Link
+                href={{
+                  pathname: `/haegeprekerke/editor/${group}/toevoegen`,
+                  query: {
+                    van: periodStartParameter.format("YYYY-MM-DD"),
+                    tot: periodEndParameter.format("YYYY-MM-DD")
+                  }
+                }}
+              >
+                Activiteit toevoegen
+                <Icon name="add-line" size="1rem" />
+              </Link>
+            </Button>
+          </div>
+          <ul className="flex flex-wrap gap-x-4 gap-y-3 mt-8 lg:mt-6">
             {monthList.map((month) => (
               <li key={month.toString()}>
                 <Button
@@ -111,6 +147,45 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
           )}
         </ArticleHeaderContainer>
       </ArticleHeader>
+      <ArticleContent>
+        {activitiesForGroup?.length === 0 && (
+          <p>Geen activiteiten gevonden voor deze periode.</p>
+        )}
+        {activitiesForGroup && (
+          <Timeline>
+            {activitiesForGroup?.map((activity) => (
+              <Link
+                key={activity._id}
+                href={{
+                  pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`
+                }}
+              >
+                <TimelineItem
+                  state={
+                    dayjs(activity.startDate).isAfter(dayjs())
+                      ? "future"
+                      : "past"
+                  }
+                >
+                  <TimelineItemContent>
+                    <TimelineItemTime dateTime={activity.startDate}>
+                      {dayjs(activity.startDate).format("DD MMMM YYYY")}
+                    </TimelineItemTime>
+                    <TimelineItemTitle>{activity.title}</TimelineItemTitle>
+                    <TimelineItemDescription>
+                      {activity.body}
+                    </TimelineItemDescription>
+                    <Button variant="tertiary" className="mt-4">
+                      Bewerken
+                      <Icon name="arrow-right-line" size="1rem" />
+                    </Button>
+                  </TimelineItemContent>
+                </TimelineItem>
+              </Link>
+            ))}
+          </Timeline>
+        )}
+      </ArticleContent>
     </Article>
   );
 };
