@@ -10,7 +10,7 @@ const ActivitySchedule: FC<ComponentProps<"div">> = ({
     <div
       data-slot="activity-schedule"
       className={cn(
-        "flex items-start gap-6 bg-gray-50 py-4 px-7 border-b border-gray-200",
+        "flex items-start gap-6 bg-gray-50 py-5 px-7 border-b border-gray-200",
         className
       )}
       {...props}
@@ -30,7 +30,7 @@ const ActivityScheduleTime: FC<Omit<ComponentProps<"time">, "children">> = ({
       data-slot="activity-schedule-time"
       dateTime={date.format()}
       className={cn(
-        "font-serif font-black text-center *:block text-gray-400 translate-y-2",
+        "font-serif font-black text-center *:block text-gray-400 translate-y-1",
         className
       )}
       {...props}

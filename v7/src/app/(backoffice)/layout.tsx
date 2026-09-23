@@ -1,9 +1,9 @@
 import Boundary, {
-  BoundaryContent
+    BoundaryContent
 } from "@/components/basics/Boundary/Boundary";
 import { FC } from "react";
 
-const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
+const Layout: FC<LayoutProps<"/">> = ({ children }) => {
   return (
     <Boundary>
       <BoundaryContent>{children}</BoundaryContent>

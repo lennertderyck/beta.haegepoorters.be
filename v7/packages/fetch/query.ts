@@ -14,9 +14,10 @@ const CreateQueryFactory = (
   baseRequest: RequestInput,
   options: CreateQueryFactoryOptions
 ) => {
-  return (
+  return <T = any>(
     queryInput: string,
-    parameters: URLSearchParams = new URLSearchParams()
+    parameters: Record<string, string> = {},
+    requestInit?: RequestInit
   ) => {
     return async () => {
       const enabled = await resolveValue(options.enable);
@@ -25,12 +26,29 @@ const CreateQueryFactory = (
         return Promise.reject(new Error("Query factory is disabled"));
 
       const requestBase = await resolveValue(baseRequest);
-      const endpoint = new URL(queryInput, requestBase.url);
-      endpoint.search = parameters.toString();
+      const endpoint = [
+        [requestBase.url, queryInput].filter(Boolean).join(""),
+        new URLSearchParams(parameters).toString()
+      ]
+        .filter(Boolean)
+        .join("?");
 
-      const request = new Request(endpoint.toString(), requestBase);
+      const mergedHeaders = new Headers({
+        ...Object.fromEntries(new Headers(requestBase.headers)),
+        ...Object.fromEntries(new Headers(requestInit?.headers))
+      });
 
-      return fetch(request);
+      const request = new Request(endpoint.toString(), {
+        ...requestInit,
+        ...requestBase,
+        headers: mergedHeaders
+      });
+
+      return fetch(request) as Promise<
+        Omit<Response, "json"> & {
+          json: () => Promise<T>;
+        }
+      >;
     };
   };
 };

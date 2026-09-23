@@ -37,5 +37,4 @@ const Icon: FC<IconProps> = ({
   );
 };
 
-export type { IconName };
 export default Icon;

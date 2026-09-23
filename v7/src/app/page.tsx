@@ -75,7 +75,7 @@ const Page: FC<Props> = async () => {
                                   </ActivityScheduleItemTitle>
                                 </button>
                               </CollapsibleTrigger>
-                              <CollapsibleContent>
+                              <CollapsibleContent duration="faster">
                                 {!isActivityDescriptionEmpty && (
                                   <p className="text-base mt-2">
                                     {activityDescription}
@@ -93,7 +93,6 @@ const Page: FC<Props> = async () => {
                                         datum: dateGroup.dateGroup
                                       }
                                     }}
-                                    className="text-blue-500 mt-2 inline-block"
                                   >
                                     Meer lezen
                                     <Icon name="arrow-right-line" />
