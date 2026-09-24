@@ -6,7 +6,7 @@ import {
     getActiveLeadersFromAdminQuery,
     updateLeadersFilterMutation
 } from "@/lib/actions/queries/leaders";
-import { getActiveStaff } from "@/lib/actions/queries/staff";
+import { getAllActiveStaff } from "@/lib/actions/queries/staff";
 import { client } from "@/lib/vendors/sanity/client";
 
 export const updateAction = async (state: null | Error | true) => {
@@ -58,7 +58,7 @@ export interface StaffImportItem {
 export const getStaffImportListQuery = async () => {
   const activeLeadersResponse = await getActiveLeadersFromAdminQuery();
   const activeLeaders = (await activeLeadersResponse.json()).leden || [];
-  const staff = await getActiveStaff();
+  const staff = await getAllActiveStaff();
   const rolesResponse = await getCmsRolesQuery();
 
   /**

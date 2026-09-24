@@ -15,6 +15,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import relativeTime from "dayjs/plugin/relativeTime";
 
+import Footer from "@/components/ui/Footer/Footer";
 import type { Metadata } from "next";
 import { headers as nextHeaders } from "next/headers";
 import { FC, PropsWithChildren } from "react";
@@ -146,6 +147,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           </li>
         </ul>
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -47,13 +47,17 @@ const RootNavigation: FC<Props> = ({
           "fixed top-0 left-0 bottom-0",
           "md:before:w-(--rootnavigation-size-min)",
           "overflow-hidden",
-          "border-r-(length:--navigation-item-border-width) border-gray-200",
+          "border-r-(length:--navigation-item-border-width) border-neutral-100",
           "bg-white",
           "max-w-[90vw]",
-          "transition-[width] duration-350 ease-in-out"
+          "transition-[width] duration-500 ease-in-out",
+          " z-50"
         )}
       >
-        <Comp className={cn("h-full text-gray-600", className)} {...otherProps}>
+        <Comp
+          className={cn("h-full text-neutral-600", className)}
+          {...otherProps}
+        >
           <div className="flex">
             <div className="size-(--rootnavigation-size-min) bg-primary-500"></div>
             <RootNavigationMenuLinkContent className="flex-1">

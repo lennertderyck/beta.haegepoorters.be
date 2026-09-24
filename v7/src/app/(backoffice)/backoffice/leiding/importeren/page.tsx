@@ -56,7 +56,7 @@ const Page: FC<PageProps<"/backoffice/leiding/importeren">> = async ({
             importListData={importList}
           >
             <ImportList>
-              <ImportListHeader className="sticky top-0 bg-white shadow-[inset_0_-1px_0_var(--color-gray-200)]">
+              <ImportListHeader className="sticky top-0 bg-white shadow-[inset_0_-1px_0_var(--color-neutral-200)]">
                 <ImportListHeaderColumn className="align-bottom">
                   Naam
                 </ImportListHeaderColumn>
@@ -77,7 +77,7 @@ const Page: FC<PageProps<"/backoffice/leiding/importeren">> = async ({
                   return (
                     <ImportListRow
                       key={importItem.groepsadministratieReference}
-                      className="not-last:border-b border-b-gray-100"
+                      className="not-last:border-b border-b-neutral-100"
                     >
                       <ImportListColumn>
                         <p className="font-medium leading-5">
@@ -102,7 +102,7 @@ const Page: FC<PageProps<"/backoffice/leiding/importeren">> = async ({
                 })}
               </ImportListContent>
             </ImportList>
-            <div className="sticky bottom-0 bg-white p-4 border-t border-gray-200 flex justify-end">
+            <div className="sticky bottom-0 bg-white p-4 border-t border-neutral-200 flex justify-end">
               <ImportListFormSubmit />
             </div>
           </ImportListFormProvider>

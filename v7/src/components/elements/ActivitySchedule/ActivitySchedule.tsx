@@ -10,7 +10,7 @@ const ActivitySchedule: FC<ComponentProps<"div">> = ({
     <div
       data-slot="activity-schedule"
       className={cn(
-        "flex items-start gap-6 bg-gray-50 py-5 px-7 border-b border-gray-200",
+        "flex items-start gap-6 bg-neutral-50 px-7 border-b border-neutral-200",
         className
       )}
       {...props}
@@ -30,7 +30,7 @@ const ActivityScheduleTime: FC<Omit<ComponentProps<"time">, "children">> = ({
       data-slot="activity-schedule-time"
       dateTime={date.format()}
       className={cn(
-        "font-serif font-black text-center *:block text-gray-400 translate-y-1",
+        "font-serif font-black text-center *:block text-neutral-400 translate-y-1 py-6",
         className
       )}
       {...props}
@@ -48,7 +48,7 @@ const ActivityScheduleList: FC<ComponentProps<"ul">> = ({
   return (
     <ul
       data-slot="activity-schedule-list"
-      className={cn("text-gray-600 w-full", className)}
+      className={cn("w-full py-3", className)}
       {...props}
     />
   );
@@ -61,7 +61,7 @@ const ActivityScheduleItem: FC<ComponentProps<"li">> = ({
   return (
     <li
       data-slot="activity-schedule-item"
-      className={cn("mb-4 last:mb-0", className)}
+      className={cn("py-3", className)}
       {...props}
     />
   );
@@ -74,7 +74,7 @@ const ActivityScheduleItemTitle: FC<ComponentProps<"p">> = ({
   return (
     <p
       data-slot="activity-schedule-item-title"
-      className={cn("font-semibold text-xl", className)}
+      className={cn("font-semibold text-xl text-neutral-500", className)}
       {...props}
     />
   );
@@ -88,7 +88,7 @@ const ActivityScheduleItemLabel: FC<ComponentProps<"div">> = ({
     <h5
       data-slot="activity-schedule-item-label"
       className={cn(
-        "text-xs font-semibold tracking-widest uppercase",
+        "text-xs font-semibold tracking-widest uppercase text-neutral-500",
         className
       )}
       {...props}

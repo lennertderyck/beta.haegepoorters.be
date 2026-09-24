@@ -1,6 +1,6 @@
 import { client } from "@/lib/vendors/sanity/client";
 
-const getActiveStaff = async () => {
+export const getAllActiveStaff = async () => {
   const response = client.fetch<
     {
       _id: string;
@@ -13,4 +13,12 @@ const getActiveStaff = async () => {
   return response;
 };
 
-export { getActiveStaff };
+export const getActiveStaffCountQuery = () => {
+  return client.fetch<number>('count(*[_type == "staff" && count(roles) > 0])');
+};
+
+export const getHeaderLeadersCountQuery = () => {
+  return client.fetch<number>(
+    'count(*[_type == "staff" && references("69056033-90e8-41a3-ac37-f8064d6e0118")])'
+  );
+};

@@ -12,7 +12,7 @@ interface Props {
 const RootNavigationMenu: FC<Props> = ({ items }) => {
   return (
     <>
-      <ul className="*:p-5 *:border-b-2 *:border-gray-200">
+      <ul className="*:p-5 *:border-b-2 *:border-neutral-100/0 group-hover:*:border-neutral-100">
         {items.map((item) => (
           <RootNavigationMenuLink
             key={item.href}
