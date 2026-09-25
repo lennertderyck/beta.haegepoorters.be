@@ -1,10 +1,17 @@
 import { localServerAuth } from "@/lib/vendors/better-auth/local/server";
 import { FC } from "react";
+import { composeCallbackURL } from "../../../../../packages/auth/utils";
 import SigninButton from "./SigninButton";
 
 interface Props {}
 
-const Page: FC<Props> = () => {
+const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
+  const { callbackUrl } = await searchParams;
+
+  const composedCallbackURL = composeCallbackURL(
+    String(callbackUrl) || ""
+  ).toString();
+
   const signin = async (formData: FormData) => {
     "use server";
 
@@ -13,7 +20,7 @@ const Page: FC<Props> = () => {
         body: {
           email: formData.get("email") as string,
           password: formData.get("password") as string,
-          callbackURL: "/callback"
+          callbackURL: composedCallbackURL
         },
         asResponse: true
       });
@@ -25,7 +32,7 @@ const Page: FC<Props> = () => {
 
   return (
     <>
-      <SigninButton />
+      <SigninButton callbackURL={composedCallbackURL} />
       <form action={signin}>
         <input
           name="email"

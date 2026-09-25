@@ -52,6 +52,7 @@ const AuthMemory = async (): Promise<AuthMemoryFactory> => {
     map.set("signinContext", signinContext);
 
     const session = await getSessionForSigninContextServer(signinContext);
+    console.log("Session retrieved:", session);
     const isAuthenticated =
       !!session && dayjs(session?.session.expiresAt).isAfter(dayjs());
 

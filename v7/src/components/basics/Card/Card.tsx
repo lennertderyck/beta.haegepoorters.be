@@ -69,8 +69,8 @@ export const CardsGroupItem: FC<ComponentProps<"li">> = ({
 const cardVariants = cva("", {
   variants: {
     sizing: {
-      default: "py-6",
-      compact: "py-4"
+      default: "**:data-[slot=card-content]:py-6",
+      compact: "**:data-[slot=card-content]:py-4"
     },
     variant: {
       inline: "py-0!",
@@ -83,6 +83,17 @@ const cardVariants = cva("", {
   }
 });
 
+/**
+ * @example
+ * <Card>
+ *   <CardContent>
+ *     <CardHeader>
+ *       <CardTitle>Title</CardTitle>
+ *     </CardHeader>
+ *     <CardDescription>Description</CardDescription>
+ *   <CardFooter>Footer</CardFooter>
+ * </Card>
+ */
 const Card: FC<
   ComponentProps<"article"> & VariantProps<typeof cardVariants>
 > = ({ className, sizing, variant, ...otherProps }) => {
@@ -96,12 +107,29 @@ const Card: FC<
   );
 };
 
+export const CardContent: FC<ComponentProps<"div">> = ({
+  className,
+  ...otherProps
+}) => {
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("w-full", className)}
+      {...otherProps}
+    />
+  );
+};
+
 export const CardHeader: FC<ComponentProps<"header">> = ({
   className,
   ...otherProps
 }) => {
   return (
-    <header data-slot="card-header" className={className} {...otherProps} />
+    <header
+      data-slot="card-header"
+      className={cn(className, "has-[+*]:mb-1")}
+      {...otherProps}
+    />
   );
 };
 
@@ -114,7 +142,7 @@ export const CardTitle: FC<ComponentProps<"h4">> = ({
       data-slot="card-title"
       className={cn(
         "text-xl in-data-[sizing=compact]:text-lg",
-        "font-semibold mb-1",
+        "font-semibold has-[+*]:mb-1",
         className
       )}
       {...otherProps}
@@ -122,20 +150,7 @@ export const CardTitle: FC<ComponentProps<"h4">> = ({
   );
 };
 
-export const CardSubtitle: FC<ComponentProps<"p">> = ({
-  className,
-  ...otherProps
-}) => {
-  return (
-    <p
-      data-slot="card-title"
-      className={cn("", "mb-1", className)}
-      {...otherProps}
-    />
-  );
-};
-
-export const CardContent: FC<ComponentProps<"p"> & { asChild?: boolean }> = ({
+export const CardSubtitle: FC<ComponentProps<"p"> & { asChild?: boolean }> = ({
   asChild,
   className,
   ...otherProps
@@ -144,7 +159,21 @@ export const CardContent: FC<ComponentProps<"p"> & { asChild?: boolean }> = ({
 
   return (
     <Comp
-      data-slot="card-content"
+      data-slot="card-title"
+      className={cn("", "mb-1", className)}
+      {...otherProps}
+    />
+  );
+};
+
+export const CardDescription: FC<
+  ComponentProps<"p"> & { asChild?: boolean }
+> = ({ asChild, className, ...otherProps }) => {
+  const Comp = asChild ? Slot : "p";
+
+  return (
+    <Comp
+      data-slot="card-description"
       className={cn(className, "font-serif text-lg leading-6")}
       {...otherProps}
     />

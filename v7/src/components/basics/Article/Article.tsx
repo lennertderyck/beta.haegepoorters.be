@@ -37,7 +37,7 @@ const ArticleHeaderContainer: FC<ComponentProps<"div">> = ({
 }) => {
   return (
     <div
-      data-slot="header-content"
+      data-slot="header-container"
       className={cn("mb-8 container mx-auto", className)}
       {...otherProps}
     />
@@ -52,7 +52,7 @@ const ArticleTitle: FC<ComponentProps<"h2">> = ({
     <h2
       data-slot="title"
       className={cn(
-        "font-serif text-4xl lg:text-5xl font-bold text-gray-600",
+        "font-serif text-4xl lg:text-5xl font-bold text-stone-600",
         className
       )}
       {...otherProps}
@@ -67,7 +67,7 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
   return (
     <p
       data-slot="description"
-      className={cn("text-gray-600 mt-6", className)}
+      className={cn("text-stone-600 mt-6", className)}
       {...otherProps}
     />
   );

@@ -1,12 +1,10 @@
-import Boundary, {
-  BoundaryContainer
-} from "@/components/basics/Boundary/Boundary";
+import Boundary, { BoundaryBlock } from "@/components/basics/Boundary/Boundary";
 import { FC } from "react";
 
 const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
   return (
     <Boundary>
-      <BoundaryContainer>{children}</BoundaryContainer>
+      <BoundaryBlock>{children}</BoundaryBlock>
     </Boundary>
   );
 };

@@ -5,6 +5,7 @@ import {
     getActiveStaffCountQuery,
     getHeaderLeadersCountQuery
 } from "@/lib/actions/queries/staff";
+import { SEO } from "@/lib/constants/static";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -28,11 +29,7 @@ const StartpageHero: FC<Props> = async () => {
             Wij zijn scouts en gidsen ...
           </h2>
           <div className="lg:max-w-[50%]">
-            <p className="font-medium text-lg">
-              Deel uitmaken van onze scouts is meer dan een hobby. De
-              Haegepoorters, ook wel "HP" in de volksmond, zijn een thuis voor
-              meer dan 200 jongeren.
-            </p>
+            <p className="font-medium text-lg">{SEO.about}</p>
           </div>
           <div className="mt-5 flex flex-col xl:flex-row xl:items-center">
             <Button variant={"tertiary"} asChild>

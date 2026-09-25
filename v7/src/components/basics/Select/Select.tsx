@@ -31,7 +31,7 @@ export const SelectTrigger: FC<ComponentProps<typeof BaseSelect.Trigger>> = ({
     <BaseSelect.Trigger
       className={(state) =>
         cn(
-          "flex items-center justify-between border border-gray-200 px-3 py-2 w-full",
+          "flex items-center justify-between border border-stone-200 px-3 py-2 w-full",
           className instanceof Function ? className(state) : className
         )
       }
@@ -76,7 +76,7 @@ export const SelectContent: FC<ComponentProps<typeof BaseSelect.Popup>> = ({
         <BaseSelect.Popup
           className={(state) =>
             cn(
-              "bg-white border border-gray-200 shadow-xl w-(--anchor-width) origin-(--transform-origin)",
+              "bg-white border border-stone-200 shadow-xl w-(--anchor-width) origin-(--transform-origin)",
               className instanceof Function ? className(state) : className
             )
           }
@@ -111,7 +111,7 @@ export const SelectItem: FC<ComponentProps<typeof BaseSelect.Item>> = ({
             <Icon
               name={state.selected ? "checkbox-line" : "checkbox-blank-line"}
               className={cn({
-                ["text-gray-300"]: !state.selected
+                ["text-stone-300"]: !state.selected
               })}
             />
           </div>

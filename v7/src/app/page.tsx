@@ -1,10 +1,11 @@
 import Boundary, {
-  BoundaryContainer,
-  BoundaryContent
+  BoundaryBlock,
+  BoundaryInline
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardsGroup,
@@ -43,8 +44,8 @@ const Page: FC<Props> = async () => {
 
   return (
     <Boundary>
-      <BoundaryContainer className="lg:py-12">
-        <BoundaryContent>
+      <BoundaryBlock className="lg:py-12">
+        <BoundaryInline>
           <div className="grid grid-cols-12 gap-y-12 lg:gap-12">
             <div className="col-span-12 lg:col-span-8">
               <Section>
@@ -148,38 +149,40 @@ const Page: FC<Props> = async () => {
               </Section>
             </div>
           </div>
-        </BoundaryContent>
-        <BoundaryContent className="px-0 mt-12">
+        </BoundaryInline>
+        <BoundaryInline className="px-0 mt-12">
           <StartpageHero />
-        </BoundaryContent>
-        <BoundaryContent className="mt-12">
+        </BoundaryInline>
+        <BoundaryInline className="mt-12">
           <Section>
-            <SectionHeader className="mb-0">
+            <SectionHeader className="mb-0 ">
               <SectionTitle>Komt ook van pas ...</SectionTitle>
             </SectionHeader>
             <CardsGroup sizing="compact">
               {STARTPAGE_ADDITIONAL_INFO_CARDS.map((cardInfo) => {
                 return (
                   <Card>
-                    <CardHeader>
-                      <CardTitle>{cardInfo.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>{cardInfo.content}</CardContent>
-                    <CardFooter>
-                      <Button variant="tertiary" asChild>
-                        <Link href={cardInfo.buttonHref}>
-                          {cardInfo.buttonLabel}{" "}
-                          <Icon name="arrow-right-up-line" />
-                        </Link>
-                      </Button>
-                    </CardFooter>
+                    <CardContent>
+                      <CardHeader>
+                        <CardTitle>{cardInfo.title}</CardTitle>
+                      </CardHeader>
+                      <CardDescription>{cardInfo.content}</CardDescription>
+                      <CardFooter>
+                        <Button variant="tertiary" asChild>
+                          <Link href={cardInfo.buttonHref}>
+                            {cardInfo.buttonLabel}{" "}
+                            <Icon name="arrow-right-up-line" />
+                          </Link>
+                        </Button>
+                      </CardFooter>
+                    </CardContent>
                   </Card>
                 );
               })}
             </CardsGroup>
           </Section>
-        </BoundaryContent>
-      </BoundaryContainer>
+        </BoundaryInline>
+      </BoundaryBlock>
     </Boundary>
   );
 };

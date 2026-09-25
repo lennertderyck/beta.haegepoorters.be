@@ -1,5 +1,6 @@
 import { client } from "../../vendors/sanity/client";
 
+
 export const getGroups = async () => {
   return client.fetch<
     {
