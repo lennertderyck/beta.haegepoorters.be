@@ -9,17 +9,19 @@ import Field, { FieldLabel } from "@/components/basics/Field/Field";
 import Icon from "@/components/basics/Icon/Icon";
 import Input from "@/components/basics/Input/Input";
 import Textarea from "@/components/basics/Textarea/Textarea";
+import { ActivityTypes } from "@/lib/actions/queries/activities";
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import { cn } from "@/lib/utils/composers";
 import dayjs from "dayjs";
 import { FC, useActionState, useState } from "react";
 import ActivityFormTypeSelector from "./ActivityFormTypeSelector";
 
-interface ActivityFormState {
+export interface ActivityFormState {
   title: string;
   startDate: string;
   endDate: string;
-  description: string;
+  body: string;
+  type: ActivityTypes | null;
 }
 
 const DEFAULT_START_DATE = dayjs()
@@ -33,27 +35,37 @@ const initialActivityFormState: ActivityFormState = {
   startDate: DEFAULT_START_DATE.format("YYYY-MM-DDTHH:mm"),
   endDate: DEFAULT_START_DATE.hour(17).format("YYYY-MM-DDTHH:mm"),
   title: "",
-  description: ""
+  body: "",
+  type: null
 };
 
-export const createUser = async (
-  formState: ActivityFormState,
-  formData: FormData
-) => {
-  console.log({ ...formState, ...Object.fromEntries(formData.entries()) });
+interface Props {
+  action: (reaction: ActivityFormState) => Promise<void>;
+}
 
-  return formState;
-};
+const ActivityForm: FC<Props> = ({ action }) => {
+  const [activityType, setActivityType] = useState<ActivityTypes | null>(
+    initialActivityFormState.type
+  );
+  const [title, setTitle] = useState(initialActivityFormState.title);
 
-interface Props {}
-
-const ActivityForm: FC<Props> = () => {
   const [state, formAction, pending] = useActionState(
-    createUser,
+    async (formState: ActivityFormState, formData: FormData) => {
+      const newState = {
+        ...formState,
+        ...Object.fromEntries(formData.entries()),
+        type: activityType,
+        title
+      };
+
+      await action(newState);
+      setActivityType(null);
+      setTitle(initialActivityFormState.title);
+
+      return newState;
+    },
     initialActivityFormState
   );
-  const [activityType, setActivityType] = useState<string | null>(null);
-  const [title, setTitle] = useState(initialActivityFormState.title);
 
   const showDetailFields = activityType !== null;
   const isMultiDayActivity = ACTIVITY_TYPES.find(
@@ -76,7 +88,7 @@ const ActivityForm: FC<Props> = () => {
         className="mt-4"
         defaultValue={null}
         onValueChange={(_value, payload) => {
-          setActivityType(payload);
+          setActivityType(payload as ActivityTypes);
           return payload;
         }}
       />
@@ -171,8 +183,8 @@ const ActivityForm: FC<Props> = () => {
             <Field>
               <FieldLabel>Geef een beschrijving aan de activiteit</FieldLabel>
               <Textarea
-                name="description"
-                defaultValue={initialActivityFormState.description}
+                name="body"
+                defaultValue={initialActivityFormState.body}
                 className="w-full"
                 required
                 rows={6}

@@ -10,7 +10,6 @@ import Card, {
   CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
-import { getGroupInformationQuery } from "@/lib/actions/queries/group";
 import { FOOTER_CONTACT_CARDS } from "@/lib/constants/static";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,24 +23,6 @@ const Footer: FC<ComponentProps<"footer">> = async ({
   className,
   ...otherProps
 }) => {
-  const groupResponse = await getGroupInformationQuery();
-  const groupData = await groupResponse.json();
-
-  const groupAddress = groupData.adressen.find(
-    (address) => address.postadres === true
-  );
-
-  const UPDATED_CONTACT_CARDS = FOOTER_CONTACT_CARDS.map((card) => ({
-    ...card,
-    address:
-      card.key === "group" && groupAddress
-        ? [
-            `${groupAddress.straat} ${groupAddress.nummer}`,
-            `${groupAddress.postcode} ${groupAddress.gemeente}`
-          ]
-        : null
-  }));
-
   return (
     <Boundary asChild>
       <div className="mt-auto">
@@ -53,7 +34,7 @@ const Footer: FC<ComponentProps<"footer">> = async ({
             <BoundaryInline>
               <div className="grid grid-cols-12">
                 <div className="col-span-6 grid gap-4 grid-cols-6 *:col-span-12 lg:*:col-span-3">
-                  {UPDATED_CONTACT_CARDS.map((card, cardIndex) => (
+                  {FOOTER_CONTACT_CARDS.map((card, cardIndex) => (
                     <div key={cardIndex}>
                       <Card sizing="compact" variant="inline">
                         <>

@@ -38,7 +38,7 @@ const ArticleHeaderContainer: FC<ComponentProps<"div">> = ({
   return (
     <div
       data-slot="header-container"
-      className={cn("mb-8 container mx-auto", className)}
+      className={cn("container mx-auto has-[+*]:mb-8", className)}
       {...otherProps}
     />
   );
@@ -55,6 +55,19 @@ const ArticleTitle: FC<ComponentProps<"h2">> = ({
         "font-serif text-4xl lg:text-5xl font-bold text-stone-600",
         className
       )}
+      {...otherProps}
+    />
+  );
+};
+
+const ArticleSubtitle: FC<ComponentProps<"h3">> = ({
+  className,
+  ...otherProps
+}) => {
+  return (
+    <h3
+      data-slot="subtitle"
+      className={cn("text-xl font-semibold text-gray-600", className)}
       {...otherProps}
     />
   );
@@ -86,11 +99,29 @@ const ArticleContent: FC<ComponentProps<"div">> = ({
   );
 };
 
+const ArticleHeaderFigure: FC<ComponentProps<"figure">> = ({
+  className,
+  ...otherProps
+}) => {
+  return (
+    <figure
+      data-slot="header-figure"
+      className={cn(
+        "w-full mx-auto max-h-96 h-[55vh] max-w-5xl *:object-cover *:w-full *:h-full has-[+*]:mb-8",
+        className
+      )}
+      {...otherProps}
+    />
+  );
+};
+
 export default Article;
 export {
   ArticleContent,
   ArticleDescription,
   ArticleHeader,
   ArticleHeaderContainer,
+  ArticleHeaderFigure,
+  ArticleSubtitle,
   ArticleTitle
 };

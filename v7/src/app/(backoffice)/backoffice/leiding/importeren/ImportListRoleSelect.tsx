@@ -1,13 +1,12 @@
 "use client";
 
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
-} from "@/components/elements/Select/Select";
-
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/basics/Select/Select";
 import { FC } from "react";
 import { Controller } from "react-hook-form";
 

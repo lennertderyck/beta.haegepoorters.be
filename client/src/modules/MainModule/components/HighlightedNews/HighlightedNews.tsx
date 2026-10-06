@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { BlogArticle } from '../../../../types/content';
-import { useEffectOnce, useStoryblok } from '../../../../utils/hooks';
+import { useStoryblok } from "../../../../utils/hooks";
 import NewsCard from './NewsCard';
 
 interface Props {};

@@ -19,3 +19,20 @@ export const AdminQueryFactory = CreateQueryFactory(
     enable: () => authMemory.isAuthenticated
   }
 );
+
+export const StoryblokQueryFactory = CreateQueryFactory(
+  () => {
+    const url = new URL(
+      `https://api.storyblok.com/v2/cdn/stories?token=${process.env.STORYBLOK_API_TOKEN}`
+    );
+    return new Request(url, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+  },
+  {
+    enable: () => true
+  }
+);

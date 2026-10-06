@@ -31,6 +31,7 @@ import ActivitySchedule, {
 } from "@/components/elements/ActivitySchedule/ActivitySchedule";
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
 import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
+import { getStoryblokPostsQuery } from "@/lib/actions/queries/posts";
 import { STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
 import { cn } from "@/lib/utils/composers";
 import Link from "next/link";
@@ -41,6 +42,9 @@ interface Props {}
 const Page: FC<Props> = async () => {
   const activitiesGroupedByDate =
     await getActivitiesPreviewForNextWeekGroupedByDate();
+
+  const postsResponse = await getStoryblokPostsQuery();
+  const posts = (await postsResponse.json())?.stories;
 
   return (
     <Boundary>
@@ -143,9 +147,27 @@ const Page: FC<Props> = async () => {
                     </Link>
                   </SectionTitle>
                 </SectionHeader>
-                <ul className="w-full border-b border-neutral-300">
-                  <li>Blog item 1</li>
-                </ul>
+                <CardsGroup sizing="compact">
+                  {posts.map((post) => (
+                    <Card key={post.slug}>
+                      <CardContent>
+                        <CardHeader>
+                          <CardTitle>{post.name}</CardTitle>
+                        </CardHeader>
+                        <CardDescription>
+                          {post.content.descr_short}
+                        </CardDescription>
+                        <CardFooter>
+                          <Button variant="tertiary" asChild>
+                            <Link href={`/blog/${post.slug}`}>
+                              Meer hierover <Icon name="arrow-right-line" />
+                            </Link>
+                          </Button>
+                        </CardFooter>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </CardsGroup>
               </Section>
             </div>
           </div>
@@ -155,7 +177,7 @@ const Page: FC<Props> = async () => {
         </BoundaryInline>
         <BoundaryInline className="mt-12">
           <Section>
-            <SectionHeader className="mb-0 ">
+            <SectionHeader>
               <SectionTitle>Komt ook van pas ...</SectionTitle>
             </SectionHeader>
             <CardsGroup sizing="compact">

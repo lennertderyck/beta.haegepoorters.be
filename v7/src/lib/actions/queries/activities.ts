@@ -1,5 +1,20 @@
+import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import dayjs from "dayjs";
 import { client } from "../../vendors/sanity/client";
+
+export type ActivityTypes = (typeof ACTIVITY_TYPES)[number]["name"];
+export interface Activity {
+  _id: string;
+  startDate: string;
+  endDate: string;
+  title: string;
+  type: ActivityTypes;
+  body: string;
+  group: {
+    _ref: string;
+    _type: "ref";
+  };
+}
 
 export const getActivitiesForDateRangeAndGroupByAbbr = async (
   range: {
@@ -112,4 +127,30 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
         }[];
       }[]
     );
+};
+
+interface ActivityMutationInput {
+  groupId: string;
+  type: ActivityTypes;
+  startDate: dayjs.ConfigType;
+  endDate: dayjs.ConfigType;
+  title: string;
+  body: string;
+}
+
+export const createActivityMutation = async (
+  activity: ActivityMutationInput
+) => {
+  return await client.create({
+    _type: "activity",
+    title: activity.title,
+    startDate: activity.startDate,
+    endDate: activity.endDate,
+    type: activity.type,
+    body: activity.body,
+    group: {
+      _type: "reference",
+      _ref: activity.groupId
+    }
+  });
 };

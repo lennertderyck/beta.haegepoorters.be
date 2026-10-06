@@ -6,14 +6,15 @@ import { Children, ComponentProps, FC } from "react";
 const cardsGroupVariants = cva(
   [
     "@container/cards-group",
-    "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full",
-    "**:data-[slot=card]:h-full"
+    "grid grid-cols-12 w-full",
+    "**:data-[slot=card]:h-full",
+    ""
   ],
   {
     variants: {
       sizing: {
-        compact: "gap-x-4",
-        default: "gap-x-6"
+        compact: "gap-x-4 -my-4",
+        default: "gap-x-6 -my-6"
       }
     },
     defaultVariants: {
@@ -47,9 +48,6 @@ export const CardsGroup: FC<
   );
 };
 
-/** TODO: Complete this component. */
-export const CardsGrid = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4";
-
 /**
  * Holds a single card. Automatically applied when using <CardsGroup>.
  */
@@ -60,7 +58,10 @@ export const CardsGroupItem: FC<ComponentProps<"li">> = ({
   return (
     <li
       data-slot="cards-group-item"
-      className={cn("col-span-1", className)}
+      className={cn(
+        "col-span-12 @2xl/cards-group:col-span-6 @3xl/cards-group:col-span-3",
+        className
+      )}
       {...otherProps}
     />
   );

@@ -23,7 +23,7 @@ interface AuthMemoryInitialzerOptions {
 type AuthMemoryContextValue = AuthMemoryContext[keyof AuthMemoryContext];
 
 interface AuthMemoryFactory extends AuthMemoryContext {
-  initalize: (options: AuthMemoryInitialzerOptions) => Promise<void>;
+  initalize: (options?: AuthMemoryInitialzerOptions) => Promise<void>;
   map: Map<keyof AuthMemoryContext, AuthMemoryContextValue>;
 }
 
@@ -37,12 +37,15 @@ const createMemoryMap = () => {
   ]);
 };
 
-const AuthMemory = async (): Promise<AuthMemoryFactory> => {
+const AuthMemory = async (
+  initializer: AuthMemoryInitialzerOptions
+): Promise<AuthMemoryFactory> => {
   const map: ReturnType<typeof createMemoryMap> = createMemoryMap();
-
   let initialized = false;
 
-  const initalize = async (options: AuthMemoryInitialzerOptions) => {
+  const initalize = async (
+    options: AuthMemoryInitialzerOptions = initializer
+  ) => {
     if (initialized)
       console.log("AuthMemory already initialized. Skipping initialization.");
     else initialized = true;

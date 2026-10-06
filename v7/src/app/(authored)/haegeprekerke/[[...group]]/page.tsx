@@ -5,13 +5,9 @@ import Article, {
     ArticleHeaderContainer,
     ArticleTitle
 } from "@/components/basics/Article/Article";
-import Timeline, {
-    TimelineItem,
-    TimelineItemContent,
-    TimelineItemDescription,
-    TimelineItemTime,
-    TimelineItemTitle
-} from "@/components/elements/Timeline/ActivityTimeline";
+import ActivitiesTimeline, {
+  ActivitiesTimelineItem
+} from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
 import { getGroups } from "@/lib/actions/queries/groups";
@@ -77,27 +73,12 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
         {activitiesForGroup?.length === 0 && (
           <p>Geen activiteiten gevonden voor deze groep en deze periode.</p>
         )}
-        {activitiesForGroup && (
-          <Timeline>
-            {activitiesForGroup?.map((activity) => (
-              <TimelineItem
-                key={activity._id}
-                state={
-                  dayjs(activity.startDate).isAfter(dayjs()) ? "future" : "past"
-                }
-              >
-                <TimelineItemContent>
-                  <TimelineItemTime dateTime={activity.startDate}>
-                    {dayjs(activity.startDate).format("DD MMMM YYYY")}
-                  </TimelineItemTime>
-                  <TimelineItemTitle>{activity.title}</TimelineItemTitle>
-                  <TimelineItemDescription>
-                    {activity.body}
-                  </TimelineItemDescription>
-                </TimelineItemContent>
-              </TimelineItem>
+        {activitiesForGroup && activitiesForGroup?.length > 0 && (
+          <ActivitiesTimeline>
+            {activitiesForGroup.map((activity) => (
+              <ActivitiesTimelineItem key={activity._id} activity={activity} />
             ))}
-          </Timeline>
+          </ActivitiesTimeline>
         )}
       </ArticleContent>
     </Article>

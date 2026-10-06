@@ -1,7 +1,9 @@
 import { cn } from "@/lib/utils/composers";
 import { ComponentProps, FC } from "react";
 
-const Timeline: FC<ComponentProps<"ul">> = ({ ...otherProps }) => {
+export interface TimelineProps extends ComponentProps<"ul"> {}
+
+const Timeline: FC<TimelineProps> = ({ ...otherProps }) => {
   return <ul data-slot="timeline" {...otherProps}></ul>;
 };
 

@@ -26,9 +26,20 @@ const CreateQueryFactory = (
         return Promise.reject(new Error("Query factory is disabled"));
 
       const requestBase = await resolveValue(baseRequest);
+      const requestBaseUrl = new URL(requestBase.url);
+      const requestBaseUrlSearchParameters = new URLSearchParams(
+        requestBaseUrl.searchParams
+      );
+
       const endpoint = [
-        [requestBase.url, queryInput].filter(Boolean).join(""),
-        new URLSearchParams(parameters).toString()
+        // Construct the full endpoint URL by combining the base URL and the query input
+        [requestBaseUrl.origin, requestBaseUrl.pathname, queryInput].join(""),
+
+        // Construct the query string from the merged search parameters
+        new URLSearchParams({
+          ...Object.fromEntries(requestBaseUrlSearchParameters),
+          ...parameters
+        }).toString()
       ]
         .filter(Boolean)
         .join("?");

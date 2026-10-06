@@ -4,12 +4,40 @@ import Article, {
     ArticleHeaderContainer,
     ArticleTitle
 } from "@/components/basics/Article/Article";
-import ActivityForm from "@/components/ui/ActivityForm/ActivityForm";
+import ActivityForm, {
+  ActivityFormState
+} from "@/components/ui/ActivityForm/ActivityForm";
+import { createActivityMutation } from "@/lib/actions/queries/activities";
+import { getGroupByAbbr } from "@/lib/actions/queries/groups";
 import { FC } from "react";
 
-interface Props {}
+const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
+  params
+}) => {
+  const { group: groupAbbr } = await params;
 
-const Page: FC<Props> = () => {
+  const groupResponse = await getGroupByAbbr(groupAbbr);
+
+  const createUser = async (reaction: ActivityFormState) => {
+    "use server";
+
+    console.log({ reaction });
+
+    try {
+      const response = await createActivityMutation({
+        groupId: groupResponse._id,
+        startDate: reaction.startDate,
+        endDate: reaction.endDate,
+        title: reaction.title,
+        body: reaction.body,
+        type: reaction.type || "default"
+      });
+      console.log({ response });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Article>
       <ArticleHeader>
@@ -18,7 +46,7 @@ const Page: FC<Props> = () => {
         </ArticleHeaderContainer>
       </ArticleHeader>
       <ArticleContent>
-        <ActivityForm />
+        <ActivityForm action={createUser} />
       </ArticleContent>
     </Article>
   );
