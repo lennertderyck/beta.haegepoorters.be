@@ -1,7 +1,7 @@
 import { keycloakServerAuth } from "@/lib/vendors/better-auth/keycloak/server";
 import { FC } from "react";
 
-const AUTH_URL_ORIGIN = process.env.AUTH_URL;
+const AUTH_URL_ORIGIN = process.env.NEXT_PUBLIC_AUTH_URL;
 
 interface Props {}
 

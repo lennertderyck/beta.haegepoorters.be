@@ -4,7 +4,7 @@ import { createAuthMiddleware } from "better-auth/api";
 import { createAuthClient } from "better-auth/client";
 import { nextCookies } from "better-auth/next-js";
 
-const AUTH_URL_ORIGIN = process.env.AUTH_URL;
+const AUTH_URL_ORIGIN = process.env.NEXT_PUBLIC_AUTH_URL;
 const AUTHN_URL_PATHNAME = "/api/auth";
 const SIGNIN_CONTEXT_FIELDNAME = "signinContext";
 
