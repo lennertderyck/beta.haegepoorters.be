@@ -43,7 +43,7 @@ const ArticleHeaderContainer: FC<ComponentProps<"div">> = ({
   return (
     <div
       data-slot="header-container"
-      className={cn("container mx-auto has-[+*]:mb-8", className)}
+      className={cn("container mx-auto  has-[+*]:mb-8", className)}
       {...otherProps}
     />
   );
