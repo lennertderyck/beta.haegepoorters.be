@@ -19,7 +19,10 @@ const GroupSelectionMenu: FC<Props> = async ({
   const groupsResponse = await getGroups();
 
   return (
-    <ul className={cn("flex gap-4", className)} {...otherProps}>
+    <ul
+      className={cn("flex flex-wrap gap-3 gap-x-4", className)}
+      {...otherProps}
+    >
       {groupsResponse.map((group) => (
         <li key={group._id}>
           <Button
