@@ -18,7 +18,7 @@ const ReauthorizeButton: FC<Props> = () => {
   return (
     <>
       <Button onClick={() => Auth.signInAgain(callbackUrl)}>
-        Opnieuw aanmelden
+        Meld je (opnieuw) aan
       </Button>
     </>
   );

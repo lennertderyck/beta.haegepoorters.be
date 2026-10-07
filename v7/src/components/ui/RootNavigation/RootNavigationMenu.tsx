@@ -12,12 +12,13 @@ interface Props {
 const RootNavigationMenu: FC<Props> = ({ items }) => {
   return (
     <>
-      <ul className="*:p-5 *:border-b-2 *:border-neutral-100/0 group-hover:*:border-neutral-100">
+      <ul className="*:p-5 *:border-b-2 *:border-neutral-100/0 group-data-[state=open]:*:border-neutral-100">
         {items.map((item) => (
           <RootNavigationMenuLink
             key={item.href}
             href={item.href}
             className="flex items-center"
+            exact={item.exact}
           >
             <Icon name={item.icon} size="1.5rem" className="shrink-0" />
             <RootNavigationMenuLinkContent>

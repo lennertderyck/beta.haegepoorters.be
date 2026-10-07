@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils/composers";
+import { Slot } from "@radix-ui/react-slot";
 import { ComponentProps, FC } from "react";
 
 export interface TimelineProps extends ComponentProps<"ul"> {}
@@ -11,17 +12,39 @@ const TimelineItem: FC<
   ComponentProps<"li"> & { state?: "current" | "future" | "past" }
 > = ({ state, className, ...otherProps }) => {
   return (
-    <li
-      data-slot="timeline-item"
-      data-state={state}
-      className={cn(
-        "relative",
-        "border-l-2 border-primary-500",
-        "pb-4 pl-8",
-        "before:absolute before:top-0 before:size-3 before:rounded-full before:-left-1.75 before:bg-primary-500",
-        "opacity-100 data-[state=past]:opacity-50",
-        className
-      )}
+    <TimelineItemInset asChild>
+      <li
+        data-slot="timeline-item"
+        data-state={state}
+        className={cn(
+          "relative",
+          "border-l-2 border-primary-500",
+          "pb-4 pl-8",
+          "before:absolute before:top-0 before:size-3 before:rounded-full before:-left-1.75 before:bg-primary-500",
+          "opacity-100 data-[state=past]:opacity-50",
+          className
+        )}
+        {...otherProps}
+      />
+    </TimelineItemInset>
+  );
+};
+
+/**
+ * TimelineItemInset component for wrapping timeline items with optional asChild prop.
+ * Already used in the TimelineItem component.
+ */
+const TimelineItemInset: FC<ComponentProps<"div"> & { asChild?: boolean }> = ({
+  asChild,
+  className,
+  ...otherProps
+}) => {
+  const Component = asChild ? Slot : "div";
+
+  return (
+    <Component
+      data-slot="timeline-item-inset"
+      className={cn("pl-8", className)}
       {...otherProps}
     />
   );
@@ -83,6 +106,7 @@ export {
     TimelineItem,
     TimelineItemContent,
     TimelineItemDescription,
+    TimelineItemInset,
     TimelineItemTime,
     TimelineItemTitle
 };

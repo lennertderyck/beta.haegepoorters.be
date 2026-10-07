@@ -5,12 +5,12 @@ interface Props {}
 
 const UnauthorizedNotice: FC<Props> = () => {
   return (
-    <>
-      <p>
-        Je moet aangemeld zijn als leiding om het haegeprekerke te bewerken.
+    <div className="h-full grid place-items-center py-20">
+      <p className="mb-2">
+        Je moet aangemeld zijn en toegang hebben om dit te bekijken.
       </p>
       <ReauthorizeButton />
-    </>
+    </div>
   );
 };
 

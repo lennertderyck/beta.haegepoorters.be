@@ -13,7 +13,7 @@ const Boundary: FC<FragmentProps & { asChild?: boolean }> = ({
 }) => {
   const Component = asChild ? Slot : Fragment;
 
-  return <Component>{children}</Component>;
+  return <Component data-slot="boundary">{children}</Component>;
 };
 
 /**
@@ -24,7 +24,13 @@ export const BoundaryBlock: FC<ComponentProps<"main">> = ({
   className,
   ...otherProps
 }) => {
-  return <main className={cn("py-12 lg:py-24", className)} {...otherProps} />;
+  return (
+    <main
+      data-slot="boundary-block"
+      className={cn("py-12 lg:py-24", className)}
+      {...otherProps}
+    />
+  );
 };
 
 /**
@@ -39,6 +45,7 @@ export const BoundaryInline: FC<
 
   return (
     <Component
+      data-slot="boundary-inline"
       className={cn("px-6 mx-auto w-full max-w-390", className)}
       {...otherProps}
     />

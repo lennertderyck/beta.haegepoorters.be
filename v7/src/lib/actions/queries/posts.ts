@@ -13,6 +13,7 @@ export const getStoryblokHighlightedPostsQuery = StoryblokQueryFactory<{
 export const getStoryblokPostsQuery = StoryblokQueryFactory<{
   stories: Storyblok.Story<{
     descr_short: string;
+    banner: any;
   }>[];
 }>("", {
   starts_with: "blog/",

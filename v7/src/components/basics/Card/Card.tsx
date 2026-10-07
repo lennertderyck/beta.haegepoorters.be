@@ -14,7 +14,7 @@ const cardsGroupVariants = cva(
     variants: {
       variant: {
         list: "",
-        grid: "",
+        grid: ""
       },
       sizing: {
         compact: "gap-x-4 -my-4",
@@ -26,6 +26,22 @@ const cardsGroupVariants = cva(
     }
   }
 );
+
+export const CardFigure: FC<ComponentProps<"figure">> = ({
+  className,
+  ...otherProps
+}) => {
+  return (
+    <figure
+      data-slot="card-figure"
+      className={cn(
+        "h-40 has-[+*]:mb-4 *:object-cover *:w-full *:h-full",
+        className
+      )}
+      {...otherProps}
+    />
+  );
+};
 
 /** To group multiple cards. */
 export const CardsGroup: FC<
@@ -63,7 +79,7 @@ export const CardsGroupItem: FC<ComponentProps<"li">> = ({
     <li
       data-slot="cards-group-item"
       className={cn(
-        "col-span-12 @2xl/cards-group:col-span-6 @3xl/cards-group:col-span-3",
+        "col-span-12 @2xl/cards-group:col-span-6 @3xl/cards-group:col-span-4 in-data-[sizing=compact]:@3xl/cards-group:col-span-3",
         className
       )}
       {...otherProps}

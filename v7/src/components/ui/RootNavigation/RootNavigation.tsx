@@ -1,81 +1,89 @@
+"use client";
+
 import Icon from "@/components/basics/Icon/Icon";
-import Label from "@/components/basics/Label/Label";
-import { authMemory } from "@/lib/initializer";
 import { cn } from "@/lib/utils/composers";
 import { Slot } from "@radix-ui/react-slot";
-import { ComponentProps, FC } from "react";
-import { SigninContext } from "../../../../packages/auth/AuthMemory";
-import { RootNavigationItemProps } from "./RootNavigation.types";
-import RootNavigationFoundation from "./RootNavigationFoundation";
-import RootNavigationMenu from "./RootNavigationMenu";
-import RootNavigationMenuLinkContent from "./RootNavigationMenuLinkContent";
+import { usePathname, useRouter } from "next/navigation";
+import { ComponentProps, FC, useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 interface Props extends ComponentProps<"nav"> {
   asChild?: boolean;
-
-  itemsStart: RootNavigationItemProps[];
-  itemsEnd: RootNavigationItemProps[];
 }
 
 const RootNavigation: FC<Props> = ({
-  itemsStart,
-  itemsEnd,
   asChild,
   className,
+  children,
   ...otherProps
 }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
   const Comp = asChild ? Slot : "nav";
-  const session = authMemory.session;
-  const name = session?.user?.name || "Onbekend";
+  const router = useRouter();
+  const pathname = usePathname();
+  const isNotMobile = useMediaQuery({ minWidth: 768 });
 
-  const signContextLabelMap: Record<NonNullable<SigninContext>, string> = {
-    local: "Lokaal beheer"
-  };
-
-  const signContextLabel =
-    signContextLabelMap[
-      authMemory.signinContext as NonNullable<SigninContext>
-    ] || "Groepsadministratie";
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
-      <RootNavigationFoundation
-        asChild
-        data-state="open"
+      <div
+        ref={ref}
+        data-state={isOpen ? "open" : "closed"}
+        onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
           "group",
           "fixed top-0 left-0 bottom-0",
-          "md:before:w-(--rootnavigation-size-min)",
-          "overflow-hidden",
+          "max-w-[90vw]",
+          // "md:before:w-(--rootnavigation-size-min)", // padding is used
           "border-r-(length:--navigation-item-border-width) border-neutral-100",
           "bg-white",
-          "max-w-[90vw]",
-          "transition-[width] duration-500 ease-in-out",
-          " z-50"
+          "overflow-hidden",
+          "z-(--rootnavigation-z-index)",
+          "transition-all duration-350 ease-in-out",
+          "**:transition-all **:duration-350 **:ease-in-out",
+          "peer",
+          "before:block",
+          "md:before:w-(--rootnavigation-size-min) h-full",
+          !isOpen ? "not-md:-translate-x-full" : "not-md:translate-x-none"
         )}
       >
         <Comp
           className={cn("h-full text-neutral-600", className)}
           {...otherProps}
         >
-          <div className="flex">
-            <div className="size-(--rootnavigation-size-min) bg-primary-500"></div>
-            <RootNavigationMenuLinkContent className="flex-1">
-              <div className="flex-1 flex items-center gap-5 px-5">
-                <div className="flex-1 flex flex-col items-end *:leading-4">
-                  <div className="font-serif text-lg">{signContextLabel}</div>
-                  <Label>{name}</Label>
-                </div>
-                <Icon name="account-circle-line" size="1.5rem" />
-              </div>
-            </RootNavigationMenuLinkContent>
-          </div>
-          <div className="flex flex-1 flex-col justify-between">
-            <RootNavigationMenu items={itemsStart} />
-            <RootNavigationMenu items={itemsEnd} />
-          </div>
+          {children}
         </Comp>
-      </RootNavigationFoundation>
+      </div>
+      <div
+        inert={!isOpen}
+        className={cn(
+          "fixed inset-0 z-(--rootnavigation-overlay-z-index)",
+          "bg-black/0 peer-data-[state=open]:bg-black/50",
+          "transition-colors duration-350 ease-in-out"
+        )}
+      />
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={cn(
+          "rounded-full fixed top-4 right-4 md:hidden bg-primary-500 size-12 grid place-items-center",
+          "transition-[translate] duration-200",
+          !isOpen ? "translate-x-none" : "translate-x-16"
+        )}
+      >
+        <Icon name="menu-line" size="1.5rem" color="white" />
+      </button>
     </>
   );
 };

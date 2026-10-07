@@ -30,7 +30,7 @@ const ArticleHeader: FC<ComponentProps<"header">> = ({
   return (
     <header
       data-slot="header"
-      className={cn("mb-12", className)}
+      className={cn("mb-8", className)}
       {...otherProps}
     />
   );
@@ -72,7 +72,7 @@ const ArticleSubtitle: FC<ComponentProps<"h3">> = ({
   return (
     <h3
       data-slot="subtitle"
-      className={cn("text-xl font-semibold text-gray-600", className)}
+      className={cn("text-lg font-medium text-gray-600", className)}
       {...otherProps}
     />
   );
@@ -85,13 +85,13 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
   return (
     <p
       data-slot="description"
-      className={cn("text-stone-600 mt-6", className)}
+      className={cn("text-stone-600 mt-4", className)}
       {...otherProps}
     />
   );
 };
 
-const articleContentVariants = cva("px-6 mx-auto", {
+const articleContentVariants = cva("px-3 md:px-6 mx-auto", {
   variants: {
     stretch: {
       true: "max-w-390",

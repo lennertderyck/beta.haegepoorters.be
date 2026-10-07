@@ -11,8 +11,8 @@ const RootNavigationMenuLinkContent: FC<ComponentProps<"div">> = ({
         "flex-1 flex items-center justify-between gap-5",
         "overflow-hidden",
         "transition-all origin-left",
-        "max-w-[0vw] group-hover:max-w-[100vw] w-[300px]",
-        "opacity-0 group-hover:opacity-100 duration-(--rootnavigation-transition-time)",
+        "w-[300px] md:group-data-[state=closed]:max-w-[0vw] md:group-data-[state=open]:max-w-[100vw]",
+        "md:group-data-[state=closed]:opacity-0 group-data-[state=open]:opacity-100 duration-(--rootnavigation-transition-time)",
         className
       )}
       {...otherProps}

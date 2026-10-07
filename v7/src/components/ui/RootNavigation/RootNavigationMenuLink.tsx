@@ -6,22 +6,31 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentProps, FC } from "react";
 
-interface Props extends ComponentProps<typeof Link> {}
+interface Props extends ComponentProps<typeof Link> {
+  exact?: boolean;
+}
 
-const RootNavigationMenuLink: FC<Props> = ({ className, ...otherProps }) => {
+const RootNavigationMenuLink: FC<Props> = ({
+  exact,
+  className,
+  ...otherProps
+}) => {
   const pathname = usePathname();
 
-  const isActive = isPartialStringValueMatch(
-    pathname,
-    otherProps.href?.toString() ?? ""
-  );
+  const isActive = exact
+    ? pathname === otherProps.href?.toString()
+    : isPartialStringValueMatch(pathname, otherProps.href?.toString() ?? "");
 
   return (
     <Link
-      className={cn(className, {
-        "bg-primary-200": isActive,
-        "text-primary-500": isActive
-      })}
+      className={cn(
+        "md:group-data-[state=closed]:pointer-events-none cursor-pointer",
+        className,
+        {
+          "bg-primary-200": isActive,
+          "text-primary-500": isActive
+        }
+      )}
       {...otherProps}
     />
   );

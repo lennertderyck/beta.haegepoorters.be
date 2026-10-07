@@ -4,4 +4,5 @@ export interface RootNavigationItemProps {
   name: string;
   href: `/${string}`;
   icon: IconName;
+  exact: boolean;
 }

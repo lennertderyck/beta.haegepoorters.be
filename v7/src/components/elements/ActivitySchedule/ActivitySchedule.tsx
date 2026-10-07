@@ -35,8 +35,8 @@ const ActivityScheduleTime: FC<Omit<ComponentProps<"time">, "children">> = ({
       )}
       {...props}
     >
-      <span className="text-3xl leading-4">{date.format("DD")}</span>
-      <span className="text-xl leading-4">{date.format("MMM")}</span>
+      <span className="text-3xl leading-5">{date.format("DD")}</span>
+      <span className="text-xl leading-5">{date.format("MMM")}</span>
     </time>
   );
 };

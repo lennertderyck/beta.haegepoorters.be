@@ -17,6 +17,9 @@
     var(--rootnavigation-size-min) + var(--navigation-item-border-width)
   );
   --rootnavigation-transition-time: 300ms;
+
+  --rootnavigation-z-index: 50;
+  --rootnavigation-overlay-z-index: calc(var(--rootnavigation-z-index) - 1);
 }
 
 @theme {
