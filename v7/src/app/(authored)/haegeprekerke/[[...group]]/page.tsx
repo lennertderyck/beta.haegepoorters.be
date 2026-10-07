@@ -5,6 +5,8 @@ import Article, {
     ArticleHeaderContainer,
     ArticleTitle
 } from "@/components/basics/Article/Article";
+import Button from "@/components/basics/Button/Button";
+import Icon from "@/components/basics/Icon/Icon";
 import ActivitiesTimeline, {
     ActivitiesTimelineItem
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
@@ -12,7 +14,9 @@ import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectio
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
 import { getGroups } from "@/lib/actions/queries/groups";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
+import { authMemory } from "@/lib/initializer";
 import dayjs, { OpUnitType } from "dayjs";
+import Link from "next/link";
 import { FC } from "react";
 
 const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
@@ -24,6 +28,12 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
   params,
   searchParams
 }) => {
+  const isAuthenticated = authMemory.isAuthenticated;
+  const hasCapabilities =
+    isAuthenticated &&
+    (authMemory.capabilities.includes("leader") ||
+      authMemory.capabilities.includes("webmaster"));
+
   const { group: groupParam } = await params;
   const { van, tot, activiteit } = await searchParams;
 
@@ -53,7 +63,18 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
     <Article>
       <ArticleHeader>
         <ArticleHeaderContainer>
-          <ArticleTitle>Haegeprekerke</ArticleTitle>
+          <div className="flex items-center justify-between">
+            <ArticleTitle>Haegeprekerke</ArticleTitle>
+            {hasCapabilities && (
+              <div>
+                <Button variant="tertiary" asChild>
+                  <Link href={`/haegeprekerke/editor/${selectedGroup}`}>
+                    Editor openen <Icon name="arrow-right-line" />
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
           <ArticleDescription>
             Activiteiten van {rangeStart.format("D MMMM YYYY")} tot{" "}
             {rangeEnd.format("D MMMM YYYY")}
