@@ -12,6 +12,10 @@ const cardsGroupVariants = cva(
   ],
   {
     variants: {
+      variant: {
+        list: "",
+        grid: "",
+      },
       sizing: {
         compact: "gap-x-4 -my-4",
         default: "gap-x-6 -my-6"

@@ -1,13 +1,13 @@
 import { LOGO_SGV } from "@/assets";
 import Boundary, {
-  BoundaryInline
+    BoundaryInline
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-  CardFooter,
-  CardHeader,
-  CardSubtitle,
-  CardTitle
+    CardFooter,
+    CardHeader,
+    CardSubtitle,
+    CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import { FOOTER_CONTACT_CARDS } from "@/lib/constants/static";
@@ -32,8 +32,8 @@ const Footer: FC<ComponentProps<"footer">> = async ({
           </BoundaryInline>
           <div className="bg-gray-100 py-8">
             <BoundaryInline>
-              <div className="grid grid-cols-12">
-                <div className="col-span-6 grid gap-4 grid-cols-6 *:col-span-12 lg:*:col-span-3">
+              <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-12 md:col-span-6 grid gap-4 grid-cols-6 *:col-span-12 lg:*:col-span-3">
                   {FOOTER_CONTACT_CARDS.map((card, cardIndex) => (
                     <div key={cardIndex}>
                       <Card sizing="compact" variant="inline">
@@ -71,20 +71,19 @@ const Footer: FC<ComponentProps<"footer">> = async ({
                     </div>
                   ))}
                 </div>
-                <div className="col-span-6 flex items-end gap-4">
-                  <p className="text-right flex-1">
-                    {/* <span className="max-w-100 inline-block">
-                    Wij zijn deel van Scouts en Gidsen Vlaanderen. Een
-                    koepelorganisatie die scoutsgroepen ondersteunt en
-                    begeleidt.
-                  </span> */}
+                <div className="col-span-12 md:col-span-6 flex md:flex-row-reverse items-center md:items-end gap-4">
+                  <Image
+                    src={LOGO_SGV}
+                    alt="my icon"
+                    className="h-20 md:h-28 w-fit"
+                  />
+                  <p className="text-left md:text-right flex-1">
                     <span className="max-w-100 inline-block text-balance text-sm">
                       Als groep maken we deel uit van District Gent-Oost, binnen
                       Gouw Gent en de structuren van Scouts en Gidsen
                       Vlaanderen.
                     </span>
                   </p>
-                  <Image src={LOGO_SGV} alt="my icon" className="h-28 w-fit" />
                 </div>
               </div>
               <FooterColophon />

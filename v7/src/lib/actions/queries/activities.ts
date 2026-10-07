@@ -16,6 +16,15 @@ export interface Activity {
   };
 }
 
+export const getActivityById = async (id: string) => {
+  return await client.fetch<Activity>(
+    `*[_type == "activity" && _id == $id][0]`,
+    {
+      id
+    }
+  );
+};
+
 export const getActivitiesForDateRangeAndGroupByAbbr = async (
   range: {
     start: dayjs.ConfigType;
@@ -25,7 +34,7 @@ export const getActivitiesForDateRangeAndGroupByAbbr = async (
 ) => {
   return await client.fetch<{
     group: any;
-    activities: any[];
+    activities: Activity[];
     range: {
       startDate: string;
       endDate: string;
@@ -79,7 +88,7 @@ export const getActivitiesPreviewForNextWeek = async () => {
   return await client.fetch<{
     activitiesByGroup: {
       group: any;
-      activity: any;
+      activity: Activity;
     }[];
   }>(
     `
@@ -132,8 +141,8 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
 interface ActivityMutationInput {
   groupId: string;
   type: ActivityTypes;
-  startDate: dayjs.ConfigType;
-  endDate: dayjs.ConfigType;
+  startDate: string;
+  endDate: string;
   title: string;
   body: string;
 }
@@ -153,4 +162,15 @@ export const createActivityMutation = async (
       _ref: activity.groupId
     }
   });
+};
+
+export const updateActivityMutation = async (
+  activityId: string,
+  activity: Partial<ActivityMutationInput>
+) => {
+  return await client.patch(activityId).set(activity).commit();
+};
+
+export const deleteActivityMutation = async (activityId: string) => {
+  return await client.delete(activityId);
 };

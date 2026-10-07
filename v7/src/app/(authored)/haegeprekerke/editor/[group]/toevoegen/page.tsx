@@ -5,10 +5,11 @@ import Article, {
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-  ActivityFormState
+    ActivityFormState
 } from "@/components/ui/ActivityForm/ActivityForm";
 import { createActivityMutation } from "@/lib/actions/queries/activities";
 import { getGroupByAbbr } from "@/lib/actions/queries/groups";
+import { redirect } from "next/navigation";
 import { FC } from "react";
 
 const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
@@ -18,7 +19,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
 
   const groupResponse = await getGroupByAbbr(groupAbbr);
 
-  const createUser = async (reaction: ActivityFormState) => {
+  const createActivity = async (reaction: ActivityFormState) => {
     "use server";
 
     console.log({ reaction });
@@ -36,6 +37,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
     } catch (error) {
       console.error(error);
     }
+
+    redirect(`/haegeprekerke/editor/${groupAbbr}?status=success`);
   };
 
   return (
@@ -46,7 +49,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
         </ArticleHeaderContainer>
       </ArticleHeader>
       <ArticleContent>
-        <ActivityForm action={createUser} />
+        <ActivityForm action={createActivity} actionType="create" />
       </ArticleContent>
     </Article>
   );

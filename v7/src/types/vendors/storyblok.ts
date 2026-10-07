@@ -1,6 +1,7 @@
 namespace Storyblok {
   export interface Story<Content> {
     name: string;
+    id: string;
     created_at: string;
     published_at: string;
     updated_at: string;

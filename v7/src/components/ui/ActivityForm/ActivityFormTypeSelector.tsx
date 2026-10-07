@@ -14,6 +14,7 @@ const ACTIVITY_TYPE_ICON_MAP = {
 } satisfies Record<(typeof ACTIVITY_TYPES)[number]["name"], IconName>;
 
 interface Props extends Omit<ComponentProps<"ul">, "defaultValue"> {
+  name: string;
   defaultValue: string | null;
   onValueChange: (
     value: string | null,
@@ -22,7 +23,8 @@ interface Props extends Omit<ComponentProps<"ul">, "defaultValue"> {
 }
 
 const ActivityFormTypeSelector: FC<Props> = ({
-  defaultValue: defaultValue,
+  name,
+  defaultValue,
   onValueChange,
   className,
   ...otherProps
@@ -47,7 +49,7 @@ const ActivityFormTypeSelector: FC<Props> = ({
           <label>
             <input
               type="radio"
-              name="activityType"
+              name={name}
               value={activityType.name}
               className="hidden peer"
               onChange={bindInputChangeHandler(activityType.name)}

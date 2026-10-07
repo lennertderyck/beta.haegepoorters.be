@@ -1,37 +1,37 @@
 import Boundary, {
-  BoundaryBlock,
-  BoundaryInline
+    BoundaryBlock,
+    BoundaryInline
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardsGroup,
-  CardTitle
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardsGroup,
+    CardTitle
 } from "@/components/basics/Card/Card";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger
 } from "@/components/basics/Collapsible/Collapsible";
 import Icon from "@/components/basics/Icon/Icon";
 import {
-  Section,
-  SectionHeader,
-  SectionTitle
+    Section,
+    SectionHeader,
+    SectionTitle
 } from "@/components/basics/Section/Section";
 import ActivitySchedule, {
-  ActivityScheduleItem,
-  ActivityScheduleItemLabel,
-  ActivityScheduleItemTitle,
-  ActivityScheduleList,
-  ActivityScheduleTime
+    ActivityScheduleItem,
+    ActivityScheduleItemLabel,
+    ActivityScheduleItemTitle,
+    ActivityScheduleList,
+    ActivityScheduleTime
 } from "@/components/elements/ActivitySchedule/ActivitySchedule";
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
 import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
-import { getStoryblokPostsQuery } from "@/lib/actions/queries/posts";
+import { getStoryblokHighlightedPostsQuery } from "@/lib/actions/queries/posts";
 import { STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
 import { cn } from "@/lib/utils/composers";
 import Link from "next/link";
@@ -43,7 +43,7 @@ const Page: FC<Props> = async () => {
   const activitiesGroupedByDate =
     await getActivitiesPreviewForNextWeekGroupedByDate();
 
-  const postsResponse = await getStoryblokPostsQuery();
+  const postsResponse = await getStoryblokHighlightedPostsQuery();
   const posts = (await postsResponse.json())?.stories;
 
   return (

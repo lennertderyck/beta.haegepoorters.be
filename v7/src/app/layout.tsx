@@ -62,7 +62,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           itemsEnd={MENU_END}
           className=" "
         />
-        <ul className="">
+        <ul className="hidden">
           <li>{`isAuthenticated: ${isAuthenticated ? "Yes" : "No"}`}</li>
           <li>{`signinContext: ${signinContext}`}</li>
           <li>{`session: ${session ? "Has session" : "no session"}`}</li>

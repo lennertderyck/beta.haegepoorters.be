@@ -1,18 +1,23 @@
 import { cn } from "@/lib/utils/composers";
+import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps, FC } from "react";
 
 interface Props {
-  variant: "page" | "list";
+  variant: "grid" | "list";
 }
 
-const Article: FC<ComponentProps<"article">> = ({
-  className,
-  ...otherProps
-}) => {
+const articleVariants = cva("", {
+  variants: {},
+  defaultVariants: {}
+});
+
+const Article: FC<
+  ComponentProps<"article"> & VariantProps<typeof articleVariants>
+> = ({ className, ...otherProps }) => {
   return (
     <article
       data-slot="article"
-      className={cn("", className)}
+      className={articleVariants({ className })}
       {...otherProps}
     />
   );
@@ -86,14 +91,26 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
   );
 };
 
-const ArticleContent: FC<ComponentProps<"div">> = ({
-  className,
-  ...otherProps
-}) => {
+const articleContentVariants = cva("px-6 mx-auto", {
+  variants: {
+    stretch: {
+      true: "max-w-390",
+      false: "container"
+    }
+  },
+  defaultVariants: {
+    stretch: false
+  }
+});
+
+const ArticleContent: FC<
+  ComponentProps<"div"> & VariantProps<typeof articleContentVariants>
+> = ({ className, stretch, ...otherProps }) => {
   return (
     <div
       data-slot="content"
-      className={cn("container mx-auto", className)}
+      data-stretch={stretch || false}
+      className={articleContentVariants({ stretch, className })}
       {...otherProps}
     />
   );
@@ -117,11 +134,11 @@ const ArticleHeaderFigure: FC<ComponentProps<"figure">> = ({
 
 export default Article;
 export {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleHeaderFigure,
-  ArticleSubtitle,
-  ArticleTitle
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleHeaderFigure,
+    ArticleSubtitle,
+    ArticleTitle
 };

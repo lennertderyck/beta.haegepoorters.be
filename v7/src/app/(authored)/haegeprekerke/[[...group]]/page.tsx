@@ -6,7 +6,7 @@ import Article, {
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import ActivitiesTimeline, {
-  ActivitiesTimelineItem
+    ActivitiesTimelineItem
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";

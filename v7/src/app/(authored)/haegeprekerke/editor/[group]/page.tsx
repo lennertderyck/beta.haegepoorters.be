@@ -1,17 +1,17 @@
 import Article, {
-  ArticleContent,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle
+    ArticleContent,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import Timeline, {
-  TimelineItem,
-  TimelineItemContent,
-  TimelineItemDescription,
-  TimelineItemTime,
-  TimelineItemTitle
+    TimelineItem,
+    TimelineItemContent,
+    TimelineItemDescription,
+    TimelineItemTime,
+    TimelineItemTitle
 } from "@/components/elements/Timeline/ActivityTimeline";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
 import { getGroupByAbbr } from "@/lib/actions/queries/groups";
@@ -19,6 +19,7 @@ import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FC } from "react";
+import ScrollInview from "./ScrollInview";
 
 const MAX_PERIOD_MONTHS = 5;
 const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
@@ -34,7 +35,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
      * This is the truth, if reference falls outside range, we don't show it in the UI.
      */
     van,
-    tot
+    tot,
+    activiteit // ID of a specific activity
   } = await searchParams;
 
   const selectedMonth = (
@@ -154,34 +156,38 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
         {activitiesForGroup && (
           <Timeline>
             {activitiesForGroup?.map((activity) => (
-              <Link
+              <ScrollInview
+                enabled={activiteit?.toString() === activity._id}
                 key={activity._id}
-                href={{
-                  pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`
-                }}
               >
-                <TimelineItem
-                  state={
-                    dayjs(activity.startDate).isAfter(dayjs())
-                      ? "future"
-                      : "past"
-                  }
+                <Link
+                  href={{
+                    pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`
+                  }}
                 >
-                  <TimelineItemContent>
-                    <TimelineItemTime dateTime={activity.startDate}>
-                      {dayjs(activity.startDate).format("DD MMMM YYYY")}
-                    </TimelineItemTime>
-                    <TimelineItemTitle>{activity.title}</TimelineItemTitle>
-                    <TimelineItemDescription>
-                      {activity.body}
-                    </TimelineItemDescription>
-                    <Button variant="tertiary" className="mt-4">
-                      Bewerken
-                      <Icon name="arrow-right-line" size="1rem" />
-                    </Button>
-                  </TimelineItemContent>
-                </TimelineItem>
-              </Link>
+                  <TimelineItem
+                    state={
+                      dayjs(activity.startDate).isAfter(dayjs())
+                        ? "future"
+                        : "past"
+                    }
+                  >
+                    <TimelineItemContent>
+                      <TimelineItemTime dateTime={activity.startDate}>
+                        {dayjs(activity.startDate).format("DD MMMM YYYY")}
+                      </TimelineItemTime>
+                      <TimelineItemTitle>{activity.title}</TimelineItemTitle>
+                      <TimelineItemDescription>
+                        {activity.body}
+                      </TimelineItemDescription>
+                      <Button variant="tertiary" className="mt-4">
+                        Bewerken
+                        <Icon name="arrow-right-line" size="1rem" />
+                      </Button>
+                    </TimelineItemContent>
+                  </TimelineItem>
+                </Link>
+              </ScrollInview>
             ))}
           </Timeline>
         )}

@@ -49,11 +49,14 @@ export const STARTPAGE_ADDITIONAL_INFO_CARDS = [
   buttonLabel: string;
 }[];
 
+// Need to get this from Groepsadministratie
+const ADDRESS = ["Bredenakkerstraat 31A", "9070 Destelbergen"];
+
 export const FOOTER_CONTACT_CARDS = [
   {
     key: "group",
     title: "Scouts & Gidsen Haegepoorters",
-    address: null,
+    address: ADDRESS,
     buttonHref: "/contact",
     buttonLabel: "Contacteer groepsleiding"
   },

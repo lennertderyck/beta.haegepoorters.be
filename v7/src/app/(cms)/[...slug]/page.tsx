@@ -1,15 +1,16 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleHeaderFigure,
-  ArticleSubtitle,
-  ArticleTitle
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleHeaderFigure,
+    ArticleSubtitle,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import { getStoryblokCatchAllQuery } from "@/lib/actions/queries/pages";
 import { richTextResolver } from "@storyblok/richtext";
 import dayjs from "dayjs";
+import { notFound } from "next/navigation";
 import { FC } from "react";
 
 interface Props {}
@@ -20,6 +21,9 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
   const storyResponse = await getStoryblokCatchAllQuery(slug);
   const story = await storyResponse.json();
 
+  
+  if (!story?.story) return notFound();
+  
   const { render } = richTextResolver();
   const html: any = render(story?.story?.content?.body);
 

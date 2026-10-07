@@ -13,7 +13,7 @@ import { ActivityTypes } from "@/lib/actions/queries/activities";
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import { cn } from "@/lib/utils/composers";
 import dayjs from "dayjs";
-import { FC, useActionState, useState } from "react";
+import { FC, useActionState, useState, useTransition } from "react";
 import ActivityFormTypeSelector from "./ActivityFormTypeSelector";
 
 export interface ActivityFormState {
@@ -22,6 +22,10 @@ export interface ActivityFormState {
   endDate: string;
   body: string;
   type: ActivityTypes | null;
+}
+
+export interface ActivityFormSubmitState extends ActivityFormState {
+  type: ActivityTypes;
 }
 
 const DEFAULT_START_DATE = dayjs()
@@ -40,32 +44,54 @@ const initialActivityFormState: ActivityFormState = {
 };
 
 interface Props {
-  action: (reaction: ActivityFormState) => Promise<void>;
+  action: (reaction: ActivityFormSubmitState) => Promise<void>;
+  deleteAction?: () => Promise<void>;
+  actionType: "create" | "update";
+  defaultValue?: ActivityFormState;
 }
 
-const ActivityForm: FC<Props> = ({ action }) => {
+const ActivityForm: FC<Props> = ({
+  action,
+  deleteAction,
+  actionType,
+  defaultValue = initialActivityFormState
+}) => {
   const [activityType, setActivityType] = useState<ActivityTypes | null>(
-    initialActivityFormState.type
+    defaultValue.type
   );
-  const [title, setTitle] = useState(initialActivityFormState.title);
+  const [title, setTitle] = useState(defaultValue.title);
 
   const [state, formAction, pending] = useActionState(
-    async (formState: ActivityFormState, formData: FormData) => {
-      const newState = {
-        ...formState,
-        ...Object.fromEntries(formData.entries()),
-        type: activityType,
-        title
+    async (_formState: ActivityFormState, formData: FormData) => {
+      const entries = Object.fromEntries(
+        formData.entries().map(([key, value]) => [key, value.toString()])
+      );
+
+      const newState: ActivityFormSubmitState = {
+        title,
+        body: entries.body,
+        type: entries.type as ActivityTypes,
+        startDate: entries.startDate,
+        endDate: entries.endDate
       };
 
       await action(newState);
-      setActivityType(null);
-      setTitle(initialActivityFormState.title);
+      setActivityType(defaultValue.type);
+      setTitle(defaultValue.title);
 
       return newState;
     },
-    initialActivityFormState
+    defaultValue
   );
+
+  const [deleteState, formDeleteAction, deletePending] = useActionState(
+    async () => {
+      deleteAction?.();
+    },
+    null
+  );
+
+  const [transition, startTransition] = useTransition();
 
   const showDetailFields = activityType !== null;
   const isMultiDayActivity = ACTIVITY_TYPES.find(
@@ -85,8 +111,9 @@ const ActivityForm: FC<Props> = ({ action }) => {
     <form action={formAction}>
       <h4>Wat voor soort activiteit is het?</h4>
       <ActivityFormTypeSelector
+        name="type"
         className="mt-4"
-        defaultValue={null}
+        defaultValue={state.type}
         onValueChange={(_value, payload) => {
           setActivityType(payload as ActivityTypes);
           return payload;
@@ -111,7 +138,7 @@ const ActivityForm: FC<Props> = ({ action }) => {
                 type="text"
                 placeholder="Titel"
                 required={isTitleRequired}
-                defaultValue={initialActivityFormState.title}
+                defaultValue={state.title}
                 onKeyUp={(event) => {
                   setTitle(event.currentTarget.value);
                 }}
@@ -150,7 +177,7 @@ const ActivityForm: FC<Props> = ({ action }) => {
                   name="startDate"
                   placeholder="Datum"
                   required
-                  defaultValue={initialActivityFormState.startDate}
+                  defaultValue={state.startDate}
                   className={cn(
                     "inline transition-[width] ease-in-out duration-300",
                     isMultiDayActivity
@@ -170,7 +197,7 @@ const ActivityForm: FC<Props> = ({ action }) => {
                         name="endDate"
                         placeholder="Einddatum"
                         required={isMultiDayActivity}
-                        defaultValue={initialActivityFormState.endDate}
+                        defaultValue={state.endDate}
                         className="flex-1"
                       />
                     </div>
@@ -184,7 +211,7 @@ const ActivityForm: FC<Props> = ({ action }) => {
               <FieldLabel>Geef een beschrijving aan de activiteit</FieldLabel>
               <Textarea
                 name="body"
-                defaultValue={initialActivityFormState.body}
+                defaultValue={state.body}
                 className="w-full"
                 required
                 rows={6}
@@ -192,7 +219,24 @@ const ActivityForm: FC<Props> = ({ action }) => {
               />
             </Field>
           </section>
-          <Button className="mx-auto mt-4">Activiteit toevoegen</Button>
+          <div className="flex gap-4 justify-between">
+            {actionType === "update" && deleteAction && (
+              <Button
+                className="mt-4"
+                type="button"
+                variant="tertiary"
+                disabled={transition}
+                onClick={() => startTransition(() => deleteAction())}
+              >
+                Activiteit verwijderen
+              </Button>
+            )}
+            <Button className="mt-4" type="submit" disabled={pending}>
+              {actionType === "create"
+                ? "Activiteit toevoegen"
+                : "Activiteit bijwerken"}
+            </Button>
+          </div>
         </CollapsibleContent>
       </Collapsible>
     </form>
