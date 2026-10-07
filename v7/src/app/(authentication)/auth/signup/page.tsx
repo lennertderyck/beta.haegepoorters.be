@@ -1,6 +1,8 @@
 import { keycloakServerAuth } from "@/lib/vendors/better-auth/keycloak/server";
 import { FC } from "react";
 
+const AUTH_URL_ORIGIN = process.env.AUTH_URL;
+
 interface Props {}
 
 const Page: FC<Props> = async () => {
@@ -14,7 +16,7 @@ const Page: FC<Props> = async () => {
           email: formData.get("email") as string,
           password: formData.get("password") as string,
           name: formData.get("name") as string,
-          callbackURL: "http://localhost:3000/callback"
+          callbackURL: AUTH_URL_ORIGIN + "/callback"
         },
         asResponse: true
       });
