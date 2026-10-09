@@ -32,8 +32,9 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
 
   return (
     <>
-      <SigninButton callbackURL={composedCallbackURL} />
-      <form action={signin}>
+      <SigninButton provider="keycloak" callbackURL={composedCallbackURL} />
+      <SigninButton provider="supabase" callbackURL={composedCallbackURL} />
+      {/* <form action={signin}>
         <input
           name="email"
           type="email"
@@ -47,7 +48,7 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
           autoComplete="current-password"
         />
         <button type="submit">Sign In</button>
-      </form>
+      </form> */}
     </>
   );
 };

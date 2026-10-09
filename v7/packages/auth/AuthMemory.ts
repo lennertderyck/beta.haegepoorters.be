@@ -23,7 +23,7 @@ interface AuthMemoryInitialzerOptions {
 type AuthMemoryContextValue = AuthMemoryContext[keyof AuthMemoryContext];
 
 interface AuthMemoryFactory extends AuthMemoryContext {
-  initalize: (options?: AuthMemoryInitialzerOptions) => Promise<void>;
+  initalize: (options?: AuthMemoryInitialzerOptions) => Promise<any>;
   map: Map<keyof AuthMemoryContext, AuthMemoryContextValue>;
 }
 
@@ -43,19 +43,12 @@ const AuthMemory = async (
   const map: ReturnType<typeof createMemoryMap> = createMemoryMap();
   let initialized = false;
 
-  const initalize = async (
-    options: AuthMemoryInitialzerOptions = initializer
-  ) => {
-    if (initialized)
-      console.log("AuthMemory already initialized. Skipping initialization.");
-    else initialized = true;
-
+  const pod = async (options: AuthMemoryInitialzerOptions = initializer) => {
     const signinContext = (await getSigninContextServer()) || null;
 
     map.set("signinContext", signinContext);
 
     const session = await getSessionForSigninContextServer(signinContext);
-    console.log("Session retrieved:", session);
     const isAuthenticated =
       !!session && dayjs(session?.session.expiresAt).isAfter(dayjs());
 
@@ -73,6 +66,51 @@ const AuthMemory = async (
         accessToken || ""
       );
       map.set("capabilities", capabilities);
+    }
+
+    return {
+      session,
+      signinContext,
+      isAuthenticated,
+      accessToken: map.get("accessToken"),
+      capabilities: map.get("capabilities")
+    };
+  };
+
+  const initalize = async (
+    options: AuthMemoryInitialzerOptions = initializer
+  ) => {
+    try {
+      if (initialized) {
+        return Promise.resolve(map);
+      } else initialized = true;
+      const signinContext = (await getSigninContextServer()) || null;
+
+      map.set("signinContext", signinContext);
+
+      const session = await getSessionForSigninContextServer(signinContext);
+      const isAuthenticated =
+        !!session && dayjs(session?.session.expiresAt).isAfter(dayjs());
+
+      map.set("session", session);
+      map.set("isAuthenticated", isAuthenticated);
+
+      if (isAuthenticated) {
+        const accessToken = signinContext
+          ? await options.getAccessToken(signinContext)
+          : null;
+        map.set("accessToken", accessToken);
+
+        const capabilities = await options.getCapabilities(
+          signinContext,
+          accessToken || ""
+        );
+        map.set("capabilities", capabilities);
+      }
+
+      return Promise.resolve(map);
+    } catch (error) {
+      return Promise.reject(error);
     }
   };
 

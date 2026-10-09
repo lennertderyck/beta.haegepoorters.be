@@ -63,8 +63,10 @@ const MENU_END = [
   }
 ] satisfies RootNavigationItemProps[];
 
-const RootLayout: FC<PropsWithChildren> = ({ children }) => {
-  authMemory.initalize();
+const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
+  const r = await authMemory.initalize();
+
+  console.log("AuthMemory initialized", r);
 
   const isAuthenticated = authMemory.isAuthenticated;
   const signinContext = authMemory.signinContext;

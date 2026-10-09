@@ -37,6 +37,8 @@ import { cn } from "@/lib/utils/composers";
 import Link from "next/link";
 import { FC } from "react";
 
+const TEST = false;
+
 interface Props {}
 
 const Page: FC<Props> = async () => {
@@ -45,6 +47,9 @@ const Page: FC<Props> = async () => {
 
   const postsResponse = await getStoryblokHighlightedPostsQuery();
   const posts = (await postsResponse.json())?.stories;
+
+  if (TEST)
+    throw new Error("KV STORE use https://www.cloudflare.com/products/kv/");
 
   return (
     <Boundary>

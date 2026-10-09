@@ -2,17 +2,18 @@
 
 import Button from "@/components/basics/Button/Button";
 import { keycloakClientAuth } from "@/lib/vendors/better-auth/keycloak/client";
-import { FC } from "react";
+import { ComponentProps, FC } from "react";
 
-interface Props {
+interface Props extends ComponentProps<typeof Button> {
   callbackURL: string;
+  provider: "keycloak" | "supabase";
 }
 
-const SigninButton: FC<Props> = ({ callbackURL }) => {
+const SigninButton: FC<Props> = ({ callbackURL, provider, ...otherProps }) => {
   const handleSignin = async () => {
     try {
       const d = keycloakClientAuth.signIn.social({
-        provider: "keycloak",
+        provider,
         callbackURL
       });
       console.log({ d });
@@ -23,7 +24,9 @@ const SigninButton: FC<Props> = ({ callbackURL }) => {
 
   return (
     <>
-      <Button onClick={handleSignin}>Aanmelden met Groepsadmin</Button>
+      <Button onClick={handleSignin} {...otherProps}>
+        Aanmelden met {provider}
+      </Button>
     </>
   );
 };
