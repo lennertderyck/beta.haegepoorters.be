@@ -66,7 +66,7 @@ const MENU_END = [
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
   const r = await authMemory.initalize();
 
-  console.log("AuthMemory initialized", r);
+  // console.log("AuthMemory initialized", r);
 
   const isAuthenticated = authMemory.isAuthenticated;
   const signinContext = authMemory.signinContext;

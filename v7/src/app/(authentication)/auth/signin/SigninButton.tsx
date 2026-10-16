@@ -12,11 +12,10 @@ interface Props extends ComponentProps<typeof Button> {
 const SigninButton: FC<Props> = ({ callbackURL, provider, ...otherProps }) => {
   const handleSignin = async () => {
     try {
-      const d = keycloakClientAuth.signIn.social({
+      await keycloakClientAuth.signIn.social({
         provider,
         callbackURL
       });
-      console.log({ d });
     } catch (error) {
       console.error(error);
     }

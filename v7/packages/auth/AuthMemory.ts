@@ -43,40 +43,6 @@ const AuthMemory = async (
   const map: ReturnType<typeof createMemoryMap> = createMemoryMap();
   let initialized = false;
 
-  const pod = async (options: AuthMemoryInitialzerOptions = initializer) => {
-    const signinContext = (await getSigninContextServer()) || null;
-
-    map.set("signinContext", signinContext);
-
-    const session = await getSessionForSigninContextServer(signinContext);
-    const isAuthenticated =
-      !!session && dayjs(session?.session.expiresAt).isAfter(dayjs());
-
-    map.set("session", session);
-    map.set("isAuthenticated", isAuthenticated);
-
-    if (isAuthenticated) {
-      const accessToken = signinContext
-        ? await options.getAccessToken(signinContext)
-        : null;
-      map.set("accessToken", accessToken);
-
-      const capabilities = await options.getCapabilities(
-        signinContext,
-        accessToken || ""
-      );
-      map.set("capabilities", capabilities);
-    }
-
-    return {
-      session,
-      signinContext,
-      isAuthenticated,
-      accessToken: map.get("accessToken"),
-      capabilities: map.get("capabilities")
-    };
-  };
-
   const initalize = async (
     options: AuthMemoryInitialzerOptions = initializer
   ) => {
@@ -88,7 +54,7 @@ const AuthMemory = async (
 
       map.set("signinContext", signinContext);
 
-      const session = await getSessionForSigninContextServer(signinContext);
+      const session = await getSessionForSigninContextServer();
       const isAuthenticated =
         !!session && dayjs(session?.session.expiresAt).isAfter(dayjs());
 
