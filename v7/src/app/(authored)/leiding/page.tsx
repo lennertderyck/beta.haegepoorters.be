@@ -44,7 +44,7 @@ const Page: FC<Props> = async () => {
                       <CardContent>
                         <CardFigure>
                           <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBmUUKfOvBYaPD_4VPWBUdkZn8mFXVVavP87kTpQiNbXJDKg38sbSwTuA&s=10"
+                            src="https://singlecolorimage.com/get/d6d6d6/100x100"
                             alt=""
                           />
                         </CardFigure>
