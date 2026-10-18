@@ -1,24 +1,20 @@
 import dayjs from "dayjs";
-import { getSessionForSigninContextServer, getSigninContextServer } from ".";
+import { getAccessTokenServer, getSessionServer } from ".";
 import { BetterAuthSession } from "./better-auth";
 
 export type SigninContext = string | null;
 
 export interface AuthMemoryContext {
   isAuthenticated: boolean;
+  /** @deprecated Use `provider` instead */
   signinContext: SigninContext;
   session: BetterAuthSession | null;
   accessToken: string | null;
   capabilities: string[];
+  provider: string | null;
 }
 
-interface AuthMemoryInitialzerOptions {
-  getAccessToken: (signinContext: SigninContext) => Promise<string | null>;
-  getCapabilities: (
-    signinContext: SigninContext,
-    accessToken: string
-  ) => Promise<string[]>;
-}
+interface AuthMemoryInitialzerOptions {}
 
 type AuthMemoryContextValue = AuthMemoryContext[keyof AuthMemoryContext];
 
@@ -50,28 +46,21 @@ const AuthMemory = async (
       if (initialized) {
         return Promise.resolve(map);
       } else initialized = true;
-      const signinContext = (await getSigninContextServer()) || null;
 
-      map.set("signinContext", signinContext);
+      map.set("signinContext", "_DEPRECATED_");
 
-      const session = await getSessionForSigninContextServer();
+      const session = await getSessionServer();
       const isAuthenticated =
         !!session && dayjs(session?.session.expiresAt).isAfter(dayjs());
 
+      map.set("provider", session?.user?.loginProvider || null);
       map.set("session", session);
       map.set("isAuthenticated", isAuthenticated);
 
       if (isAuthenticated) {
-        const accessToken = signinContext
-          ? await options.getAccessToken(signinContext)
-          : null;
+        const { accessToken } = await getAccessTokenServer();
         map.set("accessToken", accessToken);
-
-        const capabilities = await options.getCapabilities(
-          signinContext,
-          accessToken || ""
-        );
-        map.set("capabilities", capabilities);
+        map.set("capabilities", session.user.capabilities || []);
       }
 
       return Promise.resolve(map);
@@ -101,6 +90,9 @@ const AuthMemory = async (
     },
     get capabilities() {
       return map.get("capabilities") as string[];
+    },
+    get provider() {
+      return map.get("provider") as string | null;
     }
   };
 };

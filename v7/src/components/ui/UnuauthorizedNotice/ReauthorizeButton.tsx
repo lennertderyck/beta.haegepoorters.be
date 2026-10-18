@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/basics/Button/Button";
-import Auth from "@/lib/modules/Auth";
+import AuthInitializer from "@/lib/modules/Auth";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FC } from "react";
 
@@ -17,7 +17,7 @@ const ReauthorizeButton: FC<Props> = () => {
 
   return (
     <>
-      <Button onClick={() => Auth.signInAgain(callbackUrl)}>
+      <Button onClick={() => AuthInitializer.signInAgain(callbackUrl)}>
         Meld je (opnieuw) aan
       </Button>
     </>

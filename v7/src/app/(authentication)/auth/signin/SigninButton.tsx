@@ -2,6 +2,7 @@
 
 import Button from "@/components/basics/Button/Button";
 import { keycloakClientAuth } from "@/lib/vendors/better-auth/keycloak/client";
+import { Slot } from "@radix-ui/react-slot";
 import { ComponentProps, FC } from "react";
 
 interface Props extends ComponentProps<typeof Button> {
@@ -9,23 +10,30 @@ interface Props extends ComponentProps<typeof Button> {
   provider: "keycloak" | "supabase";
 }
 
-const SigninButton: FC<Props> = ({ callbackURL, provider, ...otherProps }) => {
+const SigninButton: FC<Props> = ({
+  callbackURL,
+  provider,
+  children,
+  ...otherProps
+}) => {
   const handleSignin = async () => {
     try {
       await keycloakClientAuth.signIn.social({
         provider,
-        callbackURL
+        callbackURL: callbackURL || "http://localhost:3000"
       });
     } catch (error) {
       console.error(error);
     }
   };
 
+  const Comp = !!children ? Slot : Button;
+
   return (
     <>
-      <Button onClick={handleSignin} {...otherProps}>
-        Aanmelden met {provider}
-      </Button>
+      <Comp onClick={handleSignin} {...otherProps}>
+        {children ?? `Aanmelden met ${provider}`}
+      </Comp>
     </>
   );
 };

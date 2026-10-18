@@ -1,6 +1,4 @@
-import COOKIES from "@/lib/constants/cookies";
 import { betterAuth, BetterAuthOptions } from "better-auth";
-import { createAuthMiddleware } from "better-auth/api";
 import { createAuthClient } from "better-auth/client";
 import { nextCookies } from "better-auth/next-js";
 
@@ -20,20 +18,7 @@ export const createBetterAuthServerInstance = (
     baseURL: AUTH_URL_ORIGIN + AUTHN_URL_PATHNAME + "/" + signInContext,
     secret: process.env.AUTH_SECRET!,
     ...otherOptions,
-    plugins: [nextCookies(), ...(plugins ?? [])],
-    hooks: {
-      after: createAuthMiddleware(async (ctx) => {
-        if (ctx.context.newSession)
-          ctx.setCookie(COOKIES.SESSIN_METHOD, signInContext, {
-            path: "/",
-            httpOnly: true,
-            sameSite: "Strict",
-            expires:
-              ctx.context.newSession?.session.expiresAt ||
-              ctx.context.session?.session.expiresAt
-          });
-      })
-    }
+    plugins: [nextCookies(), ...(plugins ?? [])]
   });
 };
 

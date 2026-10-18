@@ -11,6 +11,17 @@ const articleVariants = cva("", {
   defaultVariants: {}
 });
 
+/**
+ * @example
+ * <Article>
+ *   <ArticleHeader>
+ *     <ArticleHeaderContainer>
+ *       <ArticleTitle>Title</ArticleTitle>
+ *     </ArticleHeaderContainer>
+ *   </ArticleHeader>
+ *   <ArticleContent>Content</ArticleContent>
+ * </Article>
+ */
 const Article: FC<
   ComponentProps<"article"> & VariantProps<typeof articleVariants>
 > = ({ className, ...otherProps }) => {

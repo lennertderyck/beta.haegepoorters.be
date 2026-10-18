@@ -16,7 +16,8 @@ export const AdminQueryFactory = CreateQueryFactory(
     });
   },
   {
-    enable: () => authMemory.isAuthenticated
+    // enable: async () => await getIsAuthenticatedServer()
+    enable: false
   }
 );
 

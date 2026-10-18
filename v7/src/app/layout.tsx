@@ -17,6 +17,7 @@ import RootNavigationMenu from "@/components/ui/RootNavigation/RootNavigationMen
 import RootNavigationMenuLink from "@/components/ui/RootNavigation/RootNavigationMenuLink";
 import RootNavigationMenuLinkContent from "@/components/ui/RootNavigation/RootNavigationMenuLinkContent";
 import { SEO } from "@/lib/constants/static";
+import { createAuth } from "@/lib/modules/Auth";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FC, PropsWithChildren } from "react";
@@ -64,13 +65,13 @@ const MENU_END = [
 ] satisfies RootNavigationItemProps[];
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const r = await authMemory.initalize();
+  // const r = await authMemory.initalize();
 
-  // console.log("AuthMemory initialized", r);
+  const auth = await createAuth();
 
-  const isAuthenticated = authMemory.isAuthenticated;
-  const signinContext = authMemory.signinContext;
-  const session = authMemory.session;
+  const isAuthenticated = auth.isAuthenticated;
+  const session = auth.session;
+  const provider = auth.provider;
 
   const name = session?.user?.name || "Aanmelden";
 
@@ -79,9 +80,8 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
   };
 
   const signContextLabel =
-    signContextLabelMap[
-      authMemory.signinContext as NonNullable<SigninContext>
-    ] || "Groepsadministratie";
+    signContextLabelMap[auth.provider as NonNullable<SigninContext>] ||
+    "Groepsadministratie";
 
   return (
     <html
@@ -122,10 +122,10 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
             <RootNavigationMenu items={MENU_END} />
           </div>
         </RootNavigation>
-        <ul className="hidden">
+        <ul className="">
           <li>{`isAuthenticated: ${isAuthenticated ? "Yes" : "No"}`}</li>
-          <li>{`signinContext: ${signinContext}`}</li>
           <li>{`session: ${session ? "Has session" : "no session"}`}</li>
+          <li>{`provider: ${provider ? provider : "no provider"}`}</li>
           <li>{`capabilities: ${authMemory.capabilities.length > 0 ? authMemory.capabilities.join(", ") : "N/A"}`}</li>
           <li>
             Expires at:{" "}
