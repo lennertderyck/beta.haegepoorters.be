@@ -1,6 +1,6 @@
 import Boundary, {
-  BoundaryBlock,
-  BoundaryInline,
+    BoundaryBlock,
+    BoundaryInline
 } from "@/components/basics/Boundary/Boundary";
 import { FC } from "react";
 

@@ -20,8 +20,8 @@ export const getActivityById = async (id: string) => {
   return await client.fetch<Activity>(
     `*[_type == "activity" && _id == $id][0]`,
     {
-      id,
-    },
+      id
+    }
   );
 };
 
@@ -30,7 +30,7 @@ export const getActivitiesForDateRangeAndGroupByAbbr = async (
     start: dayjs.ConfigType;
     end: dayjs.ConfigType;
   },
-  groupId: string,
+  groupId: string
 ) => {
   return await client.fetch<{
     group: any;
@@ -55,8 +55,8 @@ export const getActivitiesForDateRangeAndGroupByAbbr = async (
     {
       startDate: range.start,
       endDate: range.end,
-      groupAbbr: groupId,
-    },
+      groupAbbr: groupId
+    }
   );
 };
 
@@ -79,8 +79,8 @@ export const getActivitiesForDateRange = async (range: {
   `,
     {
       startDate: dayjs(range.start).startOf("month"),
-      endDate: dayjs(range.end).endOf("month"),
-    },
+      endDate: dayjs(range.end).endOf("month")
+    }
   );
 };
 
@@ -100,8 +100,8 @@ export const getActivitiesPreviewForNextWeek = async () => {
     }
   `,
     {
-      startDate: dayjs().startOf("week"),
-    },
+      startDate: dayjs().startOf("week")
+    }
   );
 };
 
@@ -114,7 +114,7 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
       (acc, { group, activity }) => {
         const activityDate = dayjs(activity?.startDate).format("YYYY-MM-DD");
         const existingGroupIndex = acc.findIndex(
-          (group) => group.dateGroup === activityDate,
+          (group) => group.dateGroup === activityDate
         );
 
         return existingGroupIndex === -1
@@ -123,9 +123,9 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
               dateGroupIndex === existingGroupIndex
                 ? {
                     ...dateGroup,
-                    items: [...dateGroup.items, { group, activity }],
+                    items: [...dateGroup.items, { group, activity }]
                   }
-                : dateGroup,
+                : dateGroup
             );
       },
       [] as {
@@ -134,7 +134,7 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
           group: (typeof response.activitiesByGroup)[number]["group"];
           activity: (typeof response.activitiesByGroup)[number]["activity"];
         }[];
-      }[],
+      }[]
     );
 };
 
@@ -148,7 +148,7 @@ interface ActivityMutationInput {
 }
 
 export const createActivityMutation = async (
-  activity: ActivityMutationInput,
+  activity: ActivityMutationInput
 ) => {
   return await client.create({
     _type: "activity",
@@ -159,14 +159,14 @@ export const createActivityMutation = async (
     body: activity.body,
     group: {
       _type: "reference",
-      _ref: activity.groupId,
-    },
+      _ref: activity.groupId
+    }
   });
 };
 
 export const updateActivityMutation = async (
   activityId: string,
-  activity: Partial<ActivityMutationInput>,
+  activity: Partial<ActivityMutationInput>
 ) => {
   return await client.patch(activityId).set(activity).commit();
 };

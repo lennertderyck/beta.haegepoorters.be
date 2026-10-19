@@ -6,25 +6,25 @@ import { labelVariants } from "../Label/Label";
 const buttonVariants = cva(
   [
     labelVariants(),
-    "whitespace-nowrap w-fit text-primary-500 flex gap-2 items-center",
+    "cursor-pointer",
+    "whitespace-nowrap w-fit text-primary-500 flex gap-2 items-center disabled:opacity-50 disabled:cursor-not-allowed"
   ],
   {
     variants: {
       variant: {
         primary: "pl-2 pr-3 py-2 bg-primary-200",
         secondary: "border-b-2 border-primary-500 pb-1",
-        tertiary: "",
-      },
+        tertiary: ""
+      }
     },
     defaultVariants: {
-      variant: "primary",
-    },
-  },
+      variant: "primary"
+    }
+  }
 );
 
 interface Props
-  extends ComponentProps<"button">,
-    VariantProps<typeof buttonVariants> {
+  extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 

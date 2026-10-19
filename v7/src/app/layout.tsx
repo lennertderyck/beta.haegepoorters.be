@@ -64,6 +64,9 @@ const MENU_END = [
   }
 ] satisfies RootNavigationItemProps[];
 
+const isAuthenticationHeaderEnabled =
+  process.env.FEATURE_HEADER_AUTH_ENABLED === "true";
+
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
   const auth = await createAuth();
 
@@ -126,33 +129,34 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
             <RootNavigationMenu items={MENU_END} />
           </div>
         </RootNavigation>
-        <header className="px-5 py-3 bg-neutral-100 m-4">
-          {!isAuthenticated && <p className="text-sm">Niet aangemeld</p>}
-          {isAuthenticated && !isMember && (
-            <p className="text-sm">
-              Je bent aangemeld, maar geen lid van deze groep
-            </p>
-          )}
-          {isMember && (
-            <div className="flex items-center gap-4">
-              <Icon name="checkbox-circle-line" className="inline-block" />
-              <div>
-                <p className="font-serif font-semibold text-xl align-middle">
-                  {oauthProvider?.info.description}
-                </p>
-                <p className="text-sm">
-                  opnieuw om{" "}
-                  {expiresAt &&
-                    dayjs(expiresAt).format("DD MMM [om] HH:mm:ss") +
-                      " of " +
-                      dayjs(expiresAt).fromNow()}{" "}
-                  ({capabilities.join(", ")})
-                </p>
+        {isAuthenticationHeaderEnabled && (
+          <header className="px-5 py-3 bg-neutral-100 m-4">
+            {!isAuthenticated && <p className="text-sm">Niet aangemeld</p>}
+            {isAuthenticated && !isMember && (
+              <p className="text-sm">
+                Je bent aangemeld, maar geen lid van deze groep
+              </p>
+            )}
+            {isMember && (
+              <div className="flex items-center gap-4">
+                <Icon name="checkbox-circle-line" className="inline-block" />
+                <div>
+                  <p className="font-serif font-semibold text-xl align-middle">
+                    {oauthProvider?.info.description}
+                  </p>
+                  <p className="text-sm">
+                    opnieuw om{" "}
+                    {expiresAt &&
+                      dayjs(expiresAt).format("DD MMM [om] HH:mm:ss") +
+                        " of " +
+                        dayjs(expiresAt).fromNow()}{" "}
+                    ({capabilities.join(", ")})
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
-        </header>
-
+            )}
+          </header>
+        )}
         {children}
         <Footer />
       </body>

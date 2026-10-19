@@ -55,7 +55,7 @@ const ArticleHeaderContainer: FC<ComponentProps<"div">> = ({
   return (
     <div
       data-slot="header-container"
-      className={cn("container mx-auto  has-[+*]:mb-8", className)}
+      className={cn("container px-0! md:px-6 mx-auto has-[+*]:mb-8", className)}
       {...otherProps}
     />
   );
@@ -103,7 +103,7 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
   );
 };
 
-const articleContentVariants = cva("px-3 md:px-6 mx-auto", {
+const articleContentVariants = cva("px-0! md:px-6 mx-auto", {
   variants: {
     stretch: {
       true: "max-w-390",
