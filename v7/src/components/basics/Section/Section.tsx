@@ -22,7 +22,10 @@ export const SectionTitle: FC<ComponentProps<"h2"> & { asChild?: boolean }> = ({
 
   return (
     <Comp
-      className={cn("flex items-center gap-4 font-serif text-2xl text-gray-600", className)}
+      className={cn(
+        "flex items-center gap-4 font-serif text-2xl text-gray-600",
+        className,
+      )}
       {...otherProps}
     />
   );

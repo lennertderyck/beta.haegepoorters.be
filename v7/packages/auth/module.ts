@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import {
-    getAccessTokenServer,
-    getIsAuthenticatedServer,
-    getSessionServer
+  getAccessTokenServer,
+  getIsAuthenticatedServer,
+  getSessionServer,
 } from ".";
 
 interface AuthInitializer {
@@ -14,12 +14,12 @@ interface AuthInitializer {
 }
 
 const ind = (
-  session?: Awaited<ReturnType<typeof getSessionServer>>
+  session?: Awaited<ReturnType<typeof getSessionServer>>,
 ): AuthInitializer => {
   return {
     signInAgain: (callbackUrl: string) => {
       const params = new URLSearchParams({
-        callbackUrl
+        callbackUrl,
       });
 
       redirect("/auth/signin" + "?" + params.toString());
@@ -31,7 +31,7 @@ const ind = (
       return (
         Promise.resolve(session?.user?.loginProvider || null) ||
         getSessionServer().then(
-          (session) => session?.user?.loginProvider || null
+          (session) => session?.user?.loginProvider || null,
         )
       );
     },
@@ -40,14 +40,14 @@ const ind = (
     },
     get accessToken() {
       return getAccessTokenServer().then((token) => token.accessToken || null);
-    }
+    },
   };
 };
 
 const CreateAuthModule = async () => "use server";
 Object.assign(
   async (): Promise<AuthInitializer> => ind(await getSessionServer()),
-  ind()
+  ind(),
 );
 
 export default CreateAuthModule;

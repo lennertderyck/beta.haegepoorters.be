@@ -1,8 +1,8 @@
 import Article, {
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import { FC } from "react";
 

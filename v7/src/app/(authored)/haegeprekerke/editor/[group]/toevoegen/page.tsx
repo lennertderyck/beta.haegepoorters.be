@@ -1,11 +1,11 @@
 import Article, {
-    ArticleContent,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-    ActivityFormState
+  ActivityFormState,
 } from "@/components/ui/ActivityForm/ActivityForm";
 import { createActivityMutation } from "@/lib/actions/queries/activities";
 import { getGroupByAbbr } from "@/lib/actions/queries/groups";
@@ -13,7 +13,7 @@ import { redirect } from "next/navigation";
 import { FC } from "react";
 
 const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
-  params
+  params,
 }) => {
   const { group: groupAbbr } = await params;
 
@@ -31,7 +31,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
         endDate: reaction.endDate,
         title: reaction.title,
         body: reaction.body,
-        type: reaction.type || "default"
+        type: reaction.type || "default",
       });
       console.log({ response });
     } catch (error) {

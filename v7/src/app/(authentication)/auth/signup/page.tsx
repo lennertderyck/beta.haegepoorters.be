@@ -16,9 +16,9 @@ const Page: FC<Props> = async () => {
           email: formData.get("email") as string,
           password: formData.get("password") as string,
           name: formData.get("name") as string,
-          callbackURL: AUTH_URL_ORIGIN + "/callback"
+          callbackURL: AUTH_URL_ORIGIN + "/callback",
         },
-        asResponse: true
+        asResponse: true,
       });
       console.log({ response });
     } catch (error) {

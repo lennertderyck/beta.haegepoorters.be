@@ -1,16 +1,16 @@
 import Article, {
-    ArticleContent,
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Card, {
-    CardContent,
-    CardFigure,
-    CardHeader,
-    CardsGroup,
-    CardTitle
+  CardContent,
+  CardFigure,
+  CardHeader,
+  CardsGroup,
+  CardTitle,
 } from "@/components/basics/Card/Card";
 import { getStaffPerGroup } from "@/lib/actions/queries/staff";
 import { FC } from "react";

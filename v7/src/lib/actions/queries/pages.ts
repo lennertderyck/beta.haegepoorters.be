@@ -17,8 +17,8 @@ export const getStoryblokCatchAllQuery = async (slug: string[]) => {
             }
           | undefined
         >;
-      }>("/" + [...(prefix ? [prefix] : []), ...slug].join("/"))()
-    )
+      }>("/" + [...(prefix ? [prefix] : []), ...slug].join("/"))(),
+    ),
   );
 
   const isOkAvailable = responses.find((result) => result.ok);

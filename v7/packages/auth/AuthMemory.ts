@@ -29,18 +29,18 @@ const createMemoryMap = () => {
     ["session", null],
     ["isAuthenticated", false],
     ["accessToken", null],
-    ["capabilities", []]
+    ["capabilities", []],
   ]);
 };
 
 const AuthMemory = async (
-  initializer: AuthMemoryInitialzerOptions
+  initializer: AuthMemoryInitialzerOptions,
 ): Promise<AuthMemoryFactory> => {
   const map: ReturnType<typeof createMemoryMap> = createMemoryMap();
   let initialized = false;
 
   const initalize = async (
-    options: AuthMemoryInitialzerOptions = initializer
+    options: AuthMemoryInitialzerOptions = initializer,
   ) => {
     try {
       if (initialized) {
@@ -93,7 +93,7 @@ const AuthMemory = async (
     },
     get provider() {
       return map.get("provider") as string | null;
-    }
+    },
   };
 };
 

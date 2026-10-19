@@ -1,5 +1,5 @@
 const COOKIES = {
-  SESSIN_METHOD: "auth.signinContext"
+  SESSIN_METHOD: "auth.signinContext",
 };
 
 export default COOKIES;

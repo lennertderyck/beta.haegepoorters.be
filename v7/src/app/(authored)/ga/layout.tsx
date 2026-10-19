@@ -7,8 +7,6 @@ const Layout: FC<LayoutProps<"/ga">> = async ({ children }) => {
   const isAuthenticated = auth.isAuthenticated;
   const hasCapabilities = isAuthenticated && auth.capabilities.length > 0;
 
-  console.log({ auth });
-
   if (!hasCapabilities) unauthorized();
   return children;
 };

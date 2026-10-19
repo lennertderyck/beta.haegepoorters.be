@@ -8,23 +8,23 @@ const cardsGroupVariants = cva(
     "@container/cards-group",
     "grid grid-cols-12 w-full",
     "**:data-[slot=card]:h-full",
-    ""
+    "",
   ],
   {
     variants: {
       variant: {
         list: "",
-        grid: ""
+        grid: "",
       },
       sizing: {
         compact: "gap-x-4 -my-4",
-        default: "gap-x-6 -my-6"
-      }
+        default: "gap-x-6 -my-6",
+      },
     },
     defaultVariants: {
-      sizing: "default"
-    }
-  }
+      sizing: "default",
+    },
+  },
 );
 
 export const CardFigure: FC<ComponentProps<"figure">> = ({
@@ -36,7 +36,7 @@ export const CardFigure: FC<ComponentProps<"figure">> = ({
       data-slot="card-figure"
       className={cn(
         "h-40 has-[+*]:mb-4 *:object-cover *:w-full *:h-full",
-        className
+        className,
       )}
       {...otherProps}
     />
@@ -80,7 +80,7 @@ export const CardsGroupItem: FC<ComponentProps<"li">> = ({
       data-slot="cards-group-item"
       className={cn(
         "col-span-12 @2xl/cards-group:col-span-6 @3xl/cards-group:col-span-4 in-data-[sizing=compact]:@3xl/cards-group:col-span-3",
-        className
+        className,
       )}
       {...otherProps}
     />
@@ -91,17 +91,17 @@ const cardVariants = cva("", {
   variants: {
     sizing: {
       default: "**:data-[slot=card-content]:py-6",
-      compact: "**:data-[slot=card-content]:py-4"
+      compact: "**:data-[slot=card-content]:py-4",
     },
     variant: {
       inline: "py-0!",
-      default: "border-b-2 border-neutral-100"
-    }
+      default: "border-b-2 border-neutral-100",
+    },
   },
   defaultVariants: {
     sizing: "default",
-    variant: "default"
-  }
+    variant: "default",
+  },
 });
 
 /**
@@ -164,7 +164,7 @@ export const CardTitle: FC<ComponentProps<"h4">> = ({
       className={cn(
         "text-xl in-data-[sizing=compact]:text-lg",
         "font-semibold has-[+*]:mb-1",
-        className
+        className,
       )}
       {...otherProps}
     />

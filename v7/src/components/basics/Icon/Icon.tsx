@@ -24,7 +24,7 @@ const Icon: FC<IconProps> = ({
   fill,
   noStyle,
   name = "admin",
-  className
+  className,
 }) => {
   const nameAndStyleSeperator = noStyle ? "" : "-";
   const iconStyle = fill ? "fill" : "line";

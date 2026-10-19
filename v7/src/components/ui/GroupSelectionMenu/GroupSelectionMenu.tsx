@@ -33,7 +33,7 @@ const GroupSelectionMenu: FC<Props> = async ({
           >
             <Link
               className={cn({
-                "font-bold": selectedGroupAbbr === group.abbr
+                "font-bold": selectedGroupAbbr === group.abbr,
               })}
               href={href(group)}
             >

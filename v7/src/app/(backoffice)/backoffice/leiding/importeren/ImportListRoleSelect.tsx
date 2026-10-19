@@ -5,7 +5,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/basics/Select/Select";
 import { FC } from "react";
 import { Controller } from "react-hook-form";

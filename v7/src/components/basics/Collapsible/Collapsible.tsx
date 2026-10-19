@@ -26,13 +26,13 @@ const collapsibleContentVariants = cva(
     variants: {
       duration: {
         slower: "duration-250",
-        faster: "duration-100"
-      }
+        faster: "duration-100",
+      },
     },
     defaultVariants: {
-      duration: "slower"
-    }
-  }
+      duration: "slower",
+    },
+  },
 );
 
 function CollapsibleContent({
@@ -46,7 +46,7 @@ function CollapsibleContent({
       data-slot="collapsible-content"
       className={collapsibleContentVariants({
         className,
-        duration
+        duration,
       })}
       {...props}
     />

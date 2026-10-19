@@ -32,7 +32,7 @@ dayjs.extend(relativeTime);
 
 export const metadata: Metadata = {
   title: SEO.name.short,
-  description: SEO.name.official
+  description: SEO.name.official,
 };
 
 const MENU_START = [
@@ -41,18 +41,18 @@ const MENU_START = [
     name: "Haegeprekerke",
     href: "/haegeprekerke",
     icon: "book-3-line",
-    exact: false
+    exact: false,
   },
   {
     name: "Nieuws & blog",
     href: "/blog",
     icon: "newspaper-line",
-    exact: false
+    exact: false,
   },
   { name: "Leiding", href: "/leiding", icon: "team-line", exact: false },
 
   { name: "HP Rénove", href: "/vzw", icon: "hammer-line", exact: false },
-  { name: "Contact", href: "/contact", icon: "chat-4-line", exact: false }
+  { name: "Contact", href: "/contact", icon: "chat-4-line", exact: false },
 ] satisfies RootNavigationItemProps[];
 
 const MENU_END = [
@@ -60,8 +60,8 @@ const MENU_END = [
     name: "Digitale lidkaart",
     href: "/ga/lidkaart",
     icon: "qr-code-line",
-    exact: false
-  }
+    exact: false,
+  },
 ] satisfies RootNavigationItemProps[];
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
@@ -76,7 +76,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
   const name = session?.user?.name || "Aanmelden";
 
   const signContextLabelMap: Record<NonNullable<SigninContext>, string> = {
-    local: "Lokaal beheer"
+    local: "Lokaal beheer",
   };
 
   const signContextLabel =
@@ -89,7 +89,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
       className={cn(
         sora.variable,
         podkova.variable,
-        "h-full antialiased [interpolate-size:allow-keywords]"
+        "h-full antialiased [interpolate-size:allow-keywords]",
       )}
     >
       <body className="min-h-full flex flex-col h-full md:pl-(--rootnavigation-size-min)">

@@ -12,7 +12,7 @@ const FooterSocialLinks: FC<ComponentProps<"div">> = ({
     <div
       className={cn(
         "flex items-center gap-3 bg-neutral-50 w-fit p-3 rounded-xl",
-        className
+        className,
       )}
       {...otherProps}
     >

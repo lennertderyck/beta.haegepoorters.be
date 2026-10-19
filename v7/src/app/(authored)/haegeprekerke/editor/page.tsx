@@ -1,13 +1,13 @@
 import Article, {
-    ArticleContent,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Card, {
   CardContent,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import { getGroups } from "@/lib/actions/queries/groups";
@@ -32,7 +32,7 @@ const Page: FC<Props> = async () => {
             <li key={group.abbr}>
               <Link
                 href={{
-                  pathname: `/haegeprekerke/editor/${group.abbr}`
+                  pathname: `/haegeprekerke/editor/${group.abbr}`,
                 }}
               >
                 <Card className="flex items-center">

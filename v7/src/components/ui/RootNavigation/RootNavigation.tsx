@@ -56,7 +56,7 @@ const RootNavigation: FC<Props> = ({
           "peer",
           "before:block",
           "md:before:w-(--rootnavigation-size-min) h-full",
-          !isOpen ? "not-md:-translate-x-full" : "not-md:translate-x-none"
+          !isOpen ? "not-md:-translate-x-full" : "not-md:translate-x-none",
         )}
       >
         <Comp
@@ -71,7 +71,7 @@ const RootNavigation: FC<Props> = ({
         className={cn(
           "fixed inset-0 z-(--rootnavigation-overlay-z-index)",
           "bg-black/0 peer-data-[state=open]:bg-black/50",
-          "transition-colors duration-350 ease-in-out"
+          "transition-colors duration-350 ease-in-out",
         )}
       />
       <button
@@ -79,7 +79,7 @@ const RootNavigation: FC<Props> = ({
         className={cn(
           "rounded-full fixed top-4 right-4 md:hidden bg-primary-500 size-12 grid place-items-center",
           "transition-[translate] duration-200",
-          !isOpen ? "translate-x-none" : "translate-x-16"
+          !isOpen ? "translate-x-none" : "translate-x-16",
         )}
       >
         <Icon name="menu-line" size="1.5rem" color="white" />

@@ -18,7 +18,7 @@ import { normalizeStringCase } from "./formatters";
  * isEmptyString('undefined') // false
  */
 export const isEmptyString = (
-  value: string | undefined | null
+  value: string | undefined | null,
 ): value is undefined | null => {
   return value === undefined || value === null || value.trim() === "";
 };
@@ -34,7 +34,7 @@ export const isEmptyString = (
  */
 export const isPartialStringValueMatch = (
   source: string,
-  query: string
+  query: string,
 ): boolean => {
   return (
     query.length > 0 &&

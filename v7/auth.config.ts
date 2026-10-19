@@ -1,7 +1,7 @@
 import {
-    SUPPPORTED_GROUP_IDS,
-    WEBMASTER_FUNCTION_CODE,
-    WEBMASTER_USER_ID
+  SUPPPORTED_GROUP_IDS,
+  WEBMASTER_FUNCTION_CODE,
+  WEBMASTER_USER_ID,
 } from "@/lib/constants/admin";
 import { DBFieldAttribute } from "better-auth";
 import { GenericOAuthConfig } from "better-auth/plugins";
@@ -14,17 +14,17 @@ const LOCAL_AUTH_PROVIDER_CLIENT_SECRET =
 
 if (!LOCAL_AUTH_PROVIDER_CLIENT_ID || !LOCAL_AUTH_PROVIDER_CLIENT_SECRET) {
   throw new Error(
-    "Missing local auth provider client ID or client secret in environment variables"
+    "Missing local auth provider client ID or client secret in environment variables",
   );
 }
 
 export const AUTH = {
   BASE_URL: AUTH_URL_ORIGIN,
-  FALLBACK_PATH: "/"
+  FALLBACK_PATH: "/",
 };
 
 export const OAUTH = {
-  BASE_URL: AUTH.BASE_URL + AUTHN_URL_PATHNAME
+  BASE_URL: AUTH.BASE_URL + AUTHN_URL_PATHNAME,
 };
 
 export const OAUTH_PROVIDERS = [
@@ -44,49 +44,49 @@ export const OAUTH_PROVIDERS = [
           {
             headers: {
               accept: "application/json",
-              Authorization: bearerToken
-            }
-          }
+              Authorization: bearerToken,
+            },
+          },
         );
         const groupLeaderresponse = await fetch(
           "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/leiding",
           {
             headers: {
               accept: "application/json",
-              Authorization: bearerToken
-            }
-          }
+              Authorization: bearerToken,
+            },
+          },
         );
 
         const personData = await personResponse.json();
         const groupLeaderData = await groupLeaderresponse.json();
 
         const isMember = personData.functies.some((functie: any) =>
-          SUPPPORTED_GROUP_IDS.includes(functie.groep)
+          SUPPPORTED_GROUP_IDS.includes(functie.groep),
         );
 
         const isMemberActive = isMember.einde === undefined;
 
         const activeFunctions = personData.functies.filter(
-          (functie: any) => functie.einde === undefined
+          (functie: any) => functie.einde === undefined,
         );
         const isActiveMember = activeFunctions.some((functie: any) =>
-          SUPPPORTED_GROUP_IDS.includes(functie.groepId)
+          SUPPPORTED_GROUP_IDS.includes(functie.groepId),
         );
         const isLeader = groupLeaderData.groepen.some((groep: any) =>
-          SUPPPORTED_GROUP_IDS.includes(groep.id)
+          SUPPPORTED_GROUP_IDS.includes(groep.id),
         );
         const isWebmaster =
           WEBMASTER_USER_ID.includes(personData.id) ||
           activeFunctions.some((functie: any) =>
-            WEBMASTER_FUNCTION_CODE.includes(functie.functieCode)
+            WEBMASTER_FUNCTION_CODE.includes(functie.functieCode),
           );
 
         const capabilities = [
           isMember && "registered",
           isMemberActive && "active",
           isLeader && "leader",
-          isWebmaster && "webmaster"
+          isWebmaster && "webmaster",
         ].filter(Boolean);
 
         return {
@@ -97,17 +97,17 @@ export const OAUTH_PROVIDERS = [
           image: undefined,
           capabilities,
           profile: personData.vgagegevens,
-          ...personData
+          ...personData,
         };
       },
 
       mapProfileToUser: async (profile) => {
         return {
           loginProvider: "keycloak",
-          capabilities: profile.capabilities || []
+          capabilities: profile.capabilities || [],
         };
-      }
-    }
+      },
+    },
   },
   {
     info: { name: "Lokaal" },
@@ -123,10 +123,10 @@ export const OAUTH_PROVIDERS = [
       authentication: "basic",
       mapProfileToUser: async () => ({
         loginProvider: "supabase",
-        capabilities: ["member", "leader", "webmaster"]
-      })
-    }
-  }
+        capabilities: ["member", "leader", "webmaster"],
+      }),
+    },
+  },
 ] satisfies Array<{
   info: { name: string };
   config: GenericOAuthConfig<string>;
@@ -134,5 +134,5 @@ export const OAUTH_PROVIDERS = [
 
 export const OAUTH_ADDITIONAL_FIELDS = {
   loginProvider: { type: "string", required: false },
-  capabilities: { type: "string[]", required: false }
+  capabilities: { type: "string[]", required: false },
 } satisfies Record<string, DBFieldAttribute>;

@@ -8,7 +8,7 @@ export const getSessionServer = async () => {
   try {
     const headers = await nextHeaders();
     return await keycloakServerAuth.api.getSession({
-      headers
+      headers,
     });
   } catch (error) {
     console.error("Failed to get session:", error);
@@ -20,7 +20,7 @@ export const getAccessTokenServer = async () => {
   try {
     const { accessToken } = await keycloakServerAuth.api.getAccessToken({
       body: { useAccountCookie: true },
-      headers: await nextHeaders()
+      headers: await nextHeaders(),
     });
     return accessToken;
   } catch (error) {

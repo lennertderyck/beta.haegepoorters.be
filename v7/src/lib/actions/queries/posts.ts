@@ -7,7 +7,7 @@ export const getStoryblokHighlightedPostsQuery = StoryblokQueryFactory<{
 }>("", {
   starts_with: "blog/",
   sort_by: "published_at:desc",
-  per_page: "3"
+  per_page: "3",
 });
 
 export const getStoryblokPostsQuery = StoryblokQueryFactory<{
@@ -18,5 +18,5 @@ export const getStoryblokPostsQuery = StoryblokQueryFactory<{
 }>("", {
   starts_with: "blog/",
   sort_by: "published_at:desc",
-  per_page: "10"
+  per_page: "10",
 });

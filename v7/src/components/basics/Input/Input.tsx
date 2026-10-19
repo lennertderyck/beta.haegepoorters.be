@@ -17,7 +17,7 @@ const Input: FC<ComponentProps<"input"> & { asChild?: boolean }> = ({
         "border border-neutral-100 focus-visible:border-neutral-200 ",
         "outline-none rounded-sm",
         "transition",
-        className
+        className,
       )}
       {...otherProps}
     />

@@ -20,7 +20,7 @@ const SigninButton: FC<Props> = ({
     try {
       await keycloakClientAuth.signIn.social({
         provider,
-        callbackURL: callbackURL || "http://localhost:3000"
+        callbackURL: callbackURL || "http://localhost:3000",
       });
     } catch (error) {
       console.error(error);

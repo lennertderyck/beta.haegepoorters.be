@@ -1,10 +1,10 @@
 import Timeline, {
-    TimelineItem,
-    TimelineItemContent,
-    TimelineItemDescription,
-    TimelineItemTime,
-    TimelineItemTitle,
-    TimelineProps
+  TimelineItem,
+  TimelineItemContent,
+  TimelineItemDescription,
+  TimelineItemTime,
+  TimelineItemTitle,
+  TimelineProps,
 } from "@/components/elements/Timeline/ActivityTimeline";
 import { Activity } from "@/lib/actions/queries/activities";
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import { FC, ReactNode } from "react";
 
 export const ActivitiesTimelineItem: FC<{ activity: Activity }> = ({
-  activity
+  activity,
 }) => {
   const meta = ACTIVITY_TYPES.find((type) => type.name === activity.type);
   const isMultiday = meta?.isMultiDay || false;

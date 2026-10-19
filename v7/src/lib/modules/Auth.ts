@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import {
-    getAccessTokenServer,
-    getIsAuthenticatedServer,
-    getSessionServer
+  getAccessTokenServer,
+  getIsAuthenticatedServer,
+  getSessionServer,
 } from "./Auth.utils";
 
 interface AuthModule {
@@ -31,7 +31,7 @@ const initializer = (initialSession?: Session) => {
     },
     get provider() {
       return getSession().then(
-        (session) => session?.user?.loginProvider ?? null
+        (session) => session?.user?.loginProvider ?? null,
       );
     },
     get accessToken() {
@@ -39,7 +39,7 @@ const initializer = (initialSession?: Session) => {
     },
     get capabilities() {
       return getSession().then((session) => session?.user?.capabilities ?? []);
-    }
+    },
   };
 };
 
@@ -57,7 +57,7 @@ const createAuth = async () => {
     session,
     provider: session?.user?.loginProvider ?? null,
     accessToken: await getAccessTokenServer(),
-    capabilities: session?.user?.capabilities ?? []
+    capabilities: session?.user?.capabilities ?? [],
   };
 };
 

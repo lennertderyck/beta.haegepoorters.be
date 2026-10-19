@@ -2,8 +2,8 @@
 
 import Button from "@/components/basics/Button/Button";
 import {
-    Collapsible,
-    CollapsibleContent
+  Collapsible,
+  CollapsibleContent,
 } from "@/components/basics/Collapsible/Collapsible";
 import Field, { FieldLabel } from "@/components/basics/Field/Field";
 import Icon from "@/components/basics/Icon/Icon";
@@ -40,7 +40,7 @@ const initialActivityFormState: ActivityFormState = {
   endDate: DEFAULT_START_DATE.hour(17).format("YYYY-MM-DDTHH:mm"),
   title: "",
   body: "",
-  type: null
+  type: null,
 };
 
 interface Props {
@@ -54,17 +54,17 @@ const ActivityForm: FC<Props> = ({
   action,
   deleteAction,
   actionType,
-  defaultValue = initialActivityFormState
+  defaultValue = initialActivityFormState,
 }) => {
   const [activityType, setActivityType] = useState<ActivityTypes | null>(
-    defaultValue.type
+    defaultValue.type,
   );
   const [title, setTitle] = useState(defaultValue.title);
 
   const [state, formAction, pending] = useActionState(
     async (_formState: ActivityFormState, formData: FormData) => {
       const entries = Object.fromEntries(
-        formData.entries().map(([key, value]) => [key, value.toString()])
+        formData.entries().map(([key, value]) => [key, value.toString()]),
       );
 
       const newState: ActivityFormSubmitState = {
@@ -72,7 +72,7 @@ const ActivityForm: FC<Props> = ({
         body: entries.body,
         type: entries.type as ActivityTypes,
         startDate: entries.startDate,
-        endDate: entries.endDate
+        endDate: entries.endDate,
       };
 
       await action(newState);
@@ -81,21 +81,21 @@ const ActivityForm: FC<Props> = ({
 
       return newState;
     },
-    defaultValue
+    defaultValue,
   );
 
   const [deleteState, formDeleteAction, deletePending] = useActionState(
     async () => {
       deleteAction?.();
     },
-    null
+    null,
   );
 
   const [transition, startTransition] = useTransition();
 
   const showDetailFields = activityType !== null;
   const isMultiDayActivity = ACTIVITY_TYPES.find(
-    (type) => type.name === activityType
+    (type) => type.name === activityType,
   )?.isMultiDay;
 
   const isTitleFilled = title.trim().length > 0;
@@ -182,7 +182,7 @@ const ActivityForm: FC<Props> = ({
                     "inline transition-[width] ease-in-out duration-300",
                     isMultiDayActivity
                       ? "w-[calc(100%-(var(--spacing)*4))]"
-                      : "w-full"
+                      : "w-full",
                   )}
                 />
                 <Collapsible open={isMultiDayActivity}>

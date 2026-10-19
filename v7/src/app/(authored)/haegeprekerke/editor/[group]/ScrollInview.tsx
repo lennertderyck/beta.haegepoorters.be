@@ -14,7 +14,7 @@ const ScrollInview: FC<Props> = ({ enabled, offset = 20, ...otherProps }) => {
     if (ref.current) {
       window.scrollTo({
         top: window.scrollY + ref.current.getBoundingClientRect().top - offset,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   };

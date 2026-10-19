@@ -4,7 +4,11 @@ import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import { ComponentProps, FC, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { importStaffMutation, StaffImportItem, StaffMutationBody } from "./actions";
+import {
+  importStaffMutation,
+  StaffImportItem,
+  StaffMutationBody,
+} from "./actions";
 import { getImportTypeFromImportItem } from "./ImportList.utils";
 
 export interface ImportListFormModel {
@@ -39,20 +43,20 @@ const ImportListFormProvider: FC<Props> = ({
             ...accumulatedDataForImportType,
             [importKey]: importRow.defaultImportRoles.flatMap((role) => {
               return role._id;
-            })
-          }
+            }),
+          },
         };
       },
       {
         importByStaffId: {},
-        importByReference: {}
-      }
+        importByReference: {},
+      },
     );
 
   const methods = useForm<ImportListFormModel>({
     defaultValues: {
-      ...defaultValuesForRoleSelectInput
-    }
+      ...defaultValuesForRoleSelectInput,
+    },
   });
 
   const onSubmit = async (values: ImportListFormModel) => {
@@ -69,13 +73,13 @@ const ImportListFormProvider: FC<Props> = ({
           firstName: importRow.profile.firstName,
           lastName: importRow.profile.lastName,
           groepsadministratieReference: importRow.groepsadministratieReference,
-          roles
+          roles,
         };
       });
 
       console.log("IMPORT STARTING", mutations);
       const response = await importStaffMutation({
-        importData: mutations
+        importData: mutations,
       });
       console.log("IMPORT DONE", response);
     } catch (error) {
@@ -99,7 +103,7 @@ export const ImportListFormSubmit = () => {
       variant={state === null ? "tertiary" : "primary"}
       onClick={() => {
         const isConfirmed = confirm(
-          "Wil je verder gaan met het importeren van deze leidingsverdeling?"
+          "Wil je verder gaan met het importeren van deze leidingsverdeling?",
         );
 
         if (isConfirmed) {

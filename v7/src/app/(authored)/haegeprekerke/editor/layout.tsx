@@ -3,7 +3,7 @@ import { unauthorized } from "next/navigation";
 import { FC } from "react";
 
 const Layout: FC<LayoutProps<"/haegeprekerke/editor">> = async ({
-  children
+  children,
 }) => {
   const isAuthenticated = authMemory.isAuthenticated;
   const hasCapabilities =

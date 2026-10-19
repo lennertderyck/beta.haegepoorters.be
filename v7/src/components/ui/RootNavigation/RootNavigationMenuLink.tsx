@@ -28,8 +28,8 @@ const RootNavigationMenuLink: FC<Props> = ({
         className,
         {
           "bg-primary-200": isActive,
-          "text-primary-500": isActive
-        }
+          "text-primary-500": isActive,
+        },
       )}
       {...otherProps}
     />

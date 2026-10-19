@@ -1,24 +1,24 @@
 import Article, {
-    ArticleContent,
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import { getCmsRolesQuery } from "@/lib/actions/queries";
 import { FC } from "react";
 import { getStaffImportListQuery } from "./actions";
 import DeleteAllStaffButton from "./DeleteAllStaffButton";
 import ImportList, {
-    ImportListColumn,
-    ImportListContent,
-    ImportListHeader,
-    ImportListHeaderColumn,
-    ImportListRow
+  ImportListColumn,
+  ImportListContent,
+  ImportListHeader,
+  ImportListHeaderColumn,
+  ImportListRow,
 } from "./ImportList";
 import { getImportTypeFromImportItem } from "./ImportList.utils";
 import ImportListFormProvider, {
-    ImportListFormSubmit
+  ImportListFormSubmit,
 } from "./ImportListFormProvider";
 import ImportListRoleSelect from "./ImportListRoleSelect";
 
@@ -28,7 +28,7 @@ const STATUS_CONFIRM_VALUE = "bevestig";
 interface Props {}
 
 const Page: FC<PageProps<"/backoffice/leiding/importeren">> = async ({
-  searchParams
+  searchParams,
 }) => {
   const { [STATUS_SEARCH_PARAMETER_KEY]: statusParam } = await searchParams;
 
@@ -93,7 +93,7 @@ const Page: FC<PageProps<"/backoffice/leiding/importeren">> = async ({
                           name={fieldName}
                           roles={rolesResponse.map((role) => ({
                             label: role.label,
-                            value: role._id
+                            value: role._id,
                           }))}
                         />
                       </ImportListColumn>

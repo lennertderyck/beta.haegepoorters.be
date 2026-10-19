@@ -1,4 +1,3 @@
-
 import { keycloakServerAuth } from "@/lib/vendors/better-auth/keycloak/server";
 import dayjs from "dayjs";
 import { headers as nextHeaders } from "next/headers";
@@ -7,14 +6,14 @@ export const getSessionServer = async () => {
   const headers = await nextHeaders();
 
   return await keycloakServerAuth.api.getSession({
-    headers
+    headers,
   });
 };
 
 export const getAccessTokenServer = async () => {
   return await keycloakServerAuth.api.getAccessToken({
     body: { useAccountCookie: true },
-    headers: await nextHeaders()
+    headers: await nextHeaders(),
   });
 };
 

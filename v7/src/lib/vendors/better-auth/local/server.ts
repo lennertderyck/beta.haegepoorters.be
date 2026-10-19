@@ -5,7 +5,7 @@ const CONNECTION_STRING = process.env?.AUTH_LOCAL_CONNECTION_URI || "";
 
 export const localServerAuth = createBetterAuthServerInstance("local", {
   database: new Pool({
-    connectionString: CONNECTION_STRING
+    connectionString: CONNECTION_STRING,
   }),
-  emailAndPassword: { enabled: true }
+  emailAndPassword: { enabled: true },
 });

@@ -12,12 +12,12 @@ const resolveValue = async <T>(value: T | (() => T | Promise<T>)) => {
 
 const CreateQueryFactory = (
   baseRequest: RequestInput,
-  options: CreateQueryFactoryOptions
+  options: CreateQueryFactoryOptions,
 ) => {
   return <T = any>(
     queryInput: string,
     parameters: Record<string, string> = {},
-    requestInit?: RequestInit
+    requestInit?: RequestInit,
   ) => {
     return async () => {
       const enabled = await resolveValue(options.enable);
@@ -28,7 +28,7 @@ const CreateQueryFactory = (
       const requestBase = await resolveValue(baseRequest);
       const requestBaseUrl = new URL(requestBase.url);
       const requestBaseUrlSearchParameters = new URLSearchParams(
-        requestBaseUrl.searchParams
+        requestBaseUrl.searchParams,
       );
 
       const endpoint = [
@@ -38,21 +38,21 @@ const CreateQueryFactory = (
         // Construct the query string from the merged search parameters
         new URLSearchParams({
           ...Object.fromEntries(requestBaseUrlSearchParameters),
-          ...parameters
-        }).toString()
+          ...parameters,
+        }).toString(),
       ]
         .filter(Boolean)
         .join("?");
 
       const mergedHeaders = new Headers({
         ...Object.fromEntries(new Headers(requestBase.headers)),
-        ...Object.fromEntries(new Headers(requestInit?.headers))
+        ...Object.fromEntries(new Headers(requestInit?.headers)),
       });
 
       const request = new Request(endpoint.toString(), {
         ...requestInit,
         ...requestBase,
-        headers: mergedHeaders
+        headers: mergedHeaders,
       });
 
       return fetch(request) as Promise<

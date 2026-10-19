@@ -27,7 +27,7 @@ const FooterColophon: FC<Props> = () => {
                   <>&nbsp; | &nbsp;</>
                 )}
               </span>
-            )
+            ),
           )}
         </small>
       ))}

@@ -13,7 +13,7 @@ const Page: FC<PageProps<"/oauth/consent">> = async ({ searchParams }) => {
 
   const supabase = await createSupabaseServerClient();
   const {
-    data: { user }
+    data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {

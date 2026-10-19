@@ -1,19 +1,19 @@
 import Article, {
-    ArticleContent,
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-    CardContent,
-    CardDescription,
-    CardFigure,
-    CardFooter,
-    CardHeader,
-    CardsGroup,
-    CardTitle
+  CardContent,
+  CardDescription,
+  CardFigure,
+  CardFooter,
+  CardHeader,
+  CardsGroup,
+  CardTitle,
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import { getStoryblokPostsQuery } from "@/lib/actions/queries/posts";

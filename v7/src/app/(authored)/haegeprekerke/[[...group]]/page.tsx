@@ -1,14 +1,14 @@
 import Article, {
-    ArticleContent,
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import ActivitiesTimeline, {
-    ActivitiesTimelineItem
+  ActivitiesTimelineItem,
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
@@ -26,7 +26,7 @@ const START_RANGE_OF: OpUnitType = "week";
 
 const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
   params,
-  searchParams
+  searchParams,
 }) => {
   const isAuthenticated = authMemory.isAuthenticated;
   const hasCapabilities =
@@ -40,7 +40,7 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
   const selectedGroup = groupParam ? groupParam[0] : DEFAULT_SELECTED_GROUP;
 
   const rangeStart = (van ? dayjs(String(van), "DD-MM-YYYY") : dayjs()).startOf(
-      START_RANGE_OF
+      START_RANGE_OF,
     ),
     rangeEnd = tot
       ? dayjs(String(tot), "DD-MM-YYYY").endOf("month")
@@ -51,9 +51,9 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
     ? await getActivitiesForDateRangeAndGroupByAbbr(
         {
           start: rangeStart.toDate(),
-          end: rangeEnd.toDate()
+          end: rangeEnd.toDate(),
         },
-        String(selectedGroup)
+        String(selectedGroup),
       )
     : null;
 
@@ -86,8 +86,8 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
               pathname: "/haegeprekerke/" + abbr,
               query: {
                 van: rangeStart.format("DD-MM-YYYY"),
-                tot: rangeEnd.format("DD-MM-YYYY")
-              }
+                tot: rangeEnd.format("DD-MM-YYYY"),
+              },
             })}
           />
         </ArticleHeaderContainer>

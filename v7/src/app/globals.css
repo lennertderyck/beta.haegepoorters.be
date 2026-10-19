@@ -11,10 +11,12 @@
   --navigation-item-spacing: calc(var(--spacing) * 5 * 2);
   --navigation-item-border-width: 2px;
   --rootnavigation-size-min: calc(
-    var(--navigation-item-icon-size) + var(--navigation-item-spacing)
+    var(--navigation-item-icon-size) +
+    var(--navigation-item-spacing)
   );
   --rootnavigation-item-size-min: calc(
-    var(--rootnavigation-size-min) + var(--navigation-item-border-width)
+    var(--rootnavigation-size-min) +
+    var(--navigation-item-border-width)
   );
   --rootnavigation-transition-time: 300ms;
 

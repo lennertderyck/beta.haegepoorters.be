@@ -12,20 +12,20 @@ export const createBetterAuthServerInstance = (
    * @description Database-driven authentication and other forms of authentication cannot be combined. Therefore you can create separate instances for each sign-in context.
    */
   signInContext: string,
-  { plugins, ...otherOptions }: Omit<BetterAuthOptions, "baseURL" | "secret">
+  { plugins, ...otherOptions }: Omit<BetterAuthOptions, "baseURL" | "secret">,
 ) => {
   return betterAuth({
     baseURL: AUTH_URL_ORIGIN + AUTHN_URL_PATHNAME + "/" + signInContext,
     secret: process.env.AUTH_SECRET!,
     ...otherOptions,
-    plugins: [nextCookies(), ...(plugins ?? [])]
+    plugins: [nextCookies(), ...(plugins ?? [])],
   });
 };
 
 export const createBetterAuthClientInstance = (url: string) => {
   return createAuthClient({
     /** The base URL of the server (optional if you're using the same domain) */
-    baseURL: AUTH_URL_ORIGIN + AUTHN_URL_PATHNAME + "/" + url
+    baseURL: AUTH_URL_ORIGIN + AUTHN_URL_PATHNAME + "/" + url,
   });
 };
 

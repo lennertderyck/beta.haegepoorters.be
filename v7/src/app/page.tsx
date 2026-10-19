@@ -1,33 +1,33 @@
 import Boundary, {
-    BoundaryBlock,
-    BoundaryInline
+  BoundaryBlock,
+  BoundaryInline,
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardsGroup,
-    CardTitle
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardsGroup,
+  CardTitle,
 } from "@/components/basics/Card/Card";
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/components/basics/Collapsible/Collapsible";
 import Icon from "@/components/basics/Icon/Icon";
 import {
-    Section,
-    SectionHeader,
-    SectionTitle
+  Section,
+  SectionHeader,
+  SectionTitle,
 } from "@/components/basics/Section/Section";
 import ActivitySchedule, {
-    ActivityScheduleItem,
-    ActivityScheduleItemLabel,
-    ActivityScheduleItemTitle,
-    ActivityScheduleList,
-    ActivityScheduleTime
+  ActivityScheduleItem,
+  ActivityScheduleItemLabel,
+  ActivityScheduleItemTitle,
+  ActivityScheduleList,
+  ActivityScheduleTime,
 } from "@/components/elements/ActivitySchedule/ActivitySchedule";
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
 import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
@@ -74,12 +74,12 @@ const Page: FC<Props> = async () => {
                         <ActivityScheduleList>
                           {dateGroup.items.map((groupedActivity) => {
                             const activityTitle = String(
-                                groupedActivity.activity.title
+                                groupedActivity.activity.title,
                               ).trim(),
                               isActivityTitleEmpty = activityTitle.length === 0;
 
                             const activityDescription = String(
-                                groupedActivity.activity.body
+                                groupedActivity.activity.body,
                               ).trim(),
                               isActivityDescriptionEmpty =
                                 activityDescription.length === 0;
@@ -98,7 +98,7 @@ const Page: FC<Props> = async () => {
                                       <ActivityScheduleItemTitle
                                         className={cn({
                                           ["text-neutral-400"]:
-                                            isActivityTitleEmpty
+                                            isActivityTitleEmpty,
                                         })}
                                       >
                                         {isActivityTitleEmpty
@@ -122,8 +122,8 @@ const Page: FC<Props> = async () => {
                                         href={{
                                           pathname: `/haegeprekerke/${groupedActivity.group.abbr}`,
                                           query: {
-                                            datum: dateGroup.dateGroup
-                                          }
+                                            datum: dateGroup.dateGroup,
+                                          },
                                         }}
                                       >
                                         Meer lezen

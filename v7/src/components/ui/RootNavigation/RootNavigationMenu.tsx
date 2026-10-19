@@ -25,7 +25,7 @@ const RootNavigationMenu: FC<Props> = ({ items }) => {
               <span
                 className={cn(
                   "transition-all origin-left",
-                  "font-semibold whitespace-nowrap pl-5"
+                  "font-semibold whitespace-nowrap pl-5",
                 )}
               >
                 {item.name}

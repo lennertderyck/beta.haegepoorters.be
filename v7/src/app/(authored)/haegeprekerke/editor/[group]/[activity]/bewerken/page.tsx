@@ -1,16 +1,16 @@
 import Article, {
-    ArticleContent,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-    ActivityFormSubmitState
+  ActivityFormSubmitState,
 } from "@/components/ui/ActivityForm/ActivityForm";
 import {
-    deleteActivityMutation,
-    getActivityById,
-    updateActivityMutation
+  deleteActivityMutation,
+  getActivityById,
+  updateActivityMutation,
 } from "@/lib/actions/queries/activities";
 import { redirect } from "next/navigation";
 import { FC } from "react";
@@ -30,7 +30,7 @@ const Page: FC<
         startDate: reaction.startDate,
         endDate: reaction.endDate,
         body: reaction.body,
-        type: reaction.type
+        type: reaction.type,
       });
       console.log("Updating activity", { activity, reaction });
     } catch (error) {
@@ -38,7 +38,7 @@ const Page: FC<
     }
 
     redirect(
-      `/haegeprekerke/editor/${group}?status=success&activiteit=${activityParam}`
+      `/haegeprekerke/editor/${group}?status=success&activiteit=${activityParam}`,
     );
   };
 
@@ -72,7 +72,7 @@ const Page: FC<
             startDate: activity.startDate,
             endDate: activity.endDate,
             body: activity.body,
-            type: activity.type
+            type: activity.type,
           }}
         />
       </ArticleContent>

@@ -17,13 +17,13 @@ export const createSupabaseServerClient = async () => {
         setAll: (cookiesToSet) => {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, options),
             );
           } catch {
             // Called from a server component, cookies can only be set in server actions/route handlers
           }
-        }
-      }
-    }
+        },
+      },
+    },
   );
 };

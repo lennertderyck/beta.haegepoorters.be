@@ -22,7 +22,7 @@ const TimelineItem: FC<
           "pb-4 pl-8",
           "before:absolute before:top-0 before:size-3 before:rounded-full before:-left-1.75 before:bg-primary-500",
           "opacity-100 data-[state=past]:opacity-50",
-          className
+          className,
         )}
         {...otherProps}
       />
@@ -103,11 +103,11 @@ const TimelineItemDescription: FC<ComponentProps<"p">> = ({
 };
 
 export {
-    TimelineItem,
-    TimelineItemContent,
-    TimelineItemDescription,
-    TimelineItemInset,
-    TimelineItemTime,
-    TimelineItemTitle
+  TimelineItem,
+  TimelineItemContent,
+  TimelineItemDescription,
+  TimelineItemInset,
+  TimelineItemTime,
+  TimelineItemTitle,
 };
 export default Timeline;

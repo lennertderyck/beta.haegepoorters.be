@@ -15,7 +15,7 @@ export const signin = async (formData: FormData) => {
 
   const { error } = await supabase.auth.signInWithPassword({
     email: formData.get("email") as string,
-    password: formData.get("password") as string
+    password: formData.get("password") as string,
   });
 
   if (error) redirect(consentURL(authorizationId, error.message));
