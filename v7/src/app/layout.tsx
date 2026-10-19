@@ -1,7 +1,6 @@
 import RootNavigation from "@/components/ui/RootNavigation/RootNavigation";
 import { RootNavigationItemProps } from "@/components/ui/RootNavigation/RootNavigation.types";
 import { podkova, sora } from "@/lib/fonts";
-import { authMemory } from "@/lib/initializer";
 import { cn } from "@/lib/utils/composers";
 import dayjs from "dayjs";
 import "dayjs/locale/nl";
@@ -21,6 +20,7 @@ import { createAuth } from "@/lib/modules/Auth";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FC, PropsWithChildren } from "react";
+import { OAUTH_PROVIDERS } from "../../auth.config";
 import { SigninContext } from "../../packages/auth/AuthMemory";
 import "./globals.css";
 
@@ -65,15 +65,17 @@ const MENU_END = [
 ] satisfies RootNavigationItemProps[];
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
-  // const r = await authMemory.initalize();
-
   const auth = await createAuth();
-
-  console.log({ auth });
 
   const isAuthenticated = auth.isAuthenticated;
   const session = auth.session;
   const provider = auth.provider;
+  const capabilities = auth.capabilities;
+  const isMember = capabilities.includes("member");
+  const expiresAt = auth.session?.session.expiresAt;
+  const oauthProvider = OAUTH_PROVIDERS.find(
+    (provider) => provider.config.providerId === auth.provider
+  );
 
   const name = session?.user?.name || "Aanmelden";
 
@@ -124,20 +126,33 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
             <RootNavigationMenu items={MENU_END} />
           </div>
         </RootNavigation>
-        <ul className="">
-          <li>{`isAuthenticated: ${isAuthenticated ? "Yes" : "No"}`}</li>
-          <li>{`session: ${session ? "Has session" : "no session"}`}</li>
-          <li>{`provider: ${provider ? provider : "no provider"}`}</li>
-          <li>{`capabilities: ${authMemory.capabilities.length > 0 ? authMemory.capabilities.join(", ") : "N/A"}`}</li>
-          <li>
-            Expires at:{" "}
-            {authMemory.session?.session.expiresAt
-              ? dayjs(authMemory.session?.session.expiresAt).format() +
-                " of " +
-                dayjs(authMemory.session?.session.expiresAt).fromNow()
-              : "N/A"}
-          </li>
-        </ul>
+        <header className="px-5 py-3 bg-neutral-100 m-4">
+          {!isAuthenticated && <p className="text-sm">Niet aangemeld</p>}
+          {isAuthenticated && !isMember && (
+            <p className="text-sm">
+              Je bent aangemeld, maar geen lid van deze groep
+            </p>
+          )}
+          {isMember && (
+            <div className="flex items-center gap-4">
+              <Icon name="checkbox-circle-line" className="inline-block" />
+              <div>
+                <p className="font-serif font-semibold text-xl align-middle">
+                  {oauthProvider?.info.description}
+                </p>
+                <p className="text-sm">
+                  opnieuw om{" "}
+                  {expiresAt &&
+                    dayjs(expiresAt).format("DD MMM [om] HH:mm:ss") +
+                      " of " +
+                      dayjs(expiresAt).fromNow()}{" "}
+                  ({capabilities.join(", ")})
+                </p>
+              </div>
+            </div>
+          )}
+        </header>
+
         {children}
         <Footer />
       </body>

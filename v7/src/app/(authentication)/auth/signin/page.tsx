@@ -1,13 +1,14 @@
 import { LOGO_GROEPSADMINISTRATIE } from "@/assets";
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
+import { cn } from "@/lib/utils/composers";
 import Image from "next/image";
 import { FC } from "react";
 import { composeCallbackURL } from "../../../../../packages/auth/utils";
@@ -30,15 +31,20 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
       </ArticleHeader>
       <ArticleContent>
         <SigninButton provider="keycloak" callbackURL={composedCallbackURL}>
-          <button className="flex items-center justify-between border-2 border-gray-50 p-8 shadow-lg rounded-lg w-full">
-            <div className="flex items-center gap-8">
+          <button className="flex flex-col gap-5 md:flex-row items-center justify-between border-2 border-gray-50 p-8 shadow-lg rounded-lg w-full">
+            <div
+              className={cn(
+                "flex flex-col md:flex-row items-center gap-2 md:gap-8",
+                "*:text-center md:*:text-left"
+              )}
+            >
               <Image
                 alt="Groepsadministratie Logo"
                 src={LOGO_GROEPSADMINISTRATIE}
                 className="w-24 mb-3 lg:mb-0 select-none"
               />
-              <div className="text-left leading-4">
-                <p className="font-serif font-bold text-2xl">
+              <div className="text-left">
+                <p className="font-serif font-bold text-2xl leading-6">
                   Aanmelden bij Groepsadministratie
                 </p>
                 <p className="font-medium">Voor leden en ouders</p>

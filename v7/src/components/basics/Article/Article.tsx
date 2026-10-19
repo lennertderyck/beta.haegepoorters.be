@@ -8,7 +8,7 @@ interface Props {
 
 const articleVariants = cva("", {
   variants: {},
-  defaultVariants: {},
+  defaultVariants: {}
 });
 
 /**
@@ -18,6 +18,7 @@ const articleVariants = cva("", {
  *     <ArticleHeaderContainer>
  *       <ArticleTitle>Title</ArticleTitle>
  *     </ArticleHeaderContainer>
+ *     <ArticleHeaderFigure><img /></ArticleHeaderFigure>
  *   </ArticleHeader>
  *   <ArticleContent>Content</ArticleContent>
  * </Article>
@@ -69,7 +70,7 @@ const ArticleTitle: FC<ComponentProps<"h2">> = ({
       data-slot="title"
       className={cn(
         "font-serif text-4xl lg:text-5xl font-bold text-stone-600",
-        className,
+        className
       )}
       {...otherProps}
     />
@@ -106,12 +107,12 @@ const articleContentVariants = cva("px-3 md:px-6 mx-auto", {
   variants: {
     stretch: {
       true: "max-w-390",
-      false: "container",
-    },
+      false: "container"
+    }
   },
   defaultVariants: {
-    stretch: false,
-  },
+    stretch: false
+  }
 });
 
 const ArticleContent: FC<
@@ -135,8 +136,13 @@ const ArticleHeaderFigure: FC<ComponentProps<"figure">> = ({
     <figure
       data-slot="header-figure"
       className={cn(
-        "w-full mx-auto max-h-96 h-[55vh] max-w-5xl *:object-cover *:w-full *:h-full has-[+*]:mb-8",
-        className,
+        "w-full max-w-5xl",
+        "max-h-96 h-[55vh]",
+        "mx-auto has-[+*]:mb-8",
+        "bg-gray-100",
+        "*:w-full *:h-full",
+        "*:[img]:object-cover",
+        className
       )}
       {...otherProps}
     />
@@ -145,11 +151,11 @@ const ArticleHeaderFigure: FC<ComponentProps<"figure">> = ({
 
 export default Article;
 export {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleHeaderFigure,
-  ArticleSubtitle,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleHeaderFigure,
+    ArticleSubtitle,
+    ArticleTitle
 };

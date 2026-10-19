@@ -1,20 +1,20 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import ActivitiesTimeline, {
-  ActivitiesTimelineItem,
+    ActivitiesTimelineItem
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
 import { getGroups } from "@/lib/actions/queries/groups";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
-import { authMemory } from "@/lib/initializer";
+import { createAuth } from "@/lib/modules/Auth";
 import dayjs, { OpUnitType } from "dayjs";
 import Link from "next/link";
 import { FC } from "react";
@@ -26,13 +26,15 @@ const START_RANGE_OF: OpUnitType = "week";
 
 const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
   params,
-  searchParams,
+  searchParams
 }) => {
-  const isAuthenticated = authMemory.isAuthenticated;
+  const auth = await createAuth();
+
+  const isAuthenticated = auth.isAuthenticated;
   const hasCapabilities =
     isAuthenticated &&
-    (authMemory.capabilities.includes("leader") ||
-      authMemory.capabilities.includes("webmaster"));
+    (auth.capabilities.includes("leader") ||
+      auth.capabilities.includes("webmaster"));
 
   const { group: groupParam } = await params;
   const { van, tot, activiteit } = await searchParams;
@@ -40,7 +42,7 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
   const selectedGroup = groupParam ? groupParam[0] : DEFAULT_SELECTED_GROUP;
 
   const rangeStart = (van ? dayjs(String(van), "DD-MM-YYYY") : dayjs()).startOf(
-      START_RANGE_OF,
+      START_RANGE_OF
     ),
     rangeEnd = tot
       ? dayjs(String(tot), "DD-MM-YYYY").endOf("month")
@@ -51,9 +53,9 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
     ? await getActivitiesForDateRangeAndGroupByAbbr(
         {
           start: rangeStart.toDate(),
-          end: rangeEnd.toDate(),
+          end: rangeEnd.toDate()
         },
-        String(selectedGroup),
+        String(selectedGroup)
       )
     : null;
 
@@ -86,8 +88,8 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
               pathname: "/haegeprekerke/" + abbr,
               query: {
                 van: rangeStart.format("DD-MM-YYYY"),
-                tot: rangeEnd.format("DD-MM-YYYY"),
-              },
+                tot: rangeEnd.format("DD-MM-YYYY")
+              }
             })}
           />
         </ArticleHeaderContainer>

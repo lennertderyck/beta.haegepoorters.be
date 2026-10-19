@@ -1,15 +1,16 @@
-import { authMemory } from "@/lib/initializer";
+import { createAuth } from "@/lib/modules/Auth";
 import { unauthorized } from "next/navigation";
 import { FC } from "react";
 
 const Layout: FC<LayoutProps<"/haegeprekerke/editor">> = async ({
-  children,
+  children
 }) => {
-  const isAuthenticated = authMemory.isAuthenticated;
+  const auth = await createAuth();
+  const isAuthenticated = auth.isAuthenticated;
   const hasCapabilities =
     isAuthenticated &&
-    (authMemory.capabilities.includes("leader") ||
-      authMemory.capabilities.includes("webmaster"));
+    (auth.capabilities.includes("leader") ||
+      auth.capabilities.includes("webmaster"));
 
   if (!hasCapabilities) unauthorized();
   return children;
