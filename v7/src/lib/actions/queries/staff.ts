@@ -19,7 +19,7 @@ export const getActiveStaffCountQuery = () => {
 
 export const getHeaderLeadersCountQuery = () => {
   return client.fetch<number>(
-    'count(*[_type == "staff" && references("69056033-90e8-41a3-ac37-f8064d6e0118")])',
+    'count(*[_type == "staff" && references("69056033-90e8-41a3-ac37-f8064d6e0118")])'
   );
 };
 
@@ -30,11 +30,12 @@ export const getStaffPerGroup = () => {
       ...,
       "staff": *[_type == "staff" && ^._id in roles[]->link._ref]{
         ...,
+        "coverUrl": cover.asset->url,
         "roles": roles[]->[link._ref == ^.^._id]{
           ...
         }
       }
     }
-  `,
+  `
   );
 };

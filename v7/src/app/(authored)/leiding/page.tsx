@@ -20,6 +20,8 @@ interface Props {}
 const Page: FC<Props> = async () => {
   const d = await getStaffPerGroup();
 
+  console.log(d);
+
   return (
     <Article>
       <ArticleHeader>
@@ -42,9 +44,12 @@ const Page: FC<Props> = async () => {
                   {group.staff.map((member: any) => (
                     <Card key={member._id}>
                       <CardContent>
-                        <CardFigure>
+                        <CardFigure sizing="hugge">
                           <img
-                            src="https://singlecolorimage.com/get/d6d6d6/100x100"
+                            src={
+                              member.coverUrl ??
+                              "https://singlecolorimage.com/get/d6d6d6/100x100"
+                            }
                             alt=""
                           />
                         </CardFigure>
