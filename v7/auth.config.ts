@@ -8,9 +8,14 @@ import { GenericOAuthConfig } from "better-auth/plugins";
 
 const AUTH_URL_ORIGIN = process.env.NEXT_PUBLIC_AUTH_URL;
 const AUTHN_URL_PATHNAME = "/api/auth";
-const LOCAL_AUTH_PROVIDER_CLIENT_ID = process.env.LOCAL_AUTH_PROVIDER_CLIENT_ID;
+const LOCAL_AUTH_PROVIDER_CLIENT_ID =
+  process.env.NEXT_PUBLIC_LOCAL_AUTH_PROVIDER_CLIENT_ID;
 const LOCAL_AUTH_PROVIDER_CLIENT_SECRET =
-  process.env.LOCAL_AUTH_PROVIDER_CLIENT_SECRET;
+  process.env.NEXT_PUBLIC_LOCAL_AUTH_PROVIDER_CLIENT_SECRET;
+
+if (!AUTH_URL_ORIGIN) {
+  throw new Error("Missing auth URL origin in environment variables");
+}
 
 if (!LOCAL_AUTH_PROVIDER_CLIENT_ID || !LOCAL_AUTH_PROVIDER_CLIENT_SECRET) {
   throw new Error(
@@ -24,7 +29,12 @@ export const AUTH = {
 };
 
 export const OAUTH = {
-  BASE_URL: AUTH.BASE_URL + AUTHN_URL_PATHNAME
+  BASE_URL: AUTH.BASE_URL + AUTHN_URL_PATHNAME,
+  API_PATH: AUTHN_URL_PATHNAME,
+  CLIENT: {
+    ID: LOCAL_AUTH_PROVIDER_CLIENT_ID,
+    SECRET: LOCAL_AUTH_PROVIDER_CLIENT_SECRET
+  }
 };
 
 export const OAUTH_PROVIDERS = [
