@@ -19,7 +19,7 @@ import Icon from "@/components/basics/Icon/Icon";
 import { getStoryblokPostsQuery } from "@/lib/actions/queries/posts";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, ViewTransition } from "react";
 
 interface Props {}
 
@@ -40,8 +40,12 @@ const Page: FC<Props> = async () => {
       <ArticleContent stretch>
         <CardsGroup>
           {posts?.map((post) => (
-            <Link href={post.full_slug}>
-              <Card key={post.id}>
+            <Link
+              key={post.id}
+              href={post.full_slug}
+              transitionTypes={["post-open"]}
+            >
+              <Card>
                 <CardContent>
                   <CardHeader>
                     {post.content.banner.filename && (
@@ -56,7 +60,13 @@ const Page: FC<Props> = async () => {
                       <Icon name="time-line" className="" size="1rem" />
                       {dayjs(post.published_at).format("DD MMM. YYYY")}
                     </p>
-                    <CardTitle>{post.name}</CardTitle>
+                    <ViewTransition
+                      name={`post-title-${post.id}`}
+                      share={{ "post-open": "morph", default: "none" }}
+                      default="none"
+                    >
+                      <CardTitle>{post.name}</CardTitle>
+                    </ViewTransition>
                     <CardDescription>
                       {post.content.descr_short}
                     </CardDescription>

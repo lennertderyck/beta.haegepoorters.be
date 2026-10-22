@@ -20,7 +20,9 @@ const articleVariants = cva("", {
  *     </ArticleHeaderContainer>
  *     <ArticleHeaderFigure><img /></ArticleHeaderFigure>
  *   </ArticleHeader>
- *   <ArticleContent>Content</ArticleContent>
+ *   <ArticleContent>
+ *    <ArticleBody>For applying basic text styling</ArticleBody>
+ *   </ArticleContent>
  * </Article>
  */
 const Article: FC<
@@ -55,7 +57,7 @@ const ArticleHeaderContainer: FC<ComponentProps<"div">> = ({
   return (
     <div
       data-slot="header-container"
-      className={cn("container px-0! md:px-6 mx-auto has-[+*]:mb-8", className)}
+      className={cn("container mx-auto has-[+*]:mb-8", className)}
       {...otherProps}
     />
   );
@@ -103,10 +105,10 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
   );
 };
 
-const articleContentVariants = cva("px-0! md:px-6 mx-auto", {
+const articleContentVariants = cva("mx-auto", {
   variants: {
     stretch: {
-      true: "max-w-390",
+      true: "max-w-390 px-6",
       false: "container"
     }
   },
@@ -147,6 +149,13 @@ const ArticleHeaderFigure: FC<ComponentProps<"figure">> = ({
       {...otherProps}
     />
   );
+};
+
+const ArticleBody: FC<ComponentProps<"div">> = ({
+  className,
+  ...otherProps
+}) => {
+  return <div data-slot="body" className={cn("", className)} {...otherProps} />;
 };
 
 export default Article;

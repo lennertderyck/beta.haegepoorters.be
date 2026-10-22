@@ -9,7 +9,7 @@ import { ComponentProps, FC, Fragment, FragmentProps } from "react";
  */
 const Boundary: FC<FragmentProps & { asChild?: boolean }> = ({
   asChild,
-  children,
+  children
 }) => {
   const Component = asChild ? Slot : Fragment;
 

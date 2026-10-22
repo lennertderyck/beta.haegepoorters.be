@@ -12,15 +12,13 @@ import Card, {
     CardsGroup,
     CardTitle
 } from "@/components/basics/Card/Card";
-import { getStaffPerGroup } from "@/lib/actions/queries/staff";
+import { getStaffPerAgeGroup } from "@/lib/actions/queries/staff";
 import { FC } from "react";
 
 interface Props {}
 
 const Page: FC<Props> = async () => {
-  const d = await getStaffPerGroup();
-
-  console.log(d);
+  const groupedStaff = await getStaffPerAgeGroup();
 
   return (
     <Article>
@@ -33,7 +31,7 @@ const Page: FC<Props> = async () => {
         </ArticleHeaderContainer>
       </ArticleHeader>
       <ArticleContent stretch>
-        {d.map((group) => (
+        {groupedStaff.map((group) => (
           <ul key={group._id} className="mb-6">
             <li>
               <h2 className="font-serif capitalize font-bold text-3xl mb-3">

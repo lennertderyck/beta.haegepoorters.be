@@ -1,18 +1,18 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleHeaderFigure,
-  ArticleSubtitle,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleHeaderFigure,
+    ArticleSubtitle,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Boundary, { BoundaryBlock } from "@/components/basics/Boundary/Boundary";
 import { getStoryblokCatchAllQuery } from "@/lib/actions/queries/pages";
 import { richTextResolver } from "@storyblok/richtext";
 import dayjs from "dayjs";
 import { notFound } from "next/navigation";
-import { FC } from "react";
+import { FC, ViewTransition } from "react";
 
 interface Props {}
 
@@ -37,7 +37,13 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
         <Article>
           <ArticleHeader>
             <ArticleHeaderContainer>
-              <ArticleTitle>{story?.story?.name}</ArticleTitle>
+              <ViewTransition
+                name={`post-title-${story.story.id}`}
+                share={{ "post-open": "morph", default: "none" }}
+                default="none"
+              >
+                <ArticleTitle>{story?.story?.name}</ArticleTitle>
+              </ViewTransition>
               <ArticleDescription>
                 Laatst aangepast {dayjs(date).fromNow()}
               </ArticleDescription>

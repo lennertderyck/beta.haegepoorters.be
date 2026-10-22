@@ -23,7 +23,7 @@ export const getHeaderLeadersCountQuery = () => {
   );
 };
 
-export const getStaffPerGroup = () => {
+export const getStaffPerAgeGroup = () => {
   return client.fetch<any[]>(
     `
       *[_type == "group"] | order(order asc) {

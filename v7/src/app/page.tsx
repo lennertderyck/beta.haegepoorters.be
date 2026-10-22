@@ -1,33 +1,34 @@
-import Boundary, {
-  BoundaryBlock,
-  BoundaryInline,
+import Article, { ArticleContent } from "@/components/basics/Article/Article";
+import {
+    BoundaryBlock,
+    BoundaryInline
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardsGroup,
-  CardTitle,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardsGroup,
+    CardTitle
 } from "@/components/basics/Card/Card";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger
 } from "@/components/basics/Collapsible/Collapsible";
 import Icon from "@/components/basics/Icon/Icon";
 import {
-  Section,
-  SectionHeader,
-  SectionTitle,
+    Section,
+    SectionHeader,
+    SectionTitle
 } from "@/components/basics/Section/Section";
 import ActivitySchedule, {
-  ActivityScheduleItem,
-  ActivityScheduleItemLabel,
-  ActivityScheduleItemTitle,
-  ActivityScheduleList,
-  ActivityScheduleTime,
+    ActivityScheduleItem,
+    ActivityScheduleItemLabel,
+    ActivityScheduleItemTitle,
+    ActivityScheduleList,
+    ActivityScheduleTime
 } from "@/components/elements/ActivitySchedule/ActivitySchedule";
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
 import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
@@ -35,7 +36,7 @@ import { getStoryblokHighlightedPostsQuery } from "@/lib/actions/queries/posts";
 import { STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
 import { cn } from "@/lib/utils/composers";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, ViewTransition } from "react";
 
 const TEST = false;
 
@@ -49,12 +50,14 @@ const Page: FC<Props> = async () => {
   const posts = (await postsResponse.json())?.stories;
 
   if (TEST)
-    throw new Error("KV STORE use https://www.cloudflare.com/products/kv/");
+    throw new Error(
+      "KV STORE use https://www.cloudflare.com/products/kv/; Page transitions;"
+    );
 
   return (
-    <Boundary>
-      <BoundaryBlock className="lg:py-12">
-        <BoundaryInline>
+    <BoundaryBlock className="lg:py-12">
+      <Article>
+        <ArticleContent stretch>
           <div className="grid grid-cols-12 gap-y-12 lg:gap-12">
             <div className="col-span-12 lg:col-span-8">
               <Section>
@@ -74,12 +77,12 @@ const Page: FC<Props> = async () => {
                         <ActivityScheduleList>
                           {dateGroup.items.map((groupedActivity) => {
                             const activityTitle = String(
-                                groupedActivity.activity.title,
+                                groupedActivity.activity.title
                               ).trim(),
                               isActivityTitleEmpty = activityTitle.length === 0;
 
                             const activityDescription = String(
-                                groupedActivity.activity.body,
+                                groupedActivity.activity.body
                               ).trim(),
                               isActivityDescriptionEmpty =
                                 activityDescription.length === 0;
@@ -98,7 +101,7 @@ const Page: FC<Props> = async () => {
                                       <ActivityScheduleItemTitle
                                         className={cn({
                                           ["text-neutral-400"]:
-                                            isActivityTitleEmpty,
+                                            isActivityTitleEmpty
                                         })}
                                       >
                                         {isActivityTitleEmpty
@@ -122,8 +125,8 @@ const Page: FC<Props> = async () => {
                                         href={{
                                           pathname: `/haegeprekerke/${groupedActivity.group.abbr}`,
                                           query: {
-                                            datum: dateGroup.dateGroup,
-                                          },
+                                            datum: dateGroup.dateGroup
+                                          }
                                         }}
                                       >
                                         Meer lezen
@@ -157,14 +160,23 @@ const Page: FC<Props> = async () => {
                     <Card key={post.slug}>
                       <CardContent>
                         <CardHeader>
-                          <CardTitle>{post.name}</CardTitle>
+                          <ViewTransition
+                            name={`post-title-${post.id}`}
+                            share={{ "post-open": "morph", default: "none" }}
+                            default="none"
+                          >
+                            <CardTitle>{post.name}</CardTitle>
+                          </ViewTransition>
                         </CardHeader>
                         <CardDescription>
                           {post.content.descr_short}
                         </CardDescription>
                         <CardFooter>
                           <Button variant="tertiary" asChild>
-                            <Link href={`/blog/${post.slug}`}>
+                            <Link
+                              href={`/blog/${post.slug}`}
+                              transitionTypes={["post-open"]}
+                            >
                               Meer hierover <Icon name="arrow-right-line" />
                             </Link>
                           </Button>
@@ -176,11 +188,12 @@ const Page: FC<Props> = async () => {
               </Section>
             </div>
           </div>
-        </BoundaryInline>
-        <BoundaryInline className="px-0 mt-12">
+        </ArticleContent>
+        <BoundaryInline className="mt-12 px-0!">
           <StartpageHero />
         </BoundaryInline>
-        <BoundaryInline className="mt-12">
+        <ArticleContent stretch className="px-0 mt-12"></ArticleContent>
+        <ArticleContent stretch className="mt-12">
           <Section>
             <SectionHeader>
               <SectionTitle>Komt ook van pas ...</SectionTitle>
@@ -208,9 +221,9 @@ const Page: FC<Props> = async () => {
               })}
             </CardsGroup>
           </Section>
-        </BoundaryInline>
-      </BoundaryBlock>
-    </Boundary>
+        </ArticleContent>
+      </Article>
+    </BoundaryBlock>
   );
 };
 
