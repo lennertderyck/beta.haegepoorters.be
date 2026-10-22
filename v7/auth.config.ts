@@ -47,7 +47,7 @@ export const OAUTH_PROVIDERS = [
       providerId: "keycloak",
       clientId: "groep-O1306G-Haegepoorters-Destelbergen",
       discoveryUrl:
-        "https://login.scoutsengidsenvlaanderen.be/auth/realms/scouts/.well-known/openid-configuration",
+        "https://login.scoutsengidsenvlaanderen.be/realms/scouts/.well-known/openid-configuration",
       scopes: ["openid", "email", "profile", "groepsadmin-full-access"],
       accessTokenExpiresIn: 300,
       getUserInfo: async (accessToken) => {
