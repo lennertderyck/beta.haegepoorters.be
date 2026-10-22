@@ -1,8 +1,10 @@
 import Button from "@/components/basics/Button/Button";
+import { getSupabaseClientConfig } from "@/lib/vendors/supabase/client";
 import { createSupabaseServerClient } from "@/lib/vendors/supabase/server";
 import { redirect } from "next/navigation";
 import { FC } from "react";
 import { decide, signin } from "./actions";
+import PasskeySigninButton from "./PasskeySigninButton";
 
 const Page: FC<PageProps<"/oauth/consent">> = async ({ searchParams }) => {
   const { authorization_id, error } = await searchParams;
@@ -42,6 +44,10 @@ const Page: FC<PageProps<"/oauth/consent">> = async ({ searchParams }) => {
           />
           <Button type="submit">Aanmelden</Button>
         </form>
+        <PasskeySigninButton
+          authorizationId={authorization_id}
+          supabaseConfig={getSupabaseClientConfig()}
+        />
       </>
     );
   }

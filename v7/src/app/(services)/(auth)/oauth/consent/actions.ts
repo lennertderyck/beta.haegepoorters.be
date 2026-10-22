@@ -20,6 +20,13 @@ export const signin = async (formData: FormData) => {
 
   if (error) redirect(consentURL(authorizationId, error.message));
 
+  await resolveAuthorization(authorizationId);
+};
+
+/** Called after signing in, with a password or with a passkey in the browser */
+export const resolveAuthorization = async (authorizationId: string) => {
+  const supabase = await createSupabaseServerClient();
+
   // Resolve the authorization here instead of on the consent page: every
   // getAuthorizationDetails call mints a new code when consent already exists,
   // and re-rendering the page after this action would invalidate the first one
