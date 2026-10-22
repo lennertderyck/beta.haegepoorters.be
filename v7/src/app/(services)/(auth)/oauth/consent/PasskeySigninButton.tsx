@@ -7,7 +7,7 @@ import {
   SupabaseClientConfig,
 } from "@/lib/vendors/supabase/client";
 import { FC, useState, useTransition } from "react";
-import { resolveAuthorization } from "./actions";
+import { consentURL } from "./urls";
 
 interface Props {
   authorizationId: string;
@@ -25,11 +25,11 @@ const PasskeySigninButton: FC<Props> = ({
     startTransition(async () => {
       setError(null);
       const supabase = createSupabaseBrowserClient(supabaseConfig);
-      // Sets the Supabase session cookies, so the server action can read them
       const { error } = await supabase.auth.signInWithPasskey();
 
       if (error) return setError(error.message);
-      await resolveAuthorization(authorizationId);
+      // A document navigation, a soft one would fetch the client's callback as RSC
+      window.location.assign(consentURL(authorizationId));
     });
 
   return (

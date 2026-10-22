@@ -3,8 +3,10 @@ import { getSupabaseClientConfig } from "@/lib/vendors/supabase/client";
 import { createSupabaseServerClient } from "@/lib/vendors/supabase/server";
 import { redirect } from "next/navigation";
 import { FC } from "react";
-import { decide, signin } from "./actions";
+import { decide } from "./actions";
+import { resolveAuthorization } from "./authorization";
 import PasskeySigninButton from "./PasskeySigninButton";
+import SigninForm from "./SigninForm";
 
 const Page: FC<PageProps<"/oauth/consent">> = async ({ searchParams }) => {
   const { authorization_id, error } = await searchParams;
@@ -19,31 +21,12 @@ const Page: FC<PageProps<"/oauth/consent">> = async ({ searchParams }) => {
   } = await supabase.auth.getUser();
 
   if (!user) {
+    // Both come back to this page as a document load, so the redirect below is
+    // a real navigation
     return (
       <>
         {error && <p>{error}</p>}
-        <form action={signin}>
-          <input
-            type="hidden"
-            name="authorization_id"
-            value={authorization_id}
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="E-mail"
-            autoComplete="email"
-            required
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Wachtwoord"
-            autoComplete="current-password"
-            required
-          />
-          <Button type="submit">Aanmelden</Button>
-        </form>
+        <SigninForm authorizationId={authorization_id} />
         <PasskeySigninButton
           authorizationId={authorization_id}
           supabaseConfig={getSupabaseClientConfig()}
@@ -52,13 +35,16 @@ const Page: FC<PageProps<"/oauth/consent">> = async ({ searchParams }) => {
     );
   }
 
+  // Consent exists or the client is this site itself: go straight back
+  const result = await resolveAuthorization(authorization_id);
+
+  if ("error" in result) return <p>{result.error}</p>;
+  if (result.redirectTo) redirect(result.redirectTo);
+
   const { data: details, error: detailsError } =
     await supabase.auth.oauth.getAuthorizationDetails(authorization_id);
 
   if (detailsError) return <p>{detailsError.message}</p>;
-  // Already consented before: Supabase returns a redirect right away.
-  // Only reached on a direct GET by a logged in user; after signing in, the signin action handles this itself
-  // so the page isn't rendered again and a second code isn't minted
   if ("redirect_url" in details) redirect(details.redirect_url);
 
   return (
