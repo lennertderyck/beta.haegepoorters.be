@@ -21,10 +21,16 @@ const Page: FC<Props> = () => {
           <ArticleDescription>Beheer van de website.</ArticleDescription>
         </ArticleHeaderContainer>
       </ArticleHeader>
-      <ArticleContent>
+      <ArticleContent className="flex flex-wrap gap-3">
         <Button asChild variant="secondary">
           <Link href="/backoffice/passkeys">
             Passkeys beheren
+            <Icon name="arrow-right-line" />
+          </Link>
+        </Button>
+        <Button asChild variant="secondary">
+          <Link href="/backoffice/invites">
+            Uitnodigingen
             <Icon name="arrow-right-line" />
           </Link>
         </Button>
