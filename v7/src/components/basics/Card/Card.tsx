@@ -125,6 +125,7 @@ const cardVariants = cva("", {
  *     </CardHeader>
  *     <CardDescription>Description</CardDescription>
  *   <CardFooter>Footer</CardFooter>
+ *  </CardContent>
  * </Card>
  */
 const Card: FC<
