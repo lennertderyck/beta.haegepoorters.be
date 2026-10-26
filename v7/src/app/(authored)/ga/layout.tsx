@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { unauthorized } from "next/navigation";
 import { FC } from "react";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 import { createAuth } from "@/lib/modules/Auth";
 const Layout: FC<LayoutProps<"/ga">> = async ({ children }) => {

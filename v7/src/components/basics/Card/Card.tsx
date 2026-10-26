@@ -161,7 +161,7 @@ export const CardHeader: FC<ComponentProps<"header">> = ({
   return (
     <header
       data-slot="card-header"
-      className={cn(className, "has-[+*]:mb-1")}
+      className={cn(className, "has-[+*]:mb-2")}
       {...otherProps}
     />
   );
@@ -175,7 +175,7 @@ export const CardTitle: FC<ComponentProps<"h4">> = ({
     <h4
       data-slot="card-title"
       className={cn(
-        "text-xl in-data-[sizing=compact]:text-lg",
+        "text-xl in-data-[sizing=compact]:text-lg leading-6",
         "font-semibold has-[+*]:mb-1",
         className
       )}

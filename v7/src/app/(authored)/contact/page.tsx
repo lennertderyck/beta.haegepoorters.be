@@ -7,7 +7,15 @@ import Article, {
     ArticleHeaderFigure,
     ArticleTitle
 } from "@/components/basics/Article/Article";
+import type { Metadata } from "next";
 import { FC } from "react";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Vraag of suggestie? Contacteer de groepsleiding van Scouts & Gidsen Haegepoorters Destelbergen.",
+  alternates: { canonical: "/contact" }
+};
 
 interface Props {}
 

@@ -13,6 +13,13 @@ export const SEO = {
   about: `Deel uitmaken van onze scouts is meer dan een hobby. De
     Haegepoorters, ook wel "HP" in de volksmond, zijn een thuis voor
     meer dan 200 jongeren.`,
+  description:
+    "Scouts & Gidsen Haegepoorters Destelbergen: een thuis voor meer dan 200 jongeren tussen 6 en 17 jaar. Bekijk activiteiten, nieuws en onze leiding.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://haegepoorters.be",
+  email: "groepsleiding@haegepoorters.be",
+  themeColor: "#6f101d",
+  image:
+    "https://res.cloudinary.com/haegepoortersbe/image/upload/v1628940149/bxkwl4yli627r8dzfv2k.jpg",
 };
 
 export const STARTPAGE_ADDITIONAL_INFO_CARDS = [
@@ -79,17 +86,17 @@ export const FOOTER_CONTACT_CARDS = [
 export const FOLLOW_LINKS = [
   {
     name: "Messenger",
-    href: "",
+    href: "https://m.me/scoutshaegepoorters",
     icon: "messenger-line",
   },
   {
     name: "Facebook",
-    href: "",
+    href: "https://facebook.com/scoutshaegepoorters",
     icon: "facebook-circle-line",
   },
   {
     name: "Instagram",
-    href: "",
+    href: "https://www.instagram.com/scouts_haegepoorters",
     icon: "instagram-line",
   },
 ] satisfies { name: string; href: string; icon: IconName }[];

@@ -33,10 +33,15 @@ import ActivitySchedule, {
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
 import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
 import { getStoryblokHighlightedPostsQuery } from "@/lib/actions/queries/posts";
-import { STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
+import { SEO, STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
 import { cn } from "@/lib/utils/composers";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FC } from "react";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const TEST = false;
 
@@ -56,6 +61,7 @@ const Page: FC<Props> = async () => {
 
   return (
     <BoundaryBlock className="lg:py-12">
+      <h1 className="sr-only">{SEO.name.official}</h1>
       <Article>
         <ArticleContent stretch>
           <div className="grid grid-cols-12 gap-y-12 lg:gap-12">

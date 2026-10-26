@@ -18,8 +18,16 @@ import Card, {
 import Icon from "@/components/basics/Icon/Icon";
 import { getStoryblokPostsQuery } from "@/lib/actions/queries/posts";
 import dayjs from "dayjs";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FC } from "react";
+
+export const metadata: Metadata = {
+  title: "Nieuws & blog",
+  description:
+    "Het reilen en zeilen binnen Scouts & Gidsen Haegepoorters Destelbergen.",
+  alternates: { canonical: "/blog" },
+};
 
 interface Props {}
 

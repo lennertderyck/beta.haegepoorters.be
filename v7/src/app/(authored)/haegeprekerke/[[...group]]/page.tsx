@@ -13,10 +13,11 @@ import ActivitiesTimeline, {
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
-import { getGroups } from "@/lib/actions/queries/groups";
+import { getGroupByAbbr, getGroups } from "@/lib/actions/queries/groups";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
 import { createAuth } from "@/lib/modules/Auth";
 import dayjs, { OpUnitType } from "dayjs";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -24,6 +25,26 @@ const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
 const DEFAULT_MONTHS_RANGE = 3;
 
 const START_RANGE_OF: OpUnitType = "week";
+
+export const generateMetadata = async ({
+  params
+}: PageProps<"/haegeprekerke/[[...group]]">): Promise<Metadata> => {
+  const { group: groupParam } = await params;
+  const groupAbbr = groupParam?.[0];
+  const group = groupAbbr
+    ? await getGroupByAbbr(groupAbbr).catch(() => null)
+    : null;
+
+  return {
+    title: group ? `Haegeprekerke ${group.name}` : "Haegeprekerke",
+    description: group
+      ? `Bekijk de aankomende activiteiten van de ${group.name} bij Scouts & Gidsen Haegepoorters Destelbergen.`
+      : "Bekijk de aankomende activiteiten van alle takken bij Scouts & Gidsen Haegepoorters Destelbergen.",
+    alternates: {
+      canonical: groupAbbr ? `/haegeprekerke/${groupAbbr}` : "/haegeprekerke"
+    }
+  };
+};
 
 const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
   params,

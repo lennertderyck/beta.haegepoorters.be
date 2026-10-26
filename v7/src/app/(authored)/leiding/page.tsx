@@ -13,7 +13,15 @@ import Card, {
     CardTitle
 } from "@/components/basics/Card/Card";
 import { getStaffPerAgeGroup } from "@/lib/actions/queries/staff";
+import type { Metadata } from "next";
 import { FC } from "react";
+
+export const metadata: Metadata = {
+  title: "Leiding",
+  description:
+    "Maak kennis met het team van gemotiveerde leiding van Scouts & Gidsen Haegepoorters Destelbergen.",
+  alternates: { canonical: "/leiding" }
+};
 
 interface Props {}
 

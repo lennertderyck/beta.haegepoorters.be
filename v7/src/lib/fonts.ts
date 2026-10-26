@@ -18,5 +18,4 @@ export const sora = Sora({
 export const podkova = Podkova({
   variable: "--font-podkova",
   subsets: ["latin"],
-  weight: ["400", "700"],
 });

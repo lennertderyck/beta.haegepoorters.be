@@ -159,7 +159,7 @@ const ArticleBody: FC<ComponentProps<"div">> = ({
     <div
       data-slot="body"
       className={cn(
-        "*:mt-3 leading-7 *:text-[.9rem] text-neutral-700",
+        "*:mt-3 leading-7 text-[.9rem] *:text-[.9rem] text-neutral-700 [&_a]:text-primary-500! [&_:is(h1,h2,h3,h4,h5,h6)]:font-semibold",
         className
       )}
       {...otherProps}

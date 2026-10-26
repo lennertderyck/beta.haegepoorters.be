@@ -15,9 +15,9 @@ import Footer from "@/components/ui/Footer/Footer";
 import RootNavigationMenu from "@/components/ui/RootNavigation/RootNavigationMenu";
 import RootNavigationMenuLink from "@/components/ui/RootNavigation/RootNavigationMenuLink";
 import RootNavigationMenuLinkContent from "@/components/ui/RootNavigation/RootNavigationMenuLinkContent";
-import { SEO } from "@/lib/constants/static";
+import { FOLLOW_LINKS, SEO } from "@/lib/constants/static";
 import { createAuth } from "@/lib/modules/Auth";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import { FC, PropsWithChildren } from "react";
 import { OAUTH_PROVIDERS } from "../../auth.config";
@@ -31,8 +31,60 @@ dayjs.extend(isBetween);
 dayjs.extend(relativeTime);
 
 export const metadata: Metadata = {
-  title: SEO.name.short,
-  description: SEO.name.official
+  metadataBase: new URL(SEO.url),
+  title: {
+    default: SEO.name.official,
+    template: `%s | ${SEO.name.variant}`
+  },
+  description: SEO.description,
+  applicationName: SEO.name.variant,
+  keywords: [
+    "scouts",
+    "gidsen",
+    "Destelbergen",
+    "Haegepoorters",
+    "jeugdbeweging",
+    "Scouts en Gidsen Vlaanderen"
+  ],
+  openGraph: {
+    type: "website",
+    locale: "nl_BE",
+    siteName: SEO.name.variant,
+    title: SEO.name.official,
+    description: SEO.description,
+    images: [{ url: SEO.image, alt: SEO.name.official }]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO.name.official,
+    description: SEO.description,
+    images: [SEO.image]
+  },
+  formatDetection: { telephone: false, address: false, email: false }
+};
+
+export const viewport: Viewport = {
+  themeColor: SEO.themeColor
+};
+
+/** Organization structured data for search engines */
+const ORGANIZATION_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SEO.url}/#organization`,
+  name: SEO.name.official,
+  alternateName: [SEO.name.short, SEO.name.long, "HP"],
+  url: SEO.url,
+  logo: `${SEO.url}/icon.png`,
+  image: SEO.image,
+  description: SEO.description,
+  email: SEO.email,
+  sameAs: FOLLOW_LINKS.map((link) => link.href).filter(Boolean),
+  parentOrganization: {
+    "@type": "Organization",
+    name: "Scouts en Gidsen Vlaanderen",
+    url: "https://www.scoutsengidsenvlaanderen.be"
+  }
 };
 
 const MENU_START = [
@@ -100,6 +152,13 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
       )}
     >
       <body className="min-h-full flex flex-col h-full md:pl-(--rootnavigation-size-min)">
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(ORGANIZATION_JSON_LD).replace(/</g, "\\u003c")
+          }}
+        />
         <RootNavigation className="">
           <div className="flex">
             <div className="size-(--rootnavigation-size-min) bg-primary-500 p-2 grid place-items-center">

@@ -19,7 +19,13 @@ const FooterSocialLinks: FC<ComponentProps<"div">> = ({
       <p className="font-semibold">Volg ons op</p>
       <div className="flex gap-2">
         {FOLLOW_LINKS.map((link, linkIndex) => (
-          <Link key={linkIndex} href={link.href}>
+          <Link
+            key={linkIndex}
+            href={link.href}
+            aria-label={link.name}
+            target="_blank"
+            rel="me noopener noreferrer"
+          >
             <Icon name={link.icon} size="1.5rem" className="text-primary-500" />
           </Link>
         ))}
