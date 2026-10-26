@@ -8,7 +8,6 @@ export type IconName = keyof typeof glyph;
 interface IconProps extends SvgProps {
   color?: string;
   line?: boolean;
-  fill?: boolean;
   name: IconName;
   className?: string;
   noStyle?: boolean;
@@ -21,18 +20,12 @@ interface IconProps extends SvgProps {
 const Icon: FC<IconProps> = ({
   color = "currentColor",
   size = "1.3rem",
-  fill,
-  noStyle,
   name = "admin",
-  className,
+  className
 }) => {
-  const nameAndStyleSeperator = noStyle ? "" : "-";
-  const iconStyle = fill ? "fill" : "line";
-  const iconName = `${name}${nameAndStyleSeperator}${iconStyle}`;
-
   return (
     <Svg {...{ color, size, className }}>
-      <use href={remix + `#ri-${name}`}></use>
+      <use href={remix + `#ri-${name}`} />
     </Svg>
   );
 };

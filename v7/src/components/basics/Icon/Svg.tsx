@@ -1,13 +1,12 @@
-import styled from "styled-components";
+import type { FC, SVGProps } from "react";
 
-export interface SvgProps {
+export type SvgProps = Omit<SVGProps<SVGSVGElement>, "fill"> & {
   size?: ".8rem" | "1rem" | "1.3rem" | "1.6rem" | string;
-}
+  color?: string;
+};
 
-const Svg = styled.svg<SvgProps>`
-    fill: ${(props) => props.color};
-    width: ${(props) => props.size};
-    height: ${(props) => props.size};
-`;
+const Svg: FC<SvgProps> = ({ color, size, ...props }) => (
+  <svg {...props} fill={color} width={size} height={size} />
+);
 
 export default Svg;
