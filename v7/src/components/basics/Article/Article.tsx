@@ -155,11 +155,21 @@ const ArticleBody: FC<ComponentProps<"div">> = ({
   className,
   ...otherProps
 }) => {
-  return <div data-slot="body" className={cn("", className)} {...otherProps} />;
+  return (
+    <div
+      data-slot="body"
+      className={cn(
+        "*:mt-3 leading-7 *:text-[.9rem] text-neutral-700",
+        className
+      )}
+      {...otherProps}
+    />
+  );
 };
 
 export default Article;
 export {
+    ArticleBody,
     ArticleContent,
     ArticleDescription,
     ArticleHeader,

@@ -1,4 +1,5 @@
 import Article, {
+    ArticleBody,
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
@@ -12,7 +13,7 @@ import { getStoryblokCatchAllQuery } from "@/lib/actions/queries/pages";
 import { richTextResolver } from "@storyblok/richtext";
 import dayjs from "dayjs";
 import { notFound } from "next/navigation";
-import { FC, ViewTransition } from "react";
+import { FC } from "react";
 
 interface Props {}
 
@@ -37,13 +38,7 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
         <Article>
           <ArticleHeader>
             <ArticleHeaderContainer>
-              <ViewTransition
-                name={`post-title-${story.story.id}`}
-                share={{ "post-open": "morph", default: "none" }}
-                default="none"
-              >
-                <ArticleTitle>{story?.story?.name}</ArticleTitle>
-              </ViewTransition>
+              <ArticleTitle>{story?.story?.name}</ArticleTitle>
               <ArticleDescription>
                 Laatst aangepast {dayjs(date).fromNow()}
               </ArticleDescription>
@@ -63,7 +58,9 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
               </ArticleSubtitle>
             </ArticleHeaderContainer>
           </ArticleHeader>
-          <ArticleContent dangerouslySetInnerHTML={{ __html: html }} />
+          <ArticleContent>
+            <ArticleBody dangerouslySetInnerHTML={{ __html: html }} />
+          </ArticleContent>
         </Article>
       </BoundaryBlock>
     </Boundary>

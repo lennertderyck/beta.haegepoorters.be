@@ -40,7 +40,7 @@ const ITEMS = [
   {
     title: "Leiding importeren",
     description: "Importeer de leidingsverdeling uit de Groepsadministratie",
-    href: "/backoffice/leiding/import",
+    href: "/backoffice/leiding/importeren",
     hrefLabel: "Nieuwe import starten"
   }
 ];

@@ -1,25 +1,25 @@
 import Article, {
-    ArticleContent,
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-    CardContent,
-    CardDescription,
-    CardFigure,
-    CardFooter,
-    CardHeader,
-    CardsGroup,
-    CardTitle
+  CardContent,
+  CardDescription,
+  CardFigure,
+  CardFooter,
+  CardHeader,
+  CardsGroup,
+  CardTitle,
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import { getStoryblokPostsQuery } from "@/lib/actions/queries/posts";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { FC, ViewTransition } from "react";
+import { FC } from "react";
 
 interface Props {}
 
@@ -40,11 +40,7 @@ const Page: FC<Props> = async () => {
       <ArticleContent stretch>
         <CardsGroup>
           {posts?.map((post) => (
-            <Link
-              key={post.id}
-              href={post.full_slug}
-              transitionTypes={["post-open"]}
-            >
+            <Link key={post.id} href={post.full_slug}>
               <Card>
                 <CardContent>
                   <CardHeader>
@@ -60,13 +56,7 @@ const Page: FC<Props> = async () => {
                       <Icon name="time-line" className="" size="1rem" />
                       {dayjs(post.published_at).format("DD MMM. YYYY")}
                     </p>
-                    <ViewTransition
-                      name={`post-title-${post.id}`}
-                      share={{ "post-open": "morph", default: "none" }}
-                      default="none"
-                    >
-                      <CardTitle>{post.name}</CardTitle>
-                    </ViewTransition>
+                    <CardTitle>{post.name}</CardTitle>
                     <CardDescription>
                       {post.content.descr_short}
                     </CardDescription>

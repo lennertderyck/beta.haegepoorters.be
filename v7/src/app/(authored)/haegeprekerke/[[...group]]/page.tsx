@@ -7,6 +7,7 @@ import Article, {
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
+import Notice from "@/components/basics/Notice/Notice";
 import ActivitiesTimeline, {
     ActivitiesTimelineItem
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
@@ -96,7 +97,9 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
       </ArticleHeader>
       <ArticleContent>
         {activitiesForGroup?.length === 0 && (
-          <p>Geen activiteiten gevonden voor deze groep en deze periode.</p>
+          <Notice>
+            Geen activiteiten gevonden voor deze groep en deze periode.
+          </Notice>
         )}
         {activitiesForGroup && activitiesForGroup?.length > 0 && (
           <>

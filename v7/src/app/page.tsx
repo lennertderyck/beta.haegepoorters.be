@@ -1,34 +1,34 @@
 import Article, { ArticleContent } from "@/components/basics/Article/Article";
 import {
-    BoundaryBlock,
-    BoundaryInline
+  BoundaryBlock,
+  BoundaryInline,
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardsGroup,
-    CardTitle
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardsGroup,
+  CardTitle,
 } from "@/components/basics/Card/Card";
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/components/basics/Collapsible/Collapsible";
 import Icon from "@/components/basics/Icon/Icon";
 import {
-    Section,
-    SectionHeader,
-    SectionTitle
+  Section,
+  SectionHeader,
+  SectionTitle,
 } from "@/components/basics/Section/Section";
 import ActivitySchedule, {
-    ActivityScheduleItem,
-    ActivityScheduleItemLabel,
-    ActivityScheduleItemTitle,
-    ActivityScheduleList,
-    ActivityScheduleTime
+  ActivityScheduleItem,
+  ActivityScheduleItemLabel,
+  ActivityScheduleItemTitle,
+  ActivityScheduleList,
+  ActivityScheduleTime,
 } from "@/components/elements/ActivitySchedule/ActivitySchedule";
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
 import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
@@ -36,7 +36,7 @@ import { getStoryblokHighlightedPostsQuery } from "@/lib/actions/queries/posts";
 import { STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
 import { cn } from "@/lib/utils/composers";
 import Link from "next/link";
-import { FC, ViewTransition } from "react";
+import { FC } from "react";
 
 const TEST = false;
 
@@ -51,7 +51,7 @@ const Page: FC<Props> = async () => {
 
   if (TEST)
     throw new Error(
-      "KV STORE use https://www.cloudflare.com/products/kv/; Page transitions;"
+      "KV STORE use https://www.cloudflare.com/products/kv/; Page transitions;",
     );
 
   return (
@@ -77,12 +77,12 @@ const Page: FC<Props> = async () => {
                         <ActivityScheduleList>
                           {dateGroup.items.map((groupedActivity) => {
                             const activityTitle = String(
-                                groupedActivity.activity.title
+                                groupedActivity.activity.title,
                               ).trim(),
                               isActivityTitleEmpty = activityTitle.length === 0;
 
                             const activityDescription = String(
-                                groupedActivity.activity.body
+                                groupedActivity.activity.body,
                               ).trim(),
                               isActivityDescriptionEmpty =
                                 activityDescription.length === 0;
@@ -101,7 +101,7 @@ const Page: FC<Props> = async () => {
                                       <ActivityScheduleItemTitle
                                         className={cn({
                                           ["text-neutral-400"]:
-                                            isActivityTitleEmpty
+                                            isActivityTitleEmpty,
                                         })}
                                       >
                                         {isActivityTitleEmpty
@@ -125,8 +125,8 @@ const Page: FC<Props> = async () => {
                                         href={{
                                           pathname: `/haegeprekerke/${groupedActivity.group.abbr}`,
                                           query: {
-                                            datum: dateGroup.dateGroup
-                                          }
+                                            datum: dateGroup.dateGroup,
+                                          },
                                         }}
                                       >
                                         Meer lezen
@@ -160,23 +160,14 @@ const Page: FC<Props> = async () => {
                     <Card key={post.slug}>
                       <CardContent>
                         <CardHeader>
-                          <ViewTransition
-                            name={`post-title-${post.id}`}
-                            share={{ "post-open": "morph", default: "none" }}
-                            default="none"
-                          >
-                            <CardTitle>{post.name}</CardTitle>
-                          </ViewTransition>
+                          <CardTitle>{post.name}</CardTitle>
                         </CardHeader>
                         <CardDescription>
                           {post.content.descr_short}
                         </CardDescription>
                         <CardFooter>
                           <Button variant="tertiary" asChild>
-                            <Link
-                              href={`/blog/${post.slug}`}
-                              transitionTypes={["post-open"]}
-                            >
+                            <Link href={`/blog/${post.slug}`}>
                               Meer hierover <Icon name="arrow-right-line" />
                             </Link>
                           </Button>

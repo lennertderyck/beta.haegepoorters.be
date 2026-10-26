@@ -1,4 +1,5 @@
 import Article, {
+    ArticleBody,
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
@@ -30,12 +31,14 @@ const Page: FC<Props> = () => {
         </ArticleHeaderFigure>
       </ArticleHeader>
       <ArticleContent>
-        <h4>Groepsleiding contacteren?</h4>
-        Je kan contact opnemen met onze groepsleiding via{" "}
-        <a href="mailto:groepsleiding@haegepoorters.be">
-          groepsleiding@haegepoorters.be
-        </a>
-        .
+        <ArticleBody>
+          <h4>Groepsleiding contacteren?</h4>
+          Je kan contact opnemen met onze groepsleiding via{" "}
+          <a href="mailto:groepsleiding@haegepoorters.be">
+            groepsleiding@haegepoorters.be
+          </a>
+          .
+        </ArticleBody>
       </ArticleContent>
     </Article>
   );
