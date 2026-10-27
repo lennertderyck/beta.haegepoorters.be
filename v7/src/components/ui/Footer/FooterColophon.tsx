@@ -1,4 +1,4 @@
-import { COLOPHON } from "@/lib/constants/static";
+import { FOOTER_COLOPHON } from "@/lib/constants/static";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -7,7 +7,7 @@ interface Props {}
 const FooterColophon: FC<Props> = () => {
   return (
     <p className="mt-6 text-gray-400 font-medium flex flex-col lg:flex-row gap-4 items-baseline justify-between">
-      {COLOPHON.map((colophonSection, colophonSectionIndex) => (
+      {FOOTER_COLOPHON.map((colophonSection, colophonSectionIndex) => (
         <small key={colophonSectionIndex} className="inline-block leading-5">
           {colophonSection.map(
             (colophonSectionItem, colophonSectionItemIndex) => (
@@ -27,7 +27,7 @@ const FooterColophon: FC<Props> = () => {
                   <>&nbsp; | &nbsp;</>
                 )}
               </span>
-            ),
+            )
           )}
         </small>
       ))}

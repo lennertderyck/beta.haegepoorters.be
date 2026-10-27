@@ -1,7 +1,7 @@
-import { client } from "../../vendors/sanity/client";
+import { SANITY_CLIENT } from "../../vendors/sanity/client";
 
 export const getGroups = async () => {
-  return client.fetch<
+  return SANITY_CLIENT.fetch<
     {
       _id: string;
       name: string;
@@ -11,11 +11,16 @@ export const getGroups = async () => {
   >('*[_type == "group"] | order(order asc)');
 };
 
+export interface CmsGroup {
+  _id: string;
+  name: string;
+  order: number;
+  abbr: string;
+}
+
 export const getGroupByAbbr = async (abbr: string) => {
-  return client.fetch<{
-    _id: string;
-    name: string;
-    order: number;
-    abbr: string;
-  }>('*[_type == "group" && abbr == $abbr][0]', { abbr });
+  return SANITY_CLIENT.fetch<CmsGroup>(
+    '*[_type == "group" && abbr == $abbr][0]',
+    { abbr }
+  );
 };

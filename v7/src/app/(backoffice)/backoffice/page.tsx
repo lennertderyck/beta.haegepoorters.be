@@ -1,18 +1,18 @@
 import Article, {
-    ArticleContent,
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardsGroup,
-    CardTitle
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardsGroup,
+  CardTitle,
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import Link from "next/link";
@@ -23,26 +23,26 @@ const ITEMS = [
     title: "Passkeys",
     description: "Meld je aan zonder wachtwoord",
     href: "/backoffice/passkeys",
-    hrefLabel: "Beheer passkeys"
+    hrefLabel: "Beheer passkeys",
   },
   {
     title: "Uitnodigingen",
     description: "Meld je aan met een uitnodigingslink",
     href: "/backoffice/invites",
-    hrefLabel: "Beheer uitnodigingen"
+    hrefLabel: "Beheer uitnodigingen",
   },
   {
     title: "Configuratie",
     description: "Beheer de instellingen van de website",
     href: "/backoffice/configuratie",
-    hrefLabel: "Openen"
+    hrefLabel: "Openen",
   },
   {
     title: "Leiding importeren",
     description: "Importeer de leidingsverdeling uit de Groepsadministratie",
     href: "/backoffice/leiding/importeren",
-    hrefLabel: "Nieuwe import starten"
-  }
+    hrefLabel: "Nieuwe import starten",
+  },
 ];
 
 interface Props {}

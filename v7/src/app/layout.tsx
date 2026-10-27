@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SEO.url),
   title: {
     default: SEO.name.official,
-    template: `%s | ${SEO.name.variant}`
+    template: `%s | ${SEO.name.variant}`,
   },
   description: SEO.description,
   applicationName: SEO.name.variant,
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     "Destelbergen",
     "Haegepoorters",
     "jeugdbeweging",
-    "Scouts en Gidsen Vlaanderen"
+    "Scouts en Gidsen Vlaanderen",
   ],
   openGraph: {
     type: "website",
@@ -52,19 +52,19 @@ export const metadata: Metadata = {
     siteName: SEO.name.variant,
     title: SEO.name.official,
     description: SEO.description,
-    images: [{ url: SEO.image, alt: SEO.name.official }]
+    images: [{ url: SEO.image, alt: SEO.name.official }],
   },
   twitter: {
     card: "summary_large_image",
     title: SEO.name.official,
     description: SEO.description,
-    images: [SEO.image]
+    images: [SEO.image],
   },
-  formatDetection: { telephone: false, address: false, email: false }
+  formatDetection: { telephone: false, address: false, email: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: SEO.themeColor
+  themeColor: SEO.themeColor,
 };
 
 /** Organization structured data for search engines */
@@ -83,8 +83,8 @@ const ORGANIZATION_JSON_LD = {
   parentOrganization: {
     "@type": "Organization",
     name: "Scouts en Gidsen Vlaanderen",
-    url: "https://www.scoutsengidsenvlaanderen.be"
-  }
+    url: "https://www.scoutsengidsenvlaanderen.be",
+  },
 };
 
 const MENU_START = [
@@ -93,18 +93,18 @@ const MENU_START = [
     name: "Haegeprekerke",
     href: "/haegeprekerke",
     icon: "book-3-line",
-    exact: false
+    exact: false,
   },
   {
     name: "Nieuws & blog",
     href: "/blog",
     icon: "newspaper-line",
-    exact: false
+    exact: false,
   },
   { name: "Leiding", href: "/leiding", icon: "team-line", exact: false },
 
   { name: "HP Rénove", href: "/vzw", icon: "hammer-line", exact: false },
-  { name: "Contact", href: "/contact", icon: "chat-4-line", exact: false }
+  { name: "Contact", href: "/contact", icon: "chat-4-line", exact: false },
 ] satisfies RootNavigationItemProps[];
 
 const MENU_END = [
@@ -112,8 +112,8 @@ const MENU_END = [
     name: "Digitale lidkaart",
     href: "/ga/lidkaart",
     icon: "qr-code-line",
-    exact: false
-  }
+    exact: false,
+  },
 ] satisfies RootNavigationItemProps[];
 
 const isAuthenticationHeaderEnabled =
@@ -129,13 +129,13 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
   const isMember = capabilities.includes("member");
   const expiresAt = auth.session?.session.expiresAt;
   const oauthProvider = OAUTH_PROVIDERS.find(
-    (provider) => provider.config.providerId === auth.provider
+    (provider) => provider.config.providerId === auth.provider,
   );
 
   const name = session?.user?.name || "Aanmelden";
 
   const signContextLabelMap: Record<NonNullable<SigninContext>, string> = {
-    local: "Lokaal beheer"
+    local: "Lokaal beheer",
   };
 
   const signContextLabel =
@@ -148,7 +148,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
       className={cn(
         sora.variable,
         podkova.variable,
-        "h-full antialiased [interpolate-size:allow-keywords]"
+        "h-full antialiased [interpolate-size:allow-keywords]",
       )}
     >
       <body className="min-h-full flex flex-col h-full md:pl-(--rootnavigation-size-min)">
@@ -156,7 +156,10 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(ORGANIZATION_JSON_LD).replace(/</g, "\\u003c")
+            __html: JSON.stringify(ORGANIZATION_JSON_LD).replace(
+              /</g,
+              "\\u003c",
+            ),
           }}
         />
         <RootNavigation className="">

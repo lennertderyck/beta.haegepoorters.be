@@ -4,6 +4,6 @@ export default [
   {
     source: "/old-path",
     destination: "/new-path",
-    permanent: true
-  }
+    permanent: true,
+  },
 ] satisfies Redirect[];

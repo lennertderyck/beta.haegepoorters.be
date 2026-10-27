@@ -6,14 +6,14 @@ const leadersFilter = {
       rel: "self",
       href: "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/ledenlijst/filter/huidige",
       method: "GET",
-      secties: []
+      secties: [],
     },
     {
       rel: "self",
       href: "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/ledenlijst/filter/huidige",
       method: "PATCH",
-      secties: []
-    }
+      secties: [],
+    },
   ],
   id: "huidige",
   type: "lid",
@@ -27,7 +27,7 @@ const leadersFilter = {
     "be.vvksm.groepsadmin.model.column.GsmColumn",
     "be.vvksm.groepsadmin.model.column.LidNummerColumn",
     "be.vvksm.groepsadmin.model.column.VVKSMFunktiesColumn",
-    "be.vvksm.groepsadmin.model.column.VVKSMGroepenColumn"
+    "be.vvksm.groepsadmin.model.column.VVKSMGroepenColumn",
   ],
   criteria: {
     functies: [
@@ -152,7 +152,7 @@ const leadersFilter = {
       "d5f75b37246b97970124914f1d19063a",
       "d5f75b320b812440010b812555430382",
       "d5f75b320b812440010b8125557c038d",
-      "8a95af938619c1c801862c99df190000"
+      "8a95af938619c1c801862c99df190000",
     ],
     adresgeblokkeerd: false,
     emailgeblokkeerd: false,
@@ -164,11 +164,11 @@ const leadersFilter = {
     geenLidTenLaste: false,
     groepen: ["O1306G"],
     geenRijksregisternummer: [],
-    groepseigen: []
+    groepseigen: [],
   },
   sortering: ["be.vvksm.groepsadmin.model.column.VVKSMFunktiesColumn"],
   delen: false,
-  gedeeldvanuit: []
+  gedeeldvanuit: [],
 } as const;
 
 export const updateLeadersFilterMutation = AdminQueryFactory(
@@ -184,9 +184,9 @@ export const updateLeadersFilterMutation = AdminQueryFactory(
       "content-type": "application/json",
       pragma: "no-cache",
       priority: "u=1, i",
-      responsetype: "arraybuffer"
-    }
-  }
+      responsetype: "arraybuffer",
+    },
+  },
 );
 
 export interface GroepsadministratieMember {
@@ -209,7 +209,7 @@ export const getActiveLeadersFromAdminQuery = AdminQueryFactory<{
       "content-type": "application/json",
       pragma: "no-cache",
       priority: "u=1, i",
-      responsetype: "arraybuffer"
-    }
-  }
+      responsetype: "arraybuffer",
+    },
+  },
 );

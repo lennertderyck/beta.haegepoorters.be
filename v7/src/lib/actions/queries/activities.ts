@@ -1,6 +1,6 @@
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import dayjs from "dayjs";
-import { client } from "../../vendors/sanity/client";
+import { SANITY_CLIENT } from "../../vendors/sanity/client";
 
 export type ActivityTypes = (typeof ACTIVITY_TYPES)[number]["name"];
 export interface Activity {
@@ -17,11 +17,11 @@ export interface Activity {
 }
 
 export const getActivityById = async (id: string) => {
-  return await client.fetch<Activity>(
+  return await SANITY_CLIENT.fetch<Activity>(
     `*[_type == "activity" && _id == $id][0]`,
     {
-      id
-    }
+      id,
+    },
   );
 };
 
@@ -30,9 +30,9 @@ export const getActivitiesForDateRangeAndGroupByAbbr = async (
     start: dayjs.ConfigType;
     end: dayjs.ConfigType;
   },
-  groupId: string
+  groupId: string,
 ) => {
-  return await client.fetch<{
+  return await SANITY_CLIENT.fetch<{
     group: any;
     activities: Activity[];
     range: {
@@ -55,8 +55,8 @@ export const getActivitiesForDateRangeAndGroupByAbbr = async (
     {
       startDate: range.start,
       endDate: range.end,
-      groupAbbr: groupId
-    }
+      groupAbbr: groupId,
+    },
   );
 };
 
@@ -64,7 +64,7 @@ export const getActivitiesForDateRange = async (range: {
   start: dayjs.ConfigType;
   end: dayjs.ConfigType;
 }) => {
-  return await client.fetch(
+  return await SANITY_CLIENT.fetch(
     `
     {
       "timelineForGroups": *[_type == "group"] | order(order asc){
@@ -79,13 +79,13 @@ export const getActivitiesForDateRange = async (range: {
   `,
     {
       startDate: dayjs(range.start).startOf("month"),
-      endDate: dayjs(range.end).endOf("month")
-    }
+      endDate: dayjs(range.end).endOf("month"),
+    },
   );
 };
 
 export const getActivitiesPreviewForNextWeek = async () => {
-  return await client.fetch<{
+  return await SANITY_CLIENT.fetch<{
     activitiesByGroup: {
       group: any;
       activity: Activity;
@@ -100,8 +100,8 @@ export const getActivitiesPreviewForNextWeek = async () => {
     }
   `,
     {
-      startDate: dayjs().startOf("week")
-    }
+      startDate: dayjs().startOf("week"),
+    },
   );
 };
 
@@ -114,7 +114,7 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
       (acc, { group, activity }) => {
         const activityDate = dayjs(activity?.startDate).format("YYYY-MM-DD");
         const existingGroupIndex = acc.findIndex(
-          (group) => group.dateGroup === activityDate
+          (group) => group.dateGroup === activityDate,
         );
 
         return existingGroupIndex === -1
@@ -123,9 +123,9 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
               dateGroupIndex === existingGroupIndex
                 ? {
                     ...dateGroup,
-                    items: [...dateGroup.items, { group, activity }]
+                    items: [...dateGroup.items, { group, activity }],
                   }
-                : dateGroup
+                : dateGroup,
             );
       },
       [] as {
@@ -134,7 +134,7 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
           group: (typeof response.activitiesByGroup)[number]["group"];
           activity: (typeof response.activitiesByGroup)[number]["activity"];
         }[];
-      }[]
+      }[],
     );
 };
 
@@ -148,9 +148,9 @@ interface ActivityMutationInput {
 }
 
 export const createActivityMutation = async (
-  activity: ActivityMutationInput
+  activity: ActivityMutationInput,
 ) => {
-  return await client.create({
+  return await SANITY_CLIENT.create({
     _type: "activity",
     title: activity.title,
     startDate: activity.startDate,
@@ -159,18 +159,18 @@ export const createActivityMutation = async (
     body: activity.body,
     group: {
       _type: "reference",
-      _ref: activity.groupId
-    }
+      _ref: activity.groupId,
+    },
   });
 };
 
 export const updateActivityMutation = async (
   activityId: string,
-  activity: Partial<ActivityMutationInput>
+  activity: Partial<ActivityMutationInput>,
 ) => {
-  return await client.patch(activityId).set(activity).commit();
+  return await SANITY_CLIENT.patch(activityId).set(activity).commit();
 };
 
 export const deleteActivityMutation = async (activityId: string) => {
-  return await client.delete(activityId);
+  return await SANITY_CLIENT.delete(activityId);
 };

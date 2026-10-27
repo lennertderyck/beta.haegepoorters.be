@@ -1,12 +1,12 @@
 import Article, {
-    ArticleBody,
-    ArticleContent,
-    ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleHeaderFigure,
-    ArticleSubtitle,
-    ArticleTitle
+  ArticleBody,
+  ArticleContent,
+  ArticleDescription,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleHeaderFigure,
+  ArticleSubtitle,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Boundary, { BoundaryBlock } from "@/components/basics/Boundary/Boundary";
 import { getStoryblokCatchAllQuery } from "@/lib/actions/queries/pages";

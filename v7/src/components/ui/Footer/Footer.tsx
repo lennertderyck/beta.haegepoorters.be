@@ -1,13 +1,13 @@
 import { LOGO_SGV } from "@/assets";
 import Boundary, {
-  BoundaryInline,
+    BoundaryInline
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-  CardFooter,
-  CardHeader,
-  CardSubtitle,
-  CardTitle,
+    CardFooter,
+    CardHeader,
+    CardSubtitle,
+    CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import { FOOTER_CONTACT_CARDS } from "@/lib/constants/static";
@@ -52,7 +52,7 @@ const Footer: FC<ComponentProps<"footer">> = async ({
                                         {addressLine}
                                         <br />
                                       </Fragment>
-                                    ),
+                                    )
                                   )}
                                 </address>
                               </CardSubtitle>

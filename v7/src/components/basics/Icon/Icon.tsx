@@ -21,7 +21,7 @@ const Icon: FC<IconProps> = ({
   color = "currentColor",
   size = "1.3rem",
   name = "admin",
-  className
+  className,
 }) => {
   return (
     <Svg {...{ color, size, className }}>

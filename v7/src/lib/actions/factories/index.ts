@@ -14,29 +14,29 @@ export const AdminQueryFactory = CreateQueryFactory(
     return new Request(ADMIN_API_BASE_URL, {
       headers: {
         Authorization: accessToken ? `Bearer ${accessToken}` : "",
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
   },
   {
-    enable: async () => await getIsAuthenticatedServer()
+    enable: async () => await getIsAuthenticatedServer(),
     // enable: false,
-  }
+  },
 );
 
 export const StoryblokQueryFactory = CreateQueryFactory(
   () => {
     const url = new URL(
-      `https://api.storyblok.com/v2/cdn/stories?token=${process.env.STORYBLOK_API_TOKEN}`
+      `https://api.storyblok.com/v2/cdn/stories?token=${process.env.STORYBLOK_API_TOKEN}`,
     );
     return new Request(url, {
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
   },
   {
-    enable: () => true
-  }
+    enable: () => true,
+  },
 );

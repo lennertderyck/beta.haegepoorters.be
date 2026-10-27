@@ -1,13 +1,13 @@
 "use server";
 
-import { getCmsRolesQuery } from "@/lib/actions/queries";
 import {
     GroepsadministratieMember,
     getActiveLeadersFromAdminQuery,
-    updateLeadersFilterMutation
+    updateLeadersFilterMutation,
 } from "@/lib/actions/queries/leaders";
+import { getCmsRolesQuery } from "@/lib/actions/queries/roles";
 import { getAllActiveStaff } from "@/lib/actions/queries/staff";
-import { client } from "@/lib/vendors/sanity/client";
+import { SANITY_CLIENT } from "@/lib/vendors/sanity/client";
 
 export const updateAction = async (state: null | Error | true) => {
   const response = await updateLeadersFilterMutation();
@@ -69,17 +69,17 @@ export const getStaffImportListQuery = async () => {
     new Set([
       ...activeLeaders.map(
         (leader) =>
-          leader.waarden["be.vvksm.groepsadmin.model.column.LidNummerColumn"]
+          leader.waarden["be.vvksm.groepsadmin.model.column.LidNummerColumn"],
       ),
       ...staff
         .map((member) => member.groepsadministratieReference)
         .filter(
           (
-            groepsadministratieReference
+            groepsadministratieReference,
           ): groepsadministratieReference is string =>
-            !!groepsadministratieReference
-        )
-    ])
+            !!groepsadministratieReference,
+        ),
+    ]),
   );
 
   /**
@@ -93,10 +93,10 @@ export const getStaffImportListQuery = async () => {
         (leader) =>
           leader?.waarden[
             "be.vvksm.groepsadmin.model.column.LidNummerColumn"
-          ] === reference
+          ] === reference,
       );
       const matchingStaff = staff.find(
-        (member) => member.groepsadministratieReference === reference
+        (member) => member.groepsadministratieReference === reference,
       );
 
       const leaderRoles =
@@ -106,7 +106,7 @@ export const getStaffImportListQuery = async () => {
               (leader) =>
                 leader.waarden[
                   "be.vvksm.groepsadmin.model.column.VVKSMFunktiesColumn"
-                ]
+                ],
             );
 
       const leader = matchingLeaders.length === 0 ? null : matchingLeaders[0];
@@ -128,19 +128,19 @@ export const getStaffImportListQuery = async () => {
         staff: matchingStaff,
         profile: {
           firstName,
-          lastName
+          lastName,
         },
         action: getStaffImportActionFromAspects({
           hasLeader: matchingLeaders?.length > 0,
-          hasStaff: Boolean(matchingStaff)
+          hasStaff: Boolean(matchingStaff),
         }),
         defaultImportRoles: rolesResponse.filter((role) =>
           role.groepsadministratieReference?.some((ref) =>
-            leaderRoles?.includes(ref.value)
-          )
-        )
+            leaderRoles?.includes(ref.value),
+          ),
+        ),
       };
-    }
+    },
   );
 };
 
@@ -157,7 +157,7 @@ export interface ImportStaffMutation {
 }
 
 export const importStaffMutation = async (mutations: ImportStaffMutation) => {
-  const tx = client.transaction();
+  const tx = SANITY_CLIENT.transaction();
 
   mutations.importData.forEach(({ id, roles, ...mutation }) => {
     const isUpdating = !!id;
@@ -169,7 +169,7 @@ export const importStaffMutation = async (mutations: ImportStaffMutation) => {
         return {
           _key: Math.random().toString(36).slice(2, 12),
           _ref: roleId,
-          _type: "reference"
+          _type: "reference",
         };
       });
 
@@ -177,14 +177,14 @@ export const importStaffMutation = async (mutations: ImportStaffMutation) => {
         tx.patch(id, {
           set: {
             ...mutation,
-            roles: rolesWithReferences
-          }
+            roles: rolesWithReferences,
+          },
         });
       else {
         tx.create({
           _type: "staff",
           ...mutation,
-          roles: rolesWithReferences
+          roles: rolesWithReferences,
         });
       }
     }
@@ -194,5 +194,5 @@ export const importStaffMutation = async (mutations: ImportStaffMutation) => {
 };
 
 export const clearAllStaffMutation = async () => {
-  return await client.delete({ query: '*[_type == "staff"]' });
+  return await SANITY_CLIENT.delete({ query: '*[_type == "staff"]' });
 };

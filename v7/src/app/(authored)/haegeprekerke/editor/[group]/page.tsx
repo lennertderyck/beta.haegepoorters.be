@@ -1,18 +1,18 @@
 import Article, {
-    ArticleContent,
-    ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle
+  ArticleContent,
+  ArticleHeader,
+  ArticleHeaderContainer,
+  ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import Notice from "@/components/basics/Notice/Notice";
 import Timeline, {
-    TimelineItem,
-    TimelineItemContent,
-    TimelineItemDescription,
-    TimelineItemTime,
-    TimelineItemTitle
+  TimelineItem,
+  TimelineItemContent,
+  TimelineItemDescription,
+  TimelineItemTime,
+  TimelineItemTitle,
 } from "@/components/elements/Timeline/ActivityTimeline";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
 import { getGroupByAbbr } from "@/lib/actions/queries/groups";
@@ -27,7 +27,7 @@ const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
 
 const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
   params,
-  searchParams
+  searchParams,
 }) => {
   const { group } = await params;
   const {
@@ -37,7 +37,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
      */
     van,
     tot,
-    activiteit // ID of a specific activity
+    activiteit, // ID of a specific activity
   } = await searchParams;
 
   const selectedMonth = (
@@ -48,11 +48,11 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
     dayjs(String(van)).startOf("month"),
     dayjs(String(tot)).startOf("month"),
     "month",
-    "[]"
+    "[]",
   );
 
   const periodStartParameter = (van ? dayjs(String(van)) : dayjs()).startOf(
-    "month"
+    "month",
   );
 
   const periodEndParameter = tot
@@ -67,7 +67,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
     periodStartParameter,
     periodMaxEnd,
     "month",
-    "[]"
+    "[]",
   );
 
   const periodStart = periodStartParameter;
@@ -78,16 +78,16 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
   const periodLength = periodEnd.diff(periodStart, "month") + 1;
 
   const monthList = Array.from({ length: periodLength }, (_, i) =>
-    periodStartParameter.add(i, "month")
+    periodStartParameter.add(i, "month"),
   );
 
   const groupResponse = await getGroupByAbbr(group);
   const activitiesResponse = await getActivitiesForDateRangeAndGroupByAbbr(
     {
       start: selectedMonth.startOf("month").toDate(),
-      end: selectedMonth.endOf("month").toDate()
+      end: selectedMonth.endOf("month").toDate(),
     },
-    group
+    group,
   );
 
   const activitiesForGroup = activitiesResponse?.activities ?? null;
@@ -104,8 +104,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
                   pathname: `/haegeprekerke/editor/${group}/toevoegen`,
                   query: {
                     van: periodStartParameter.format("YYYY-MM-DD"),
-                    tot: periodEndParameter.format("YYYY-MM-DD")
-                  }
+                    tot: periodEndParameter.format("YYYY-MM-DD"),
+                  },
                 }}
               >
                 Activiteit toevoegen
@@ -130,8 +130,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
                       query: {
                         referentie: month.format("YYYY-MM-DD"),
                         van: periodStartParameter.format("YYYY-MM-DD"),
-                        tot: periodEndParameter.format("YYYY-MM-DD")
-                      }
+                        tot: periodEndParameter.format("YYYY-MM-DD"),
+                      },
                     }}
                   >
                     {month.format("MMMM 'YY")}
@@ -163,7 +163,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
               >
                 <Link
                   href={{
-                    pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`
+                    pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`,
                   }}
                 >
                   <TimelineItem

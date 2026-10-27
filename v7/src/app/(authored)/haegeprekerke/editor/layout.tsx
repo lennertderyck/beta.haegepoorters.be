@@ -6,7 +6,7 @@ import { FC } from "react";
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const Layout: FC<LayoutProps<"/haegeprekerke/editor">> = async ({
-  children
+  children,
 }) => {
   const auth = await createAuth();
   const isAuthenticated = auth.isAuthenticated;
