@@ -8,7 +8,7 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
 /** Generate srcSet attribute for responsive images */
 export const composeImageSourceSet = (
-  input: Record<number, string> | [number, string][]
+  input: Record<number, string> | (string | number)[][]
 ) => {
   const inputArray = Array.isArray(input) ? input : Object.entries(input);
   return inputArray.map(([size, url]) => `${url} ${size}w`).join(", ");
