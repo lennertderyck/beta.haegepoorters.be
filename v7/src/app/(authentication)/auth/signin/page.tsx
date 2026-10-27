@@ -31,7 +31,7 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
       </ArticleHeader>
       <ArticleContent>
         <SigninButton provider="keycloak" callbackURL={composedCallbackURL}>
-          <button className="flex flex-col gap-5 md:flex-row items-center justify-between border-2 border-gray-50 p-8 shadow-lg rounded-lg w-full">
+          <button className="relative flex flex-col gap-5 md:flex-row items-center justify-between border-2 border-gray-50 p-8 shadow-lg rounded-lg w-full ">
             <div
               className={cn(
                 "flex flex-col md:flex-row items-center gap-2 md:gap-8",
@@ -52,6 +52,9 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
             </div>
             <div className="bg-neutral-50 p-2 rounded-full">
               <Icon name="arrow-right-line" />
+            </div>
+            <div className="invisible in-data-[pending=true]:visible absolute inset-0 p-2 bg-white/50 backdrop-blur-xs flex items-center justify-center transition-opacity duration-300">
+              <Icon name="loader-2-line" className="animate-spin" size="2rem" />
             </div>
           </button>
         </SigninButton>
