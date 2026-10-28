@@ -65,7 +65,7 @@ const StaffContactModalButton: FC<Props> = ({
                 >
                   <Card className="flex items-center" sizing="compact">
                     <CardContent>
-                      <CardHeader className="flex gap-2">
+                      <CardHeader className="flex gap-4">
                         <div>
                           <Icon name={contactMethod.iconName} />
                         </div>
