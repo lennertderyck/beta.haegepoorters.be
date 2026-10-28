@@ -1,7 +1,12 @@
 "use client";
 
 import Button from "@/components/basics/Button/Button";
-import Card, { CardContent, CardHeader } from "@/components/basics/Card/Card";
+import Card, {
+    CardContent,
+    CardHeader,
+    CardSubtitle,
+    CardTitle
+} from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import type { CmsStaff } from "@/lib/actions/queries/staff";
 import { STAFFMEMBER_CONTACT_METHODS } from "@/lib/constants/contact";
@@ -32,7 +37,7 @@ const StaffContactModalButton: FC<Props> = ({
       <dialog
         ref={dialogRef}
         aria-labelledby="staff-contact-dialog-title"
-        className="m-auto w-full max-w-full h-full max-h-full border-0 bg-transparent shadow-xl backdrop:bg-black/50 open:flex items-center justify-center"
+        className="m-auto w-full max-w-full h-full max-h-full border-0 bg-transparent shadow-xl backdrop:bg-black/50 open:flex items-center justify-center text-[inherit]"
       >
         <div className="relative not-md:mt-auto md:max-w-lg h-fit md:max-h-3/6 bg-white p-8">
           <button
@@ -42,8 +47,8 @@ const StaffContactModalButton: FC<Props> = ({
           >
             <Icon name="close-line" />
           </button>
-          <header className="mb-4">
-            <h3 className="font-serif text-2xl font-bold">
+          <header className="mb-4 text-neutral-700">
+            <h3 className="font-serif text-2xl font-bold ">
               {staff.firstName} contacteren
             </h3>
             <p>
@@ -54,12 +59,24 @@ const StaffContactModalButton: FC<Props> = ({
           <ul>
             {STAFFMEMBER_CONTACT_METHODS.map((contactMethod) => (
               <li key={contactMethod.type}>
-                <Link href={contactMethod.hrefBase + staff.phoneNumber}>
+                <Link
+                  href={contactMethod.hrefBase + staff.phoneNumber}
+                  className="text-inherit"
+                >
                   <Card className="flex items-center" sizing="compact">
                     <CardContent>
-                      <CardHeader className="flex items-center gap-2">
-                        <Icon name={contactMethod.iconName} />
-                        {contactMethod.description}
+                      <CardHeader className="flex gap-2">
+                        <div>
+                          <Icon name={contactMethod.iconName} />
+                        </div>
+                        <div>
+                          <div>
+                            <CardTitle>{contactMethod.title(staff)}</CardTitle>
+                          </div>
+                          <CardSubtitle className="mb-0 text-sm text-neutral-500">
+                            {contactMethod.description?.(staff)}
+                          </CardSubtitle>
+                        </div>
                       </CardHeader>
                     </CardContent>
                     <div className="bg-neutral-50 p-2 rounded-full">
