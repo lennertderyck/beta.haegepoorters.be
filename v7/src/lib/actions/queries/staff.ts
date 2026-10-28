@@ -45,14 +45,19 @@ export interface CmsStaffPerAgeGroup extends CmsGroup {
 export const getStaffPerAgeGroup = () => {
   return SANITY_CLIENT.fetch<CmsStaffPerAgeGroup[]>(
     `
-      *[_type == "group"] | order(order asc) {
-      ...,
-      "staff": *[_type == "staff" && ^._id in roles[]->link._ref]{
-        ...,
-        "coverUrl": cover.asset->url,
-         "roles": roles[]->{ ... }
-      }
-    }
-  `
+      *[_type == "group" || (_type == "role" && label == "Groepsleiding")]{
+        _id,
+        "name": coalesce(name, label),
+        "abbr": coalesce(abbr, "grl"),
+        order,
+        "link": select(_type == "group" => link, [link]),
+        "staff": *[_type == "staff" && (^._id in roles[]->_id || ^._id in roles[]->link._ref)]{
+          ...,
+          "roles": *[_type == "role" && _id in ^.roles[]._ref && (link._ref == ^.^._id || _id == ^.^._id)]{
+            ...
+          }
+        }
+      } | order(order asc)
+    `
   );
 };

@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { type ComponentProps, type FC, useRef } from "react";
 import Button from "@/components/basics/Button/Button";
 import Card, { CardContent, CardHeader } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import type { CmsStaff } from "@/lib/actions/queries/staff";
 import { STAFFMEMBER_CONTACT_METHODS } from "@/lib/constants/contact";
+import Link from "next/link";
+import { type ComponentProps, type FC, useRef } from "react";
 
 interface Props extends ComponentProps<typeof Button> {
   staffMember: CmsStaff;
@@ -52,12 +52,15 @@ const StaffContactModalButton: FC<Props> = ({
             </p>
           </header>
           <ul>
-            {STAFFMEMBER_CONTACT_METHODS.map((method) => (
-              <li key={method.type}>
-                <Link href={method.hrefBase + staff.phoneNumber}>
+            {STAFFMEMBER_CONTACT_METHODS.map((contactMethod) => (
+              <li key={contactMethod.type}>
+                <Link href={contactMethod.hrefBase + staff.phoneNumber}>
                   <Card className="flex items-center" sizing="compact">
                     <CardContent>
-                      <CardHeader>{method.description}</CardHeader>
+                      <CardHeader className="flex items-center gap-2">
+                        <Icon name={contactMethod.iconName} />
+                        {contactMethod.description}
+                      </CardHeader>
                     </CardContent>
                     <div className="bg-neutral-50 p-2 rounded-full">
                       <Icon name="arrow-right-line" />
