@@ -1,8 +1,35 @@
+import "server-only";
+
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import dayjs from "dayjs";
+import { z } from "zod";
 import { SANITY_CLIENT } from "../../vendors/sanity/client";
 
 export type ActivityTypes = (typeof ACTIVITY_TYPES)[number]["name"];
+
+const dateSchema = z
+  .string()
+  .refine((value) => dayjs(value).isValid(), "Ongeldige datum");
+
+/** Validates activity input coming from the client before it is stored */
+export const activityInputSchema = z.object({
+  title: z.string().trim().min(1).max(200),
+  startDate: dateSchema,
+  endDate: dateSchema,
+  body: z.string().max(10_000),
+  type: z.enum(
+    ACTIVITY_TYPES.map((type) => type.name) as [
+      ActivityTypes,
+      ...ActivityTypes[],
+    ],
+  ),
+});
+
+/** Only matches activity documents, so client provided ids can't reach other types */
+const activitySelection = (activityId: string) => ({
+  query: `*[_type == "activity" && _id == $id]`,
+  params: { id: activityId },
+});
 export interface Activity {
   _id: string;
   startDate: string;
@@ -168,9 +195,11 @@ export const updateActivityMutation = async (
   activityId: string,
   activity: Partial<ActivityMutationInput>,
 ) => {
-  return await SANITY_CLIENT.patch(activityId).set(activity).commit();
+  return await SANITY_CLIENT.patch(activitySelection(activityId))
+    .set(activity)
+    .commit();
 };
 
 export const deleteActivityMutation = async (activityId: string) => {
-  return await SANITY_CLIENT.delete(activityId);
+  return await SANITY_CLIENT.delete(activitySelection(activityId));
 };

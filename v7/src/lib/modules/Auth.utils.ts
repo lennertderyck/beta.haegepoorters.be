@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import dayjs from "dayjs";
 import { headers as nextHeaders } from "next/headers";

@@ -1,3 +1,5 @@
+import "server-only";
+
 import { SANITY_CLIENT } from "../../vendors/sanity/client";
 
 export const getGroups = async () => {

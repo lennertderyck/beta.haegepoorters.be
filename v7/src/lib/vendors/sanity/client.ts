@@ -1,3 +1,5 @@
+import "server-only";
+
 import { createClient } from "@sanity/client";
 
 export const SANITY_CLIENT = createClient({

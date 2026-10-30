@@ -1,3 +1,5 @@
+import "server-only";
+
 import { StoryblokQueryFactory } from "../factories";
 
 export const getStoryblokHighlightedPostsQuery = StoryblokQueryFactory<{

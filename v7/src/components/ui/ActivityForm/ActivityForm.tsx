@@ -2,8 +2,8 @@
 
 import Button from "@/components/basics/Button/Button";
 import {
-  Collapsible,
-  CollapsibleContent,
+    Collapsible,
+    CollapsibleContent,
 } from "@/components/basics/Collapsible/Collapsible";
 import Field, { FieldLabel } from "@/components/basics/Field/Field";
 import Icon from "@/components/basics/Icon/Icon";
