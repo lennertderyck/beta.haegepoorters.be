@@ -10,7 +10,7 @@ const ACTIVITY_TYPE_ICON_MAP = {
   weekend: "building-2-line",
   camp: "tent-line",
   multi: "road-map-line",
-  none: "calendar-close-line",
+  none: "calendar-close-line"
 } satisfies Record<(typeof ACTIVITY_TYPES)[number]["name"], IconName>;
 
 interface Props extends Omit<ComponentProps<"ul">, "defaultValue"> {
@@ -18,7 +18,7 @@ interface Props extends Omit<ComponentProps<"ul">, "defaultValue"> {
   defaultValue: string | null;
   onValueChange: (
     value: string | null,
-    payload: string | null,
+    payload: string | null
   ) => string | null;
 }
 
@@ -40,12 +40,12 @@ const ActivityFormTypeSelector: FC<Props> = ({
     <ul
       className={cn(
         "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4",
-        className,
+        className
       )}
       {...otherProps}
     >
       {ACTIVITY_TYPES.map((activityType) => (
-        <li key={activityType.name} className="col-span-1 ">
+        <li key={activityType.name} className="col-span-1">
           <label>
             <input
               type="radio"

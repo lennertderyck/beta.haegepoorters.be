@@ -8,7 +8,6 @@ interface Props {}
 const Page: FC<Props> = async () => {
   const handleSubmit = async (formData: FormData) => {
     "use server";
-    console.log(Object.fromEntries(formData.entries()));
 
     try {
       const response = await keycloakServerAuth.api.signUpEmail({

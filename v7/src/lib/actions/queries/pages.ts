@@ -1,3 +1,5 @@
+import "server-only";
+
 import { StoryblokQueryFactory } from "../factories";
 
 /** Prefixes of Storyblok folders that are served at the site root */

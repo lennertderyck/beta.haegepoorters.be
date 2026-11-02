@@ -1,8 +1,22 @@
+"use client";
+
 import Icon from "@/components/basics/Icon/Icon";
 import { cn } from "@/lib/utils/composers";
 import { Select as BaseSelect } from "@base-ui/react/select";
 import { ComponentProps, FC } from "react";
 
+/**
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="option1">Option 1</SelectItem>
+ *     <SelectItem value="option2">Option 2</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ */
 export const Select = BaseSelect.Root;
 
 export const SelectLabel: FC<ComponentProps<typeof BaseSelect.Label>> = ({
@@ -32,7 +46,7 @@ export const SelectTrigger: FC<ComponentProps<typeof BaseSelect.Trigger>> = ({
       className={(state) =>
         cn(
           "flex items-center justify-between border border-stone-200 px-3 py-2 w-full",
-          className instanceof Function ? className(state) : className,
+          className instanceof Function ? className(state) : className
         )
       }
       {...otherProps}
@@ -55,7 +69,7 @@ export const SelectValue: FC<ComponentProps<typeof BaseSelect.Value>> = ({
       className={(state) =>
         cn(
           "text-nowrap",
-          className instanceof Function ? className(state) : className,
+          className instanceof Function ? className(state) : className
         )
       }
       {...otherProps}
@@ -77,7 +91,7 @@ export const SelectContent: FC<ComponentProps<typeof BaseSelect.Popup>> = ({
           className={(state) =>
             cn(
               "bg-white border border-stone-200 shadow-xl w-(--anchor-width) origin-(--transform-origin)",
-              className instanceof Function ? className(state) : className,
+              className instanceof Function ? className(state) : className
             )
           }
           {...otherProps}
@@ -99,7 +113,7 @@ export const SelectItem: FC<ComponentProps<typeof BaseSelect.Item>> = ({
       className={(state) =>
         cn(
           "flex gap-2 p-3 cursor-pointer",
-          className instanceof Function ? className(state) : className,
+          className instanceof Function ? className(state) : className
         )
       }
       {...otherProps}
@@ -111,7 +125,7 @@ export const SelectItem: FC<ComponentProps<typeof BaseSelect.Item>> = ({
             <Icon
               name={state.selected ? "checkbox-line" : "checkbox-blank-line"}
               className={cn({
-                ["text-stone-300"]: !state.selected,
+                ["text-stone-300"]: !state.selected
               })}
             />
           </div>

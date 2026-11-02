@@ -1,3 +1,5 @@
+import "server-only";
+
 import { AdminQueryFactory } from "../factories";
 
 const leadersFilter = {

@@ -1,3 +1,5 @@
+import "server-only";
+
 import { SANITY_CLIENT } from "@/lib/vendors/sanity/client";
 import { SanityImageSource } from "@sanity/image-url";
 import { CmsGroup } from "./groups";

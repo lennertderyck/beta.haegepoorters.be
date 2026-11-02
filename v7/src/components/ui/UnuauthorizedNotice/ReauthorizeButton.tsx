@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/components/basics/Button/Button";
-import AuthInitializer from "@/lib/modules/Auth";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FC } from "react";
 
@@ -17,7 +16,11 @@ const ReauthorizeButton: FC<Props> = () => {
 
   return (
     <>
-      <Button onClick={() => AuthInitializer.signInAgain(callbackUrl)}>
+      <Button
+        onClick={() =>
+          router.push(`/auth/signin?${new URLSearchParams({ callbackUrl })}`)
+        }
+      >
         Meld je (opnieuw) aan
       </Button>
     </>

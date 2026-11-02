@@ -1,3 +1,5 @@
+import "server-only";
+
 import { ADMIN_API_BASE_URL } from "@/lib/constants/admin";
 import Auth from "@/lib/modules/Auth";
 import { getIsAuthenticatedServer } from "@/lib/modules/Auth.utils";

@@ -1,3 +1,5 @@
+import "server-only";
+
 import { SANITY_CLIENT } from "@/lib/vendors/sanity/client";
 
 export interface CmsRole {

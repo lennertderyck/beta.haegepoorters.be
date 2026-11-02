@@ -2,8 +2,8 @@
 
 import Button from "@/components/basics/Button/Button";
 import {
-  Collapsible,
-  CollapsibleContent,
+    Collapsible,
+    CollapsibleContent,
 } from "@/components/basics/Collapsible/Collapsible";
 import Field, { FieldLabel } from "@/components/basics/Field/Field";
 import Icon from "@/components/basics/Icon/Icon";
@@ -87,7 +87,7 @@ const ActivityForm: FC<Props> = ({
     (type) => type.name === activityType,
   )?.isMultiDay;
 
-  const isTitleFilled = title.trim().length > 0;
+  const isTitleAvailable = title.trim().length > 0;
   const activityTypeDescriptor = !activityType
     ? null
     : ACTIVITY_TYPES.find((type) => type.name === activityType)?.descriptor;
@@ -133,7 +133,7 @@ const ActivityForm: FC<Props> = ({
                 }}
               />
               <Collapsible
-                open={isTitleFilled || activityTypeDescriptor !== null}
+                open={isTitleAvailable || activityTypeDescriptor !== null}
               >
                 <CollapsibleContent>
                   <p className="mt-2">
@@ -144,7 +144,7 @@ const ActivityForm: FC<Props> = ({
                         {activityTypeDescriptor !== null && (
                           <>
                             {activityTypeDescriptor}
-                            {isTitleFilled ? ": " : ""}
+                            {isTitleAvailable ? ": " : ""}
                           </>
                         )}
                         {title}

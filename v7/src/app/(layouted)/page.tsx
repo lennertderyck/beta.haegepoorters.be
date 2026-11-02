@@ -1,0 +1,245 @@
+import Article, { ArticleContent } from "@/components/basics/Article/Article";
+import {
+    BoundaryBlock,
+    BoundaryInline
+} from "@/components/basics/Boundary/Boundary";
+import Button from "@/components/basics/Button/Button";
+import Card, {
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardsGroup,
+    CardTitle
+} from "@/components/basics/Card/Card";
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger
+} from "@/components/basics/Collapsible/Collapsible";
+import Icon from "@/components/basics/Icon/Icon";
+import {
+    Section,
+    SectionHeader,
+    SectionTitle
+} from "@/components/basics/Section/Section";
+import ActivitySchedule, {
+    ActivityScheduleItem,
+    ActivityScheduleItemLabel,
+    ActivityScheduleItemTitle,
+    ActivityScheduleList,
+    ActivityScheduleTime
+} from "@/components/elements/ActivitySchedule/ActivitySchedule";
+import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
+import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
+import { getStoryblokHighlightedPostsQuery } from "@/lib/actions/queries/posts";
+import { ACTIVITY_TYPES } from "@/lib/constants/constants";
+import { SEO, STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
+import { cn } from "@/lib/utils/composers";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { FC } from "react";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" }
+};
+
+const TEST = false;
+
+interface Props {}
+
+const Page: FC<Props> = async () => {
+  const activitiesGroupedByDate =
+    await getActivitiesPreviewForNextWeekGroupedByDate();
+
+  const postsResponse = await getStoryblokHighlightedPostsQuery();
+  const posts = (await postsResponse.json())?.stories;
+
+  if (TEST)
+    throw new Error(
+      "KV STORE use https://www.cloudflare.com/products/kv/; Page transitions;"
+    );
+
+  return (
+    <BoundaryBlock className="lg:py-12">
+      <h1 className="sr-only">{SEO.name.official}</h1>
+      <Article>
+        <ArticleContent stretch>
+          <div className="grid grid-cols-12 gap-y-12 lg:gap-12">
+            <div className="col-span-12 lg:col-span-8">
+              <Section>
+                <SectionHeader>
+                  <SectionTitle asChild>
+                    <Link href="/haegeprekerke">
+                      <h4>Aankomende activiteiten</h4>
+                      <Icon name="arrow-right-line" />
+                    </Link>
+                  </SectionTitle>
+                </SectionHeader>
+                <ul>
+                  {activitiesGroupedByDate.map((dateGroup) => (
+                    <li key={dateGroup.dateGroup}>
+                      <ActivitySchedule>
+                        <ActivityScheduleTime dateTime={dateGroup.dateGroup} />
+                        <ActivityScheduleList>
+                          {dateGroup.items.map((groupedActivity) => {
+                            const activityTypeDescriptor = ACTIVITY_TYPES.find(
+                              (type) =>
+                                type.name === groupedActivity.activity.type
+                            )?.descriptor;
+
+                            const activityTitle = String(
+                                groupedActivity.activity.title
+                              ).trim(),
+                              isActivityTitleEmpty =
+                                activityTitle.length === 0 &&
+                                activityTypeDescriptor === null;
+
+                            const activityDescription = String(
+                                groupedActivity.activity.body
+                              ).trim(),
+                              isActivityDescriptionEmpty =
+                                activityDescription.length === 0;
+
+                            return (
+                              <Collapsible
+                                asChild
+                                key={groupedActivity.activity._id}
+                              >
+                                <ActivityScheduleItem>
+                                  <CollapsibleTrigger asChild>
+                                    <button className="text-left cursor-pointer w-full">
+                                      <ActivityScheduleItemLabel>
+                                        {groupedActivity.group.name}
+                                      </ActivityScheduleItemLabel>
+                                      <ActivityScheduleItemTitle
+                                        className={cn({
+                                          ["text-neutral-400"]:
+                                            activityTypeDescriptor === null &&
+                                            isActivityTitleEmpty
+                                        })}
+                                      >
+                                        {activityTypeDescriptor !== null && (
+                                          <>
+                                            {activityTypeDescriptor}
+                                            {!activityTypeDescriptor === null &&
+                                            isActivityTitleEmpty
+                                              ? ": "
+                                              : ""}
+                                          </>
+                                        )}
+                                        {isActivityTitleEmpty
+                                          ? "Activiteit zonder titel"
+                                          : activityTitle}
+                                      </ActivityScheduleItemTitle>
+                                    </button>
+                                  </CollapsibleTrigger>
+                                  <CollapsibleContent duration="faster">
+                                    {!isActivityDescriptionEmpty && (
+                                      <p className="text-base mt-2">
+                                        {activityDescription}
+                                      </p>
+                                    )}
+                                    <Button
+                                      variant="tertiary"
+                                      className="mt-2"
+                                      asChild
+                                    >
+                                      <Link
+                                        href={{
+                                          pathname: `/haegeprekerke/${groupedActivity.group.abbr}`,
+                                          query: {
+                                            datum: dateGroup.dateGroup
+                                          }
+                                        }}
+                                      >
+                                        Meer lezen
+                                        <Icon name="arrow-right-line" />
+                                      </Link>
+                                    </Button>
+                                  </CollapsibleContent>
+                                </ActivityScheduleItem>
+                              </Collapsible>
+                            );
+                          })}
+                        </ActivityScheduleList>
+                      </ActivitySchedule>
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            </div>
+            <div className="col-span-12 lg:col-span-4">
+              <Section>
+                <SectionHeader>
+                  <SectionTitle asChild>
+                    <Link href="/blog">
+                      <h4>Nieuwtjes & blog</h4>
+                      <Icon name="arrow-right-line" />
+                    </Link>
+                  </SectionTitle>
+                </SectionHeader>
+                <CardsGroup sizing="compact">
+                  {posts.map((post) => (
+                    <Card key={post.slug}>
+                      <CardContent>
+                        <CardHeader>
+                          <CardTitle>{post.name}</CardTitle>
+                        </CardHeader>
+                        <CardDescription>
+                          {post.content.descr_short}
+                        </CardDescription>
+                        <CardFooter>
+                          <Button variant="tertiary" asChild>
+                            <Link href={`/blog/${post.slug}`}>
+                              Meer hierover <Icon name="arrow-right-line" />
+                            </Link>
+                          </Button>
+                        </CardFooter>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </CardsGroup>
+              </Section>
+            </div>
+          </div>
+        </ArticleContent>
+        <BoundaryInline className="mt-12 px-0!">
+          <StartpageHero />
+        </BoundaryInline>
+        <ArticleContent stretch className="px-0 mt-12"></ArticleContent>
+        <ArticleContent stretch className="mt-12">
+          <Section>
+            <SectionHeader>
+              <SectionTitle>Komt ook van pas ...</SectionTitle>
+            </SectionHeader>
+            <CardsGroup sizing="compact">
+              {STARTPAGE_ADDITIONAL_INFO_CARDS.map((cardInfo) => {
+                return (
+                  <Card>
+                    <CardContent>
+                      <CardHeader>
+                        <CardTitle>{cardInfo.title}</CardTitle>
+                      </CardHeader>
+                      <CardDescription>{cardInfo.content}</CardDescription>
+                      <CardFooter>
+                        <Button variant="tertiary" asChild>
+                          <Link href={cardInfo.buttonHref}>
+                            {cardInfo.buttonLabel}{" "}
+                            <Icon name="arrow-right-up-line" />
+                          </Link>
+                        </Button>
+                      </CardFooter>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </CardsGroup>
+          </Section>
+        </ArticleContent>
+      </Article>
+    </BoundaryBlock>
+  );
+};
+
+export default Page;

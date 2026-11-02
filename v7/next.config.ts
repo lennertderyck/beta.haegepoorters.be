@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   experimental: { authInterrupts: true },
   // Keep URLs of the previous site working
   redirects: async () => redirectsConfig,
+  images: {
+    domains: ["play-lh.googleusercontent.com"]
+  }
 };
 
 export default nextConfig;
