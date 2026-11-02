@@ -1,38 +1,39 @@
 import Article, { ArticleContent } from "@/components/basics/Article/Article";
 import {
-  BoundaryBlock,
-  BoundaryInline,
+    BoundaryBlock,
+    BoundaryInline
 } from "@/components/basics/Boundary/Boundary";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardsGroup,
-  CardTitle,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardsGroup,
+    CardTitle
 } from "@/components/basics/Card/Card";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger
 } from "@/components/basics/Collapsible/Collapsible";
 import Icon from "@/components/basics/Icon/Icon";
 import {
-  Section,
-  SectionHeader,
-  SectionTitle,
+    Section,
+    SectionHeader,
+    SectionTitle
 } from "@/components/basics/Section/Section";
 import ActivitySchedule, {
-  ActivityScheduleItem,
-  ActivityScheduleItemLabel,
-  ActivityScheduleItemTitle,
-  ActivityScheduleList,
-  ActivityScheduleTime,
+    ActivityScheduleItem,
+    ActivityScheduleItemLabel,
+    ActivityScheduleItemTitle,
+    ActivityScheduleList,
+    ActivityScheduleTime
 } from "@/components/elements/ActivitySchedule/ActivitySchedule";
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
 import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
 import { getStoryblokHighlightedPostsQuery } from "@/lib/actions/queries/posts";
+import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import { SEO, STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
 import { cn } from "@/lib/utils/composers";
 import type { Metadata } from "next";
@@ -40,7 +41,7 @@ import Link from "next/link";
 import { FC } from "react";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/" }
 };
 
 const TEST = false;
@@ -56,7 +57,7 @@ const Page: FC<Props> = async () => {
 
   if (TEST)
     throw new Error(
-      "KV STORE use https://www.cloudflare.com/products/kv/; Page transitions;",
+      "KV STORE use https://www.cloudflare.com/products/kv/; Page transitions;"
     );
 
   return (
@@ -82,13 +83,20 @@ const Page: FC<Props> = async () => {
                         <ActivityScheduleTime dateTime={dateGroup.dateGroup} />
                         <ActivityScheduleList>
                           {dateGroup.items.map((groupedActivity) => {
+                            const activityTypeDescriptor = ACTIVITY_TYPES.find(
+                              (type) =>
+                                type.name === groupedActivity.activity.type
+                            )?.descriptor;
+
                             const activityTitle = String(
-                                groupedActivity.activity.title,
+                                groupedActivity.activity.title
                               ).trim(),
-                              isActivityTitleEmpty = activityTitle.length === 0;
+                              isActivityTitleEmpty =
+                                activityTitle.length === 0 &&
+                                activityTypeDescriptor === null;
 
                             const activityDescription = String(
-                                groupedActivity.activity.body,
+                                groupedActivity.activity.body
                               ).trim(),
                               isActivityDescriptionEmpty =
                                 activityDescription.length === 0;
@@ -107,9 +115,19 @@ const Page: FC<Props> = async () => {
                                       <ActivityScheduleItemTitle
                                         className={cn({
                                           ["text-neutral-400"]:
-                                            isActivityTitleEmpty,
+                                            activityTypeDescriptor === null &&
+                                            isActivityTitleEmpty
                                         })}
                                       >
+                                        {activityTypeDescriptor !== null && (
+                                          <>
+                                            {activityTypeDescriptor}
+                                            {!activityTypeDescriptor === null &&
+                                            isActivityTitleEmpty
+                                              ? ": "
+                                              : ""}
+                                          </>
+                                        )}
                                         {isActivityTitleEmpty
                                           ? "Activiteit zonder titel"
                                           : activityTitle}
@@ -131,8 +149,8 @@ const Page: FC<Props> = async () => {
                                         href={{
                                           pathname: `/haegeprekerke/${groupedActivity.group.abbr}`,
                                           query: {
-                                            datum: dateGroup.dateGroup,
-                                          },
+                                            datum: dateGroup.dateGroup
+                                          }
                                         }}
                                       >
                                         Meer lezen

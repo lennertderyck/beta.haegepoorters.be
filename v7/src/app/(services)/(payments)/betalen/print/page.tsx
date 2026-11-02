@@ -11,13 +11,14 @@ import {
     SectionHeader,
     SectionTitle
 } from "@/components/basics/Section/Section";
-import PaymentSupportedApps from "@/components/elements/PaymentSupportedApps/PaymentSupportedApps";
+import PaymentSupportedApps from "@/components/ui/PaymentSupportedApps/PaymentSupportedApps";
 import { PAYMENT_RECIPIENTS } from "@/lib/constants/payments";
 import {
     generatePaymentQRCodeURL,
     parsePaymentSharableString
 } from "@/lib/modules/Payment";
 import { FC } from "react";
+import PaymentPrintGenerationSettings from "./PaymentPrintGenerationSettings";
 
 const Page: FC<PageProps<"/betalen/print">> = async ({ searchParams }) => {
   const { st } = await searchParams;
@@ -34,7 +35,13 @@ const Page: FC<PageProps<"/betalen/print">> = async ({ searchParams }) => {
       parsedPaymentParameters?.recieverAccount
   );
 
-  const isOpenAmount: true | false = true;
+  const recieverName =
+    reciever?.label || parsedPaymentParameters?.recieverAccount;
+
+  const isOpenAmount =
+    parsedPaymentParameters?.amount === undefined ||
+    parsedPaymentParameters?.amount === null;
+
   const paymentQRCodeImageSource =
     parsedPaymentParameters === undefined
       ? null
@@ -73,6 +80,13 @@ const Page: FC<PageProps<"/betalen/print">> = async ({ searchParams }) => {
 
   return (
     <body className="h-full flex items-center justify-center">
+      <aside className="fixed bottom-12 right-12 w-100 shadow-lg p-6 z-50 bg-white print:hidden">
+        <PaymentPrintGenerationSettings
+          isOpenAmount={isOpenAmount}
+          recieverName={recieverName || "Onbekende ontvanger"}
+          parsedPaymentParameters={parsedPaymentParameters}
+        />
+      </aside>
       <Article>
         <ArticleHeader>
           <ArticleHeaderContainer>

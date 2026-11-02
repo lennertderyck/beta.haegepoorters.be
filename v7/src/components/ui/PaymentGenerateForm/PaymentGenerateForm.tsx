@@ -35,6 +35,7 @@ import {
 } from "@/lib/modules/Payment";
 
 import { FC, useActionState, useState } from "react";
+import PaymentSupportedApps from "../PaymentSupportedApps/PaymentSupportedApps";
 
 interface PaymentFormData {
   amount: number | null;
@@ -127,7 +128,7 @@ const PaymentGenerateForm: FC<Props> = ({ defaultValue }) => {
   return (
     <div className="grid grid-cols-12 gap-12">
       <div className="col-span-12 md:col-span-6">
-        <form action={dispatchAction} className="not-first:[&_section]:mt-6">
+        <form action={dispatchAction} className="[&_section]:not-first:mt-6">
           <Section>
             <SectionHeader>
               <SectionTitle>Betalingsinformatie</SectionTitle>
@@ -154,7 +155,7 @@ const PaymentGenerateForm: FC<Props> = ({ defaultValue }) => {
                     defaultChecked={!state.paymentData.isCustomAmount}
                     onChange={() => setShowAmount(true)}
                   >
-                    <OptionIcon name="discount-percent-line" />
+                    <OptionIcon name="receipt-line" />
                     <OptionLabel>Vast bedrag</OptionLabel>
                   </Option>
                 </div>
@@ -165,7 +166,7 @@ const PaymentGenerateForm: FC<Props> = ({ defaultValue }) => {
                     defaultChecked={state.paymentData.isCustomAmount}
                     onChange={() => setShowAmount(false)}
                   >
-                    <OptionIcon name="hand-coin-line" />
+                    <OptionIcon name="asterisk" />
                     <OptionLabel>Open bedrag</OptionLabel>
                   </Option>
                 </div>
@@ -245,10 +246,10 @@ const PaymentGenerateForm: FC<Props> = ({ defaultValue }) => {
           </Button>
         </form>
       </div>
-      <div className="col-span-12 md:col-span-6">
+      <div className="col-span-12 md:col-span-6 text-center">
         <Section>
           <SectionHeader>
-            <SectionTitle>Scan de QR-code</SectionTitle>
+            <SectionTitle className="text-center">Scan de QR-code</SectionTitle>
           </SectionHeader>
           {!state.submitted && (
             <>
@@ -259,12 +260,20 @@ const PaymentGenerateForm: FC<Props> = ({ defaultValue }) => {
           )}
           {state.submitted && (
             <>
-              <img src={generatePaymentQRCodeURL(paymentParameters)} />
-              <p className="mt-4">
-                {generatePaymentSharableString(paymentParameters)}
+              <img
+                src={generatePaymentQRCodeURL(paymentParameters)}
+                className="mx-auto"
+              />
+              <p className="mt-4 leading-4">
+                <small>
+                  {generatePaymentSharableString(paymentParameters)}
+                </small>
               </p>
             </>
           )}
+          <div className="mt-8">
+            <PaymentSupportedApps />
+          </div>
         </Section>
       </div>
     </div>
