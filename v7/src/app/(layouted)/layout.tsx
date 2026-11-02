@@ -8,6 +8,7 @@ import RootNavigationMenu from "@/components/ui/RootNavigation/RootNavigationMen
 import RootNavigationMenuLink from "@/components/ui/RootNavigation/RootNavigationMenuLink";
 import RootNavigationMenuLinkContent from "@/components/ui/RootNavigation/RootNavigationMenuLinkContent";
 import { createAuth } from "@/lib/modules/Auth";
+import Feature from "@/lib/modules/Feature/Feature";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { FC } from "react";
@@ -50,6 +51,7 @@ interface Props {}
 
 const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
   const auth = await createAuth();
+  const membershipCardFeature = await Feature.get("membership-card");
 
   const isAuthenticated = auth.isAuthenticated;
   const session = auth.session;
@@ -98,7 +100,9 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
         </div>
         <div className="flex flex-1 flex-col justify-between">
           <RootNavigationMenu items={MENU_START} />
-          <RootNavigationMenu items={MENU_END} />
+          <RootNavigationMenu
+            items={[...(membershipCardFeature ? MENU_END : [])]}
+          />
         </div>
       </RootNavigation>
       {isAuthenticationHeaderEnabled && (

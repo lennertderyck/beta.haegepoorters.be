@@ -3,9 +3,7 @@
 import Icon from "@/components/basics/Icon/Icon";
 import { cn } from "@/lib/utils/composers";
 import { Slot } from "@radix-ui/react-slot";
-import { usePathname, useRouter } from "next/navigation";
 import { ComponentProps, FC, useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "react-responsive";
 
 interface Props extends ComponentProps<"nav"> {
   asChild?: boolean;
@@ -20,9 +18,9 @@ const RootNavigation: FC<Props> = ({
   const ref = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const Comp = asChild ? Slot : "nav";
-  const router = useRouter();
-  const pathname = usePathname();
-  const isNotMobile = useMediaQuery({ minWidth: 768 });
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const isNotMobile = useMediaQuery({ minWidth: 768 });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -56,7 +54,7 @@ const RootNavigation: FC<Props> = ({
           "peer",
           "before:block",
           "md:before:w-(--rootnavigation-size-min) h-full",
-          !isOpen ? "not-md:-translate-x-full" : "not-md:translate-x-none",
+          !isOpen ? "not-md:-translate-x-full" : "not-md:translate-x-none"
         )}
       >
         <Comp
@@ -71,7 +69,7 @@ const RootNavigation: FC<Props> = ({
         className={cn(
           "fixed inset-0 z-(--rootnavigation-overlay-z-index)",
           "bg-black/0 peer-data-[state=open]:bg-black/50",
-          "transition-colors duration-350 ease-in-out",
+          "transition-colors duration-350 ease-in-out"
         )}
       />
       <button
@@ -79,7 +77,7 @@ const RootNavigation: FC<Props> = ({
         className={cn(
           "rounded-full fixed top-4 right-4 md:hidden bg-primary-500 size-12 grid place-items-center",
           "transition-[translate] duration-200",
-          !isOpen ? "translate-x-none" : "translate-x-16",
+          !isOpen ? "translate-x-none" : "translate-x-16"
         )}
       >
         <Icon name="menu-line" size="1.5rem" color="white" />

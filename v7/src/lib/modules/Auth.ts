@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { redirect } from "next/navigation";
 import {
   getAccessTokenServer,
@@ -53,10 +54,10 @@ const createAuth = async () => {
       const params = new URLSearchParams({ callbackUrl });
       redirect(`/auth/signin?${params}`);
     },
-    isAuthenticated: await getIsAuthenticatedServer(),
+    isAuthenticated:
+      !!session && dayjs(session.session.expiresAt).isAfter(dayjs()),
     session,
     provider: session?.user?.loginProvider ?? null,
-    accessToken: await getAccessTokenServer(),
     capabilities: session?.user?.capabilities ?? [],
   };
 };
