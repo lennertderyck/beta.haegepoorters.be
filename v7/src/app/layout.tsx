@@ -9,6 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import { FOLLOW_LINKS, SEO } from "@/lib/constants/static";
 import { createAuth } from "@/lib/modules/Auth";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { FC, PropsWithChildren } from "react";
 import { OAUTH_PROVIDERS } from "../../auth.config";
@@ -143,6 +144,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
       )}
     >
       {children}
+      <Analytics />
     </html>
   );
 };
