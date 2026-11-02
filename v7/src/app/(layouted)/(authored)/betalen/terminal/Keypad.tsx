@@ -61,7 +61,6 @@ const Keypad: FC<Props> = () => {
         label: inputMode === "manual" ? "," : "",
         onPress: () => {
           if (inputMode === "manual") {
-            setWillSetComma(true);
           }
         }
       },

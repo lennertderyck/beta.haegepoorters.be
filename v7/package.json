@@ -20,6 +20,7 @@
     "@supabase/supabase-js": "^2.117.3",
     "@thallesp/nestjs-better-auth": "^2.8.0",
     "@types/better-sqlite3": "^9.6.0",
+    "@vercel/analytics": "^2.0.1",
     "better-auth": "^1.7.2",
     "better-sqlite3": "^13.0.3",
     "class-variance-authority": "^0.7.1",

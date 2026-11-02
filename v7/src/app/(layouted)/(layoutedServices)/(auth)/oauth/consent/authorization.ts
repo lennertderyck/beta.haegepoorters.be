@@ -1,5 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/vendors/supabase/server";
-import { AUTH } from "../../../../../../auth.config";
+import { AUTH } from "../../../../../../../auth.config";
 
 /**
  * Resolves where a signed in user should go for an authorization: straight
@@ -7,7 +7,7 @@ import { AUTH } from "../../../../../../auth.config";
  * or `null` to show the consent screen for third-party clients
  */
 export const resolveAuthorization = async (
-  authorizationId: string,
+  authorizationId: string
 ): Promise<{ redirectTo: string | null } | { error: string }> => {
   const supabase = await createSupabaseServerClient();
 
