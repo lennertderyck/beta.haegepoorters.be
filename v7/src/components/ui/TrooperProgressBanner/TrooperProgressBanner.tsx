@@ -14,6 +14,7 @@ import {
     SectionTitle
 } from "@/components/basics/Section/Section";
 import { getTrooperCommissionStatus } from "@/lib/vendors/trooper";
+import Link from "next/link";
 import { ComponentProps, FC } from "react";
 
 const TrooperProgressBanner: FC<ComponentProps<typeof Section>> = async (
@@ -44,8 +45,14 @@ const TrooperProgressBanner: FC<ComponentProps<typeof Section>> = async (
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button variant="tertiary">
-                    Trooper mee! <Icon name="arrow-right-up-line" />
+                  <Button variant="tertiary" asChild>
+                    <Link
+                      href="https://www.trooper.be/nl/trooperverenigingen/hp"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Trooper mee! <Icon name="arrow-right-up-line" />
+                    </Link>
                   </Button>
                 </CardFooter>
               </CardContent>
