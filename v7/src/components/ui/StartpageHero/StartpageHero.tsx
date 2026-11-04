@@ -1,11 +1,12 @@
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import Label from "@/components/basics/Label/Label";
-import {
-  getActiveStaffCountQuery,
-  getHeaderLeadersCountQuery,
-} from "@/lib/actions/queries/staff";
+
 import { SEO } from "@/lib/constants/static";
+import {
+    getActiveStaffCountQuery,
+    getHeaderLeadersCountQuery
+} from "@/lib/server/queries/staff";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -42,7 +43,9 @@ const StartpageHero: FC<Props> = async () => {
                 <span className="mx-4 hidden xl:inline">|</span>
                 <span className="font-bold">235 leden</span> tussen 6 en 17 jaar
                 <span className="mx-2">•</span>
-                <span className="font-bold">{activeStaffCount} leiding</span>{" "}
+                <span className="font-bold">
+                  {activeStaffCount} leiding
+                </span>{" "}
                 waarvan {headerLeadersCount} groepsleiding
               </Label>
             </div>

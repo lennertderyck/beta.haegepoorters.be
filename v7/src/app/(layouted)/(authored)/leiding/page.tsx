@@ -16,7 +16,7 @@ import Card, {
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import Notice from "@/components/basics/Notice/Notice";
-import { getStaffPerAgeGroup } from "@/lib/actions/queries/staff";
+import { getStaffPerAgeGroup } from "@/lib/server/queries/staff";
 import { staffRoleComparator } from "@/lib/utils/comparators";
 import { composeImageSourceSet } from "@/lib/utils/composers";
 import SanityImage from "@/lib/vendors/sanity/images";

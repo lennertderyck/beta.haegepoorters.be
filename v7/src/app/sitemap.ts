@@ -1,10 +1,10 @@
-import type { MetadataRoute } from "next";
-import { getGroups } from "@/lib/actions/queries/groups";
-import {
-  getStoryblokSitemapStoriesQuery,
-  STORYBLOK_ROOT_PREFIXES,
-} from "@/lib/actions/queries/pages";
 import { SEO } from "@/lib/constants/static";
+import { getGroups } from "@/lib/server/queries/groups";
+import {
+    getStoryblokSitemapStoriesQuery,
+    STORYBLOK_ROOT_PREFIXES,
+} from "@/lib/server/queries/pages";
+import type { MetadataRoute } from "next";
 
 export const revalidate = 3600;
 

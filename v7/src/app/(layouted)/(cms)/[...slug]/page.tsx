@@ -1,16 +1,16 @@
 import Article, {
-  ArticleBody,
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleHeaderFigure,
-  ArticleSubtitle,
-  ArticleTitle,
+    ArticleBody,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleHeaderFigure,
+    ArticleSubtitle,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Boundary, { BoundaryBlock } from "@/components/basics/Boundary/Boundary";
-import { getStoryblokCatchAllQuery } from "@/lib/actions/queries/pages";
 import { SEO } from "@/lib/constants/static";
+import { getStoryblokCatchAllQuery } from "@/lib/server/queries/pages";
 import { richTextResolver } from "@storyblok/richtext";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
@@ -25,7 +25,7 @@ const getStory = async (slug: string[]) => {
 };
 
 export const generateMetadata = async ({
-  params,
+  params
 }: PageProps<"/[...slug]">): Promise<Metadata> => {
   const { slug } = await params;
   const story = (await getStory(slug))?.story;
@@ -49,10 +49,10 @@ export const generateMetadata = async ({
       images: [{ url: image, alt: story.name }],
       ...(isPost && {
         publishedTime: story.first_published_at || story.published_at,
-        modifiedTime: story.updated_at,
-      }),
+        modifiedTime: story.updated_at
+      })
     },
-    twitter: { title: story.name, description, images: [image] },
+    twitter: { title: story.name, description, images: [image] }
   };
 };
 
@@ -86,7 +86,7 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
     dateModified: story.story.updated_at,
     url: `${SEO.url}/${slug.join("/")}`,
     inLanguage: "nl-BE",
-    publisher: { "@id": `${SEO.url}/#organization` },
+    publisher: { "@id": `${SEO.url}/#organization` }
   };
 
   return (
@@ -96,7 +96,7 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(postJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(postJsonLd).replace(/</g, "\\u003c")
           }}
         />
       )}

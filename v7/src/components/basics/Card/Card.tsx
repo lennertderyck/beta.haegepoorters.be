@@ -102,18 +102,31 @@ export const CardsGroupItem: FC<ComponentProps<"li">> = ({
 const cardVariants = cva("", {
   variants: {
     sizing: {
-      default: "**:data-[slot=card-content]:py-6",
-      compact: "**:data-[slot=card-content]:py-4"
+      default: "",
+      compact: ""
     },
     variant: {
-      inline: "py-0!",
+      inline: "",
       default: "border-b-2 border-neutral-100"
-    }
+    },
+    intent: {}
   },
   defaultVariants: {
     sizing: "default",
     variant: "default"
-  }
+  },
+  compoundVariants: [
+    {
+      sizing: "default",
+      variant: "default",
+      className: "**:data-[slot=card-content]:py-6"
+    },
+    {
+      sizing: "compact",
+      variant: "default",
+      className: "**:data-[slot=card-content]:py-4"
+    }
+  ]
 });
 
 /**

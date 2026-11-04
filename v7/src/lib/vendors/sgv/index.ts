@@ -1,5 +1,5 @@
-import { GroepsadministratieMemberProfile } from "@/lib/actions/queries/person";
 import { SUPPPORTED_GROUP_IDS } from "@/lib/constants/admin";
+import { GroepsadministratieMemberProfile } from "@/lib/server/queries/person";
 import dayjs from "dayjs";
 
 export const compileGroepsadministratieMemberStatusFromProfile = (

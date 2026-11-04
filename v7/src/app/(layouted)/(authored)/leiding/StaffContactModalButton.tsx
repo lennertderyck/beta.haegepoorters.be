@@ -8,8 +8,8 @@ import Card, {
     CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
-import type { CmsStaff } from "@/lib/actions/queries/staff";
 import { STAFFMEMBER_CONTACT_METHODS } from "@/lib/constants/contact";
+import type { CmsStaff } from "@/lib/server/queries/staff";
 import Link from "next/link";
 import { type ComponentProps, type FC, useRef } from "react";
 

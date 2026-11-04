@@ -2,6 +2,7 @@ import Article, {
     ArticleContent,
     ArticleHeader,
     ArticleHeaderContainer,
+    ArticleSupertitle,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
@@ -10,12 +11,13 @@ import Notice from "@/components/basics/Notice/Notice";
 import ActivitiesTimeline, {
     ActivitiesTimelineItem
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
-import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
-import { getGroupByAbbr } from "@/lib/actions/queries/groups";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
+import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/server/queries/activities";
+import { getGroupByAbbr } from "@/lib/server/queries/groups";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FC } from "react";
+import ScrollInview from "./ScrollInview";
 
 const MAX_PERIOD_MONTHS = 5;
 const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
@@ -92,7 +94,10 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
       <ArticleHeader>
         <ArticleHeaderContainer>
           <div className="flex flex-row flex-wrap justify-between items-center gap-4">
-            <ArticleTitle>{groupResponse.name}</ArticleTitle>
+            <div>
+              <ArticleSupertitle>Haegeprekerke bewerken</ArticleSupertitle>
+              <ArticleTitle>{groupResponse.name}</ArticleTitle>
+            </div>
             <Button variant="primary" asChild>
               <Link
                 href={{
@@ -153,10 +158,21 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
           <>
             <ActivitiesTimeline>
               {activitiesForGroup.map((activity) => (
-                <ActivitiesTimelineItem
+                <ScrollInview
+                  enabled={activiteit?.toString() === activity._id}
                   key={activity._id}
-                  activity={activity}
-                />
+                >
+                  <Link
+                    href={{
+                      pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`
+                    }}
+                  >
+                    <ActivitiesTimelineItem
+                      key={activity._id}
+                      activity={activity}
+                    />
+                  </Link>
+                </ScrollInview>
               ))}
             </ActivitiesTimeline>
           </>

@@ -5,7 +5,7 @@ import Article, {
     ArticleHeaderContainer,
     ArticleTitle,
 } from "@/components/basics/Article/Article";
-import { getCmsRolesQuery } from "@/lib/actions/queries/roles";
+import { getCmsRolesQuery } from "@/lib/server/queries/roles";
 import { FC } from "react";
 import { getStaffImportListQuery } from "./actions";
 import DeleteAllStaffButton from "./DeleteAllStaffButton";

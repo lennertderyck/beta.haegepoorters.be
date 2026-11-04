@@ -31,11 +31,13 @@ import ActivitySchedule, {
     ActivityScheduleTime
 } from "@/components/elements/ActivitySchedule/ActivitySchedule";
 import StartpageHero from "@/components/ui/StartpageHero/StartpageHero";
-import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/actions/queries/activities";
-import { getStoryblokHighlightedPostsQuery } from "@/lib/actions/queries/posts";
+import TrooperProgressBanner from "@/components/ui/TrooperProgressBanner/TrooperProgressBanner";
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import { SEO, STARTPAGE_ADDITIONAL_INFO_CARDS } from "@/lib/constants/static";
-import { cn } from "@/lib/utils/composers";
+import Feature from "@/lib/modules/Feature/Feature";
+import { getActivitiesPreviewForNextWeekGroupedByDate } from "@/lib/server/queries/activities";
+import { getStoryblokHighlightedPostsQuery } from "@/lib/server/queries/posts";
+import { cn, composeActivityTitle } from "@/lib/utils/composers";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FC } from "react";
@@ -55,6 +57,8 @@ const Page: FC<Props> = async () => {
   const postsResponse = await getStoryblokHighlightedPostsQuery();
   const posts = (await postsResponse.json())?.stories;
 
+  const isTrooperBannerEnabled = await Feature.get("trooper-homepage");
+
   if (TEST)
     throw new Error(
       "KV STORE use https://www.cloudflare.com/products/kv/; Page transitions;"
@@ -65,6 +69,9 @@ const Page: FC<Props> = async () => {
       <h1 className="sr-only">{SEO.name.official}</h1>
       <Article>
         <ArticleContent stretch>
+          {isTrooperBannerEnabled && (
+            <TrooperProgressBanner className="mb-10" />
+          )}
           <div className="grid grid-cols-12 gap-y-12 lg:gap-12">
             <div className="col-span-12 lg:col-span-8">
               <Section>
@@ -119,18 +126,9 @@ const Page: FC<Props> = async () => {
                                             isActivityTitleEmpty
                                         })}
                                       >
-                                        {activityTypeDescriptor !== null && (
-                                          <>
-                                            {activityTypeDescriptor}
-                                            {!activityTypeDescriptor === null &&
-                                            isActivityTitleEmpty
-                                              ? ": "
-                                              : ""}
-                                          </>
+                                        {composeActivityTitle(
+                                          groupedActivity.activity
                                         )}
-                                        {isActivityTitleEmpty
-                                          ? "Activiteit zonder titel"
-                                          : activityTitle}
                                       </ActivityScheduleItemTitle>
                                     </button>
                                   </CollapsibleTrigger>
