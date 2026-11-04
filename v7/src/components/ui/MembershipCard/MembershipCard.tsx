@@ -55,8 +55,7 @@ const MembershipCard: FC<Props> = ({
           <Image
             src={LOGO_HAEGEPOORTERS_WHITE}
             alt="Logo Haegepoorters"
-            height={60}
-            width={60}
+            height={50}
           />
         </footer>
       </div>
