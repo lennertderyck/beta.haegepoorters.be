@@ -9,9 +9,7 @@ import Notice from "@/components/basics/Notice/Notice";
 import MembershipCard from "@/components/ui/MembershipCard/MembershipCard";
 import Feature from "@/lib/modules/Feature/Feature";
 import { getMembershipLocal } from "@/lib/server/actions/membership";
-import {
-    getPersonMembershipFromProfileQuery
-} from "@/lib/server/queries/person";
+import { getPersonMembershipFromProfileQuery } from "@/lib/server/queries/person";
 import { FC } from "react";
 
 interface Props {}
@@ -38,21 +36,25 @@ const Page: FC<Props> = async () => {
         {!isMembershipCardFeatureEnabled && (
           <Notice>Hier kan je binnenkort je lidkaart vinden.</Notice>
         )}
-        {!membership && (
-          <Notice>
-            Er ging iets mis bij het ophalen van je lidkaart, probeer het later
-            opnieuw.
-          </Notice>
-        )}
-        {membership && (
-          <div>
-            <MembershipCard
-              memberName={membership.memberName || ""}
-              memberIdentification={membership.memberIdentification || ""}
-              memberFunction={membership.memberFunction || ""}
-              firstJoined={membership.firstJoined}
-            />
-          </div>
+        {isMembershipCardFeatureEnabled && (
+          <>
+            {!membership && (
+              <Notice>
+                Er ging iets mis bij het ophalen van je lidkaart, probeer het
+                later opnieuw.
+              </Notice>
+            )}
+            {membership && (
+              <div>
+                <MembershipCard
+                  memberName={membership.memberName || ""}
+                  memberIdentification={membership.memberIdentification || ""}
+                  memberFunction={membership.memberFunction || ""}
+                  firstJoined={membership.firstJoined}
+                />
+              </div>
+            )}
+          </>
         )}
       </ArticleContent>
     </Article>
