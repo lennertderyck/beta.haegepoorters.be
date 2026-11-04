@@ -50,6 +50,10 @@ const isAuthenticationHeaderEnabled =
 interface Props {}
 
 const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
+  const isAuthenticationHeaderEnabled = await Feature.get(
+    "authentication-header"
+  );
+
   const auth = await createAuth();
   const membershipCardFeature = await Feature.get("membership-card");
 
@@ -57,7 +61,7 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
   const session = auth.session;
   const provider = auth.provider;
   const capabilities = auth.capabilities;
-  const isMember = capabilities.includes("member");
+  const isMember = capabilities.includes("active");
   const expiresAt = auth.session?.session.expiresAt;
   const oauthProvider = OAUTH_PROVIDERS.find(
     (provider) => provider.config.providerId === auth.provider
@@ -72,6 +76,7 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
   const signContextLabel =
     signContextLabelMap[auth.provider as NonNullable<SigninContext>] ||
     "Groepsadministratie";
+
   return (
     <body className="min-h-full flex flex-col h-full md:pl-(--rootnavigation-size-min)">
       <RootNavigation className="">

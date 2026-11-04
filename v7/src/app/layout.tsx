@@ -7,7 +7,6 @@ import isBetween from "dayjs/plugin/isBetween";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import { FOLLOW_LINKS, SEO } from "@/lib/constants/static";
-import Feature from "@/lib/modules/Feature/Feature";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { FC, PropsWithChildren } from "react";
@@ -77,11 +76,6 @@ const ORGANIZATION_JSON_LD = {
 };
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
-  console.log(
-    "Membership card feature flag:",
-    await Feature.get("membership-card")
-  );
-
   return (
     <html
       lang="nl"

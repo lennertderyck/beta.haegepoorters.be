@@ -1,16 +1,44 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Notice from "@/components/basics/Notice/Notice";
+import MembershipCard from "@/components/ui/MembershipCard/MembershipCard";
+import { getProfileQuery } from "@/lib/actions/queries/person";
+import Feature from "@/lib/modules/Feature/Feature";
+import { compileGroepsadministratieMemberStatusFromProfile } from "@/lib/vendors/sgv";
+import dayjs from "dayjs";
 import { FC } from "react";
 
 interface Props {}
 
-const Page: FC<Props> = () => {
+const Page: FC<Props> = async () => {
+  const isMembershipCardFeatureEnabled = await Feature.get("membership-card");
+
+  const profileQueryResponse = isMembershipCardFeatureEnabled
+    ? await getProfileQuery()
+    : null;
+  const isProfileQueryOk =
+    isMembershipCardFeatureEnabled && profileQueryResponse?.ok;
+
+  const profileData = isProfileQueryOk
+    ? await profileQueryResponse.json()
+    : null;
+  const memberStatus = profileData
+    ? compileGroepsadministratieMemberStatusFromProfile(profileData)
+    : null;
+  const firstJoined = memberStatus ? memberStatus.firstJoined : null;
+  const activeUntil = dayjs(memberStatus?.lastActiveDate);
+  const membershipNumber = profileData
+    ? profileData.verbondsgegevens.lidnummer
+    : null;
+  const name = profileData
+    ? `${profileData.vgagegevens.voornaam} ${profileData.vgagegevens.achternaam}`
+    : null;
+
   return (
     <Article>
       <ArticleHeader>
@@ -22,7 +50,26 @@ const Page: FC<Props> = () => {
         </ArticleHeaderContainer>
       </ArticleHeader>
       <ArticleContent>
-        <Notice>Hier kan je binnenkort je lidkaart vinden.</Notice>
+        {!isMembershipCardFeatureEnabled && (
+          <Notice>Hier kan je binnenkort je lidkaart vinden.</Notice>
+        )}
+        {!isProfileQueryOk && (
+          <Notice>
+            Er ging iets mis bij het ophalen van je lidkaart, probeer het later
+            opnieuw.
+          </Notice>
+        )}
+        {isMembershipCardFeatureEnabled && (
+          <div>
+            <MembershipCard
+              memberName={name || ""}
+              memberIdentification={membershipNumber}
+              firstJoinedDate={firstJoined}
+              activeUntilDate={activeUntil.toDate()}
+              activeFunctions={memberStatus?.activeFunctions || []}
+            />
+          </div>
+        )}
       </ArticleContent>
     </Article>
   );
