@@ -1,4 +1,10 @@
 import { LOGO_HAEGEPOORTERS_WHITE } from "@/assets";
+import Card, {
+    CardContent,
+    CardHeader,
+    CardSubtitle,
+    CardTitle
+} from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import Label from "@/components/basics/Label/Label";
 import Footer from "@/components/ui/Footer/Footer";
@@ -8,6 +14,7 @@ import RootNavigationMenu from "@/components/ui/RootNavigation/RootNavigationMen
 import RootNavigationMenuLink from "@/components/ui/RootNavigation/RootNavigationMenuLink";
 import RootNavigationMenuLinkContent from "@/components/ui/RootNavigation/RootNavigationMenuLinkContent";
 import { createAuth } from "@/lib/modules/Auth";
+import Feature from "@/lib/modules/Feature/Feature";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { FC } from "react";
@@ -49,13 +56,20 @@ const isAuthenticationHeaderEnabled =
 interface Props {}
 
 const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
+  const isAuthenticationHeaderEnabled = await Feature.get(
+    "authentication-header"
+  );
+
+  const isTrooperBannerEnabled = await Feature.get("trooper-rootnavigation");
+
   const auth = await createAuth();
+  const membershipCardFeature = await Feature.get("membership-card");
 
   const isAuthenticated = auth.isAuthenticated;
   const session = auth.session;
   const provider = auth.provider;
   const capabilities = auth.capabilities;
-  const isMember = capabilities.includes("member");
+  const isMember = capabilities.includes("active");
   const expiresAt = auth.session?.session.expiresAt;
   const oauthProvider = OAUTH_PROVIDERS.find(
     (provider) => provider.config.providerId === auth.provider
@@ -70,6 +84,7 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
   const signContextLabel =
     signContextLabelMap[auth.provider as NonNullable<SigninContext>] ||
     "Groepsadministratie";
+
   return (
     <body className="min-h-full flex flex-col h-full md:pl-(--rootnavigation-size-min)">
       <RootNavigation className="">
@@ -98,8 +113,29 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
         </div>
         <div className="flex flex-1 flex-col justify-between">
           <RootNavigationMenu items={MENU_START} />
-          <RootNavigationMenu items={MENU_END} />
+          <RootNavigationMenu
+            items={[...(membershipCardFeature ? MENU_END : [])]}
+          />
         </div>
+        {isTrooperBannerEnabled && (
+          <div className="p-4">
+            <Card sizing="compact" className="bg-[#4fbbbd] *:text-white">
+              <CardContent className="px-6">
+                <CardHeader>
+                  <img
+                    src="https://www.trooper.be/images/trooper-logo.svg"
+                    alt="Trooper logo"
+                    className="h-10 w-auto mr-4"
+                  />
+                  <CardTitle>Trooper goal</CardTitle>
+                  <CardSubtitle>
+                    Zoveel haalden Haegepoorters al op
+                  </CardSubtitle>
+                </CardHeader>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </RootNavigation>
       {isAuthenticationHeaderEnabled && (
         <header className="px-5 py-3 bg-neutral-100 m-4">

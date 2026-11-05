@@ -1,4 +1,3 @@
-import { RootNavigationItemProps } from "@/components/ui/RootNavigation/RootNavigation.types";
 import { podkova, sora } from "@/lib/fonts";
 import { cn } from "@/lib/utils/composers";
 import dayjs from "dayjs";
@@ -8,12 +7,9 @@ import isBetween from "dayjs/plugin/isBetween";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 import { FOLLOW_LINKS, SEO } from "@/lib/constants/static";
-import { createAuth } from "@/lib/modules/Auth";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { FC, PropsWithChildren } from "react";
-import { OAUTH_PROVIDERS } from "../../auth.config";
-import { SigninContext } from "../../packages/auth/AuthMemory";
 import "./globals.css";
 
 dayjs.locale("nl");
@@ -79,61 +75,7 @@ const ORGANIZATION_JSON_LD = {
   }
 };
 
-const MENU_START = [
-  { name: "Startpagina", href: "/", icon: "home-5-line", exact: true },
-  {
-    name: "Haegeprekerke",
-    href: "/haegeprekerke",
-    icon: "book-3-line",
-    exact: false
-  },
-  {
-    name: "Nieuws & blog",
-    href: "/blog",
-    icon: "newspaper-line",
-    exact: false
-  },
-  { name: "Leiding", href: "/leiding", icon: "team-line", exact: false },
-
-  { name: "HP Rénove", href: "/vzw", icon: "hammer-line", exact: false },
-  { name: "Contact", href: "/contact", icon: "chat-4-line", exact: false }
-] satisfies RootNavigationItemProps[];
-
-const MENU_END = [
-  {
-    name: "Digitale lidkaart",
-    href: "/ga/lidkaart",
-    icon: "qr-code-line",
-    exact: false
-  }
-] satisfies RootNavigationItemProps[];
-
-const isAuthenticationHeaderEnabled =
-  process.env.FEATURE_HEADER_AUTH_ENABLED === "true";
-
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const auth = await createAuth();
-
-  const isAuthenticated = auth.isAuthenticated;
-  const session = auth.session;
-  const provider = auth.provider;
-  const capabilities = auth.capabilities;
-  const isMember = capabilities.includes("member");
-  const expiresAt = auth.session?.session.expiresAt;
-  const oauthProvider = OAUTH_PROVIDERS.find(
-    (provider) => provider.config.providerId === auth.provider
-  );
-
-  const name = session?.user?.name || "Aanmelden";
-
-  const signContextLabelMap: Record<NonNullable<SigninContext>, string> = {
-    local: "Lokaal beheer"
-  };
-
-  const signContextLabel =
-    signContextLabelMap[auth.provider as NonNullable<SigninContext>] ||
-    "Groepsadministratie";
-
   return (
     <html
       lang="nl"

@@ -9,7 +9,7 @@ import Field, { FieldLabel } from "@/components/basics/Field/Field";
 import Icon from "@/components/basics/Icon/Icon";
 import Input from "@/components/basics/Input/Input";
 import Textarea from "@/components/basics/Textarea/Textarea";
-import { ActivityTypes } from "@/lib/actions/queries/activities";
+import { ActivityTypes } from "@/lib/server/queries/activities";
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import { cn } from "@/lib/utils/composers";
 import dayjs from "dayjs";

@@ -1,18 +1,18 @@
 import Article, {
-  ArticleContent,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle,
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-  ActivityFormSubmitState,
+    ActivityFormSubmitState,
 } from "@/components/ui/ActivityForm/ActivityForm";
-import {
-  activityInputSchema,
-  getActivityById,
-  updateActivityMutation,
-} from "@/lib/actions/queries/activities";
 import { requireCapability } from "@/lib/auth/guards";
+import {
+    activityInputSchema,
+    getActivityById,
+    updateActivityMutation,
+} from "@/lib/server/queries/activities";
 import { redirect } from "next/navigation";
 import { FC } from "react";
 import ActivityDeleteButton from "./ActivityDeleteButton";

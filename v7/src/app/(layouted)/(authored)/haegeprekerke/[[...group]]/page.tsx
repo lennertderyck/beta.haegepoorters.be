@@ -12,10 +12,10 @@ import ActivitiesTimeline, {
     ActivitiesTimelineItem
 } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
-import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/actions/queries/activities";
-import { getGroupByAbbr } from "@/lib/actions/queries/groups";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
 import { createAuth } from "@/lib/modules/Auth";
+import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/server/queries/activities";
+import { getGroupByAbbr } from "@/lib/server/queries/groups";
 import dayjs, { OpUnitType } from "dayjs";
 import type { Metadata } from "next";
 import Link from "next/link";

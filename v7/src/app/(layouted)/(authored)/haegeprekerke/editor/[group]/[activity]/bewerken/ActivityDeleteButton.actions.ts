@@ -1,7 +1,7 @@
 "use server";
 
-import { deleteActivityMutation } from "@/lib/actions/queries/activities";
 import { defineAction } from "@/lib/auth/action";
+import { deleteActivityMutation } from "@/lib/server/queries/activities";
 import { z } from "zod";
 
 export const deleteActivityAction = defineAction(

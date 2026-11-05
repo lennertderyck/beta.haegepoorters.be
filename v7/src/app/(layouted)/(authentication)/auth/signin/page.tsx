@@ -1,17 +1,17 @@
 import { LOGO_GROEPSADMINISTRATIE } from "@/assets";
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import { cn } from "@/lib/utils/composers";
 import Image from "next/image";
 import { FC } from "react";
-import { composeCallbackURL } from "../../../../../packages/auth/utils";
+import { composeCallbackURL } from "../../../../../../packages/auth/utils";
 import SigninButton from "./SigninButton";
 
 interface Props {}
@@ -35,7 +35,7 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
             <div
               className={cn(
                 "flex flex-col md:flex-row items-center gap-2 md:gap-8",
-                "*:text-center md:*:text-left",
+                "*:text-center md:*:text-left"
               )}
             >
               <Image

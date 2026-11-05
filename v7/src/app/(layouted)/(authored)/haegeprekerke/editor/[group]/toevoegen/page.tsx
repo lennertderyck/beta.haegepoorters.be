@@ -1,18 +1,18 @@
 import Article, {
-  ArticleContent,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle,
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-  ActivityFormState,
+    ActivityFormState,
 } from "@/components/ui/ActivityForm/ActivityForm";
-import {
-  activityInputSchema,
-  createActivityMutation,
-} from "@/lib/actions/queries/activities";
-import { getGroupByAbbr } from "@/lib/actions/queries/groups";
 import { requireCapability } from "@/lib/auth/guards";
+import {
+    activityInputSchema,
+    createActivityMutation,
+} from "@/lib/server/queries/activities";
+import { getGroupByAbbr } from "@/lib/server/queries/groups";
 import { redirect } from "next/navigation";
 import { FC } from "react";
 

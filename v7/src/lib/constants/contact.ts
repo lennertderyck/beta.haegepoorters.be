@@ -1,5 +1,5 @@
 import { IconName } from "@/components/basics/Icon/Icon";
-import { CmsStaff } from "../actions/queries/staff";
+import { CmsStaff } from "../server/queries/staff";
 
 interface StaffMemberContactMethod {
   type: string;

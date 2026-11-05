@@ -2,9 +2,11 @@ import "server-only";
 
 import dayjs from "dayjs";
 import { headers as nextHeaders } from "next/headers";
+import { cache } from "react";
 import { keycloakServerAuth } from "../vendors/better-auth/keycloak/server";
 
-export const getSessionServer = async () => {
+/** Cached per request, layouts and pages can call it without extra work */
+export const getSessionServer = cache(async () => {
   try {
     const headers = await nextHeaders();
     return await keycloakServerAuth.api.getSession({
@@ -14,9 +16,10 @@ export const getSessionServer = async () => {
     console.error("Failed to get session:", error);
     return null;
   }
-};
+});
 
-export const getAccessTokenServer = async () => {
+/** Cached per request, may refresh the token at the provider */
+export const getAccessTokenServer = cache(async () => {
   try {
     const { accessToken } = await keycloakServerAuth.api.getAccessToken({
       body: { useAccountCookie: true },
@@ -27,7 +30,7 @@ export const getAccessTokenServer = async () => {
     console.error("Failed to get access token:", error);
     return null;
   }
-};
+});
 
 export const getIsAuthenticatedServer = async () => {
   try {

@@ -6,22 +6,21 @@ import Timeline, {
     TimelineItemTitle,
     TimelineProps
 } from "@/components/elements/Timeline/ActivityTimeline";
-import { Activity } from "@/lib/actions/queries/activities";
 import { ACTIVITY_TYPES } from "@/lib/constants/constants";
+import { Activity } from "@/lib/server/queries/activities";
+import { composeActivityTitle } from "@/lib/utils/composers";
 import dayjs from "dayjs";
 import { FC, ReactNode } from "react";
 
-export const ActivitiesTimelineItem: FC<{ activity: Activity }> = ({
+interface ActivitiesTimelineItemProps {
+  activity: Activity;
+}
+
+export const ActivitiesTimelineItem: FC<ActivitiesTimelineItemProps> = ({
   activity
 }) => {
   const meta = ACTIVITY_TYPES.find((type) => type.name === activity.type);
   const isMultiday = meta?.isMultiDay || false;
-
-  const activityTypeDescriptor = ACTIVITY_TYPES.find(
-    (type) => type.name === activity.type
-  )?.descriptor;
-
-  const isTitleAvailable = activity.title.trim().length > 0;
 
   return (
     <TimelineItem
@@ -35,15 +34,7 @@ export const ActivitiesTimelineItem: FC<{ activity: Activity }> = ({
             <> tot {dayjs(activity.endDate).format("DD MMMM YYYY")}</>
           )}
         </TimelineItemTime>
-        <TimelineItemTitle>
-          {activityTypeDescriptor !== null && (
-            <>
-              {activityTypeDescriptor}
-              {isTitleAvailable ? ": " : ""}
-            </>
-          )}
-          {activity.title}
-        </TimelineItemTitle>
+        <TimelineItemTitle>{composeActivityTitle(activity)}</TimelineItemTitle>
         <TimelineItemDescription>{activity.body}</TimelineItemDescription>
       </TimelineItemContent>
     </TimelineItem>

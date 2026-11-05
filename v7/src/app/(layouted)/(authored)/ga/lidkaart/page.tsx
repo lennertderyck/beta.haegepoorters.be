@@ -1,16 +1,27 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Notice from "@/components/basics/Notice/Notice";
+import MembershipCard from "@/components/ui/MembershipCard/MembershipCard";
+import Feature from "@/lib/modules/Feature/Feature";
+import { getMembershipLocal } from "@/lib/server/actions/membership";
+import { getPersonMembershipFromProfileQuery } from "@/lib/server/queries/person";
 import { FC } from "react";
 
 interface Props {}
 
-const Page: FC<Props> = () => {
+const Page: FC<Props> = async () => {
+  const isMembershipCardFeatureEnabled = await Feature.get("membership-card");
+
+  const membership = isMembershipCardFeatureEnabled
+    ? (await getMembershipLocal()) ||
+      (await getPersonMembershipFromProfileQuery().catch(() => null))
+    : null;
+
   return (
     <Article>
       <ArticleHeader>
@@ -22,7 +33,29 @@ const Page: FC<Props> = () => {
         </ArticleHeaderContainer>
       </ArticleHeader>
       <ArticleContent>
-        <Notice>Hier kan je binnenkort je lidkaart vinden.</Notice>
+        {!isMembershipCardFeatureEnabled && (
+          <Notice>Hier kan je binnenkort je lidkaart vinden.</Notice>
+        )}
+        {isMembershipCardFeatureEnabled && (
+          <>
+            {!membership && (
+              <Notice>
+                Er ging iets mis bij het ophalen van je lidkaart, probeer het
+                later opnieuw.
+              </Notice>
+            )}
+            {membership && (
+              <div>
+                <MembershipCard
+                  memberName={membership.memberName || ""}
+                  memberIdentification={membership.memberIdentification || ""}
+                  memberFunction={membership.memberFunction || ""}
+                  firstJoined={membership.firstJoined}
+                />
+              </div>
+            )}
+          </>
+        )}
       </ArticleContent>
     </Article>
   );

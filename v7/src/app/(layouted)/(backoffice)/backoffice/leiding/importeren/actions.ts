@@ -1,13 +1,13 @@
 "use server";
 
+import { defineAction } from "@/lib/auth/action";
+import { requireCapability } from "@/lib/auth/guards";
 import {
     GroepsadministratieMember,
     getActiveLeadersFromAdminQuery,
-} from "@/lib/actions/queries/leaders";
-import { getCmsRolesQuery } from "@/lib/actions/queries/roles";
-import { getAllActiveStaff } from "@/lib/actions/queries/staff";
-import { defineAction } from "@/lib/auth/action";
-import { requireCapability } from "@/lib/auth/guards";
+} from "@/lib/server/queries/leaders";
+import { getCmsRolesQuery } from "@/lib/server/queries/roles";
+import { getAllActiveStaff } from "@/lib/server/queries/staff";
 import { SANITY_CLIENT } from "@/lib/vendors/sanity/client";
 import { z } from "zod";
 

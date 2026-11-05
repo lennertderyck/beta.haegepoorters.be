@@ -4,7 +4,7 @@ import Button from "@/components/basics/Button/Button";
 import { keycloakClientAuth } from "@/lib/vendors/better-auth/keycloak/client";
 import { Slot } from "@radix-ui/react-slot";
 import { ComponentProps, FC, useTransition } from "react";
-import { AUTH } from "../../../../../auth.config";
+import { AUTH } from "../../../../../../auth.config";
 
 interface Props extends ComponentProps<typeof Button> {
   callbackURL: string;
@@ -24,7 +24,7 @@ const SigninButton: FC<Props> = ({
       await new Promise((resolve) => setTimeout(resolve, 3000));
       await keycloakClientAuth.signIn.social({
         provider,
-        callbackURL: callbackURL || AUTH.BASE_URL,
+        callbackURL: callbackURL || AUTH.BASE_URL
       });
     } catch (error) {
       return error as Error;

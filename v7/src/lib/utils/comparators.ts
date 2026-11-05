@@ -1,5 +1,5 @@
-import { CmsRole } from "../actions/queries/roles";
-import { CmsStaff } from "../actions/queries/staff";
+import { CmsRole } from "../server/queries/roles";
+import { CmsStaff } from "../server/queries/staff";
 
 interface StaffRoleComparatorElement extends CmsStaff {
   roles: CmsRole[];

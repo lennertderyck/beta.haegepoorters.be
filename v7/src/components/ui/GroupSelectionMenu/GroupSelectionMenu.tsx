@@ -1,5 +1,5 @@
 import Button from "@/components/basics/Button/Button";
-import { getGroups } from "@/lib/actions/queries/groups";
+import { getGroups } from "@/lib/server/queries/groups";
 import { cn } from "@/lib/utils/composers";
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";

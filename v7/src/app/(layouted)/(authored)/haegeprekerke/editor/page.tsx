@@ -1,16 +1,17 @@
 import Article, {
-  ArticleContent,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleHeader,
+    ArticleHeaderContainer,
+    ArticleSupertitle,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Card, {
-  CardContent,
-  CardHeader,
-  CardTitle,
+    CardContent,
+    CardHeader,
+    CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
-import { getGroups } from "@/lib/actions/queries/groups";
+import { getGroups } from "@/lib/server/queries/groups";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -23,6 +24,7 @@ const Page: FC<Props> = async () => {
     <Article>
       <ArticleHeader>
         <ArticleHeaderContainer>
+          <ArticleSupertitle>Haegeprekerke</ArticleSupertitle>
           <ArticleTitle>Haegeprekerke bewerken</ArticleTitle>
         </ArticleHeaderContainer>
       </ArticleHeader>
@@ -32,7 +34,7 @@ const Page: FC<Props> = async () => {
             <li key={group.abbr}>
               <Link
                 href={{
-                  pathname: `/haegeprekerke/editor/${group.abbr}`,
+                  pathname: `/haegeprekerke/editor/${group.abbr}`
                 }}
               >
                 <Card className="flex items-center">
