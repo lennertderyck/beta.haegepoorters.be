@@ -137,7 +137,7 @@ const cardVariants = cva("", {
  *       <CardTitle>Title</CardTitle>
  *     </CardHeader>
  *     <CardDescription>Description</CardDescription>
- *   <CardFooter>Footer</CardFooter>
+ *     <CardFooter>Footer</CardFooter>
  *  </CardContent>
  * </Card>
  */
@@ -161,7 +161,7 @@ export const CardContent: FC<ComponentProps<"div">> = ({
   return (
     <div
       data-slot="card-content"
-      className={cn("w-full", className)}
+      className={cn("flex h-full w-full flex-col", className)}
       {...otherProps}
     />
   );
@@ -207,7 +207,7 @@ export const CardSubtitle: FC<ComponentProps<"p"> & { asChild?: boolean }> = ({
   return (
     <Comp
       data-slot="card-title"
-      className={cn("", "mb-1", className)}
+      className={cn("mb-1", className)}
       {...otherProps}
     />
   );
@@ -234,7 +234,7 @@ export const CardFooter: FC<ComponentProps<"footer">> = ({
   return (
     <footer
       data-slot="card-footer"
-      className={cn("mt-4", className)}
+      className={cn("mt-auto", className)}
       {...otherProps}
     />
   );

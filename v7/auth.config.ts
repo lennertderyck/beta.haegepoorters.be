@@ -82,29 +82,24 @@ export const OAUTH_PROVIDERS = [
         const memberStatus =
           compileGroepsadministratieMemberStatusFromProfile(personData);
 
-        const isMember = memberStatus.isMember;
-        const isMemberActive = memberStatus.isActive;
-        const activeFunctions = memberStatus.activeFunctions;
-
         const isLeader = groupLeaderData.groepen.some((groep: any) =>
           SUPPPORTED_GROUP_IDS.includes(groep.id)
         );
         const isWebmaster =
           WEBMASTER_USER_ID.includes(personData.id) ||
-          activeFunctions.some((functie: any) =>
+          memberStatus.activeFunctions.some((functie: any) =>
             WEBMASTER_FUNCTION_CODE.includes(functie.functieCode)
           );
 
         const capabilities = [
-          isMember && "registered",
-          isMemberActive && "active",
+          memberStatus.isMember && "registered",
+          memberStatus.isActive && "active",
           isLeader && "leader",
           isWebmaster && "webmaster"
         ].filter(Boolean);
 
         console.log({
-          isMember,
-          isMemberActive,
+          ...memberStatus,
           isLeader,
           isWebmaster,
           capabilities

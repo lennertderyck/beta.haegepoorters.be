@@ -8,16 +8,21 @@ import Article, {
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import Notice from "@/components/basics/Notice/Notice";
-import ActivitiesTimeline, {
-    ActivitiesTimelineItem
-} from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
+import {
+    TimelineItem,
+    TimelineItemContent,
+    TimelineItemDescription,
+    TimelineItemTime,
+    TimelineItemTitle
+} from "@/components/elements/Timeline/ActivityTimeline";
+import ActivitiesTimeline from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
 import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/server/queries/activities";
 import { getGroupByAbbr } from "@/lib/server/queries/groups";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FC } from "react";
-import ScrollInview from "./ScrollInview";
+import ScrollIntoView from "./ScrollIntoView/ ScrollIntoView";
 
 const MAX_PERIOD_MONTHS = 5;
 const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
@@ -158,7 +163,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
           <>
             <ActivitiesTimeline>
               {activitiesForGroup.map((activity) => (
-                <ScrollInview
+                <ScrollIntoView
                   enabled={activiteit?.toString() === activity._id}
                   key={activity._id}
                 >
@@ -167,12 +172,29 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
                       pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`
                     }}
                   >
-                    <ActivitiesTimelineItem
-                      key={activity._id}
-                      activity={activity}
-                    />
+                    <TimelineItem
+                      state={
+                        dayjs(activity.startDate).isAfter(dayjs())
+                          ? "future"
+                          : "past"
+                      }
+                    >
+                      <TimelineItemContent>
+                        <TimelineItemTime dateTime={activity.startDate}>
+                          {dayjs(activity.startDate).format("DD MMMM YYYY")}
+                        </TimelineItemTime>
+                        <TimelineItemTitle>{activity.title}</TimelineItemTitle>
+                        <TimelineItemDescription>
+                          {activity.body}
+                        </TimelineItemDescription>
+                        <Button variant="tertiary" className="mt-4">
+                          Bewerken
+                          <Icon name="arrow-right-line" size="1rem" />
+                        </Button>
+                      </TimelineItemContent>
+                    </TimelineItem>
                   </Link>
-                </ScrollInview>
+                </ScrollIntoView>
               ))}
             </ActivitiesTimeline>
           </>
