@@ -62,11 +62,11 @@ const TrooperProgressBanner: FC<ComponentProps<typeof Section>> = async (
         <div className="hidden md:flex flex-col items-end">
           <Label asChild className="mb-1">
             <p className="text-right">
-              <span>{Math.round(trooperCommissionStatus.earned)}€</span>
+              <span>{trooperCommissionStatus.earned}€</span>
 
               <span className="text-neutral-400">
                 {" / "}
-                {Math.round(trooperCommissionStatus.target)}€
+                {trooperCommissionStatus.target}€
               </span>
             </p>
           </Label>

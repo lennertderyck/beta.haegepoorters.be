@@ -17,8 +17,7 @@ import {
 } from "@/components/elements/Timeline/ActivityTimeline";
 import ActivitiesTimeline from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
-import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/server/queries/activities";
-import { getGroupByAbbr } from "@/lib/server/queries/groups";
+import { getActivitiesForDateRangeAndGroupByAbbr, getActivityGroupByIdentifier } from "@/lib/server/queries/activities";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FC } from "react";
@@ -83,7 +82,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
     periodStartParameter.add(i, "month")
   );
 
-  const groupResponse = await getGroupByAbbr(group);
+  const groupResponse = await getActivityGroupByIdentifier(group);
   const activitiesResponse = await getActivitiesForDateRangeAndGroupByAbbr(
     {
       start: selectedMonth.startOf("month").toDate(),

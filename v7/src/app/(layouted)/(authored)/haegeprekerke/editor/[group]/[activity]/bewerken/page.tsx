@@ -2,16 +2,16 @@ import Article, {
     ArticleContent,
     ArticleHeader,
     ArticleHeaderContent,
-    ArticleTitle,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-    ActivityFormSubmitState,
+    ActivityFormSubmitState
 } from "@/components/ui/ActivityForm/ActivityForm";
 import { requireCapability } from "@/lib/auth/guards";
 import {
     activityInputSchema,
     getActivityById,
-    updateActivityMutation,
+    updateActivityMutation
 } from "@/lib/server/queries/activities";
 import { redirect } from "next/navigation";
 import { FC } from "react";
@@ -36,9 +36,11 @@ const Page: FC<
     }
 
     redirect(
-      `/haegeprekerke/editor/${group}?status=success&activiteit=${activityParam}`,
+      `/haegeprekerke/editor/${group}?status=success&activiteit=${activityParam}`
     );
   };
+
+  console.log({ activity });
 
   return (
     <Article>
@@ -60,7 +62,7 @@ const Page: FC<
             startDate: activity.startDate,
             endDate: activity.endDate,
             body: activity.body,
-            type: activity.type,
+            type: activity.type
           }}
         />
       </ArticleContent>
