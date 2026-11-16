@@ -207,7 +207,7 @@ export const CardSubtitle: FC<ComponentProps<"p"> & { asChild?: boolean }> = ({
   return (
     <Comp
       data-slot="card-title"
-      className={cn("mb-1", className)}
+      className={cn("[&+*]:mt-1", className)}
       {...otherProps}
     />
   );
@@ -234,7 +234,7 @@ export const CardFooter: FC<ComponentProps<"footer">> = ({
   return (
     <footer
       data-slot="card-footer"
-      className={cn("mt-auto", className)}
+      className={cn("mt-auto pt-4", className)}
       {...otherProps}
     />
   );

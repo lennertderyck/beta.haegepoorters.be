@@ -1,7 +1,7 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleSupertitle,
     ArticleTitle
 } from "@/components/basics/Article/Article";
@@ -22,12 +22,12 @@ const Page: FC<Props> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleSupertitle>Haegeprekerke</ArticleSupertitle>
           <ArticleTitle>Haegeprekerke bewerken</ArticleTitle>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <ul>
           {groupsResponse.map((group) => (

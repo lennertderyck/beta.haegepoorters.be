@@ -1,7 +1,7 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleSupertitle,
     ArticleTitle
 } from "@/components/basics/Article/Article";
@@ -96,8 +96,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <div className="flex flex-row flex-wrap justify-between items-center gap-4">
             <div>
               <ArticleSupertitle>Haegeprekerke bewerken</ArticleSupertitle>
@@ -153,8 +153,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
               Het geselecteerde einde van de periode valt buiten het bereik.
             </p>
           )}
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         {activitiesForGroup?.length === 0 && (
           <Notice>Geen activiteiten gevonden voor deze periode.</Notice>

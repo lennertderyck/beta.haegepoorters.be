@@ -2,7 +2,7 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Card, {
@@ -41,14 +41,14 @@ const Page: FC<Props> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Leiding</ArticleTitle>
           <ArticleDescription>
             Ons team van gemotiveerde leiding
           </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent stretch>
         {groupedStaff.map((group) => (
           <ul key={group._id} className="mb-12">

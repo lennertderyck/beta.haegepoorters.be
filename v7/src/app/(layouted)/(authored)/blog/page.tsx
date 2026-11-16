@@ -2,7 +2,7 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
@@ -37,14 +37,14 @@ const Page: FC<Props> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Nieuws & blog</ArticleTitle>
           <ArticleDescription>
             Het reilen en zeilen binnen onze scouts
           </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent stretch>
         <CardsGroup>
           {posts?.map((post) => (

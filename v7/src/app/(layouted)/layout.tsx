@@ -6,20 +6,17 @@ import Card, {
     CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
-import Label from "@/components/basics/Label/Label";
 import Footer from "@/components/ui/Footer/Footer";
 import RootNavigation from "@/components/ui/RootNavigation/RootNavigation";
 import { RootNavigationItemProps } from "@/components/ui/RootNavigation/RootNavigation.types";
+import RootNavigationAccountButton from "@/components/ui/RootNavigation/RootNavigationAccountButton";
 import RootNavigationMenu from "@/components/ui/RootNavigation/RootNavigationMenu";
-import RootNavigationMenuLink from "@/components/ui/RootNavigation/RootNavigationMenuLink";
-import RootNavigationMenuLinkContent from "@/components/ui/RootNavigation/RootNavigationMenuLinkContent";
 import { createAuth } from "@/lib/modules/Auth";
 import Feature from "@/lib/modules/Feature/Feature";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { FC } from "react";
 import { OAUTH_PROVIDERS } from "../../../auth.config";
-import { SigninContext } from "../../../packages/auth/AuthMemory";
 
 const MENU_START = [
   { name: "Startpagina", href: "/", icon: "home-5-line", exact: true },
@@ -50,20 +47,14 @@ const MENU_END = [
   }
 ] satisfies RootNavigationItemProps[];
 
-const isAuthenticationHeaderEnabled =
-  process.env.FEATURE_HEADER_AUTH_ENABLED === "true";
-
-interface Props {}
-
 const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
   const isAuthenticationHeaderEnabled = await Feature.get(
     "authentication-header"
   );
-
   const isTrooperBannerEnabled = await Feature.get("trooper-rootnavigation");
+  const membershipCardFeature = await Feature.get("membership-card");
 
   const auth = await createAuth();
-  const membershipCardFeature = await Feature.get("membership-card");
 
   const isAuthenticated = auth.isAuthenticated;
   const session = auth.session;
@@ -74,16 +65,6 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
   const oauthProvider = OAUTH_PROVIDERS.find(
     (provider) => provider.config.providerId === auth.provider
   );
-
-  const name = session?.user?.name || "Aanmelden";
-
-  const signContextLabelMap: Record<NonNullable<SigninContext>, string> = {
-    local: "Lokaal beheer"
-  };
-
-  const signContextLabel =
-    signContextLabelMap[auth.provider as NonNullable<SigninContext>] ||
-    "Groepsadministratie";
 
   return (
     <body className="min-h-full flex flex-col h-full md:pl-(--rootnavigation-size-min)">
@@ -96,20 +77,11 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
               className="object-contain"
             />
           </div>
-          <RootNavigationMenuLink
-            href="/ga/profiel"
-            className="flex items-center"
-          >
-            <RootNavigationMenuLinkContent className="flex-1">
-              <div className="flex-1 flex items-center gap-5 px-5">
-                <div className="flex-1 flex flex-col items-end *:leading-4">
-                  <div className="font-serif text-lg">{signContextLabel}</div>
-                  <Label>{name}</Label>
-                </div>
-                <Icon name="account-circle-line" size="1.5rem" />
-              </div>
-            </RootNavigationMenuLinkContent>
-          </RootNavigationMenuLink>
+          <RootNavigationAccountButton
+            isAuthenticated={isAuthenticated}
+            session={session}
+            loginProvider={provider}
+          />
         </div>
         <div className="flex flex-1 flex-col justify-between">
           <RootNavigationMenu items={MENU_START} />

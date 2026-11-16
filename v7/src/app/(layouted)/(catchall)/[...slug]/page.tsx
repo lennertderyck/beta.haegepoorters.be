@@ -3,7 +3,7 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleHeaderFigure,
     ArticleSubtitle,
     ArticleTitle
@@ -102,13 +102,13 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
       )}
       <BoundaryBlock>
         <Article>
-          <ArticleHeader>
-            <ArticleHeaderContainer>
+          <ArticleHeaderContent>
+            <ArticleHeader>
               <ArticleTitle>{story?.story?.name}</ArticleTitle>
               <ArticleDescription>
                 Laatst aangepast {dayjs(date).fromNow()}
               </ArticleDescription>
-            </ArticleHeaderContainer>
+            </ArticleHeader>
             {isHeaderImageSourceAvailable && (
               <ArticleHeaderFigure>
                 <img
@@ -118,12 +118,12 @@ const Page: FC<PageProps<"/[...slug]">> = async ({ params }) => {
                 />
               </ArticleHeaderFigure>
             )}
-            <ArticleHeaderContainer>
+            <ArticleHeader>
               <ArticleSubtitle>
                 {story?.story?.content?.descr_short}
               </ArticleSubtitle>
-            </ArticleHeaderContainer>
-          </ArticleHeader>
+            </ArticleHeader>
+          </ArticleHeaderContent>
           <ArticleContent>
             <ArticleBody dangerouslySetInnerHTML={{ __html: html }} />
           </ArticleContent>

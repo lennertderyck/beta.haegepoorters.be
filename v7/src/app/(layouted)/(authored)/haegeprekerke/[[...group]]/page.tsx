@@ -2,7 +2,7 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
@@ -82,8 +82,8 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <div className="flex items-center justify-between">
             <ArticleTitle>Haegeprekerke</ArticleTitle>
             {hasCapabilities && (
@@ -111,8 +111,8 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
               }
             })}
           />
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         {activitiesForGroup?.length === 0 && (
           <Notice>

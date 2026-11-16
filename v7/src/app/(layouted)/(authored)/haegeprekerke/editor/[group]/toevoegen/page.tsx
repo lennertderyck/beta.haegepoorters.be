@@ -1,7 +1,7 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle,
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
@@ -43,11 +43,11 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Activiteit toevoegen</ArticleTitle>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <ActivityForm action={createActivity} actionType="create" />
       </ArticleContent>

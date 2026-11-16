@@ -1,18 +1,18 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContent,
+    ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Card, {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardsGroup,
-  CardTitle,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardsGroup,
+    CardTitle,
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import Link from "next/link";
@@ -50,12 +50,12 @@ interface Props {}
 const Page: FC<Props> = () => {
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Backoffice</ArticleTitle>
           <ArticleDescription>Beheer van de website.</ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent className="flex flex-wrap gap-3">
         <CardsGroup>
           {ITEMS.map((item, itemIndex) => (

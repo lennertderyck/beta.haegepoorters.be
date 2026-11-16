@@ -3,7 +3,7 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
@@ -23,12 +23,12 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer className="text-center">
+      <ArticleHeaderContent>
+        <ArticleHeader className="text-center">
           <ArticleTitle>Welkom terug!</ArticleTitle>
           <ArticleDescription>Meld je aan om verder te gaan</ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <SigninButton provider="keycloak" callbackURL={composedCallbackURL}>
           <button className="relative flex flex-col gap-5 md:flex-row items-center justify-between border-2 border-gray-50 p-8 shadow-lg rounded-lg w-full ">

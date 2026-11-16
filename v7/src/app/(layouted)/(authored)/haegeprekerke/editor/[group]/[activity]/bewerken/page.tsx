@@ -1,7 +1,7 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle,
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
@@ -42,15 +42,15 @@ const Page: FC<
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer className="flex flex-wrap gap-4 justify-between">
+      <ArticleHeaderContent>
+        <ArticleHeader className="flex flex-wrap gap-4 justify-between">
           <ArticleTitle>Activiteit bewerken</ArticleTitle>
           <ActivityDeleteButton
             activityId={activityParam}
             redirectUrl={`/haegeprekerke/editor/${group}?status=success`}
           />
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <ActivityForm
           action={updateActivity}

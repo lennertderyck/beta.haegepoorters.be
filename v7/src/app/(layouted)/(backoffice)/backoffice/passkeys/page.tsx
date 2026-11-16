@@ -1,9 +1,9 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContent,
+    ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Notice from "@/components/basics/Notice/Notice";
 import { getSupabaseClientConfig } from "@/lib/vendors/supabase/client";
@@ -25,11 +25,11 @@ const Page: FC<PageProps<"/backoffice/passkeys">> = async () => {
   if (!user) {
     return (
       <Article>
-        <ArticleHeader>
-          <ArticleHeaderContainer>
+        <ArticleHeaderContent>
+          <ArticleHeader>
             <ArticleTitle>Passkeys</ArticleTitle>
-          </ArticleHeaderContainer>
-        </ArticleHeader>
+          </ArticleHeader>
+        </ArticleHeaderContent>
         <ArticleContent>
           <Notice>
             Passkeys zijn enkel beschikbaar voor webmasteraccounts. Meld je aan
@@ -45,14 +45,14 @@ const Page: FC<PageProps<"/backoffice/passkeys">> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Passkeys</ArticleTitle>
           <ArticleDescription>
             Meld je als {user.email} aan zonder wachtwoord.
           </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent className="flex flex-col gap-8">
         {error && <Notice>{error.message}</Notice>}
         {passkeys && passkeys.length === 0 && (

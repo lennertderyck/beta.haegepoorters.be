@@ -22,6 +22,9 @@
 
   --rootnavigation-z-index: 50;
   --rootnavigation-overlay-z-index: calc(var(--rootnavigation-z-index) - 1);
+
+  --dialog-z-index: calc(var(--rootnavigation-z-index) + 1);
+  --dialog-optional-intent-inset-start: var(--rootnavigation-item-size-min);
 }
 
 @theme {

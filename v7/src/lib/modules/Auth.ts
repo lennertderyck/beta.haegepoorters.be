@@ -1,20 +1,45 @@
 import dayjs from "dayjs";
 import { redirect } from "next/navigation";
+import { OAUTH_PROVIDERS } from "../../../auth.config";
 import {
-  getAccessTokenServer,
-  getIsAuthenticatedServer,
-  getSessionServer,
+    getAccessTokenServer,
+    getIsAuthenticatedServer,
+    getSessionServer
 } from "./Auth.utils";
+
+type ConfiguredAuthProviders =
+  (typeof OAUTH_PROVIDERS)[number]["config"]["providerId"];
+
+export type AuthLoginProvider = ConfiguredAuthProviders | "other" | null;
 
 interface AuthModule {
   signInAgain: (callbackUrl: string) => void;
+  signOut: (callbackUrl: string) => void;
   readonly isAuthenticated: Promise<boolean>;
-  readonly provider: Promise<string | null>;
+  readonly provider: Promise<AuthLoginProvider | null>;
   readonly session: Promise<any>;
   readonly accessToken: Promise<string | null>;
 }
 
-type Session = Awaited<ReturnType<typeof getSessionServer>>;
+/**
+ * Resolves a login provider string to a typed AuthLoginProvider value, returning "supabase", "keycloak", "other", or null if undefined or null.
+ */
+const resolveLoginProviderType = (
+  loginProviderAsString: string | null | undefined
+): AuthLoginProvider | null => {
+  switch (loginProviderAsString) {
+    case "supabase":
+    case "keycloak":
+      return loginProviderAsString;
+    case undefined:
+    case null:
+      return null;
+    default:
+      return "other";
+  }
+};
+
+export type Session = Awaited<ReturnType<typeof getSessionServer>>;
 
 const initializer = (initialSession?: Session) => {
   const getSession = async () => initialSession ?? getSessionServer();
@@ -24,6 +49,10 @@ const initializer = (initialSession?: Session) => {
       const params = new URLSearchParams({ callbackUrl });
       redirect(`/auth/signin?${params}`);
     },
+    signOut: (callbackUrl: string) => {
+      const params = new URLSearchParams({ callbackUrl });
+      redirect(`/auth/signout?${params}`);
+    },
     get isAuthenticated() {
       return getIsAuthenticatedServer();
     },
@@ -31,8 +60,8 @@ const initializer = (initialSession?: Session) => {
       return getSession();
     },
     get provider() {
-      return getSession().then(
-        (session) => session?.user?.loginProvider ?? null,
+      return getSession().then((session) =>
+        resolveLoginProviderType(session?.user?.loginProvider)
       );
     },
     get accessToken() {
@@ -40,7 +69,7 @@ const initializer = (initialSession?: Session) => {
     },
     get capabilities() {
       return getSession().then((session) => session?.user?.capabilities ?? []);
-    },
+    }
   };
 };
 
@@ -48,6 +77,7 @@ const Auth: AuthModule = initializer();
 
 const createAuth = async () => {
   const session = await getSessionServer();
+  const accessToken = getAccessTokenServer() ?? null;
 
   return {
     signInAgain: (callbackUrl: string) => {
@@ -57,8 +87,9 @@ const createAuth = async () => {
     isAuthenticated:
       !!session && dayjs(session.session.expiresAt).isAfter(dayjs()),
     session,
-    provider: session?.user?.loginProvider ?? null,
-    capabilities: session?.user?.capabilities ?? [],
+    provider: resolveLoginProviderType(session?.user?.loginProvider) ?? null,
+    accessToken: accessToken,
+    capabilities: session?.user?.capabilities ?? []
   };
 };
 

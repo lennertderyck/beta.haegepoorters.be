@@ -143,7 +143,7 @@ export const OAUTH_PROVIDERS = [
       })
     }
   }
-] satisfies Array<{
+] as const satisfies Array<{
   info: { name: string; description: string };
   config: GenericOAuthConfig<string>;
 }>;

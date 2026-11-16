@@ -1,9 +1,9 @@
 import Article, {
-  ArticleContent,
-  ArticleDescription,
-  ArticleHeader,
-  ArticleHeaderContainer,
-  ArticleTitle,
+    ArticleContent,
+    ArticleDescription,
+    ArticleHeader,
+    ArticleHeaderContent,
+    ArticleTitle,
 } from "@/components/basics/Article/Article";
 import Notice from "@/components/basics/Notice/Notice";
 import { createSupabaseServerClient } from "@/lib/vendors/supabase/server";
@@ -18,14 +18,14 @@ const Page: FC<PageProps<"/backoffice/invites">> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Uitnodigingen</ArticleTitle>
           <ArticleDescription>
             Maak een link aan waarmee iemand zich één keer kan aanmelden.
           </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent className="flex flex-col gap-8">
         {user ? (
           <>

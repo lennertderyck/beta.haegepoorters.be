@@ -37,27 +37,59 @@ const Article: FC<
   );
 };
 
-const ArticleHeader: FC<ComponentProps<"header">> = ({
+const articleBlockVariants = cva("mx-auto", {
+  variants: {
+    stretch: {
+      true: "max-w-390 px-6",
+      false: "container"
+    }
+  },
+  defaultVariants: {
+    stretch: false
+  }
+});
+
+const ArticleBlock: FC<
+  ComponentProps<"div"> & { ["data-slot"]?: string } & VariantProps<
+      typeof articleBlockVariants
+    >
+> = ({
+  className,
+  "data-slot": dataSlot = "block",
+  stretch,
+  ...otherProps
+}) => {
+  return (
+    <div
+      data-slot={dataSlot}
+      data-stretch={stretch || false}
+      className={articleBlockVariants({ stretch, className })}
+      {...otherProps}
+    />
+  );
+};
+
+const ArticleHeaderContent: FC<ComponentProps<"header">> = ({
   className,
   ...otherProps
 }) => {
   return (
     <header
-      data-slot="header"
+      data-slot="header-content"
       className={cn("mb-8", className)}
       {...otherProps}
     />
   );
 };
 
-const ArticleHeaderContainer: FC<ComponentProps<"div">> = ({
+const ArticleHeader: FC<ComponentProps<"div">> = ({
   className,
   ...otherProps
 }) => {
   return (
-    <div
-      data-slot="header-container"
-      className={cn("container mx-auto has-[+*]:mb-8", className)}
+    <ArticleBlock
+      data-slot="header"
+      className={cn("has-[+*]:mb-8", className)}
       {...otherProps}
     />
   );
@@ -121,29 +153,10 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
   );
 };
 
-const articleContentVariants = cva("mx-auto", {
-  variants: {
-    stretch: {
-      true: "max-w-390 px-6",
-      false: "container"
-    }
-  },
-  defaultVariants: {
-    stretch: false
-  }
-});
-
 const ArticleContent: FC<
-  ComponentProps<"div"> & VariantProps<typeof articleContentVariants>
-> = ({ className, stretch, ...otherProps }) => {
-  return (
-    <div
-      data-slot="content"
-      data-stretch={stretch || false}
-      className={articleContentVariants({ stretch, className })}
-      {...otherProps}
-    />
-  );
+  ComponentProps<"div"> & ComponentProps<typeof ArticleBlock>
+> = ({ className, ...otherProps }) => {
+  return <ArticleBlock data-slot="content" {...otherProps} />;
 };
 
 const ArticleHeaderFigure: FC<ComponentProps<"figure">> = ({
@@ -185,11 +198,12 @@ const ArticleBody: FC<ComponentProps<"div">> = ({
 
 export default Article;
 export {
+    ArticleBlock,
     ArticleBody,
     ArticleContent,
     ArticleDescription,
-    ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeader as ArticleHeader,
+    ArticleHeaderContent as ArticleHeaderContent,
     ArticleHeaderFigure,
     ArticleSubtitle,
     ArticleSupertitle,

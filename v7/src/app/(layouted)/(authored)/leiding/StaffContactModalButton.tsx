@@ -48,7 +48,7 @@ const StaffContactModalButton: FC<Props> = ({
             <Icon name="close-line" />
           </button>
           <header className="mb-4 text-neutral-700">
-            <h3 className="font-serif text-2xl font-bold ">
+            <h3 className="font-serif text-2xl font-bold">
               {staff.firstName} contacteren
             </h3>
             <p>
