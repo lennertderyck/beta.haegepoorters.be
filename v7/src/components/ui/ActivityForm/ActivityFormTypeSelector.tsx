@@ -10,7 +10,8 @@ const ACTIVITY_TYPE_ICON_MAP = {
   weekend: "building-2-line",
   camp: "tent-line",
   multi: "road-map-line",
-  none: "calendar-close-line"
+  none: "calendar-close-line",
+  linked: "connector-line"
 } satisfies Record<(typeof ACTIVITY_TYPES)[number]["name"], IconName>;
 
 interface Props extends Omit<ComponentProps<"ul">, "defaultValue"> {

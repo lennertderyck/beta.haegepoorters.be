@@ -45,13 +45,13 @@ const initialActivityFormState: ActivityFormState = {
 
 interface Props {
   action: (reaction: ActivityFormSubmitState) => Promise<void>;
-  actionType: "create" | "update";
+  intent: "create" | "update";
   defaultValue?: ActivityFormState;
 }
 
 const ActivityForm: FC<Props> = ({
   action,
-  actionType,
+  intent,
   defaultValue = initialActivityFormState
 }) => {
   const [activityType, setActivityType] = useState<ActivityTypes | null>(
@@ -210,7 +210,7 @@ const ActivityForm: FC<Props> = ({
           </section>
           <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-4 items-center justify-between">
             <Button className="mt-4" type="submit" disabled={pending}>
-              {actionType === "create"
+              {intent === "create"
                 ? "Activiteit toevoegen"
                 : "Activiteit bijwerken"}
             </Button>

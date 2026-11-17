@@ -56,7 +56,7 @@ const Page: FC<
       <ArticleContent>
         <ActivityForm
           action={updateActivity}
-          actionType="update"
+          intent="update"
           defaultValue={{
             title: activity.title,
             startDate: activity.startDate,

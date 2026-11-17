@@ -12,19 +12,31 @@ const dateSchema = z
   .string()
   .refine((value) => dayjs(value).isValid(), "Ongeldige datum");
 
-/** Validates activity input coming from the client before it is stored */
-export const activityInputSchema = z.object({
-  title: z.string().trim().min(1).max(200),
-  startDate: dateSchema,
-  endDate: dateSchema,
-  body: z.string().max(10_000),
-  type: z.enum(
-    ACTIVITY_TYPES.map((type) => type.name) as [
-      ActivityTypes,
-      ...ActivityTypes[]
-    ]
-  )
-});
+/**
+ * Validates activity input coming from the client before it is stored.
+ * Single-day activities don't send an end date (the field is unmounted),
+ * so it falls back to the start date.
+ */
+export const activityInputSchema = z
+  .object({
+    title: z.string().trim().min(1).max(200),
+    startDate: dateSchema,
+    endDate: z.preprocess(
+      (value) => (value === "" ? undefined : value),
+      dateSchema.optional()
+    ),
+    body: z.string().max(10_000),
+    type: z.enum(
+      ACTIVITY_TYPES.map((type) => type.name) as [
+        ActivityTypes,
+        ...ActivityTypes[]
+      ]
+    )
+  })
+  .transform((input) => ({
+    ...input,
+    endDate: input.endDate ?? input.startDate
+  }));
 
 export const getActivityGroups = async () => {
   return await SANITY_CLIENT.fetch<CmsGroup[]>(
