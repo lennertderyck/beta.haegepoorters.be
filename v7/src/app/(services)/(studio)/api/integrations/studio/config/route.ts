@@ -6,9 +6,30 @@ const EXPOSED_STUDIO_CONFIG = {
   PAYMENT_RECIPIENTS
 };
 
-export const GET = (request: Request) => {
-  // return JSON
-  return new Response(JSON.stringify(EXPOSED_STUDIO_CONFIG), {
-    headers: { "Content-Type": "application/json" }
-  });
+const ALLOWED_ORIGINS = new Set([
+  "http://localhost:3333",
+  ...(process.env.STUDIO_ALLOWED_ORIGINS?.split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean) ?? [])
+]);
+const SANITY_STUDIO_ORIGIN = /^https:\/\/[a-z0-9-]+\.sanity\.studio$/;
+
+const isAllowedOrigin = (origin: string | null): origin is string =>
+  !!origin && (ALLOWED_ORIGINS.has(origin) || SANITY_STUDIO_ORIGIN.test(origin));
+
+const corsHeaders = (request: Request): HeadersInit => {
+  const origin = request.headers.get("origin");
+  if (!isAllowedOrigin(origin)) return { Vary: "Origin" };
+
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    Vary: "Origin"
+  };
 };
+
+export const GET = (request: Request) =>
+  Response.json(EXPOSED_STUDIO_CONFIG, { headers: corsHeaders(request) });
+
+export const OPTIONS = (request: Request) =>
+  new Response(null, { status: 204, headers: corsHeaders(request) });
