@@ -1,28 +1,27 @@
 "use client";
 
 import Button from "@/components/basics/Button/Button";
-import Auth from "@/lib/modules/Auth";
 import { Slot } from "@radix-ui/react-slot";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ComponentProps, FC } from "react";
 
 const SignoutButton: FC<ComponentProps<typeof Button>> = ({
   children,
   ...otherProps
 }) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackURL = searchParams.get("callbackUrl") ?? "/";
+  const callbackUrl = searchParams.get("callbackUrl") ?? "/";
 
   const Comp = !!children ? Slot : Button;
 
-  const d = () => {
-    "use server";
-
-    return Auth.signOut(callbackURL);
+  const handleSignout = () => {
+    const params = new URLSearchParams({ callbackUrl });
+    router.push(`/auth/signout?${params}`);
   };
 
   return (
-    <Comp onClick={() => d()} {...otherProps}>
+    <Comp onClick={handleSignout} {...otherProps}>
       {children ?? "Afmelden"}
     </Comp>
   );
