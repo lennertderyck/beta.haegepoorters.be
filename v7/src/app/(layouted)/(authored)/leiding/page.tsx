@@ -62,11 +62,11 @@ const Page: FC<Props> = async () => {
                 </Notice>
               )}
               {group.staff.length > 0 && (
-                <CardsGroup variant="grid" sizing="compact">
+                <CardsGroup variant="grid" density="compact">
                   {group.staff.sort(staffRoleComparator).map((member) => (
-                    <Card key={member._id} sizing="compact">
+                    <Card key={member._id} density="compact">
                       <CardContent>
-                        <CardFigure sizing="hugge">
+                        <CardFigure density="hugge">
                           <img
                             src={
                               member.cover

@@ -31,7 +31,12 @@ export const activityInputSchema = z
         ActivityTypes,
         ...ActivityTypes[]
       ]
-    )
+    ),
+    link: z.string().optional()
+  })
+  .refine((input) => input.type !== "linked" || input.link, {
+    message: "Link is required when type is 'linked'",
+    path: ["link"]
   })
   .transform((input) => ({
     ...input,
@@ -231,6 +236,31 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
       }[]
     )
     .sort((a, b) => a.dateGroup.localeCompare(b.dateGroup));
+};
+
+/**
+ * General-group activities that other activities can link to.
+ * Defaults to the start of this month up to the end of the month 3 months out.
+ */
+export const getGeneralGroupActivitiesForDateRangeQuery = async (range?: {
+  start: string;
+  end: string;
+}) => {
+  const start = range?.start ?? dayjs().startOf("month").toISOString();
+  const end =
+    range?.end ??
+    dayjs().startOf("month").add(3, "month").endOf("month").toISOString();
+
+  return await SANITY_CLIENT.fetch<Activity[]>(
+    `
+      *[_type == "activity" && group._ref == $groupId && startDate >= $startDate && startDate <= $endDate] | order(startDate asc)
+    `,
+    {
+      groupId: "cdefbfe0-1fc9-4b09-8857-443aafe5773e",
+      startDate: start,
+      endDate: end
+    }
+  );
 };
 
 interface ActivityMutationInput {

@@ -16,13 +16,13 @@ const cardsGroupVariants = cva(
         list: "",
         grid: ""
       },
-      sizing: {
+      density: {
         compact: "gap-x-4 -my-4",
         default: "gap-x-6 -my-6"
       }
     },
     defaultVariants: {
-      sizing: "default"
+      density: "default"
     }
   }
 );
@@ -31,25 +31,25 @@ const cardFigureVariants = cva(
   "h-40 has-[+*]:mb-4 *:object-cover *:w-full *:h-full",
   {
     variants: {
-      sizing: {
+      density: {
         hugge: "h-60",
         large: "h-50",
         compact: "h-40"
       }
     },
     defaultVariants: {
-      sizing: "compact"
+      density: "compact"
     }
   }
 );
 
 export const CardFigure: FC<
   ComponentProps<"figure"> & VariantProps<typeof cardFigureVariants>
-> = ({ className, sizing, ...otherProps }) => {
+> = ({ className, density, ...otherProps }) => {
   return (
     <figure
       data-slot="card-figure"
-      className={cardFigureVariants({ className, sizing })}
+      className={cardFigureVariants({ className, density })}
       {...otherProps}
     />
   );
@@ -59,14 +59,14 @@ export const CardFigure: FC<
 export const CardsGroup: FC<
   ComponentProps<"ul"> &
     VariantProps<typeof cardsGroupVariants> & { asChild?: boolean }
-> = ({ className, sizing, asChild, children, ...otherProps }) => {
+> = ({ className, density, asChild, children, ...otherProps }) => {
   const Comp = asChild ? Slot : "ul";
 
   return (
     <Comp
       data-slot="cards-group"
-      data-sizing={sizing}
-      className={cardsGroupVariants({ className, sizing })}
+      data-density={density}
+      className={cardsGroupVariants({ className, density })}
       {...otherProps}
     >
       {asChild
@@ -91,7 +91,7 @@ export const CardsGroupItem: FC<ComponentProps<"li">> = ({
     <li
       data-slot="cards-group-item"
       className={cn(
-        "col-span-12 @2xl/cards-group:col-span-6 @3xl/cards-group:col-span-4 in-data-[sizing=compact]:@3xl/cards-group:col-span-3",
+        "col-span-12 @2xl/cards-group:col-span-6 @3xl/cards-group:col-span-4 in-data-[density=compact]:@3xl/cards-group:col-span-3",
         className
       )}
       {...otherProps}
@@ -101,7 +101,7 @@ export const CardsGroupItem: FC<ComponentProps<"li">> = ({
 
 const cardVariants = cva("", {
   variants: {
-    sizing: {
+    density: {
       default: "",
       compact: ""
     },
@@ -112,17 +112,17 @@ const cardVariants = cva("", {
     intent: {}
   },
   defaultVariants: {
-    sizing: "default",
+    density: "default",
     variant: "default"
   },
   compoundVariants: [
     {
-      sizing: "default",
+      density: "default",
       variant: "default",
       className: "**:data-[slot=card-content]:py-6"
     },
     {
-      sizing: "compact",
+      density: "compact",
       variant: "default",
       className: "**:data-[slot=card-content]:py-4"
     }
@@ -143,12 +143,12 @@ const cardVariants = cva("", {
  */
 const Card: FC<
   ComponentProps<"article"> & VariantProps<typeof cardVariants>
-> = ({ className, sizing, variant, ...otherProps }) => {
+> = ({ className, density, variant, ...otherProps }) => {
   return (
     <article
-      data-sizing={sizing}
+      data-density={density}
       data-slot="card"
-      className={cardVariants({ className, sizing, variant })}
+      className={cardVariants({ className, density: density, variant })}
       {...otherProps}
     />
   );
@@ -188,7 +188,7 @@ export const CardTitle: FC<ComponentProps<"h4">> = ({
     <h4
       data-slot="card-title"
       className={cn(
-        "text-xl in-data-[sizing=compact]:text-lg leading-6",
+        "text-xl in-data-[density=compact]:text-lg leading-6",
         "font-semibold has-[+*]:mb-1",
         className
       )}

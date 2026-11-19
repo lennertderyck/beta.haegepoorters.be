@@ -5,31 +5,42 @@ export const ACTIVITY_TYPES = [
     name: "default",
     label: "Gewone vergadering",
     descriptor: null,
-    isMultiDay: false
+    isMultiDay: false,
+    features: { isInTypeSelector: true }
   },
   {
     name: "weekend",
     label: "Weekend",
     descriptor: "Weekend",
-    isMultiDay: true
+    isMultiDay: true,
+    features: { isInTypeSelector: true }
   },
-  { name: "camp", label: "Kamp", descriptor: "Kamp", isMultiDay: true },
+  {
+    name: "camp",
+    label: "Kamp",
+    descriptor: "Kamp",
+    isMultiDay: true,
+    features: { isInTypeSelector: true }
+  },
   {
     name: "multi",
     label: "Meerdaagse activiteit",
     descriptor: null,
-    isMultiDay: true
+    isMultiDay: true,
+    features: { isInTypeSelector: true }
   },
   {
     name: "none",
     label: "Geen activiteit",
     descriptor: "Geen activiteit",
-    isMultiDay: false
+    isMultiDay: false,
+    features: { isInTypeSelector: true }
   },
   {
     name: "linked",
     label: "Gerelateerde activiteit",
-    descriptor: "Gerelateerde activiteit",
-    isMultiDay: false
+    descriptor: null,
+    isMultiDay: false,
+    features: { isInTypeSelector: false }
   }
 ] as const;

@@ -91,7 +91,7 @@ const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
         </div>
         {isTrooperBannerEnabled && (
           <div className="p-4">
-            <Card sizing="compact" className="bg-[#4fbbbd] *:text-white">
+            <Card density="compact" className="bg-[#4fbbbd] *:text-white">
               <CardContent className="px-6">
                 <CardHeader>
                   <img

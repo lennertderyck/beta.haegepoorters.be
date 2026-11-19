@@ -35,7 +35,7 @@ const TrooperProgressBanner: FC<ComponentProps<typeof Section>> = async (
             className="h-8 w-auto"
           />
           <div>
-            <Card sizing="compact" variant="inline">
+            <Card density="compact" variant="inline">
               <CardContent>
                 <CardHeader className="mb-0">
                   <CardTitle>Jij shopt en wij verdienen mee</CardTitle>

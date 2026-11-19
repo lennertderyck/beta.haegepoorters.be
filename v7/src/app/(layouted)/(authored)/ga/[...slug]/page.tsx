@@ -5,6 +5,7 @@ import Article, {
     ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
+import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import Notice from "@/components/basics/Notice/Notice";
 import { createAuth } from "@/lib/modules/Auth";
@@ -33,7 +34,9 @@ const Page: FC<Props> = async () => {
           </div>
           <div className="mt-4">
             <SignoutButton>
-              Afmelden <Icon name="arrow-right-long-line" />
+              <Button variant="tertiary">
+                Afmelden <Icon name="arrow-right-long-line" />
+              </Button>
             </SignoutButton>
           </div>
         </ArticleHeader>

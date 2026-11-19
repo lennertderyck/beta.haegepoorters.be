@@ -1,19 +1,17 @@
-"use client";
-
-import Button from "@/components/basics/Button/Button";
-import {
-    Collapsible,
-    CollapsibleContent
-} from "@/components/basics/Collapsible/Collapsible";
 import Field, { FieldLabel } from "@/components/basics/Field/Field";
-import Icon from "@/components/basics/Icon/Icon";
-import Input from "@/components/basics/Input/Input";
 import Textarea from "@/components/basics/Textarea/Textarea";
-import { ACTIVITY_TYPES } from "@/lib/constants/constants";
-import { ActivityTypes } from "@/lib/server/queries/activities";
-import { cn } from "@/lib/utils/composers";
+import {
+    getGeneralGroupActivitiesForDateRangeQuery,
+    type ActivityTypes
+} from "@/lib/server/queries/activities";
 import dayjs from "dayjs";
-import { FC, useActionState, useState } from "react";
+import { FC } from "react";
+import ActivityFormProvider from "./ActivityForm.context";
+import ActivityFormDateField from "./ActivityFormDateField";
+import ActivityFormDetailFields from "./ActivityFormDetailFields";
+import ActivityFormLinkedActivitySelector from "./ActivityFormLinkedActivitySelector";
+import ActivityFormSubmit from "./ActivityFormSubmit";
+import ActivityFormTitleField from "./ActivityFormTitleField";
 import ActivityFormTypeSelector from "./ActivityFormTypeSelector";
 
 export interface ActivityFormState {
@@ -49,175 +47,52 @@ interface Props {
   defaultValue?: ActivityFormState;
 }
 
-const ActivityForm: FC<Props> = ({
+const ActivityForm: FC<Props> = async ({
   action,
   intent,
   defaultValue = initialActivityFormState
 }) => {
-  const [activityType, setActivityType] = useState<ActivityTypes | null>(
-    defaultValue.type
-  );
-  const [title, setTitle] = useState(defaultValue.title);
-
-  const [state, formAction, pending] = useActionState(
-    async (_formState: ActivityFormState, formData: FormData) => {
-      const entries = Object.fromEntries(
-        formData.entries().map(([key, value]) => [key, value.toString()])
-      );
-
-      const newState: ActivityFormSubmitState = {
-        title,
-        body: entries.body,
-        type: entries.type as ActivityTypes,
-        startDate: entries.startDate,
-        endDate: entries.endDate
-      };
-
-      await action(newState);
-      setActivityType(defaultValue.type);
-      setTitle(defaultValue.title);
-
-      return newState;
-    },
-    defaultValue
-  );
-
-  const showDetailFields = activityType !== null;
-  const isMultiDayActivity = ACTIVITY_TYPES.find(
-    (type) => type.name === activityType
-  )?.isMultiDay;
-
-  const isTitleAvailable = title.trim().length > 0;
-  const activityTypeDescriptor = !activityType
-    ? null
-    : ACTIVITY_TYPES.find((type) => type.name === activityType)?.descriptor;
-
-  const isWithoutActivityTypeDescriptor = activityTypeDescriptor === null;
-  const isTitleRequired = isWithoutActivityTypeDescriptor;
-  const isTitleOptionalLabelVisible = isTitleRequired === false;
+  const df = await getGeneralGroupActivitiesForDateRangeQuery();
 
   return (
-    <form action={formAction}>
-      <h4>Wat voor soort activiteit is het?</h4>
-      <ActivityFormTypeSelector
-        name="type"
-        className="mt-4"
-        defaultValue={state.type}
-        onValueChange={(_value, payload) => {
-          setActivityType(payload as ActivityTypes);
-          return payload;
-        }}
-      />
-      <Collapsible open={showDetailFields}>
-        <CollapsibleContent>
-          <section className="mt-8">
-            <Field>
-              <FieldLabel className="flex items-baseline">
-                Kies een titel voor deze activiteit
-                <Collapsible
-                  open={isTitleOptionalLabelVisible}
-                  className="inline-block"
-                >
-                  <CollapsibleContent>
-                    <>&nbsp;{"(optioneel)"}</>
-                  </CollapsibleContent>
-                </Collapsible>
-              </FieldLabel>
-              <Input
-                type="text"
-                placeholder="Titel"
-                required={isTitleRequired}
-                defaultValue={state.title}
-                onKeyUp={(event) => {
-                  setTitle(event.currentTarget.value);
-                }}
-              />
-              <Collapsible
-                open={isTitleAvailable || activityTypeDescriptor !== null}
-              >
-                <CollapsibleContent>
-                  <p className="mt-2">
-                    <small>
-                      Wordt weergegeven als{" "}
-                      <strong className="font-medium">
-                        {" "}
-                        {activityTypeDescriptor !== null && (
-                          <>
-                            {activityTypeDescriptor}
-                            {isTitleAvailable ? ": " : ""}
-                          </>
-                        )}
-                        {title}
-                      </strong>
-                    </small>
-                  </p>
-                </CollapsibleContent>
-              </Collapsible>
-            </Field>
-          </section>
-          <section className="mt-6">
-            <Field>
-              <FieldLabel>
-                Selecteer een {isMultiDayActivity ? "periode" : "datum"}
-              </FieldLabel>
-              <div className="flex flex-col gap-x-[1ch] gap-y-1 ">
-                <Input
-                  type="datetime-local"
-                  name="startDate"
-                  placeholder="Datum"
-                  required
-                  defaultValue={state.startDate}
-                  className={cn(
-                    "inline transition-[width] ease-in-out duration-300",
-                    isMultiDayActivity
-                      ? "w-[calc(100%-(var(--spacing)*4))]"
-                      : "w-full"
-                  )}
-                />
-                <Collapsible open={isMultiDayActivity}>
-                  <CollapsibleContent>
-                    <div className="flex gap-2 items-center">
-                      <Icon
-                        name="corner-down-right-line"
-                        className="text-stone-400 -translate-y-0.5 ml-2"
-                      />
-                      <Input
-                        type="datetime-local"
-                        name="endDate"
-                        placeholder="Einddatum"
-                        required={isMultiDayActivity}
-                        defaultValue={state.endDate}
-                        className="flex-1"
-                      />
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-              </div>
-            </Field>
-          </section>
-          <section className="mt-6">
-            <Field>
-              <FieldLabel>Geef een beschrijving aan de activiteit</FieldLabel>
-              <Textarea
-                name="body"
-                defaultValue={state.body}
-                className="w-full"
-                required
-                rows={6}
-                placeholder="Schrijf iets over de activiteit."
-              />
-            </Field>
-          </section>
-          <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-4 items-center justify-between">
-            <Button className="mt-4" type="submit" disabled={pending}>
-              {intent === "create"
-                ? "Activiteit toevoegen"
-                : "Activiteit bijwerken"}
-            </Button>
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-    </form>
+    <ActivityFormProvider
+      action={action}
+      intent={intent}
+      defaultValue={defaultValue}
+    >
+      <Field>
+        <FieldLabel>Wat voor soort activiteit is het?</FieldLabel>
+        <ActivityFormTypeSelector name="type" className="mt-4" />
+      </Field>
+
+      <ActivityFormDetailFields>
+        <section className="mt-6">
+          <ActivityFormLinkedActivitySelector activities={df} />
+        </section>
+        <section className="mt-6">
+          <ActivityFormTitleField />
+        </section>
+        <section className="mt-6">
+          <ActivityFormDateField />
+        </section>
+        <section className="mt-6">
+          <Field>
+            <FieldLabel>Geef een beschrijving aan de activiteit</FieldLabel>
+            <Textarea
+              name="body"
+              defaultValue={defaultValue.body}
+              className="w-full"
+              required
+              rows={6}
+              placeholder="Schrijf iets over de activiteit."
+            />
+          </Field>
+        </section>
+        <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-4 items-center justify-between">
+          <ActivityFormSubmit />
+        </div>
+      </ActivityFormDetailFields>
+    </ActivityFormProvider>
   );
 };
 

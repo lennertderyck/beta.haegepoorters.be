@@ -63,7 +63,7 @@ const StaffContactModalButton: FC<Props> = ({
                   href={contactMethod.hrefBase + staff.phoneNumber}
                   className="text-inherit"
                 >
-                  <Card className="flex items-center" sizing="compact">
+                  <Card className="flex items-center" density="compact">
                     <CardContent>
                       <CardHeader className="flex gap-4">
                         <div>

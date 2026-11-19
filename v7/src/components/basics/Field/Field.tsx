@@ -35,7 +35,7 @@ export const FieldLabel: FC<ComponentProps<"h4"> & { asChild?: boolean }> = ({
   return (
     <Component
       data-slot="field-label"
-      className={cn("mb-2", className)}
+      className={cn("mb-2 font-semibold", className)}
       {...otherProps}
     />
   );

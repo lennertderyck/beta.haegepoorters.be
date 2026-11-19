@@ -1,18 +1,31 @@
 import { cn } from "@/lib/utils/composers";
+import { cva, VariantProps } from "class-variance-authority";
 import dayjs from "dayjs";
 import { ComponentProps, FC } from "react";
 
-const ActivitySchedule: FC<ComponentProps<"div">> = ({
-  className,
-  ...props
-}) => {
+const activityScheduleVariants = cva(
+  "flex items-start bg-neutral-50 border-b border-neutral-200",
+  {
+    variants: {
+      density: {
+        default: "px-7 gap-6",
+        compact: "px-4 gap-4"
+      }
+    },
+    defaultVariants: {
+      density: "default"
+    }
+  }
+);
+
+const ActivitySchedule: FC<
+  ComponentProps<"div"> & VariantProps<typeof activityScheduleVariants>
+> = ({ className, density, ...props }) => {
   return (
     <div
       data-slot="activity-schedule"
-      className={cn(
-        "flex items-start gap-6 bg-neutral-50 px-7 border-b border-neutral-200",
-        className,
-      )}
+      data-density={density}
+      className={activityScheduleVariants({ className, density })}
       {...props}
     />
   );
@@ -30,8 +43,10 @@ const ActivityScheduleTime: FC<Omit<ComponentProps<"time">, "children">> = ({
       data-slot="activity-schedule-time"
       dateTime={date.format()}
       className={cn(
-        "font-serif font-black text-center *:block text-neutral-400 translate-y-1 py-6",
-        className,
+        "font-serif font-black text-center *:block text-neutral-400 ",
+        "py-6 translate-y-1",
+        "in-data-[density=compact]:py-4 in-data-[density=compact]:translate-y-0",
+        className
       )}
       {...props}
     >
@@ -48,7 +63,12 @@ const ActivityScheduleList: FC<ComponentProps<"ul">> = ({
   return (
     <ul
       data-slot="activity-schedule-list"
-      className={cn("w-full py-3", className)}
+      className={cn(
+        "w-full",
+        "py-3",
+        "in-data-[density=compact]:py-1",
+        className
+      )}
       {...props}
     />
   );
@@ -89,7 +109,7 @@ const ActivityScheduleItemLabel: FC<ComponentProps<"div">> = ({
       data-slot="activity-schedule-item-label"
       className={cn(
         "text-xs font-semibold tracking-widest uppercase text-neutral-500",
-        className,
+        className
       )}
       {...props}
     />
@@ -98,9 +118,9 @@ const ActivityScheduleItemLabel: FC<ComponentProps<"div">> = ({
 
 export default ActivitySchedule;
 export {
-  ActivityScheduleItem,
-  ActivityScheduleItemLabel,
-  ActivityScheduleItemTitle,
-  ActivityScheduleList,
-  ActivityScheduleTime,
+    ActivityScheduleItem,
+    ActivityScheduleItemLabel,
+    ActivityScheduleItemTitle,
+    ActivityScheduleList,
+    ActivityScheduleTime
 };

@@ -21,7 +21,7 @@ const Page: FC<
   PageProps<"/haegeprekerke/editor/[group]/[activity]/bewerken">
 > = async ({ params }) => {
   const { activity: activityParam, group } = await params;
-  const activity = await getActivityById(activityParam);
+  const [activity] = await Promise.all([getActivityById(activityParam)]);
 
   const updateActivity = async (reaction: ActivityFormSubmitState) => {
     "use server";
@@ -39,8 +39,6 @@ const Page: FC<
       `/haegeprekerke/editor/${group}?status=success&activiteit=${activityParam}`
     );
   };
-
-  console.log({ activity });
 
   return (
     <Article>

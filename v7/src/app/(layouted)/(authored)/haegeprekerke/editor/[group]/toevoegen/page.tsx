@@ -21,7 +21,9 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
 }) => {
   const { group: groupAbbr } = await params;
 
-  const groupResponse = await getActivityGroupByIdentifier(groupAbbr);
+  const [groupResponse] = await Promise.all([
+    getActivityGroupByIdentifier(groupAbbr)
+  ]);
 
   const createActivity = async (reaction: ActivityFormState) => {
     "use server";
