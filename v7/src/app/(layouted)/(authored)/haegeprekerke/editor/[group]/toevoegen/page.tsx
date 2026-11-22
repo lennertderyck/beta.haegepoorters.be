@@ -5,7 +5,8 @@ import Article, {
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-    ActivityFormState
+    ActivityFormState,
+    initialActivityFormState
 } from "@/components/ui/ActivityForm/ActivityForm";
 import { requireCapability } from "@/lib/auth/guards";
 import {
@@ -51,7 +52,14 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
         </ArticleHeader>
       </ArticleHeaderContent>
       <ArticleContent>
-        <ActivityForm action={createActivity} intent="create" />
+        <ActivityForm
+          action={createActivity}
+          intent="create"
+          defaultValue={{
+            ...initialActivityFormState,
+            groupId: groupResponse._id ?? null
+          }}
+        />
       </ArticleContent>
     </Article>
   );

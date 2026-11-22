@@ -60,7 +60,8 @@ const Page: FC<
             startDate: activity.startDate,
             endDate: activity.endDate,
             body: activity.body,
-            type: activity.type
+            type: activity.type,
+            groupId: activity.group._ref ?? null
           }}
         />
       </ArticleContent>

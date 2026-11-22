@@ -9,7 +9,8 @@ import { ComponentProps, FC } from "react";
  * @example
  * <Select>
  *   <SelectTrigger>
- *     <SelectValue />
+ *     <SelectValue /> // render value
+ *      <SelectValue>{(selectedValue) => "Kies een groep" || selectedValue}</SelectValue> // default label for trigger
  *   </SelectTrigger>
  *   <SelectContent>
  *     <SelectItem value="option1">Option 1</SelectItem>
