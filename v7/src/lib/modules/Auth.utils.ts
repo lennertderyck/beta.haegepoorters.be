@@ -20,6 +20,9 @@ export const getSessionServer = cache(async () => {
 
 /** Cached per request, may refresh the token at the provider */
 export const getAccessTokenServer = cache(async () => {
+  // No session means no token; skip the call so better-auth doesn't throw a 401
+  if (!(await getSessionServer())) return null;
+
   try {
     const { accessToken } = await keycloakServerAuth.api.getAccessToken({
       body: { useAccountCookie: true },
