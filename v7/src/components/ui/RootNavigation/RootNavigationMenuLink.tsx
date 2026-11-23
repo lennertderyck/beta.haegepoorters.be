@@ -23,6 +23,7 @@ const RootNavigationMenuLink: FC<Props> = ({
 
   return (
     <Link
+      prefetch={false}
       className={cn(
         "md:group-data-[state=closed]:pointer-events-none cursor-pointer",
         className,
