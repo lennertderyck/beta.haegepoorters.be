@@ -25,7 +25,6 @@ const SignoutClientProvider: FC<Props> = ({
 
   const startSignout = async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       await keycloakClientAuth.signOut({
         callbackURL: finalCallbackURL
       });

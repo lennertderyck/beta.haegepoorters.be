@@ -26,7 +26,6 @@ const SigninButton: FC<Props> = ({
   const finalCallbackURL = callbackURL || pathname || AUTH.BASE_URL;
 
   const startSignin = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     await keycloakClientAuth.signIn.social({
       provider: String(provider),
       callbackURL: finalCallbackURL
