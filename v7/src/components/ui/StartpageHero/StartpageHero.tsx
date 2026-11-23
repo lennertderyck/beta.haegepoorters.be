@@ -34,7 +34,7 @@ const StartpageHero: FC<Props> = async () => {
           </div>
           <div className="mt-5 flex flex-col xl:flex-row xl:items-center">
             <Button variant={"tertiary"} asChild>
-              <Link href="/geschiedenis">
+              <Link href="/geschiedenis" prefetch={false}>
                 Lees onze geschiedenis <Icon name="arrow-right-line" />
               </Link>
             </Button>

@@ -37,6 +37,8 @@ export const StoryblokQueryFactory = CreateQueryFactory(
     });
   },
   {
-    enable: () => true
+    enable: () => true,
+    // Published content changes rarely; cache it so page renders don't refetch it
+    cache: { next: { revalidate: 3600, tags: ["storyblok"] } }
   }
 );

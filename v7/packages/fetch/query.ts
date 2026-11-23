@@ -1,5 +1,7 @@
 interface CreateQueryFactoryOptions {
   enable: boolean | (() => boolean | Promise<boolean>);
+  /** Caching options passed to `fetch` itself, a `Request` object doesn't carry them */
+  cache?: Pick<RequestInit, "cache" | "next">;
 }
 
 type RequestInput = Request | (() => Request | Promise<Request>);
@@ -55,7 +57,10 @@ const CreateQueryFactory = (
         headers: mergedHeaders,
       });
 
-      return fetch(request) as Promise<
+      return fetch(request, {
+        cache: requestInit?.cache ?? options.cache?.cache,
+        next: requestInit?.next ?? options.cache?.next,
+      }) as Promise<
         Omit<Response, "json"> & {
           json: () => Promise<T>;
         }

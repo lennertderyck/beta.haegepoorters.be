@@ -15,6 +15,7 @@ const FooterColophon: FC<Props> = () => {
                 {colophonSectionItem.href ? (
                   <Link
                     href={colophonSectionItem.href}
+                    prefetch={false}
                     rel="noreferrer"
                     target="_blank"
                   >
