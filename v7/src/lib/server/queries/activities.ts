@@ -264,7 +264,7 @@ export const getGeneralGroupActivitiesForDateRangeQuery = async (range?: {
 };
 
 interface ActivityMutationInput {
-  groupId: string;
+  group: string;
   type: ActivityTypes;
   startDate: string;
   endDate: string;
@@ -284,7 +284,7 @@ export const createActivityMutation = async (
     body: activity.body,
     group: {
       _type: "reference",
-      _ref: activity.groupId
+      _ref: activity.group
     }
   });
 };
@@ -294,7 +294,12 @@ export const updateActivityMutation = async (
   activity: Partial<ActivityMutationInput>
 ) => {
   return await SANITY_CLIENT.patch(activitySelection(activityId))
-    .set(activity)
+    .set({
+      ...activity,
+      group: activity.group
+        ? { _type: "reference", _ref: activity.group }
+        : undefined
+    })
     .commit();
 };
 

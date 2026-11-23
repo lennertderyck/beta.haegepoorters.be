@@ -35,8 +35,13 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
       type: reaction.type || "default"
     });
 
+    console.log({ group: reaction.groupId || groupResponse._id });
+
     try {
-      await createActivityMutation({ ...input, groupId: groupResponse._id });
+      await createActivityMutation({
+        ...input,
+        group: reaction.groupId || groupResponse._id
+      });
     } catch (error) {
       console.error(error);
     }

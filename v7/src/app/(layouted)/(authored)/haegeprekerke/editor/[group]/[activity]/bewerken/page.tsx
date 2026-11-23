@@ -29,8 +29,15 @@ const Page: FC<
     await requireCapability("leader", "webmaster");
     const input = activityInputSchema.parse(reaction);
 
+    const groupId = reaction.groupId;
+
+    console.log({ group: groupId || activity.group._ref });
+
     try {
-      await updateActivityMutation(activityParam, input);
+      await updateActivityMutation(activityParam, {
+        ...input,
+        group: groupId || activity.group._ref
+      });
     } catch (error) {
       console.log({ error });
     }

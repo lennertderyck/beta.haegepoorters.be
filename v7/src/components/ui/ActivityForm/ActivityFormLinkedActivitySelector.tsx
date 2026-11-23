@@ -65,7 +65,7 @@ const ActivityFormLinkedActivitySelector: FC<Props> = ({ activities }) => {
           {activities.length > 0 && (
             <ul>
               {activities.map((activity) => (
-                <label>
+                <label key={activity._id}>
                   <ActivitySchedule density="compact">
                     <input
                       type="radio"

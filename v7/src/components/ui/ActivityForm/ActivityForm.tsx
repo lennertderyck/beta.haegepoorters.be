@@ -1,5 +1,6 @@
 import Field, { FieldLabel } from "@/components/basics/Field/Field";
 import Textarea from "@/components/basics/Textarea/Textarea";
+import Feature from "@/lib/modules/Feature/Feature";
 import {
     getActivityGroups,
     getGeneralGroupActivitiesForDateRangeQuery,
@@ -52,9 +53,18 @@ interface Props {
 }
 
 const ActivityForm: FC<Props> = async ({ action, intent, defaultValue }) => {
-  const df = await getGeneralGroupActivitiesForDateRangeQuery();
-  const activityGroups = await getActivityGroups();
+  const activityGroupSelectorEnabled = await Feature.get(
+    "activities-group-select"
+  );
+
+  const [generalGroupActivities, activityGroups] = await Promise.all([
+    getGeneralGroupActivitiesForDateRangeQuery(),
+    getActivityGroups()
+  ]);
   const initialFormState = { ...initialActivityFormState, ...defaultValue };
+
+  const isGroupSelectorVisible =
+    activityGroupSelectorEnabled && intent === "update";
 
   return (
     <ActivityFormProvider
@@ -62,8 +72,8 @@ const ActivityForm: FC<Props> = async ({ action, intent, defaultValue }) => {
       intent={intent}
       defaultValue={initialFormState}
     >
-      {intent === "update" && (
-        <section className="mb-4">
+      {isGroupSelectorVisible && (
+        <section className="mb-6">
           <Field>
             <FieldLabel>Voor welke groep is de activiteit?</FieldLabel>
             <ActivityFormGroupSelector
@@ -82,7 +92,9 @@ const ActivityForm: FC<Props> = async ({ action, intent, defaultValue }) => {
 
       <ActivityFormDetailFields>
         <section className="mt-6">
-          <ActivityFormLinkedActivitySelector activities={df} />
+          <ActivityFormLinkedActivitySelector
+            activities={generalGroupActivities}
+          />
         </section>
         <section className="mt-6">
           <ActivityFormTitleField />

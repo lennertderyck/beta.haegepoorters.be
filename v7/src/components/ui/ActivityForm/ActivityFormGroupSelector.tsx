@@ -9,6 +9,7 @@ import {
 } from "@/components/basics/Select/Select";
 import type { CmsGroup } from "@/lib/server/queries/groups";
 import { FC } from "react";
+import { useActivityContext } from "./ActivityForm.context";
 
 interface Props {
   defaultValue: string | null;
@@ -19,8 +20,15 @@ const ActivityFormGroupSelector: FC<Props> = ({
   activityGroups,
   defaultValue
 }) => {
+  const { group, setGroup } = useActivityContext();
+
   return (
-    <Select defaultValue={defaultValue}>
+    <Select
+      name="groupId"
+      defaultValue={defaultValue}
+      value={group}
+      onValueChange={setGroup}
+    >
       <SelectTrigger>
         <SelectValue>
           {(value) =>

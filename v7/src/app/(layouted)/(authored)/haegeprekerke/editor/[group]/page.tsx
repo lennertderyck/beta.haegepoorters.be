@@ -17,7 +17,10 @@ import {
 } from "@/components/elements/Timeline/ActivityTimeline";
 import ActivitiesTimeline from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
-import { getActivitiesForDateRangeAndGroupByAbbr, getActivityGroupByIdentifier } from "@/lib/server/queries/activities";
+import {
+    getActivitiesForDateRangeAndGroupByAbbr,
+    getActivityGroupByIdentifier
+} from "@/lib/server/queries/activities";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FC } from "react";

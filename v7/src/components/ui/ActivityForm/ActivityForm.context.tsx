@@ -18,6 +18,8 @@ interface ActivityContextProviderState {
   title: string;
   formState: ActivityFormState;
   isFormActionSubmitting: boolean;
+  group: string | null;
+  setGroup: Dispatch<SetStateAction<ActivityContextProviderState["group"]>>;
   setTitle: Dispatch<SetStateAction<ActivityContextProviderState["title"]>>;
   setActivityType: Dispatch<
     SetStateAction<ActivityContextProviderState["activityType"]>
@@ -53,6 +55,7 @@ const ActivityFormProvider: FC<ActivityFormProviderProps> = ({
     defaultValue?.type
   );
   const [title, setTitle] = useState(defaultValue.title);
+  const [group, setGroup] = useState<string | null>(defaultValue.groupId);
 
   const [formState, formAction, isFormActionSubmitting] = useActionState(
     async (_formState: ActivityFormState, formData: FormData) => {
@@ -65,7 +68,8 @@ const ActivityFormProvider: FC<ActivityFormProviderProps> = ({
         body: entries.body,
         type: entries.type as ActivityTypes,
         startDate: entries.startDate,
-        endDate: entries.endDate
+        endDate: entries.endDate,
+        groupId: group
       };
 
       await action(newState);
@@ -83,9 +87,11 @@ const ActivityFormProvider: FC<ActivityFormProviderProps> = ({
         formState,
         activityType,
         title,
-        isFormActionSubmitting,
+        group,
         setTitle,
-        setActivityType
+        setActivityType,
+        setGroup,
+        isFormActionSubmitting
       }}
     >
       <form action={formAction}> {children}</form>
