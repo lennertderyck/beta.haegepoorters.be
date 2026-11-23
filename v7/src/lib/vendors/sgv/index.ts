@@ -2,6 +2,37 @@ import { SUPPPORTED_GROUP_IDS } from "@/lib/constants/admin";
 import { GroepsadministratieMemberProfile } from "@/lib/server/queries/person";
 import dayjs from "dayjs";
 
+const GROEPSADMIN_API_URL =
+  "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga";
+  
+const requestGroepsadmin = async <T>(path: string, accessToken: string) => {
+  const response = await fetch(GROEPSADMIN_API_URL + path, {
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${accessToken}`
+    },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`groepsadmin ${path} responded ${response.status}`);
+  }
+
+  return (await response.json()) as T;
+};
+
+/**
+ * Groepsadmin sometimes fails the first request right after a Keycloak
+ * login, so a failed request is retried once. Returns `null` when it still fails
+ */
+export const fetchGroepsadmin = <T = any>(path: string, accessToken: string) =>
+  requestGroepsadmin<T>(path, accessToken)
+    .catch(() => requestGroepsadmin<T>(path, accessToken))
+    .catch((error): null => {
+      console.error("[auth]", error);
+      return null;
+    });
+
 export const compileGroepsadministratieMemberStatusFromProfile = (
   profile: GroepsadministratieMemberProfile
 ) => {

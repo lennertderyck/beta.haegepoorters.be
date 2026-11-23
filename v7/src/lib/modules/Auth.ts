@@ -77,7 +77,6 @@ const Auth: AuthModule = initializer();
 
 const createAuth = async () => {
   const session = await getSessionServer();
-  const accessToken = getAccessTokenServer() ?? null;
 
   return {
     signInAgain: (callbackUrl: string) => {
@@ -88,7 +87,10 @@ const createAuth = async () => {
       !!session && dayjs(session.session.expiresAt).isAfter(dayjs()),
     session,
     provider: resolveLoginProviderType(session?.user?.loginProvider) ?? null,
-    accessToken: accessToken,
+    /** Lazy: only hits the provider when a caller actually reads it */
+    get accessToken() {
+      return getAccessTokenServer();
+    },
     capabilities: session?.user?.capabilities ?? []
   };
 };

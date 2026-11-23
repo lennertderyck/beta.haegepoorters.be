@@ -3,7 +3,10 @@ import {
     WEBMASTER_FUNCTION_CODE,
     WEBMASTER_USER_ID
 } from "@/lib/constants/admin";
-import { compileGroepsadministratieMemberStatusFromProfile } from "@/lib/vendors/sgv";
+import {
+    compileGroepsadministratieMemberStatusFromProfile,
+    fetchGroepsadmin
+} from "@/lib/vendors/sgv";
 import { DBFieldAttribute } from "better-auth";
 import { GenericOAuthConfig } from "better-auth/plugins";
 
@@ -56,35 +59,22 @@ export const OAUTH_PROVIDERS = [
           return;
         }
 
-        const bearerToken = `Bearer ${accessToken.accessToken}`;
-        const personResponse = await fetch(
-          "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel",
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: bearerToken
-            }
-          }
-        );
-        const groupLeaderresponse = await fetch(
-          "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/groep/leiding",
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: bearerToken
-            }
-          }
-        );
+        const [personData, groupLeaderData] = await Promise.all([
+          fetchGroepsadmin("/lid/profiel", accessToken.accessToken),
+          fetchGroepsadmin("/groep/leiding", accessToken.accessToken)
+        ]);
 
-        const personData = await personResponse.json();
-        const groupLeaderData = await groupLeaderresponse.json();
+        // Without a profile we can't build the user: returning null makes
+        // better-auth redirect with `error=unable_to_get_user_info`
+        if (!personData) return null;
 
         const memberStatus =
           compileGroepsadministratieMemberStatusFromProfile(personData);
 
-        const isLeader = groupLeaderData.groepen.some((groep: any) =>
-          SUPPPORTED_GROUP_IDS.includes(groep.id)
-        );
+        const isLeader =
+          groupLeaderData?.groepen?.some((groep: any) =>
+            SUPPPORTED_GROUP_IDS.includes(groep.id)
+          ) ?? false;
         const isWebmaster =
           WEBMASTER_USER_ID.includes(personData.id) ||
           memberStatus.activeFunctions.some((functie: any) =>
@@ -98,12 +88,14 @@ export const OAUTH_PROVIDERS = [
           isWebmaster && "webmaster"
         ].filter(Boolean);
 
-        console.log({
-          ...memberStatus,
-          isLeader,
-          isWebmaster,
-          capabilities
-        });
+        if (process.env.NODE_ENV !== "production") {
+          console.log({
+            ...memberStatus,
+            isLeader,
+            isWebmaster,
+            capabilities
+          });
+        }
 
         return {
           sub: personData.id, // or the Keycloak `sub` from the id_token

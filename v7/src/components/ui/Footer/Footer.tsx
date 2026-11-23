@@ -60,7 +60,7 @@ const Footer: FC<ComponentProps<"footer">> = async ({
                           </CardHeader>
                           <CardFooter>
                             <Button asChild variant="tertiary">
-                              <Link href={card.buttonHref}>
+                              <Link href={card.buttonHref} prefetch={false}>
                                 {card.buttonLabel}{" "}
                                 <Icon name="arrow-right-line" />
                               </Link>
