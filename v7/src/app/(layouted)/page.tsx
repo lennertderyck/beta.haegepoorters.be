@@ -177,7 +177,7 @@ const Page: FC<Props> = async () => {
                     </Link>
                   </SectionTitle>
                 </SectionHeader>
-                <CardsGroup sizing="compact">
+                <CardsGroup density="compact">
                   {posts.map((post) => (
                     <Card key={post.slug}>
                       <CardContent>
@@ -211,7 +211,7 @@ const Page: FC<Props> = async () => {
             <SectionHeader>
               <SectionTitle>Komt ook van pas ...</SectionTitle>
             </SectionHeader>
-            <CardsGroup sizing="compact">
+            <CardsGroup density="compact">
               {STARTPAGE_ADDITIONAL_INFO_CARDS.map((cardInfo) => {
                 return (
                   <Card>

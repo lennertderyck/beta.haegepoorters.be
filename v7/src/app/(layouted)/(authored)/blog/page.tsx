@@ -2,8 +2,8 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle,
+    ArticleHeaderContent,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Card, {
@@ -13,7 +13,7 @@ import Card, {
     CardFooter,
     CardHeader,
     CardsGroup,
-    CardTitle,
+    CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
 import { getStoryblokPostsQuery } from "@/lib/server/queries/posts";
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   title: "Nieuws & blog",
   description:
     "Het reilen en zeilen binnen Scouts & Gidsen Haegepoorters Destelbergen.",
-  alternates: { canonical: "/blog" },
+  alternates: { canonical: "/blog" }
 };
 
 interface Props {}
@@ -37,14 +37,14 @@ const Page: FC<Props> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Nieuws & blog</ArticleTitle>
           <ArticleDescription>
             Het reilen en zeilen binnen onze scouts
           </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent stretch>
         <CardsGroup>
           {posts?.map((post) => (
@@ -61,24 +61,20 @@ const Page: FC<Props> = async () => {
                       </CardFigure>
                     )}
                     <p className="text-sm flex items-center mb-1 gap-1">
-                      <Icon name="time-line" className="" size="1rem" />
+                      <Icon name="time-line" size="1rem" />
                       {dayjs(post.published_at).format("DD MMM. YYYY")}
                     </p>
                     <CardTitle>{post.name}</CardTitle>
                     <CardDescription>
                       {post.content.descr_short}
                     </CardDescription>
-                    <CardFooter>
-                      <Button variant="tertiary">
-                        Meer hierover{" "}
-                        <Icon
-                          name="arrow-right-line"
-                          className=""
-                          size="1rem"
-                        />
-                      </Button>
-                    </CardFooter>
                   </CardHeader>
+                  <CardFooter>
+                    <Button variant="tertiary">
+                      Meer hierover{" "}
+                      <Icon name="arrow-right-line" className="" size="1rem" />
+                    </Button>
+                  </CardFooter>
                 </CardContent>
               </Card>
             </Link>

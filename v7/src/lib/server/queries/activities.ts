@@ -4,6 +4,7 @@ import { ACTIVITY_TYPES } from "@/lib/constants/constants";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { SANITY_CLIENT } from "../../vendors/sanity/client";
+import { CmsGroup } from "./groups";
 
 export type ActivityTypes = (typeof ACTIVITY_TYPES)[number]["name"];
 
@@ -11,24 +12,77 @@ const dateSchema = z
   .string()
   .refine((value) => dayjs(value).isValid(), "Ongeldige datum");
 
-/** Validates activity input coming from the client before it is stored */
-export const activityInputSchema = z.object({
-  title: z.string().trim().min(1).max(200),
-  startDate: dateSchema,
-  endDate: dateSchema,
-  body: z.string().max(10_000),
-  type: z.enum(
-    ACTIVITY_TYPES.map((type) => type.name) as [
-      ActivityTypes,
-      ...ActivityTypes[],
-    ],
-  ),
-});
+/**
+ * Validates activity input coming from the client before it is stored.
+ * Single-day activities don't send an end date (the field is unmounted),
+ * so it falls back to the start date.
+ */
+export const activityInputSchema = z
+  .object({
+    title: z.string().trim().min(1).max(200),
+    startDate: dateSchema,
+    endDate: z.preprocess(
+      (value) => (value === "" ? undefined : value),
+      dateSchema.optional()
+    ),
+    body: z.string().max(10_000),
+    type: z.enum(
+      ACTIVITY_TYPES.map((type) => type.name) as [
+        ActivityTypes,
+        ...ActivityTypes[]
+      ]
+    ),
+    link: z.string().optional()
+  })
+  .refine((input) => input.type !== "linked" || input.link, {
+    message: "Link is required when type is 'linked'",
+    path: ["link"]
+  })
+  .transform((input) => ({
+    ...input,
+    endDate: input.endDate ?? input.startDate
+  }));
+
+export const getActivityGroups = async () => {
+  return await SANITY_CLIENT.fetch<CmsGroup[]>(
+    `(
+    *[_type == "group"] {
+      _id,
+      _type,
+      name,
+      abbr,
+      order,
+      link
+    }
+    +
+    *[_type == "entity" && _id == "cdefbfe0-1fc9-4b09-8857-443aafe5773e"] {
+      _id,
+      _type,
+      name,
+      "abbr": "grp",
+      "order": 0
+    }
+  ) | order(order asc)`
+  );
+};
+
+export const getActivityGroupByIdentifier = async (abbr: string) => {
+  return await SANITY_CLIENT.fetch<CmsGroup>(
+    `*[
+      (_type == "group" && abbr == $abbr) ||
+      (_type == "entity" && _id == select(
+        $abbr == "grp" => "cdefbfe0-1fc9-4b09-8857-443aafe5773e",
+        $abbr == "XYZ" => "another-entity-id"
+      ))
+    ][0]`,
+    { abbr }
+  );
+};
 
 /** Only matches activity documents, so client provided ids can't reach other types */
 const activitySelection = (activityId: string) => ({
   query: `*[_type == "activity" && _id == $id]`,
-  params: { id: activityId },
+  params: { id: activityId }
 });
 export interface Activity {
   _id: string;
@@ -47,8 +101,8 @@ export const getActivityById = async (id: string) => {
   return await SANITY_CLIENT.fetch<Activity>(
     `*[_type == "activity" && _id == $id][0]`,
     {
-      id,
-    },
+      id
+    }
   );
 };
 
@@ -57,7 +111,7 @@ export const getActivitiesForDateRangeAndGroupByAbbr = async (
     start: dayjs.ConfigType;
     end: dayjs.ConfigType;
   },
-  groupId: string,
+  groupId: string
 ) => {
   return await SANITY_CLIENT.fetch<{
     group: any;
@@ -68,22 +122,30 @@ export const getActivitiesForDateRangeAndGroupByAbbr = async (
     };
   }>(
     `
-      {
-        "group": *[_type == "group" && abbr == $groupAbbr] | order(order asc)[0],
-      } {
-        ...,
-        "activities": *[_type == "activity" && references(^.group._id) && startDate >= $startDate && startDate <= $endDate] | order(startDate asc),
-        "range": {
-          "startDate": $startDate,
-          "endDate": $endDate,
-        }
+    {
+      "group": select(
+        $groupAbbr == "grp" => *[_type == "entity" && _id == "cdefbfe0-1fc9-4b09-8857-443aafe5773e"][0]{ ..., "abbr": "grp" },
+        *[_type == "group" && abbr == $groupAbbr] | order(order asc)[0]
+      ),
+    } {
+      ...,
+      "activities": *[
+        _type == "activity" &&
+        references(^.group._id) &&
+        startDate >= $startDate &&
+        startDate <= $endDate
+      ] | order(startDate asc),
+      "range": {
+        "startDate": $startDate,
+        "endDate": $endDate
       }
+    }
     `,
     {
       startDate: range.start,
       endDate: range.end,
-      groupAbbr: groupId,
-    },
+      groupAbbr: groupId
+    }
   );
 };
 
@@ -106,8 +168,8 @@ export const getActivitiesForDateRange = async (range: {
   `,
     {
       startDate: dayjs(range.start).startOf("month"),
-      endDate: dayjs(range.end).endOf("month"),
-    },
+      endDate: dayjs(range.end).endOf("month")
+    }
   );
 };
 
@@ -119,16 +181,26 @@ export const getActivitiesPreviewForNextWeek = async () => {
     }[];
   }>(
     `
-    { 
-      "activitiesByGroup": *[_type == "group"] | order(order asc){
-        "group": @,
-        "activity": *[_type == "activity" && references(^._id) && startDate >= $startDate] | order(startDate asc)[0]
-      }
+  {
+    "activitiesByGroup": *[
+      _type == "group" ||
+      (_type == "entity" && _id == "cdefbfe0-1fc9-4b09-8857-443aafe5773e")
+    ] | order(order asc){
+      "group": select(
+        _type == "entity" => @ { ..., "abbr": "grp" },
+        @
+      ),
+      "activity": *[
+        _type == "activity" &&
+        references(^._id) &&
+        startDate >= $startDate
+      ] | order(startDate asc)[0]
     }
+  }
   `,
     {
-      startDate: dayjs().startOf("week"),
-    },
+      startDate: dayjs().startOf("week")
+    }
   );
 };
 
@@ -141,7 +213,7 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
       (acc, { group, activity }) => {
         const activityDate = dayjs(activity?.startDate).format("YYYY-MM-DD");
         const existingGroupIndex = acc.findIndex(
-          (group) => group.dateGroup === activityDate,
+          (group) => group.dateGroup === activityDate
         );
 
         return existingGroupIndex === -1
@@ -150,9 +222,9 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
               dateGroupIndex === existingGroupIndex
                 ? {
                     ...dateGroup,
-                    items: [...dateGroup.items, { group, activity }],
+                    items: [...dateGroup.items, { group, activity }]
                   }
-                : dateGroup,
+                : dateGroup
             );
       },
       [] as {
@@ -161,12 +233,38 @@ export const getActivitiesPreviewForNextWeekGroupedByDate = async () => {
           group: (typeof response.activitiesByGroup)[number]["group"];
           activity: (typeof response.activitiesByGroup)[number]["activity"];
         }[];
-      }[],
-    );
+      }[]
+    )
+    .sort((a, b) => a.dateGroup.localeCompare(b.dateGroup));
+};
+
+/**
+ * General-group activities that other activities can link to.
+ * Defaults to the start of this month up to the end of the month 3 months out.
+ */
+export const getGeneralGroupActivitiesForDateRangeQuery = async (range?: {
+  start: string;
+  end: string;
+}) => {
+  const start = range?.start ?? dayjs().startOf("month").toISOString();
+  const end =
+    range?.end ??
+    dayjs().startOf("month").add(3, "month").endOf("month").toISOString();
+
+  return await SANITY_CLIENT.fetch<Activity[]>(
+    `
+      *[_type == "activity" && group._ref == $groupId && startDate >= $startDate && startDate <= $endDate] | order(startDate asc)
+    `,
+    {
+      groupId: "cdefbfe0-1fc9-4b09-8857-443aafe5773e",
+      startDate: start,
+      endDate: end
+    }
+  );
 };
 
 interface ActivityMutationInput {
-  groupId: string;
+  group: string;
   type: ActivityTypes;
   startDate: string;
   endDate: string;
@@ -175,7 +273,7 @@ interface ActivityMutationInput {
 }
 
 export const createActivityMutation = async (
-  activity: ActivityMutationInput,
+  activity: ActivityMutationInput
 ) => {
   return await SANITY_CLIENT.create({
     _type: "activity",
@@ -186,17 +284,22 @@ export const createActivityMutation = async (
     body: activity.body,
     group: {
       _type: "reference",
-      _ref: activity.groupId,
-    },
+      _ref: activity.group
+    }
   });
 };
 
 export const updateActivityMutation = async (
   activityId: string,
-  activity: Partial<ActivityMutationInput>,
+  activity: Partial<ActivityMutationInput>
 ) => {
   return await SANITY_CLIENT.patch(activitySelection(activityId))
-    .set(activity)
+    .set({
+      ...activity,
+      group: activity.group
+        ? { _type: "reference", _ref: activity.group }
+        : undefined
+    })
     .commit();
 };
 

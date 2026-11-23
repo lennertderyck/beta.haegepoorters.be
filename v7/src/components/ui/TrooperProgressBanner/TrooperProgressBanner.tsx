@@ -35,7 +35,7 @@ const TrooperProgressBanner: FC<ComponentProps<typeof Section>> = async (
             className="h-8 w-auto"
           />
           <div>
-            <Card sizing="compact" variant="inline">
+            <Card density="compact" variant="inline">
               <CardContent>
                 <CardHeader className="mb-0">
                   <CardTitle>Jij shopt en wij verdienen mee</CardTitle>
@@ -62,11 +62,11 @@ const TrooperProgressBanner: FC<ComponentProps<typeof Section>> = async (
         <div className="hidden md:flex flex-col items-end">
           <Label asChild className="mb-1">
             <p className="text-right">
-              <span>{Math.round(trooperCommissionStatus.earned)}€</span>
+              <span>{trooperCommissionStatus.earned}€</span>
 
               <span className="text-neutral-400">
                 {" / "}
-                {Math.round(trooperCommissionStatus.target)}€
+                {trooperCommissionStatus.target}€
               </span>
             </p>
           </Label>

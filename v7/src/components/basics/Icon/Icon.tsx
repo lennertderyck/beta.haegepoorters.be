@@ -19,9 +19,9 @@ interface IconProps extends SvgProps {
  */
 const Icon: FC<IconProps> = ({
   color = "currentColor",
-  size = "1.3rem",
+  size = "1rem",
   name = "admin",
-  className,
+  className
 }) => {
   return (
     <Svg {...{ color, size, className }}>

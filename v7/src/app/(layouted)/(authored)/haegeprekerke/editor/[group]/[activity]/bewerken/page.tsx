@@ -1,17 +1,17 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle,
+    ArticleHeaderContent,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
-    ActivityFormSubmitState,
+    ActivityFormSubmitState
 } from "@/components/ui/ActivityForm/ActivityForm";
 import { requireCapability } from "@/lib/auth/guards";
 import {
     activityInputSchema,
     getActivityById,
-    updateActivityMutation,
+    updateActivityMutation
 } from "@/lib/server/queries/activities";
 import { redirect } from "next/navigation";
 import { FC } from "react";
@@ -21,7 +21,7 @@ const Page: FC<
   PageProps<"/haegeprekerke/editor/[group]/[activity]/bewerken">
 > = async ({ params }) => {
   const { activity: activityParam, group } = await params;
-  const activity = await getActivityById(activityParam);
+  const [activity] = await Promise.all([getActivityById(activityParam)]);
 
   const updateActivity = async (reaction: ActivityFormSubmitState) => {
     "use server";
@@ -29,38 +29,46 @@ const Page: FC<
     await requireCapability("leader", "webmaster");
     const input = activityInputSchema.parse(reaction);
 
+    const groupId = reaction.groupId;
+
+    console.log({ group: groupId || activity.group._ref });
+
     try {
-      await updateActivityMutation(activityParam, input);
+      await updateActivityMutation(activityParam, {
+        ...input,
+        group: groupId || activity.group._ref
+      });
     } catch (error) {
       console.log({ error });
     }
 
     redirect(
-      `/haegeprekerke/editor/${group}?status=success&activiteit=${activityParam}`,
+      `/haegeprekerke/editor/${group}?status=success&activiteit=${activityParam}`
     );
   };
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer className="flex flex-wrap gap-4 justify-between">
+      <ArticleHeaderContent>
+        <ArticleHeader className="flex flex-wrap gap-4 justify-between">
           <ArticleTitle>Activiteit bewerken</ArticleTitle>
           <ActivityDeleteButton
             activityId={activityParam}
             redirectUrl={`/haegeprekerke/editor/${group}?status=success`}
           />
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <ActivityForm
           action={updateActivity}
-          actionType="update"
+          intent="update"
           defaultValue={{
             title: activity.title,
             startDate: activity.startDate,
             endDate: activity.endDate,
             body: activity.body,
             type: activity.type,
+            groupId: activity.group._ref ?? null
           }}
         />
       </ArticleContent>

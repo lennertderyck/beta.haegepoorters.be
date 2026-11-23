@@ -1,27 +1,30 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
-    ArticleTitle,
+    ArticleHeaderContent,
+    ArticleTitle
 } from "@/components/basics/Article/Article";
 import ActivityForm, {
     ActivityFormState,
+    initialActivityFormState
 } from "@/components/ui/ActivityForm/ActivityForm";
 import { requireCapability } from "@/lib/auth/guards";
 import {
     activityInputSchema,
     createActivityMutation,
+    getActivityGroupByIdentifier
 } from "@/lib/server/queries/activities";
-import { getGroupByAbbr } from "@/lib/server/queries/groups";
 import { redirect } from "next/navigation";
 import { FC } from "react";
 
 const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
-  params,
+  params
 }) => {
   const { group: groupAbbr } = await params;
 
-  const groupResponse = await getGroupByAbbr(groupAbbr);
+  const [groupResponse] = await Promise.all([
+    getActivityGroupByIdentifier(groupAbbr)
+  ]);
 
   const createActivity = async (reaction: ActivityFormState) => {
     "use server";
@@ -29,11 +32,16 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
     await requireCapability("leader", "webmaster");
     const input = activityInputSchema.parse({
       ...reaction,
-      type: reaction.type || "default",
+      type: reaction.type || "default"
     });
 
+    console.log({ group: reaction.groupId || groupResponse._id });
+
     try {
-      await createActivityMutation({ ...input, groupId: groupResponse._id });
+      await createActivityMutation({
+        ...input,
+        group: reaction.groupId || groupResponse._id
+      });
     } catch (error) {
       console.error(error);
     }
@@ -43,13 +51,20 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]/toevoegen">> = async ({
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Activiteit toevoegen</ArticleTitle>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
-        <ActivityForm action={createActivity} actionType="create" />
+        <ActivityForm
+          action={createActivity}
+          intent="create"
+          defaultValue={{
+            ...initialActivityFormState,
+            groupId: groupResponse._id ?? null
+          }}
+        />
       </ArticleContent>
     </Article>
   );

@@ -1,5 +1,5 @@
 import Button from "@/components/basics/Button/Button";
-import { getGroups } from "@/lib/server/queries/groups";
+import { getActivityGroups } from "@/lib/server/queries/activities";
 import { cn } from "@/lib/utils/composers";
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const GroupSelectionMenu: FC<Props> = async ({
   href,
   ...otherProps
 }) => {
-  const groupsResponse = await getGroups();
+  const groupsResponse = await getActivityGroups();
 
   return (
     <ul
@@ -33,7 +33,7 @@ const GroupSelectionMenu: FC<Props> = async ({
           >
             <Link
               className={cn({
-                "font-bold": selectedGroupAbbr === group.abbr,
+                "font-bold": selectedGroupAbbr === group.abbr
               })}
               href={href(group)}
             >

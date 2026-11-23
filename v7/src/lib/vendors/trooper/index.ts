@@ -21,8 +21,8 @@ export const getTrooperCommissionStatus = cache(async () => {
       const percentage = (earned / target) * 100;
 
       return {
-        earned,
-        target,
+        earned: Math.round(earned),
+        target: Math.round(target),
         percentage,
         isGoalReached: earned >= target
       };

@@ -1,7 +1,7 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import PaymentGenerateForm from "@/components/ui/PaymentGenerateForm/PaymentGenerateForm";
@@ -28,11 +28,11 @@ const Page: FC<PageProps<"/betalen">> = async ({ searchParams }) => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Betaling aanmaken</ArticleTitle>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <PaymentGenerateForm
           defaultValue={{

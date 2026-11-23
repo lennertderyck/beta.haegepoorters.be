@@ -1,23 +1,30 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleSupertitle,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import Notice from "@/components/basics/Notice/Notice";
-import ActivitiesTimeline, {
-    ActivitiesTimelineItem
-} from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
+import {
+    TimelineItem,
+    TimelineItemContent,
+    TimelineItemDescription,
+    TimelineItemTime,
+    TimelineItemTitle
+} from "@/components/elements/Timeline/ActivityTimeline";
+import ActivitiesTimeline from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
-import { getActivitiesForDateRangeAndGroupByAbbr } from "@/lib/server/queries/activities";
-import { getGroupByAbbr } from "@/lib/server/queries/groups";
+import {
+    getActivitiesForDateRangeAndGroupByAbbr,
+    getActivityGroupByIdentifier
+} from "@/lib/server/queries/activities";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FC } from "react";
-import ScrollInview from "./ScrollInview";
+import ScrollIntoView from "./ScrollIntoView/ ScrollIntoView";
 
 const MAX_PERIOD_MONTHS = 5;
 const DEFAULT_SELECTED_GROUP = DEFAULT_SELECTED_ACTIVITIES_GROUP;
@@ -78,7 +85,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
     periodStartParameter.add(i, "month")
   );
 
-  const groupResponse = await getGroupByAbbr(group);
+  const groupResponse = await getActivityGroupByIdentifier(group);
   const activitiesResponse = await getActivitiesForDateRangeAndGroupByAbbr(
     {
       start: selectedMonth.startOf("month").toDate(),
@@ -91,8 +98,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <div className="flex flex-row flex-wrap justify-between items-center gap-4">
             <div>
               <ArticleSupertitle>Haegeprekerke bewerken</ArticleSupertitle>
@@ -148,8 +155,8 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
               Het geselecteerde einde van de periode valt buiten het bereik.
             </p>
           )}
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         {activitiesForGroup?.length === 0 && (
           <Notice>Geen activiteiten gevonden voor deze periode.</Notice>
@@ -158,7 +165,7 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
           <>
             <ActivitiesTimeline>
               {activitiesForGroup.map((activity) => (
-                <ScrollInview
+                <ScrollIntoView
                   enabled={activiteit?.toString() === activity._id}
                   key={activity._id}
                 >
@@ -167,12 +174,29 @@ const Page: FC<PageProps<"/haegeprekerke/editor/[group]">> = async ({
                       pathname: `/haegeprekerke/editor/${group}/${activity._id}/bewerken`
                     }}
                   >
-                    <ActivitiesTimelineItem
-                      key={activity._id}
-                      activity={activity}
-                    />
+                    <TimelineItem
+                      state={
+                        dayjs(activity.startDate).isAfter(dayjs())
+                          ? "future"
+                          : "past"
+                      }
+                    >
+                      <TimelineItemContent>
+                        <TimelineItemTime dateTime={activity.startDate}>
+                          {dayjs(activity.startDate).format("DD MMMM YYYY")}
+                        </TimelineItemTime>
+                        <TimelineItemTitle>{activity.title}</TimelineItemTitle>
+                        <TimelineItemDescription>
+                          {activity.body}
+                        </TimelineItemDescription>
+                        <Button variant="tertiary" className="mt-4">
+                          Bewerken
+                          <Icon name="arrow-right-line" size="1rem" />
+                        </Button>
+                      </TimelineItemContent>
+                    </TimelineItem>
                   </Link>
-                </ScrollInview>
+                </ScrollIntoView>
               ))}
             </ActivitiesTimeline>
           </>

@@ -1,3 +1,11 @@
 {
-  "editor.formatOnSaveMode": "modifications"
+  "editor.formatOnSaveMode": "modifications",
+  "typescript.preferences.autoImportSpecifierExcludeRegexes": [
+    "^@radix-ui/",
+    "^@base-ui(-components)?/"
+  ],
+  "javascript.preferences.autoImportSpecifierExcludeRegexes": [
+    "^@radix-ui/",
+    "^@base-ui(-components)?/"
+  ]
 }

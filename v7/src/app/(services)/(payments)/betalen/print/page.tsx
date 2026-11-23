@@ -2,7 +2,7 @@ import Article, {
     ArticleBody,
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleSubtitle,
     ArticleTitle
 } from "@/components/basics/Article/Article";
@@ -88,16 +88,16 @@ const Page: FC<PageProps<"/betalen/print">> = async ({ searchParams }) => {
         />
       </aside>
       <Article>
-        <ArticleHeader>
-          <ArticleHeaderContainer>
+        <ArticleHeaderContent>
+          <ArticleHeader>
             <ArticleTitle className="text-center">
               Drankkaart 5 euro
             </ArticleTitle>
             <ArticleSubtitle className="text-center">
               Betaal met je smartphone
             </ArticleSubtitle>
-          </ArticleHeaderContainer>
-        </ArticleHeader>
+          </ArticleHeader>
+        </ArticleHeaderContent>
         <ArticleContent>
           <ArticleBody>
             {STEPS.map((step, index) => (

@@ -1,7 +1,7 @@
 import Article, {
     ArticleContent,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleSupertitle,
     ArticleTitle
 } from "@/components/basics/Article/Article";
@@ -11,23 +11,23 @@ import Card, {
     CardTitle
 } from "@/components/basics/Card/Card";
 import Icon from "@/components/basics/Icon/Icon";
-import { getGroups } from "@/lib/server/queries/groups";
+import { getActivityGroups } from "@/lib/server/queries/activities";
 import Link from "next/link";
 import { FC } from "react";
 
 interface Props {}
 
 const Page: FC<Props> = async () => {
-  const groupsResponse = await getGroups();
+  const groupsResponse = await getActivityGroups();
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleSupertitle>Haegeprekerke</ArticleSupertitle>
           <ArticleTitle>Haegeprekerke bewerken</ArticleTitle>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <ul>
           {groupsResponse.map((group) => (

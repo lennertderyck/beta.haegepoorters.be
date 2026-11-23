@@ -36,7 +36,7 @@ const Footer: FC<ComponentProps<"footer">> = async ({
                 <div className="col-span-12 md:col-span-6 grid gap-4 grid-cols-6 *:col-span-12 lg:*:col-span-3">
                   {FOOTER_CONTACT_CARDS.map((card, cardIndex) => (
                     <div key={cardIndex}>
-                      <Card sizing="compact" variant="inline">
+                      <Card density="compact" variant="inline">
                         <>
                           <CardHeader>
                             <CardTitle>{card.title}</CardTitle>

@@ -2,7 +2,7 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle,
 } from "@/components/basics/Article/Article";
 import { getCmsRolesQuery } from "@/lib/server/queries/roles";
@@ -39,15 +39,15 @@ const Page: FC<PageProps<"/backoffice/leiding/importeren">> = async ({
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Leiding importeren</ArticleTitle>
           <ArticleDescription>
             Wijzig de leidingsverdeling door deze op te halen bij de
             Groepsadministratie
           </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <section>
           <DeleteAllStaffButton />

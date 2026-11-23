@@ -2,7 +2,7 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Notice from "@/components/basics/Notice/Notice";
@@ -24,14 +24,14 @@ const Page: FC<Props> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <ArticleTitle>Lidkaart</ArticleTitle>
           <ArticleDescription>
             Gebruik je lidnummer om aan te melden bij de Groepsadministratie
           </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         {!isMembershipCardFeatureEnabled && (
           <Notice>Hier kan je binnenkort je lidkaart vinden.</Notice>

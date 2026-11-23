@@ -2,15 +2,13 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Button from "@/components/basics/Button/Button";
 import Icon from "@/components/basics/Icon/Icon";
 import Notice from "@/components/basics/Notice/Notice";
-import ActivitiesTimeline, {
-    ActivitiesTimelineItem
-} from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
+import ActivitiesTimeline, { ActivitiesTimelineItem } from "@/components/ui/ActivitiesTimeline/ActivitiesTimeline";
 import GroupSelectionMenu from "@/components/ui/GroupSelectionMenu/GroupSelectionMenu";
 import { DEFAULT_SELECTED_ACTIVITIES_GROUP } from "@/lib/constants/constants";
 import { createAuth } from "@/lib/modules/Auth";
@@ -84,8 +82,8 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
+      <ArticleHeaderContent>
+        <ArticleHeader>
           <div className="flex items-center justify-between">
             <ArticleTitle>Haegeprekerke</ArticleTitle>
             {hasCapabilities && (
@@ -113,8 +111,8 @@ const Page: FC<PageProps<"/haegeprekerke/[[...group]]">> = async ({
               }
             })}
           />
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         {activitiesForGroup?.length === 0 && (
           <Notice>

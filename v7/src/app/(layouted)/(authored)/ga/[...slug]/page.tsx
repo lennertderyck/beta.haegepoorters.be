@@ -2,13 +2,16 @@ import Article, {
     ArticleContent,
     ArticleDescription,
     ArticleHeader,
-    ArticleHeaderContainer,
+    ArticleHeaderContent,
     ArticleTitle
 } from "@/components/basics/Article/Article";
+import Button from "@/components/basics/Button/Button";
+import Icon from "@/components/basics/Icon/Icon";
 import Notice from "@/components/basics/Notice/Notice";
 import { createAuth } from "@/lib/modules/Auth";
 import { FC } from "react";
 import { OAUTH_PROVIDERS } from "../../../../../../auth.config";
+import SignoutButton from "./SignoutButton";
 
 interface Props {}
 
@@ -21,14 +24,23 @@ const Page: FC<Props> = async () => {
 
   return (
     <Article>
-      <ArticleHeader>
-        <ArticleHeaderContainer>
-          <ArticleTitle>Profiel</ArticleTitle>
-          <ArticleDescription>
-            {oauthProvider?.info.description}
-          </ArticleDescription>
-        </ArticleHeaderContainer>
-      </ArticleHeader>
+      <ArticleHeaderContent>
+        <ArticleHeader className="flex flex-wrap gap-8 justify-between">
+          <div>
+            <ArticleTitle>Profiel</ArticleTitle>
+            <ArticleDescription>
+              {oauthProvider?.info.description}
+            </ArticleDescription>
+          </div>
+          <div className="mt-4">
+            <SignoutButton>
+              <Button variant="tertiary">
+                Afmelden <Icon name="arrow-right-long-line" />
+              </Button>
+            </SignoutButton>
+          </div>
+        </ArticleHeader>
+      </ArticleHeaderContent>
       <ArticleContent>
         <Notice>
           Hier kan je binnenkort je gegevens bij Scouts en Gidsen Vlaanderen
