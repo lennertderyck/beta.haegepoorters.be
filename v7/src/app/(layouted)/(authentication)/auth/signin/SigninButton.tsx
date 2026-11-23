@@ -26,9 +26,19 @@ const SigninButton: FC<Props> = ({
   const finalCallbackURL = callbackURL || pathname || AUTH.BASE_URL;
 
   const startSignin = async () => {
+    // Failed callbacks land on the sign in page (with `?error=`) instead of
+    // the target page, so the error is shown and the user can retry
+    const callback = new URL(finalCallbackURL, AUTH.BASE_URL);
+    const errorCallbackURL = new URL("/auth/signin", AUTH.BASE_URL);
+    errorCallbackURL.searchParams.set(
+      "callbackUrl",
+      callback.pathname + callback.search
+    );
+
     await keycloakClientAuth.signIn.social({
       provider: String(provider),
-      callbackURL: finalCallbackURL
+      callbackURL: finalCallbackURL,
+      errorCallbackURL: errorCallbackURL.toString()
     });
   };
 

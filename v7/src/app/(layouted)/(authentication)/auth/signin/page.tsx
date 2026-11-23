@@ -17,7 +17,8 @@ import SigninButton from "./SigninButton";
 interface Props {}
 
 const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
-  const { callbackUrl } = await searchParams;
+  const { callbackUrl, error } = await searchParams;
+  const errorCode = typeof error === "string" ? error : undefined;
 
   const composedCallbackURL = composeCallbackURL(callbackUrl).toString();
 
@@ -30,6 +31,19 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
         </ArticleHeader>
       </ArticleHeaderContent>
       <ArticleContent>
+        {errorCode && (
+          <div
+            role="alert"
+            className="mb-6 rounded-lg border-2 border-red-100 bg-red-50 p-4 text-center"
+          >
+            <p className="font-medium text-red-700">
+              Het aanmelden is mislukt. Probeer het opnieuw.
+            </p>
+            <p className="mt-1 text-xs text-red-500">
+              Foutcode: <code>{errorCode}</code>
+            </p>
+          </div>
+        )}
         <SigninButton provider="keycloak" callbackURL={composedCallbackURL}>
           <button className="relative flex flex-col gap-5 md:flex-row items-center justify-between border-2 border-gray-50 p-8 shadow-lg rounded-lg w-full ">
             <div
