@@ -5,7 +5,7 @@ import { AuthLoginProvider } from "@/lib/modules/Auth";
 import { keycloakClientAuth } from "@/lib/vendors/better-auth/keycloak/client";
 import { Slot } from "@radix-ui/react-slot";
 import { usePathname } from "next/navigation";
-import { ComponentProps, FC, useTransition } from "react";
+import { ComponentProps, FC, useState, useTransition } from "react";
 import { AUTH } from "../../../../../../auth.config";
 
 interface Props extends ComponentProps<typeof Button> {
@@ -21,27 +21,25 @@ const SigninButton: FC<Props> = ({
 }) => {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<Error | null>(null);
 
   const finalCallbackURL = callbackURL || pathname || AUTH.BASE_URL;
 
   const startSignin = async () => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      await keycloakClientAuth.signIn.social({
-        provider: String(provider),
-        callbackURL: finalCallbackURL
-      });
-    } catch (error) {
-      return error as Error;
-    }
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await keycloakClientAuth.signIn.social({
+      provider: String(provider),
+      callbackURL: finalCallbackURL
+    });
   };
 
   const onClick = () =>
     startTransition(async () => {
       try {
+        setError(null);
         await startSignin();
       } catch (e) {
-        console.error(e);
+        setError(e as Error);
       }
     });
 
@@ -52,6 +50,12 @@ const SigninButton: FC<Props> = ({
       <Comp onClick={onClick} data-pending={isPending} {...otherProps}>
         {children ?? `Aanmelden met ${provider}`}
       </Comp>
+      {error && (
+        <p className="text-red-500 mt-2 text-center">
+          Het lukte niet om je aan te melden. Probeer het later (vandaag)
+          opnieuw.
+        </p>
+      )}
     </>
   );
 };
