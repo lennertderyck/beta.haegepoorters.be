@@ -12,15 +12,28 @@ import { cn } from "@/lib/utils/composers";
 import Image from "next/image";
 import { FC } from "react";
 import { composeCallbackURL } from "../../../../../../packages/auth/utils";
+import { OAUTH_PROVIDERS } from "../../../../../../auth.config";
+import SigninAutoRetry from "./SigninAutoRetry";
 import SigninButton from "./SigninButton";
 
 interface Props {}
 
 const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
-  const { callbackUrl, error } = await searchParams;
+  const { callbackUrl, error, error_description, provider, retried } =
+    await searchParams;
   const errorCode = typeof error === "string" ? error : undefined;
+  const errorDescription =
+    typeof error_description === "string" ? error_description : undefined;
+  const failedProvider = OAUTH_PROVIDERS.find(
+    ({ config }) => config.providerId === provider
+  )?.config.providerId;
 
   const composedCallbackURL = composeCallbackURL(callbackUrl).toString();
+
+  // Keycloak's login session expired or was replaced: starting again usually
+  // succeeds right away through its SSO session
+  const shouldAutoRetry =
+    errorCode === "temporarily_unavailable" && !retried && !!failedProvider;
 
   return (
     <Article>
@@ -31,7 +44,13 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
         </ArticleHeader>
       </ArticleHeaderContent>
       <ArticleContent>
-        {errorCode && (
+        {shouldAutoRetry && (
+          <SigninAutoRetry
+            provider={failedProvider}
+            callbackURL={composedCallbackURL}
+          />
+        )}
+        {errorCode && !shouldAutoRetry && (
           <div
             role="alert"
             className="mb-6 rounded-lg border-2 border-red-100 bg-red-50 p-4 text-center"
@@ -41,6 +60,12 @@ const Page: FC<PageProps<"/auth/signin">> = async ({ searchParams }) => {
             </p>
             <p className="mt-1 text-xs text-red-500">
               Foutcode: <code>{errorCode}</code>
+              {errorDescription && (
+                <>
+                  {" "}
+                  (<code>{errorDescription}</code>)
+                </>
+              )}
             </p>
           </div>
         )}

@@ -155,7 +155,7 @@ const ArticleDescription: FC<ComponentProps<"p">> = ({
 
 const ArticleContent: FC<
   ComponentProps<"div"> & ComponentProps<typeof ArticleBlock>
-> = ({ className, ...otherProps }) => {
+> = ({ ...otherProps }) => {
   return <ArticleBlock data-slot="content" {...otherProps} />;
 };
 

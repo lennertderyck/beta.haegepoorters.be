@@ -205,7 +205,6 @@ const Page: FC<Props> = async () => {
         <BoundaryInline className="mt-12 px-0!">
           <StartpageHero />
         </BoundaryInline>
-        <ArticleContent stretch className="px-0 mt-12"></ArticleContent>
         <ArticleContent stretch className="mt-12">
           <Section>
             <SectionHeader>
