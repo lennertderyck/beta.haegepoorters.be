@@ -8,7 +8,9 @@ import {
 } from "@/lib/server/queries/activities";
 import dayjs from "dayjs";
 import { FC } from "react";
-import ActivityFormProvider from "./ActivityForm.context";
+import ActivityFormProvider, {
+    ActivityContextProviderState
+} from "./ActivityForm.context";
 import ActivityFormDateField from "./ActivityFormDateField";
 import ActivityFormDetailFields from "./ActivityFormDetailFields";
 import ActivityFormGroupSelector from "./ActivityFormGroupSelector";
@@ -46,9 +48,8 @@ export const initialActivityFormState: ActivityFormState = {
   type: null
 };
 
-interface Props {
+interface Props extends Pick<ActivityContextProviderState, "intent"> {
   action: (reaction: ActivityFormSubmitState) => Promise<void>;
-  intent: "create" | "update";
   defaultValue?: Partial<ActivityFormState>;
 }
 
