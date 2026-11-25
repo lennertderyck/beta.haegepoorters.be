@@ -15,7 +15,7 @@ import { FC } from "react";
 interface Props {}
 
 const Page: FC<Props> = async () => {
-  const isMembershipCardFeatureEnabled = await Feature.get("membership-card");
+  const isMembershipCardFeatureEnabled = Feature.get("membership-card");
 
   const membership = isMembershipCardFeatureEnabled
     ? (await getMembershipLocal()) ||

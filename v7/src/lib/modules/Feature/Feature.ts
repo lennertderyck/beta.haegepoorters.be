@@ -1,20 +1,10 @@
-import { declareVercelFeatureFlag } from "@/lib/vendors/vercel/flags";
-import DeclaredFeatureFlags from "../../../../features.config";
-
-type FeatureFlags = {
-  [Key in keyof DeclaredFeatureFlags]: () => Promise<DeclaredFeatureFlags[Key]>;
-};
-
-const flags: FeatureFlags = {
-  "membership-card": declareVercelFeatureFlag("membership-card"),
-  "authentication-header": declareVercelFeatureFlag("authentication-header"),
-  "trooper-rootnavigation": declareVercelFeatureFlag("trooper-rootnavigation"),
-  "trooper-homepage": declareVercelFeatureFlag("trooper-homepage"),
-  "activities-group-select": declareVercelFeatureFlag("activities-group-select")
-};
+import type DeclaredFeatureFlags from "../../../../features.config";
+import { FEATURE_FLAGS } from "../../../../features.config";
 
 const Feature = {
-  get: <Key extends keyof DeclaredFeatureFlags>(slug: Key) => flags[slug]()
+  get: <Key extends keyof DeclaredFeatureFlags>(
+    slug: Key
+  ): DeclaredFeatureFlags[Key] => FEATURE_FLAGS[slug]
 };
 
 export default Feature;
