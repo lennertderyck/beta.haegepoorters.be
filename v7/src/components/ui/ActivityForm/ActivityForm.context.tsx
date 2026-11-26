@@ -19,6 +19,7 @@ interface ActivityContextProviderState {
   formState: ActivityFormState;
   isFormActionSubmitting: boolean;
   group: string | null;
+  intent: "create" | "update";
   setGroup: Dispatch<SetStateAction<ActivityContextProviderState["group"]>>;
   setTitle: Dispatch<SetStateAction<ActivityContextProviderState["title"]>>;
   setActivityType: Dispatch<
@@ -49,6 +50,7 @@ interface ActivityFormProviderProps extends PropsWithChildren {
 const ActivityFormProvider: FC<ActivityFormProviderProps> = ({
   action,
   defaultValue,
+  intent,
   children
 }) => {
   const [activityType, setActivityType] = useState<ActivityTypes | null>(
@@ -91,7 +93,8 @@ const ActivityFormProvider: FC<ActivityFormProviderProps> = ({
         setTitle,
         setActivityType,
         setGroup,
-        isFormActionSubmitting
+        isFormActionSubmitting,
+        intent
       }}
     >
       <form action={formAction}> {children}</form>
@@ -100,4 +103,5 @@ const ActivityFormProvider: FC<ActivityFormProviderProps> = ({
 };
 
 export { useActivityContext };
+export type { ActivityContextProviderState };
 export default ActivityFormProvider;

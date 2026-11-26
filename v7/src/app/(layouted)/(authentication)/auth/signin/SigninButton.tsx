@@ -2,7 +2,7 @@
 
 import Button from "@/components/basics/Button/Button";
 import { AuthLoginProvider } from "@/lib/modules/Auth";
-import { keycloakClientAuth } from "@/lib/vendors/better-auth/keycloak/client";
+import { startSignin } from "@/lib/vendors/better-auth/keycloak/signin";
 import { Slot } from "@radix-ui/react-slot";
 import { usePathname } from "next/navigation";
 import { ComponentProps, FC, useState, useTransition } from "react";
@@ -25,28 +25,14 @@ const SigninButton: FC<Props> = ({
 
   const finalCallbackURL = callbackURL || pathname || AUTH.BASE_URL;
 
-  const startSignin = async () => {
-    // Failed callbacks land on the sign in page (with `?error=`) instead of
-    // the target page, so the error is shown and the user can retry
-    const callback = new URL(finalCallbackURL, AUTH.BASE_URL);
-    const errorCallbackURL = new URL("/auth/signin", AUTH.BASE_URL);
-    errorCallbackURL.searchParams.set(
-      "callbackUrl",
-      callback.pathname + callback.search
-    );
-
-    await keycloakClientAuth.signIn.social({
-      provider: String(provider),
-      callbackURL: finalCallbackURL,
-      errorCallbackURL: errorCallbackURL.toString()
-    });
-  };
-
   const onClick = () =>
     startTransition(async () => {
       try {
         setError(null);
-        await startSignin();
+        await startSignin({
+          provider: String(provider),
+          callbackURL: finalCallbackURL
+        });
       } catch (e) {
         setError(e as Error);
       }

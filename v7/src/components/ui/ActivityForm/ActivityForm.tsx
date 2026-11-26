@@ -8,7 +8,9 @@ import {
 } from "@/lib/server/queries/activities";
 import dayjs from "dayjs";
 import { FC } from "react";
-import ActivityFormProvider from "./ActivityForm.context";
+import ActivityFormProvider, {
+    ActivityContextProviderState
+} from "./ActivityForm.context";
 import ActivityFormDateField from "./ActivityFormDateField";
 import ActivityFormDetailFields from "./ActivityFormDetailFields";
 import ActivityFormGroupSelector from "./ActivityFormGroupSelector";
@@ -46,21 +48,18 @@ export const initialActivityFormState: ActivityFormState = {
   type: null
 };
 
-interface Props {
+interface Props extends Pick<ActivityContextProviderState, "intent"> {
   action: (reaction: ActivityFormSubmitState) => Promise<void>;
-  intent: "create" | "update";
   defaultValue?: Partial<ActivityFormState>;
 }
 
 const ActivityForm: FC<Props> = async ({ action, intent, defaultValue }) => {
-  const activityGroupSelectorEnabled = await Feature.get(
-    "activities-group-select"
-  );
-
-  const [generalGroupActivities, activityGroups] = await Promise.all([
-    getGeneralGroupActivitiesForDateRangeQuery(),
-    getActivityGroups()
-  ]);
+  const [activityGroupSelectorEnabled, generalGroupActivities, activityGroups] =
+    await Promise.all([
+      Feature.get("activities-group-select"),
+      getGeneralGroupActivitiesForDateRangeQuery(),
+      getActivityGroups()
+    ]);
   const initialFormState = { ...initialActivityFormState, ...defaultValue };
 
   const isGroupSelectorVisible =

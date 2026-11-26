@@ -1,20 +1,24 @@
-import { declareVercelFeatureFlag } from "@/lib/vendors/vercel/flags";
-import DeclaredFeatureFlags from "../../../../features.config";
-
-type FeatureFlags = {
-  [Key in keyof DeclaredFeatureFlags]: () => Promise<DeclaredFeatureFlags[Key]>;
-};
-
-const flags: FeatureFlags = {
-  "membership-card": declareVercelFeatureFlag("membership-card"),
-  "authentication-header": declareVercelFeatureFlag("authentication-header"),
-  "trooper-rootnavigation": declareVercelFeatureFlag("trooper-rootnavigation"),
-  "trooper-homepage": declareVercelFeatureFlag("trooper-homepage"),
-  "activities-group-select": declareVercelFeatureFlag("activities-group-select")
-};
+import {
+    LAUNCHDARKLY_ANONYMOUS_CONTEXT,
+    getLaunchDarklyFlags,
+    type LaunchDarklyContext
+} from "@/lib/vendors/launchdarkly";
+import type DeclaredFeatureFlags from "../../../../features.config";
 
 const Feature = {
-  get: <Key extends keyof DeclaredFeatureFlags>(slug: Key) => flags[slug]()
+  /**
+   * Reads a flag from LaunchDarkly. Returns `false` (off) when LaunchDarkly is
+   * not configured, unreachable, or returns no boolean value for the flag.
+   */
+  get: async <Key extends keyof DeclaredFeatureFlags>(
+    slug: Key,
+    context: LaunchDarklyContext = LAUNCHDARKLY_ANONYMOUS_CONTEXT
+  ): Promise<DeclaredFeatureFlags[Key]> => {
+    const flags = await getLaunchDarklyFlags(context);
+    const value = flags?.[slug];
+
+    return typeof value === "boolean" ? value : false;
+  }
 };
 
 export default Feature;
