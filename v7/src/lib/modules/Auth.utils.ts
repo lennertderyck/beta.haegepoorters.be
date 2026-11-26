@@ -35,6 +35,20 @@ export const getAccessTokenServer = cache(async () => {
   }
 });
 
+/** Cached per request, the accounts (providers) linked to the signed in user */
+export const getAccountsServer = cache(async () => {
+  if (!(await getSessionServer())) return [];
+
+  try {
+    return await keycloakServerAuth.api.listUserAccounts({
+      headers: await nextHeaders(),
+    });
+  } catch (error) {
+    console.error("Failed to list accounts:", error);
+    return [];
+  }
+});
+
 export const getIsAuthenticatedServer = async () => {
   try {
     const session = await getSessionServer();
