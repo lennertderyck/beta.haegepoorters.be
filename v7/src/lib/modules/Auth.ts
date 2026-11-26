@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { OAUTH_PROVIDERS } from "../../../auth.config";
 import {
     getAccessTokenServer,
+    getAccountsServer,
     getIsAuthenticatedServer,
     getSessionServer
 } from "./Auth.utils";
@@ -90,6 +91,14 @@ const createAuth = async () => {
     /** Lazy: only hits the provider when a caller actually reads it */
     get accessToken() {
       return getAccessTokenServer();
+    },
+    /** Lazy: the Groepsadministratie person id, stored as the keycloak account id */
+    get memberId() {
+      return getAccountsServer().then(
+        (accounts) =>
+          accounts.find((account) => account.providerId === "keycloak")
+            ?.accountId ?? null
+      );
     },
     capabilities: session?.user?.capabilities ?? []
   };
