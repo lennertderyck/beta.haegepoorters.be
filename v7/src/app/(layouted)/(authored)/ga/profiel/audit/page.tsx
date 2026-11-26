@@ -3,6 +3,7 @@ import Article, {
     ArticleDescription,
     ArticleHeader,
     ArticleHeaderContent,
+    ArticleSupertitle,
     ArticleTitle
 } from "@/components/basics/Article/Article";
 import Label from "@/components/basics/Label/Label";
@@ -41,9 +42,10 @@ const Page: FC = async () => {
     <Article>
       <ArticleHeaderContent>
         <ArticleHeader>
-          <ArticleTitle>Account audit</ArticleTitle>
+          <ArticleSupertitle>Profiel</ArticleSupertitle>
+          <ArticleTitle>Audit</ArticleTitle>
           <ArticleDescription>
-            Wat de website over je account weet
+            Toont de informatie we hebben over je account
           </ArticleDescription>
         </ArticleHeader>
       </ArticleHeaderContent>
