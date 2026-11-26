@@ -57,7 +57,7 @@ const Page: FC<Props> = async () => {
   const postsResponse = await getStoryblokHighlightedPostsQuery();
   const posts = (await postsResponse.json())?.stories;
 
-  const isTrooperBannerEnabled = Feature.get("trooper-homepage");
+  const isTrooperBannerEnabled = await Feature.get("trooper-homepage");
 
   if (TEST)
     throw new Error(

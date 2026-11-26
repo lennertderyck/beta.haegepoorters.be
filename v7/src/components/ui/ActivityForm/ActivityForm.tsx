@@ -54,12 +54,12 @@ interface Props extends Pick<ActivityContextProviderState, "intent"> {
 }
 
 const ActivityForm: FC<Props> = async ({ action, intent, defaultValue }) => {
-  const activityGroupSelectorEnabled = Feature.get("activities-group-select");
-
-  const [generalGroupActivities, activityGroups] = await Promise.all([
-    getGeneralGroupActivitiesForDateRangeQuery(),
-    getActivityGroups()
-  ]);
+  const [activityGroupSelectorEnabled, generalGroupActivities, activityGroups] =
+    await Promise.all([
+      Feature.get("activities-group-select"),
+      getGeneralGroupActivitiesForDateRangeQuery(),
+      getActivityGroups()
+    ]);
   const initialFormState = { ...initialActivityFormState, ...defaultValue };
 
   const isGroupSelectorVisible =

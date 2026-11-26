@@ -1,3 +1,7 @@
+/**
+ * Feature flags managed in LaunchDarkly. Keys must match the LaunchDarkly flag
+ * keys, and each flag needs "SDKs using Client-side ID" enabled.
+ */
 interface DeclaredFeatureFlags {
   "membership-card": boolean;
   "authentication-header": boolean;
@@ -5,14 +9,5 @@ interface DeclaredFeatureFlags {
   "trooper-homepage": boolean;
   "activities-group-select": boolean;
 }
-
-/** Hard-coded feature flag values: change here and redeploy to toggle a feature */
-export const FEATURE_FLAGS: DeclaredFeatureFlags = {
-  "membership-card": true,
-  "authentication-header": false,
-  "trooper-rootnavigation": false,
-  "trooper-homepage": true,
-  "activities-group-select": true
-};
 
 export default DeclaredFeatureFlags;

@@ -48,10 +48,17 @@ const MENU_END = [
 ] satisfies RootNavigationItemProps[];
 
 const Layout: FC<LayoutProps<"/">> = async ({ children }) => {
-  const isAuthenticationHeaderEnabled = Feature.get("authentication-header");
-  const isTrooperBannerEnabled = Feature.get("trooper-rootnavigation");
-  const membershipCardFeature = Feature.get("membership-card");
-  const auth = await createAuth();
+  const [
+    isAuthenticationHeaderEnabled,
+    isTrooperBannerEnabled,
+    membershipCardFeature,
+    auth
+  ] = await Promise.all([
+    Feature.get("authentication-header"),
+    Feature.get("trooper-rootnavigation"),
+    Feature.get("membership-card"),
+    createAuth()
+  ]);
 
   const isAuthenticated = auth.isAuthenticated;
   const session = auth.session;
